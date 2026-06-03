@@ -10,7 +10,6 @@ database_id = "34aa7580-045d-46c3-99cd-64f9cb129308"
 [vars]
 GIYA_SITE_URL = "https://joingiya.com"
 GIYA_ADMIN_EMAIL = "nmatunog@gmail.com"
-GIYA_EMAIL_FROM = "Nilo B. Matunog <hello@joingiya.com>"
 GIYA_GCASH_NUMBER = "09209648523"
 GIYA_GCASH_LABEL = "Giya Gcash — NILO M."
 GIYA_BANK_DETAILS = "GoTyme Bank · NILO MATUNOG · 010330299152"
