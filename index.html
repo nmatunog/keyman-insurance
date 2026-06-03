@@ -104,6 +104,46 @@
         #business-academy .academy-panel h4 {
             color: #0A0A0B;
         }
+        #classes .program-card {
+            display: flex;
+            flex-direction: column;
+            min-height: 240px;
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(10, 10, 11, 0.55);
+            padding: 1.5rem;
+            transition: border-color 0.2s ease, background 0.2s ease;
+        }
+        #classes .program-card:hover {
+            border-color: rgba(196, 160, 82, 0.45);
+            background: rgba(10, 10, 11, 0.85);
+        }
+        #classes .program-card--live {
+            border-color: rgba(196, 160, 82, 0.35);
+            background: rgba(10, 10, 11, 0.75);
+        }
+        #classes .program-card h3 {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.05rem;
+            line-height: 1.35;
+            margin-top: 0.75rem;
+        }
+        #classes .program-card p {
+            color: #d1d5db;
+            font-size: 0.8125rem;
+            line-height: 1.5;
+            margin-top: 0.5rem;
+            flex-grow: 1;
+        }
+        #classes .program-card__foot {
+            margin-top: auto;
+            padding-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.75rem 1rem;
+        }
         /* Fallback if Tailwind CDN is slow or blocked */
         body { background-color: #F5F3EE; color: #141416; margin: 0; }
         .hero-fallback { min-height: 40vh; padding: 2rem 1.25rem; }
@@ -202,13 +242,13 @@
                     </div>
                     <div class="bg-g-pearl border border-g-slate-200 rounded-3xl p-8 md:p-10 shadow-card">
                         <p class="text-g-slate-600 leading-relaxed"><strong class="text-g-black">GIYA</strong> is a learning and development platform dedicated to helping financial advisors elevate their expertise, create greater client impact, and build practices that endure.</p>
-                        <p class="mt-4 text-g-slate-600 leading-relaxed">Founded by <strong class="text-g-black">Nilo B. Matunog</strong> — Registered Financial Planner (RFP), Professional Financial Advisor by LIMRA (PFA), Wealth Planner, and Estate Planner; also a visionary leader, agency director, and engineer with more than two decades of client-centered planning experience.</p>
+                        <p class="mt-4 text-g-slate-600 leading-relaxed">Founded by <strong class="text-g-black">Nilo B. Matunog</strong> — Registered Financial Planner (RFP), Professional Financial Advisor by LIMRA (PFA), Wealth Planner, and Estate Planner; also a servant leader, agency director, and engineer with more than two decades of client-centered planning experience.</p>
                         <div class="mt-8 pt-8 border-t border-g-slate-200 flex flex-wrap gap-2">
                             <span class="type-small font-semibold text-g-slate-700 px-3 py-1.5 bg-g-white rounded-full border border-g-slate-200">RFP</span>
                             <span class="type-small font-semibold text-g-slate-700 px-3 py-1.5 bg-g-white rounded-full border border-g-slate-200">PFA · LIMRA</span>
                             <span class="type-small font-semibold text-g-slate-700 px-3 py-1.5 bg-g-white rounded-full border border-g-slate-200">Wealth Planner</span>
                             <span class="type-small font-semibold text-g-slate-700 px-3 py-1.5 bg-g-white rounded-full border border-g-slate-200">Estate Planner</span>
-                            <span class="type-small font-semibold text-g-slate-700 px-3 py-1.5 bg-g-white rounded-full border border-g-slate-200">Visionary Leader</span>
+                            <span class="type-small font-semibold text-g-slate-700 px-3 py-1.5 bg-g-white rounded-full border border-g-slate-200">Servant Leader</span>
                             <span class="type-small font-semibold text-g-slate-700 px-3 py-1.5 bg-g-white rounded-full border border-g-slate-200">Agency Director</span>
                             <span class="type-small font-semibold text-g-slate-700 px-3 py-1.5 bg-g-white rounded-full border border-g-slate-200">Engineer</span>
                         </div>
@@ -692,26 +732,70 @@
         </section>
             </section>
 
-        <section id="classes" class="bg-g-ink text-g-pearl py-16 md:py-24">
+        <section id="classes" class="bg-g-ink text-g-pearl py-16 md:py-24 border-t border-g-slate-800">
             <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
-                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
-                    <div>
+                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+                    <div class="max-w-2xl">
                         <h2 class="type-h2 font-display font-semibold text-g-white">More GIYA programs</h2>
-                        <p class="mt-2 text-g-slate-200 max-w-lg type-body">Standalone Academies from ₱7,990 — or all included with <a href="#giya-plans" class="text-g-gold hover:underline">GIYA Elite</a> at ₱2,999/month.</p>
+                        <p class="mt-3 text-g-slate-300 type-body leading-relaxed">Standalone Academies from ₱7,990 — or all included with <a href="#giya-plans" class="text-g-gold font-semibold hover:underline">GIYA Elite</a> at ₱2,999/month.</p>
                     </div>
-                    <a href="#join" class="inline-flex items-center gap-2 text-g-gold font-semibold type-small hover:underline shrink-0 touch-target min-h-[44px]">Join the waitlist <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#academy-pricing" class="inline-flex items-center gap-2 text-g-gold font-semibold type-small hover:underline shrink-0 touch-target min-h-[44px]">View academy pricing <i class="fa-solid fa-arrow-right text-xs"></i></a>
                 </div>
-                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <a href="#business-academy" class="group block bg-g-black/50 hover:bg-g-black border border-g-slate-800 rounded-2xl p-6 transition-all">
-                        <i class="fa-solid fa-building-shield text-g-gold text-2xl mb-4"></i>
-                        <h3 class="font-bold type-h4 group-hover:text-g-gold transition-colors text-g-white">Business Insurance Master Class</h3>
-                        <p class="type-small text-g-slate-400 mt-2">Academy curriculum + <a href="keyman/" class="text-g-gold hover:underline" onclick="event.stopPropagation()">Keyman Reference</a> live</p>
-                        <span class="inline-block mt-4 type-small font-semibold text-g-gold">Explore academy →</span>
-                    </a>
-                    <div class="bg-g-black/40 border border-g-slate-800 rounded-2xl p-6"><i class="fa-solid fa-landmark text-g-gold text-2xl mb-4"></i><h3 class="font-bold type-h4 text-g-white">Estate Conservation Master Class</h3><p class="type-small text-g-slate-400 mt-2">TRAIN, trusts, non-probate transfers</p><span class="inline-block mt-4 type-small font-semibold text-g-slate-500 uppercase tracking-wider">Coming soon</span></div>
-                    <div class="bg-g-black/40 border border-g-slate-800 rounded-2xl p-6"><i class="fa-solid fa-heart-pulse text-g-gold text-2xl mb-4"></i><h3 class="font-bold type-h4 text-g-white">Health Planning Master Class</h3><p class="type-small text-g-slate-400 mt-2">Critical illness, HMO integration, funding</p><span class="inline-block mt-4 type-small font-semibold text-g-slate-500 uppercase tracking-wider">Coming soon</span></div>
-                    <div class="bg-g-black/40 border border-g-slate-800 rounded-2xl p-6"><i class="fa-solid fa-chart-line text-g-gold text-2xl mb-4"></i><h3 class="font-bold type-h4 text-g-white">Wealth Management Master Class</h3><p class="type-small text-g-slate-400 mt-2">Portfolio, goals-based planning, HNW service</p><span class="inline-block mt-4 type-small font-semibold text-g-slate-500 uppercase tracking-wider">Coming soon</span></div>
-                    <div class="bg-g-black/40 border border-g-slate-800 rounded-2xl p-6 sm:col-span-2 lg:col-span-2"><i class="fa-solid fa-crown text-g-gold text-2xl mb-4"></i><h3 class="font-bold type-h4 text-g-white">Advisor Leadership Master Class</h3><p class="type-small text-g-slate-400 mt-2">Practice growth, team building, ethical influence, and legacy practice design</p><span class="inline-block mt-4 type-small font-semibold text-g-slate-500 uppercase tracking-wider">Coming soon</span></div>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <article class="program-card program-card--live">
+                        <span class="inline-flex w-fit text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-g-gold text-g-black">Live · ₱7,990</span>
+                        <i class="fa-solid fa-building-shield text-g-gold text-2xl mt-4 block" aria-hidden="true"></i>
+                        <h3>Business Insurance Academy</h3>
+                        <p>4-module curriculum, calculators, pitch scripts, and boardroom-ready case tools.</p>
+                        <div class="program-card__foot">
+                            <a href="#academy-pricing" class="type-small font-semibold text-g-gold hover:underline">View pricing</a>
+                            <a href="keyman/" class="type-small font-semibold text-g-slate-300 hover:text-g-gold">Keyman reference</a>
+                        </div>
+                    </article>
+                    <article class="program-card opacity-90">
+                        <span class="inline-flex w-fit text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border border-g-slate-600 text-g-slate-400">Coming soon</span>
+                        <i class="fa-solid fa-landmark text-g-gold text-2xl mt-4 block" aria-hidden="true"></i>
+                        <h3>Estate Conservation Academy</h3>
+                        <p>TRAIN, trusts, and non-probate transfer strategies for wealth preservation.</p>
+                        <div class="program-card__foot">
+                            <a href="#join-form" class="type-small font-semibold text-g-slate-400 hover:text-g-gold">Notify me</a>
+                        </div>
+                    </article>
+                    <article class="program-card opacity-90">
+                        <span class="inline-flex w-fit text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border border-g-slate-600 text-g-slate-400">Coming soon</span>
+                        <i class="fa-solid fa-heart-pulse text-g-gold text-2xl mt-4 block" aria-hidden="true"></i>
+                        <h3>Health Planning Academy</h3>
+                        <p>Critical illness funding, HMO integration, and health-financing frameworks.</p>
+                        <div class="program-card__foot">
+                            <a href="#join-form" class="type-small font-semibold text-g-slate-400 hover:text-g-gold">Notify me</a>
+                        </div>
+                    </article>
+                    <article class="program-card opacity-90">
+                        <span class="inline-flex w-fit text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border border-g-slate-600 text-g-slate-400">Coming soon · ₱9,990</span>
+                        <i class="fa-solid fa-chart-line text-g-gold text-2xl mt-4 block" aria-hidden="true"></i>
+                        <h3>Wealth Management Academy</h3>
+                        <p>Portfolio design, goals-based planning, and high-net-worth client service.</p>
+                        <div class="program-card__foot">
+                            <a href="#join-form" class="type-small font-semibold text-g-slate-400 hover:text-g-gold">Notify me</a>
+                        </div>
+                    </article>
+                    <article class="program-card opacity-90">
+                        <span class="inline-flex w-fit text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border border-g-slate-600 text-g-slate-400">Coming soon · ₱12,990</span>
+                        <i class="fa-solid fa-crown text-g-gold text-2xl mt-4 block" aria-hidden="true"></i>
+                        <h3>Succession Planning Academy</h3>
+                        <p>Business continuity, ownership transition, and legacy practice design.</p>
+                        <div class="program-card__foot">
+                            <a href="#join-form" class="type-small font-semibold text-g-slate-400 hover:text-g-gold">Notify me</a>
+                        </div>
+                    </article>
+                    <article class="program-card border-dashed border-g-slate-600/80 bg-transparent justify-center text-center min-h-[240px]">
+                        <i class="fa-solid fa-bell text-g-gold text-2xl block" aria-hidden="true"></i>
+                        <h3 class="mt-4">Upcoming programs</h3>
+                        <p class="flex-grow-0">Get notified when new Academies open, including Advisor Leadership.</p>
+                        <div class="program-card__foot justify-center">
+                            <a href="#join-form" class="type-small font-semibold text-g-gold hover:underline">Join waitlist</a>
+                        </div>
+                    </article>
                 </div>
             </div>
         </section>
@@ -784,7 +868,7 @@
                         </div>
 
                         <div class="flex flex-wrap gap-3 type-small text-g-slate-600">
-                            <span><i class="fa-solid fa-lightbulb text-g-gold mr-1"></i> Visionary Leader</span>
+                            <span><i class="fa-solid fa-hand-holding-heart text-g-gold mr-1"></i> Servant Leader</span>
                             <span><i class="fa-solid fa-sitemap text-g-gold mr-1"></i> Agency Director</span>
                             <span><i class="fa-solid fa-gear text-g-gold mr-1"></i> Engineer</span>
                             <span><i class="fa-solid fa-chalkboard-user text-g-gold mr-1"></i> Educator</span>
