@@ -39,7 +39,7 @@ export async function createPaymongoCheckout(env, opts) {
             currency: 'PHP',
             name: `GIYA ${tierLabel || tier} (${periodLabel})`,
             quantity: 1,
-            description: `Business Insurance Academy — ${tierLabel} access`,
+            description: `BI Academy — ${tierLabel}`,
           },
         ],
         payment_method_types: ['gcash', 'paymaya', 'qrph', 'card'],

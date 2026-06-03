@@ -13,12 +13,14 @@ Cloudflare **Pages Functions** + **D1** power member login, admin panel, and sub
 
 ## Subscription pricing (PHP)
 
-| Tier | Founding rate | List (struck through) |
-|------|---------------|------------------------|
-| Preview | Free | — |
-| GIYA Founding Members (Basic) | ₱990/mo · ₱9,990/yr | ₱1,499/mo · ₱14,990/yr *(first 100)* |
-| Founding GIYA Advanced | ₱3,990/mo · ₱39,990/yr | ₱4,990/mo · ₱49,900/yr *(first 30)* |
-| Master Class — Founding Members | ₱6,990/mo · ₱69,990/yr | ₱5,990/mo · ₱59,990/yr *(first 10)* |
+| Tier ID | Public name | Founding rate | List (struck through) |
+|---------|-------------|---------------|------------------------|
+| `preview` | BI Academy — Preview | Free | — |
+| `basic` | Core | ₱990/mo · ₱9,990/yr | ₱1,499/mo · ₱14,990/yr *(100 Core benefit seats)* |
+| `advanced` | Professional | ₱3,990/mo · ₱39,990/yr | ₱4,990/mo · ₱49,900/yr *(30 Professional benefit seats)* |
+| `master` | Complete | ₱6,990/mo · ₱69,990/yr | ₱5,990/mo · ₱59,990/yr *(10 Complete benefit seats)* |
+
+See **MEMBERSHIP.md** for Elite All-Access vs program subscriptions.
 
 Edit prices in `functions/lib/pricing.js`.
 

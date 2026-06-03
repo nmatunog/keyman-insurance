@@ -27,7 +27,7 @@
 
     <main class="max-w-3xl mx-auto px-5 py-8">
         <div id="gate" class="hidden bg-white rounded-xl p-10 border text-center">
-            <p class="text-g-slate-600">Sign in to manage your membership.</p>
+            <p class="text-g-slate-600">Sign in to manage your BI Academy access.</p>
             <a href="/login.html" class="inline-block mt-4 bg-g-black text-white px-6 py-2.5 rounded-lg font-semibold text-sm">Sign in</a>
         </div>
 
@@ -50,8 +50,9 @@
             <!-- Billing -->
             <section class="bg-white rounded-xl border overflow-hidden">
                 <div class="px-5 py-4 border-b bg-g-slate-100/80">
-                    <h1 class="font-semibold text-lg">Upgrade membership</h1>
-                    <p class="text-sm text-g-slate-500 mt-0.5">Founding rates apply while slots remain — then standard pricing.</p>
+                    <h1 class="font-semibold text-lg">BI Academy subscription</h1>
+                    <p class="text-sm text-g-slate-500 mt-0.5">One program payment — Core, Professional, or Complete. Founding slots match the benefits you unlock.</p>
+                    <p class="text-xs text-g-slate-400 mt-1">Elite All-Access (all programs + mentorship) is separate — <a href="/#elite-apply" class="text-g-gold hover:underline">apply by invitation</a>.</p>
                 </div>
                 <div class="p-5 space-y-4">
                     <div class="inline-flex rounded-lg border p-0.5 bg-g-slate-100" role="tablist">
@@ -189,7 +190,8 @@
             document.getElementById('panel').classList.remove('hidden');
             document.getElementById('u-name').textContent = user.name || user.email;
             document.getElementById('u-email').textContent = user.name ? user.email : '';
-            document.getElementById('u-tier').textContent = user.tier.replace('_', ' ');
+            const tierNames = { preview: 'Preview', basic: 'Core', advanced: 'Professional', master: 'Complete' };
+            document.getElementById('u-tier').textContent = tierNames[user.tier] || user.tier;
             document.getElementById('u-status').textContent = user.status;
             renderPlans();
             if (new URLSearchParams(location.search).get('paid') === '1') {

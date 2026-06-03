@@ -1,6 +1,6 @@
 import { getSessionUser, json, publicUser } from '../../lib/auth.js';
 import { getAllFoundingStatus } from '../../lib/founding.js';
-import { PAYMENT_CHANNELS, TIERS, publicTierPricing } from '../../lib/pricing.js';
+import { ELITE_PLANNED, PAYMENT_CHANNELS, TIERS, publicTierPricing } from '../../lib/pricing.js';
 
 export async function onRequestGet(context) {
   const user = await getSessionUser(context.request, context.env);
@@ -19,6 +19,9 @@ export async function onRequestGet(context) {
       user: null,
       pricing,
       paymentChannels: PAYMENT_CHANNELS,
+      elite: ELITE_PLANNED,
+      membershipNote:
+        'One subscription unlocks BI Academy benefits at your chosen depth. Elite All-Access (planned) includes all programs — not an add-on to Complete.',
     });
   }
 
@@ -28,5 +31,8 @@ export async function onRequestGet(context) {
     user: publicUser(user),
     pricing,
     paymentChannels: PAYMENT_CHANNELS,
+    elite: ELITE_PLANNED,
+    membershipNote:
+      'One subscription unlocks BI Academy benefits at your chosen depth. Elite All-Access (planned) includes all programs — not an add-on to Complete.',
   });
 }
