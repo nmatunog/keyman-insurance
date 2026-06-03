@@ -1,5 +1,6 @@
 import { error, json, now, readJson } from '../../lib/auth.js';
 import { calculateLeadScore, normalizeAssessmentBody } from '../../lib/leadScore.js';
+import { sendReadinessFollowUpEmail } from '../../lib/readinessEmail.js';
 
 export async function onRequestPost(context) {
   const body = await readJson(context.request);
@@ -44,11 +45,18 @@ export async function onRequestPost(context) {
     )
     .run();
 
+  const emailResult = await sendReadinessFollowUpEmail(
+    context.env,
+    { ...data, lead_score: score, lead_tier: tier },
+    { score, tier, tierLabel }
+  );
+
   return json({
     ok: true,
     id,
     lead_score: score,
     lead_tier: tier,
     lead_tier_label: tierLabel,
+    email_sent: Boolean(emailResult.sent),
   });
 }

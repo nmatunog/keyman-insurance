@@ -97,6 +97,7 @@ export default function AssessmentPage() {
           confidence: form.confidence_level,
           cases: form.keyman_cases,
           masterclassInterest: form.masterclass_interest,
+          resourcePermission: form.resource_permission === 'Yes',
         },
       };
       saveResultPayload(payload);

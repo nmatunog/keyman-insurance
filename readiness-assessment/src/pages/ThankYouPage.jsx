@@ -128,7 +128,21 @@ export default function ThankYouPage() {
       </div>
 
       <p style={{ color: 'var(--gray)', fontSize: '0.85rem', marginTop: '1.5rem' }}>
-        Bonus materials (Keyman Discovery Framework & Conversation Guide) will be sent to your email.
+        {insights?.resourcePermission !== false ? (
+          <>
+            Your bonus resources (Keyman Discovery Framework &amp; Conversation Guide) are being sent to
+            your email. You can also open them now:{' '}
+            <a href="/assets/bonus/keyman-discovery-framework.html" style={{ color: 'var(--gold)' }}>
+              Discovery Framework
+            </a>
+            {' · '}
+            <a href="/assets/bonus/business-insurance-conversation-guide.html" style={{ color: 'var(--gold)' }}>
+              Conversation Guide
+            </a>
+          </>
+        ) : (
+          'You opted out of email resources. You can still explore the Academy and waitlist below.'
+        )}
       </p>
 
       <p className="legacy">
