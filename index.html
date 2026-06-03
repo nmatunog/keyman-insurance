@@ -813,6 +813,10 @@
                         <dt class="font-semibold text-g-black">Is Discover the same as Preview?</dt>
                         <dd class="mt-2 leading-relaxed">Yes — free assessment, newsletter, and webinars. Upgrade to Professional for community benefits or purchase / unlock Academies.</dd>
                     </div>
+                    <div class="bg-g-white border border-g-slate-200 rounded-2xl p-6">
+                        <dt class="font-semibold text-g-black">If I cancel Elite after one month?</dt>
+                        <dd class="mt-2 leading-relaxed">Elite benefits (all Academies, coaching) <strong class="text-g-black">end when your paid period ends</strong> — access returns to Discover until you renew. This prevents using Elite for one month to keep every Academy permanently. A standalone Academy you purchased separately remains yours.</dd>
+                    </div>
                 </dl>
             </div>
         </section>
@@ -1073,9 +1077,8 @@
                 signin.classList.add('hidden');
                 account?.classList.remove('hidden');
                 admin?.classList.toggle('hidden', user.role !== 'admin');
-                if (user.status === 'active') {
-                    const gate = accessToGateTier(user.accessTier || (user.tier === 'elite' || user.tier === 'master' ? 'elite' : 'preview'));
-                    localStorage.setItem(STORAGE_KEY, gate);
+                if (user?.accessTier) {
+                    localStorage.setItem(STORAGE_KEY, accessToGateTier(user.accessTier));
                     applyTierGating();
                 }
             } else {
@@ -1085,7 +1088,22 @@
             }
         }
 
-        document.addEventListener('giya:auth', (e) => syncAuthNav(e.detail?.user));
+        document.addEventListener('giya:auth', (e) => {
+            syncAuthNav(e.detail?.user);
+            if (e.detail?.accessTier) {
+                localStorage.setItem(STORAGE_KEY, accessToGateTier(e.detail.accessTier));
+                applyTierGating();
+            }
+            const ma = e.detail?.membershipAccess;
+            const banner = document.getElementById('preview-banner');
+            if (banner && ma?.lapsed) {
+                banner.classList.remove('hidden');
+                const inner = banner.querySelector('span');
+                if (inner) {
+                    inner.innerHTML = '<i class="fa-solid fa-clock text-g-gold"></i> Membership ended — renew to restore access. <a href="/account.html" class="underline font-semibold text-g-gold">Billing</a>';
+                }
+            }
+        });
 
         function initApp() {
             try {

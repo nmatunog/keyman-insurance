@@ -33,4 +33,11 @@ Professional members pay **20% less** at academy checkout. Elite members do not 
 { "skuType": "academy", "academyId": "business_insurance" }
 ```
 
+## Membership lapse (enforced)
+
+- **Professional** and **Elite** stay active only while a paid membership row has `ends_at` in the future.
+- When the period ends (or is not renewed), the member is downgraded to **Discover** (`preview`). Elite/Professional academy and coaching access stop.
+- **Standalone Academy** purchases (`sku_type = academy`, status `paid`) are **not** removed on lapse.
+- Checked on login and every `GET /api/auth/me`. Past-due membership rows are marked `cancelled`.
+
 Edit prices: `functions/lib/pricing.js`.

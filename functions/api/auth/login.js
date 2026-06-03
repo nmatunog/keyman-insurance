@@ -9,6 +9,7 @@ import {
   validEmail,
   verifyPassword,
 } from '../../lib/auth.js';
+import { syncMembershipForUser } from '../../lib/membership.js';
 
 export async function onRequestPost(context) {
   const { request, env } = context;
@@ -42,8 +43,15 @@ export async function onRequestPost(context) {
     .bind(sessionId, user.id, expires, ts)
     .run();
 
+  await syncMembershipForUser(env, user.id);
+  const fresh = await env.DB.prepare(
+    'SELECT id, email, name, role, tier, status FROM users WHERE id = ?'
+  )
+    .bind(user.id)
+    .first();
+
   return json(
-    { ok: true, user: publicUser(user) },
+    { ok: true, user: publicUser(fresh || user) },
     200,
     { 'Set-Cookie': sessionCookieHeader(sessionId, SESSION_DAYS * 86400) }
   );

@@ -1,4 +1,5 @@
 import { error, json, now, readJson, requireAuth } from '../../lib/auth.js';
+import { syncMembershipForUser } from '../../lib/membership.js';
 import { resolveAcademyPricing, resolveMembershipPricing } from '../../lib/founding.js';
 import { ACADEMIES, LIVE_ACADEMY_IDS, MEMBERSHIP } from '../../lib/pricing.js';
 import { createPaymongoCheckout } from '../../lib/paymongo.js';
@@ -7,6 +8,12 @@ export async function onRequestPost(context) {
   const { request, env } = context;
   const { user, response } = await requireAuth(request, env);
   if (response) return response;
+
+  await syncMembershipForUser(env, user.id);
+  const freshUser = await env.DB.prepare('SELECT tier, status FROM users WHERE id = ?')
+    .bind(user.id)
+    .first();
+  const activeUser = { ...user, ...freshUser };
 
   const body = await readJson(request);
   if (!body) return error('Invalid JSON body');
@@ -29,7 +36,7 @@ export async function onRequestPost(context) {
     if (!LIVE_ACADEMY_IDS.includes(academyId)) {
       return error('This academy is not open for enrollment yet');
     }
-    quote = await resolveAcademyPricing(env, academyId, user);
+    quote = await resolveAcademyPricing(env, academyId, activeUser);
     if (quote?.error) return error(quote.error);
     tier = academyId;
     courseId = academyId;

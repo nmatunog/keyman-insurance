@@ -27,12 +27,21 @@
     if (!ok || !data.ok) return null;
     currentUser = data.authenticated ? data.user : null;
     pricing = data.pricing;
-    if (currentUser?.status === 'active' && currentUser.tier) {
-      syncTierToLocal(currentUser.tier);
-    } else if (!currentUser) {
-      if (!localStorage.getItem(STORAGE_KEY)) localStorage.setItem(STORAGE_KEY, 'preview');
+    if (data.accessTier === 'elite') {
+      localStorage.setItem(STORAGE_KEY, 'master');
+    } else {
+      localStorage.setItem(STORAGE_KEY, 'preview');
     }
-    document.dispatchEvent(new CustomEvent('giya:auth', { detail: { user: currentUser, pricing } }));
+    document.dispatchEvent(
+      new CustomEvent('giya:auth', {
+        detail: {
+          user: currentUser,
+          pricing: data.pricing || data.membership,
+          membershipAccess: data.membershipAccess,
+          accessTier: data.accessTier,
+        },
+      })
+    );
     return currentUser;
   }
 

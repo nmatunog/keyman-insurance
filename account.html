@@ -34,6 +34,7 @@
                 </div>
             </section>
             <p id="upsell" class="text-sm bg-white border rounded-xl p-4 text-g-slate-600"></p>
+            <p id="membership-notice" class="hidden text-sm rounded-xl p-4 border"></p>
 
             <section class="bg-white rounded-xl border overflow-hidden">
                 <div class="px-5 py-4 border-b bg-g-slate-100">
@@ -158,6 +159,19 @@
             document.getElementById('u-tier').textContent = tierLabels[user.tier] || user.tier;
             document.getElementById('u-status').textContent = user.status;
             if (data.upsell) document.getElementById('upsell').textContent = data.upsell;
+            const notice = document.getElementById('membership-notice');
+            const ma = data.membershipAccess;
+            if (notice && ma?.message) {
+                notice.textContent = ma.message;
+                notice.classList.remove('hidden');
+                if (ma.lapsed) {
+                    notice.className = 'text-sm rounded-xl p-4 border border-amber-300 bg-amber-50 text-amber-900';
+                } else if (ma.active) {
+                    notice.className = 'text-sm rounded-xl p-4 border border-green-200 bg-green-50 text-green-900';
+                } else {
+                    notice.className = 'text-sm rounded-xl p-4 border bg-white text-g-slate-600';
+                }
+            }
             renderMembership();
             renderAcademies();
             const h = location.hash.replace('#', '');

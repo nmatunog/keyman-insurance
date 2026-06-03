@@ -1,5 +1,6 @@
 import { getSessionUser, json, publicUser } from '../../lib/auth.js';
 import { getAllFoundingStatus, getUserOwnedAcademies } from '../../lib/founding.js';
+import { membershipAccessMessage, syncMembershipForUser } from '../../lib/membership.js';
 import {
   ACADEMIES,
   MEMBERSHIP,
@@ -11,8 +12,19 @@ import {
 } from '../../lib/pricing.js';
 
 export async function onRequestGet(context) {
-  const user = await getSessionUser(context.request, context.env);
+  let user = await getSessionUser(context.request, context.env);
   await getAllFoundingStatus(context.env);
+
+  let membershipSync = null;
+  if (user) {
+    membershipSync = await syncMembershipForUser(context.env, user.id);
+    const fresh = await context.env.DB.prepare(
+      'SELECT id, email, name, role, tier, status FROM users WHERE id = ?'
+    )
+      .bind(user.id)
+      .first();
+    if (fresh) user = { ...user, ...fresh };
+  }
 
   const memberTier = user ? normalizeMembershipTier(user.tier) : 'preview';
   const ownedAcademies = user ? await getUserOwnedAcademies(context.env, user.id) : [];
@@ -40,6 +52,13 @@ export async function onRequestGet(context) {
     paymentChannels: PAYMENT_CHANNELS,
     accessTier: effectiveAccessTier(memberTier, ownedAcademies),
     ownedAcademies,
+    membershipAccess: {
+      active: !!membershipSync?.active,
+      tier: membershipSync?.active?.tier ?? null,
+      endsAt: membershipSync?.active?.endsAt ?? null,
+      lapsed: !!membershipSync?.lapsed,
+      message: membershipAccessMessage(membershipSync),
+    },
   };
 
   if (!user) {
