@@ -18,6 +18,7 @@ import {
   YES_NO,
   COMMITMENT,
 } from '../data/questions';
+import { saveResultPayload } from '../data/resultProfiles';
 import { submitAssessment } from '../services/assessmentService';
 
 function validateStep(step, form) {
@@ -87,8 +88,19 @@ export default function AssessmentPage() {
     setError('');
     setSubmitting(true);
     try {
-      await submitAssessment(form);
-      navigate('/thank-you');
+      const outcome = await submitAssessment(form);
+      const firstName = form.full_name.trim().split(/\s+/)[0] || '';
+      const payload = {
+        scoring: outcome.scoring,
+        firstName,
+        insights: {
+          confidence: form.confidence_level,
+          cases: form.keyman_cases,
+          masterclassInterest: form.masterclass_interest,
+        },
+      };
+      saveResultPayload(payload);
+      navigate('/thank-you', { state: { result: payload } });
     } catch (e) {
       setError(e.message || 'Submission failed. Please try again.');
     } finally {
