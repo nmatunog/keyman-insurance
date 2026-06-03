@@ -218,8 +218,8 @@
                         <a href="#join" class="touch-target inline-flex items-center justify-center gap-2 bg-g-black hover:bg-g-ink text-white px-8 py-4 rounded-full font-semibold text-sm shadow-soft transition-all min-h-[44px]">
                             <i class="fa-solid fa-people-group"></i> Join the Community
                         </a>
-                        <a href="#assessment" class="touch-target inline-flex items-center justify-center gap-2 border-2 border-g-gold text-g-goldMuted hover:bg-g-gold hover:text-g-black px-8 py-4 rounded-full font-semibold text-sm transition-all min-h-[44px]">
-                            <i class="fa-solid fa-clipboard-list"></i> Advisor Readiness Assessment
+                        <a href="/readiness/" class="touch-target inline-flex items-center justify-center gap-2 border-2 border-g-gold text-g-goldMuted hover:bg-g-gold hover:text-g-black px-8 py-4 rounded-full font-semibold text-sm transition-all min-h-[44px]">
+                            <i class="fa-solid fa-clipboard-list"></i> Keyman Readiness Assessment
                         </a>
                     </div>
                 </div>
@@ -318,7 +318,7 @@
                         <li><i class="fa-solid fa-circle text-[6px] text-g-gold mr-2 align-middle"></i>Newsletter</li>
                         <li><i class="fa-solid fa-circle text-[6px] text-g-gold mr-2 align-middle"></i>Webinars</li>
                     </ul>
-                    <a href="#assessment" class="mt-8 touch-target inline-flex justify-center items-center bg-g-black hover:bg-g-ink text-white py-3 rounded-full type-small font-semibold min-h-[44px]">Start Discover</a>
+                    <a href="/readiness/" class="mt-8 touch-target inline-flex justify-center items-center bg-g-black hover:bg-g-ink text-white py-3 rounded-full type-small font-semibold min-h-[44px]">Start assessment</a>
                 </article>
                 <article class="rounded-3xl border border-g-gold/30 bg-g-white p-8 flex flex-col shadow-soft relative">
                     <span class="absolute top-4 right-4 type-small font-bold uppercase bg-g-gold text-g-black px-2 py-0.5 rounded-full">Community</span>
@@ -801,26 +801,28 @@
         </section>
 
         <section id="assessment" class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16 md:py-20">
-            <div class="bg-g-pearl border border-g-slate-200 rounded-3xl p-8 md:p-12 shadow-card">
-                <div class="grid lg:grid-cols-2 gap-10 items-center">
+            <div class="bg-g-black text-g-pearl rounded-3xl p-8 md:p-12 shadow-soft overflow-hidden relative">
+                <div class="absolute inset-0 bg-gradient-to-br from-g-gold/10 via-transparent to-transparent pointer-events-none" aria-hidden="true"></div>
+                <div class="relative grid lg:grid-cols-2 gap-10 items-center">
                     <div>
-                        <h2 class="type-h2 font-display font-semibold text-g-black">Advisor Readiness Assessment</h2>
-                        <p class="mt-4 text-g-slate-600 type-body leading-relaxed">A short self-assessment across the GIYA pillars — recommends Discover, a program subscription (e.g. BI Academy), or Elite All-Access application.</p>
+                        <p class="type-small font-bold uppercase tracking-widest text-g-gold mb-3">GIYA Discover · ~3 minutes</p>
+                        <h2 class="type-h2 font-display font-semibold text-white">Keyman Readiness Assessment</h2>
+                        <p class="mt-4 text-g-slate-300 type-body leading-relaxed">Identify your readiness for Business Insurance practice — Keyman, buy-sell, succession, and executive benefits. Responses are scored automatically to tailor Master Class invitations and resources.</p>
+                        <p class="mt-6 font-display italic text-g-goldMuted">Save the Business. Protect the Family. Preserve the Legacy.</p>
                     </div>
-                    <form class="space-y-4" onsubmit="event.preventDefault(); alert('Thank you. Connect this form to your email tool (Mailchimp, ConvertKit, etc.).');">
-                        <label class="block type-small font-medium text-g-black">Full name</label>
-                        <input type="text" required placeholder="Your name" class="w-full border border-g-slate-200 rounded-xl px-4 py-3 min-h-[44px] focus:ring-2 focus:ring-g-gold focus:outline-none bg-g-white">
-                        <label class="block type-small font-medium text-g-black">Email</label>
-                        <input type="email" required placeholder="you@agency.com" class="w-full border border-g-slate-200 rounded-xl px-4 py-3 min-h-[44px] focus:ring-2 focus:ring-g-gold focus:outline-none bg-g-white">
-                        <label class="block type-small font-medium text-g-black">Years in advisory practice</label>
-                        <select class="w-full border border-g-slate-200 rounded-xl px-4 py-3 min-h-[44px] focus:ring-2 focus:ring-g-gold focus:outline-none bg-g-white">
-                            <option>Less than 2 years</option>
-                            <option>2–5 years</option>
-                            <option>6–10 years</option>
-                            <option>More than 10 years</option>
-                        </select>
-                        <button type="submit" class="w-full bg-g-black hover:bg-g-ink text-white font-semibold py-3.5 rounded-full transition-colors touch-target min-h-[44px]">Begin assessment</button>
-                    </form>
+                    <div class="bg-g-ink/80 border border-g-gold/30 rounded-2xl p-6 md:p-8 space-y-5">
+                        <h3 class="font-display font-semibold text-white type-h4">Business Insurance Master Class Waiting List</h3>
+                        <p class="type-small text-g-slate-300">Learn advanced strategies in Keyman Planning, Buy-Sell Funding, Succession Planning, Executive Benefits, and MDRT-Level Case Design.</p>
+                        <ul class="type-small text-g-slate-300 space-y-2">
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5 shrink-0"></i>5-section guided assessment</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5 shrink-0"></i>Complimentary Keyman Discovery Framework</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5 shrink-0"></i>Business Insurance Conversation Guide</li>
+                        </ul>
+                        <a href="/readiness/" class="touch-target w-full inline-flex justify-center items-center gap-2 bg-g-gold hover:bg-g-goldMuted text-g-black font-semibold py-3.5 rounded-full transition-colors min-h-[44px]">
+                            <i class="fa-solid fa-clipboard-list"></i> Reserve my spot
+                        </a>
+                        <a href="/readiness/assessment" class="touch-target w-full inline-flex justify-center items-center border border-g-gold/50 text-g-gold hover:bg-g-gold/10 font-semibold py-3 rounded-full type-small min-h-[44px]">Start assessment now</a>
+                    </div>
                 </div>
             </div>
         </section>

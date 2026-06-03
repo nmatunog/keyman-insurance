@@ -1,2 +1,3 @@
 /keyman.html /keyman/ 301
 https://www.joingiya.com/* https://joingiya.com/:splat 301
+/readiness/* /readiness/index.html 200
