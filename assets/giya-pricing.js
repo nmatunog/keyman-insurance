@@ -48,5 +48,23 @@
     return 'Subscribe — founding rate';
   }
 
-  global.GiyaPricing = { formatPhp, slotBadge, priceBlock, tierCtaLabel };
+  function coursePriceBlock(p) {
+    const founding = p.founding;
+    const full = founding?.full;
+    const promo = p.priceOneTime;
+    const list = p.listPriceOneTime;
+    const showPromo = !full && list && promo < list;
+    const active = showPromo ? promo : full && list ? list : promo;
+    let html = '<div class="price-block">';
+    if (showPromo && list) {
+      html += `<p class="text-sm text-g-slate-400 line-through">${formatPhp(list)} one-time</p>`;
+    }
+    html += `<p class="text-2xl font-extrabold text-g-black leading-tight">${formatPhp(active)}<span class="text-sm font-semibold text-g-gold"> one-time</span></p>`;
+    html += `<p class="text-xs text-g-slate-500 mt-1">4–6 day live cohort · not an annual subscription</p>`;
+    if (full) html += `<p class="text-xs text-g-slate-500 mt-1">Standard cohort rate applies</p>`;
+    html += '</div>';
+    return html;
+  }
+
+  global.GiyaPricing = { formatPhp, slotBadge, priceBlock, coursePriceBlock, tierCtaLabel };
 })(typeof window !== 'undefined' ? window : globalThis);

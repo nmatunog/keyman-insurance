@@ -64,10 +64,15 @@
     document.dispatchEvent(new CustomEvent('giya:auth', { detail: { user: null } }));
   }
 
-  async function checkout(tier, billingPeriod, provider) {
+  async function checkout(tierOrOpts, billingPeriod, provider) {
+    const body =
+      typeof tierOrOpts === 'object' && tierOrOpts !== null
+        ? tierOrOpts
+        : { skuType: 'membership', tier: tierOrOpts, billingPeriod, provider };
+    if (!body.skuType) body.skuType = 'membership';
     const { ok, data } = await api('/checkout/create', {
       method: 'POST',
-      body: JSON.stringify({ tier, billingPeriod, provider }),
+      body: JSON.stringify(body),
     });
     if (!ok) throw new Error(data.error || 'Checkout failed');
     return data;

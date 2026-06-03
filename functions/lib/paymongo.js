@@ -19,8 +19,15 @@ export async function createPaymongoCheckout(env, opts) {
   } = opts;
 
   const tierLabel = tierLabelIn || tier.charAt(0).toUpperCase() + tier.slice(1);
-  const periodLabel = billingPeriod === 'annual' ? 'Annual' : 'Monthly';
+  const skuType = opts.skuType || 'membership';
+  const periodLabel =
+    billingPeriod === 'one_time'
+      ? 'One-time'
+      : billingPeriod === 'annual'
+        ? 'Annual'
+        : 'Monthly';
   const foundingTag = isFounding ? ' · Founding' : '';
+  const skuLabel = skuType === 'course' ? 'Course' : 'Membership';
   const amountCentavo = Math.round(amountPhp * 100);
 
   const body = {
@@ -32,14 +39,14 @@ export async function createPaymongoCheckout(env, opts) {
         },
         cancel_url: `${siteUrl}/account.html?cancelled=1`,
         success_url: `${siteUrl}/account.html?paid=1&ref=${encodeURIComponent(paymentRef)}`,
-        description: `GIYA ${tierLabel || tier} — ${periodLabel}${foundingTag}`,
+        description: `GIYA ${skuLabel}: ${tierLabel || tier} — ${periodLabel}${foundingTag}`,
         line_items: [
           {
             amount: amountCentavo,
             currency: 'PHP',
-            name: `GIYA ${tierLabel || tier} (${periodLabel})`,
+            name: `${tierLabel || tier} (${periodLabel})`,
             quantity: 1,
-            description: `BI Academy — ${tierLabel}`,
+            description: `${skuLabel} — ${tierLabel}`,
           },
         ],
         payment_method_types: ['gcash', 'paymaya', 'qrph', 'card'],
@@ -50,6 +57,7 @@ export async function createPaymongoCheckout(env, opts) {
         metadata: {
           giya_subscription_id: subId,
           giya_tier: tier,
+          giya_sku_type: skuType,
           giya_payment_ref: paymentRef,
           giya_is_founding: isFounding ? '1' : '0',
           giya_user_id: user.id,

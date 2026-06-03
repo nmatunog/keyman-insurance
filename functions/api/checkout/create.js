@@ -1,6 +1,6 @@
 import { error, json, now, readJson, requireAuth } from '../../lib/auth.js';
-import { resolveCheckoutPricing } from '../../lib/founding.js';
-import { TIERS } from '../../lib/pricing.js';
+import { resolveCoursePricing, resolveMembershipPricing } from '../../lib/founding.js';
+import { COURSES, MEMBERSHIP } from '../../lib/pricing.js';
 import { createPaymongoCheckout } from '../../lib/paymongo.js';
 
 export async function onRequestPost(context) {
@@ -11,50 +11,85 @@ export async function onRequestPost(context) {
   const body = await readJson(request);
   if (!body) return error('Invalid JSON body');
 
-  const tier = body.tier;
-  const billingPeriod = body.billingPeriod === 'annual' ? 'annual' : 'monthly';
+  const skuType = body.skuType === 'course' ? 'course' : 'membership';
   const provider = body.provider || 'paymongo';
-
-  if (!['basic', 'advanced', 'master'].includes(tier)) {
-    return error('Invalid subscription tier');
-  }
-  if (!TIERS[tier]) return error('Unknown tier');
-
-  const quote = await resolveCheckoutPricing(env, tier, billingPeriod);
-  if (!quote) return error('Unable to resolve pricing');
-
-  const { amountPhp, isFounding, founding, rateLabel } = quote;
   const siteUrl = env.GIYA_SITE_URL || 'https://joingiya.com';
   const subId = crypto.randomUUID();
   const ts = now();
-  const paymentRef = `GIYA-${tier.toUpperCase().slice(0, 3)}-${subId.slice(0, 8).toUpperCase()}`;
+
+  let quote;
+  let tier;
+  let courseId = null;
+  let tierLabel;
+  /** @type {'monthly'|'annual'} */
+  let billingPeriod;
+
+  if (skuType === 'course') {
+    courseId = body.courseId || body.tier || 'bi_series';
+    if (!COURSES[courseId]) return error('Unknown course');
+    quote = await resolveCoursePricing(env, courseId);
+    tier = courseId;
+    tierLabel = COURSES[courseId].label;
+    billingPeriod = 'annual';
+  } else {
+    tier = body.tier;
+    billingPeriod = body.billingPeriod === 'annual' ? 'annual' : 'monthly';
+    if (!['basic', 'advanced', 'master'].includes(tier)) {
+      return error('Invalid membership tier');
+    }
+    if (!MEMBERSHIP[tier]) return error('Unknown membership tier');
+    quote = await resolveMembershipPricing(env, tier, billingPeriod);
+    tierLabel = MEMBERSHIP[tier].label;
+  }
+
+  if (!quote) return error('Unable to resolve pricing');
+
+  const { amountPhp, isFounding, founding, rateLabel } = quote;
+  const refPrefix = skuType === 'course' ? 'CRS' : 'MEM';
+  const paymentRef = `GIYA-${refPrefix}-${subId.slice(0, 8).toUpperCase()}`;
 
   await env.DB.prepare(
     `INSERT INTO subscriptions
-     (id, user_id, tier, billing_period, amount_php, payment_provider, payment_ref, status, is_founding, created_at, updated_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, 'pending', ?, ?, ?)`
+     (id, user_id, tier, billing_period, amount_php, payment_provider, payment_ref, status, is_founding, sku_type, course_id, created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, 'pending', ?, ?, ?, ?, ?)`
   )
-    .bind(subId, user.id, tier, billingPeriod, amountPhp, provider, paymentRef, isFounding ? 1 : 0, ts, ts)
-    .run();
-
-  const tierLabel = TIERS[tier].label;
-
-  if (provider === 'stripe' && env.STRIPE_SECRET_KEY) {
-    const checkout = await createStripeCheckout(env, {
-      user,
+    .bind(
+      subId,
+      user.id,
       tier,
-      tierLabel,
       billingPeriod,
       amountPhp,
-      subId,
+      provider,
       paymentRef,
-      siteUrl,
-      isFounding,
-    });
+      isFounding ? 1 : 0,
+      skuType,
+      courseId,
+      ts,
+      ts
+    )
+    .run();
+
+  const checkoutOpts = {
+    user,
+    tier,
+    tierLabel,
+    skuType,
+    courseId,
+    billingPeriod: skuType === 'course' ? 'one_time' : billingPeriod,
+    amountPhp,
+    subId,
+    paymentRef,
+    siteUrl,
+    isFounding,
+  };
+
+  if (provider === 'stripe' && env.STRIPE_SECRET_KEY) {
+    const checkout = await createStripeCheckout(env, checkoutOpts);
     if (checkout.error) return error(checkout.error, 502);
     return json({
       ok: true,
       provider: 'stripe',
+      skuType,
       subscriptionId: subId,
       paymentRef,
       amountPhp,
@@ -66,22 +101,12 @@ export async function onRequestPost(context) {
   }
 
   if (provider === 'paymongo' && env.PAYMONGO_SECRET_KEY) {
-    const checkout = await createPaymongoCheckout(env, {
-      user,
-      tier,
-      tierLabel,
-      billingPeriod,
-      amountPhp,
-      subId,
-      paymentRef,
-      siteUrl,
-      isFounding,
-    });
+    const checkout = await createPaymongoCheckout(env, checkoutOpts);
     if (checkout.error) return error(checkout.error, 502);
-
     return json({
       ok: true,
       provider: 'paymongo',
+      skuType,
       subscriptionId: subId,
       paymentRef,
       amountPhp,
@@ -98,6 +123,7 @@ export async function onRequestPost(context) {
   return json({
     ok: true,
     provider: 'manual',
+    skuType,
     subscriptionId: subId,
     paymentRef,
     amountPhp,
@@ -105,9 +131,17 @@ export async function onRequestPost(context) {
     rateLabel,
     founding,
     tier,
-    billingPeriod,
+    courseId,
+    billingPeriod: checkoutOpts.billingPeriod,
     instructions: {
-      title: isFounding ? 'Complete founding member payment' : 'Complete payment to activate access',
+      title:
+        skuType === 'course'
+          ? isFounding
+            ? 'Complete BI Series cohort payment'
+            : 'Complete BI Series enrollment payment'
+          : isFounding
+            ? 'Complete founding membership payment'
+            : 'Complete membership payment',
       reference: paymentRef,
       amount: amountPhp,
       currency: 'PHP',
@@ -119,10 +153,7 @@ export async function onRequestPost(context) {
           detail: gcash,
           accountName: env.GIYA_ACCOUNT_NAME || 'NILO MATUNOG',
           qrImage: `${siteUrl}/assets/payments/gcash-qr.png`,
-          steps: [
-            `Send ${formatPhp(amountPhp)} to GCash ${gcash}`,
-            `Reference: ${paymentRef}`,
-          ],
+          steps: [`Send ${formatPhp(amountPhp)} to GCash ${gcash}`, `Reference: ${paymentRef}`],
         },
         {
           method: 'GoTyme (InstaPay)',
@@ -131,13 +162,13 @@ export async function onRequestPost(context) {
           accountName: env.GIYA_ACCOUNT_NAME || 'NILO MATUNOG',
           accountNumber: env.GIYA_ACCOUNT_NUMBER || '010330299152',
           qrImage: `${siteUrl}/assets/payments/gotyme-qr.png`,
-          steps: [
-            `Transfer ${formatPhp(amountPhp)} via InstaPay or scan QR`,
-            `Reference: ${paymentRef}`,
-          ],
+          steps: [`Transfer ${formatPhp(amountPhp)} via InstaPay or scan QR`, `Reference: ${paymentRef}`],
         },
       ],
-      note: 'Admin activates access after verification (usually within 1 business day).',
+      note:
+        skuType === 'course'
+          ? 'Admin confirms your cohort seat after payment (usually within 1 business day).'
+          : 'Admin activates your 12-month academy access after verification.',
     },
   });
 }
@@ -159,7 +190,9 @@ function formatPhp(amount) {
 }
 
 async function createStripeCheckout(env, opts) {
-  const { user, tier, tierLabel, billingPeriod, amountPhp, subId, paymentRef, siteUrl, isFounding } = opts;
+  const { user, tier, tierLabel, billingPeriod, amountPhp, subId, paymentRef, siteUrl, isFounding, skuType } =
+    opts;
+  const periodLabel = billingPeriod === 'one_time' ? 'one-time enrollment' : billingPeriod;
   const params = new URLSearchParams();
   params.set('mode', 'payment');
   params.set('success_url', `${siteUrl}/account.html?paid=1&ref=${paymentRef}`);
@@ -170,11 +203,12 @@ async function createStripeCheckout(env, opts) {
   params.set('line_items[0][price_data][unit_amount]', String(amountPhp * 100));
   params.set(
     'line_items[0][price_data][product_data][name]',
-    `${tierLabel} — ${billingPeriod}${isFounding ? ' (Founding)' : ''}`
+    `${tierLabel} — ${periodLabel}${isFounding ? ' (Founding)' : ''}`
   );
   params.set('line_items[0][quantity]', '1');
   params.set('metadata[giya_subscription_id]', subId);
   params.set('metadata[giya_tier]', tier);
+  params.set('metadata[giya_sku_type]', skuType);
   params.set('metadata[giya_payment_ref]', paymentRef);
   params.set('metadata[giya_is_founding]', isFounding ? '1' : '0');
 

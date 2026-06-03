@@ -1,69 +1,68 @@
-# GIYA membership & program access
+# GIYA — two SKUs (locked)
 
-Locked product model (June 2026). Customer-facing names; internal tier IDs unchanged in the database.
+## The problem we fixed
 
-## One rule
+The **Business Insurance Series** is a **4–6 day live cohort**, not a year-long product. Charging an annual subscription *for the event alone* was the wrong SKU.
 
-**You never pay twice for the same Business Insurance content.** Program subscriptions unlock curriculum depth. Elite is a separate product (All-Access + inner circle), not a fourth BI Academy card.
+## Two SKUs only
 
-## Three layers
+| SKU | What it is | Billing | Examples |
+|-----|------------|---------|----------|
+| **1. Course** | Live cohort enrollment | **One-time** per seat / cohort | Business Insurance Series (4–6 days) |
+| **2. GIYA Academy membership** | 12-month digital platform access | **Monthly or annual** recurring | Core, Professional, Complete |
 
-| Layer | Name | Charge | What you get |
-|-------|------|--------|----------------|
-| 1 | **GIYA Discover** | Free | Assessment, webinars, community, BI Academy **Preview** |
-| 2 | **Program access** | Per program (BI live now) | One subscription = one program’s benefits at chosen depth |
-| 3 | **GIYA Elite** | Subscription when launched (invitation first) | **All-Access** to every live program at Complete depth + mentorship privileges |
+You never sell “annual subscription” as a stand-in for the 4–6 day Series. You never sell the Series twice inside membership without saying so.
 
-## Business Insurance Academy (live)
+## Business Insurance Series (Course SKU)
 
-Program ID: `business_insurance`. Checkout tiers:
+- **ID:** `bi_series`
+- **Format:** 4–6 day live intensive
+- **Price:** one-time founding / standard (see `functions/lib/pricing.js`)
+- **Founding:** limited **cohort seats** (not 12-month access)
+- **Includes:** live sessions, materials, replay window per cohort (configure dates in ops)
 
-| Internal ID | Public name | Founding slots | Benefit bundle |
-|-------------|-------------|----------------|----------------|
-| `preview` | Preview | — | Partial Module 1, 1 calculator, 1 script (same as Discover slice) |
-| `basic` | **Core** | 100 | Full Modules 1–2, unlimited calculators, all pitch scripts |
-| `advanced` | **Professional** | 30 | Core + Module 3, BIR tools, outreach templates |
-| `master` | **Complete** | 10 | Professional + case labs, board decks, certification track |
+## GIYA Academy membership (Membership SKU)
 
-Founding limits apply **per benefit level** (how much of the academy you unlock), not a separate “GIYA membership fee.”
+12-month access to digital academy: modules, calculators, scripts, tools, certification track (by tier).
 
-## Specialist vs Elite (no double pay)
+| Tier ID | Name | BI Series seat included? | Digital benefits |
+|---------|------|--------------------------|------------------|
+| `preview` | Preview | No | Free sampler |
+| `basic` | **Core** | **No** — buy Course SKU separately | Modules 1–2, calculators, scripts |
+| `advanced` | **Professional** | **Yes** — 1 BI Series enrollment bundled | Core + Module 3, BIR, templates |
+| `master` | **Complete** | **Yes** — 1 BI Series enrollment bundled | Full digital + case labs + certification |
 
-| Path | Who it’s for | Billing |
-|------|----------------|---------|
-| **Specialist** | Focus on Business Insurance (or one program later) | Subscribe to **Core**, **Professional**, or **Complete** for BI only |
-| **Elite** | Advisors who want every program + inner circle | **GIYA Elite All-Access** (planned) — includes Complete-level access to all live Master Class programs + mentorship |
+Founding limits (100 / 30 / 10) apply to **membership benefit levels**, not to the live event duration.
 
-- Elite members **do not** also need BI Complete (or separate course fees).
-- Specialist BI subscribers **do not** need a platform membership on top of their program sub.
-- When Estate, Health, etc. launch: separate program subs remain available; **Elite All-Access** bundles them.
+## No double pay
 
-## GIYA Elite (differentiation)
+| Situation | Pay |
+|-----------|-----|
+| Only want the live 4–6 day event | **Course** SKU only |
+| Want 12-month tools, no live seat yet | **Core** membership only |
+| Want live event + full digital for 12 months | **Professional** or **Complete** (includes BI Series) **or** Core + Course (two SKUs, stated clearly) |
+| Elite (planned) | Separate All-Access SKU — not stacked on Complete + Course |
 
-Elite is **not** “Master tier with a different name.” It is:
+## GIYA Discover & Elite
 
-1. **All-Access** — every live GIYA Master Class program at Complete depth (BI today; others as they ship).
-2. **Inner circle** — mentorship circles, deal review, JV playbooks, priority on new programs.
-3. **Invitation** — application / faculty approval before checkout (reduces clutter, signals exclusivity).
+- **Discover** — free; Preview + assessment (not a paid SKU).
+- **Elite** — planned All-Access + mentorship; invitation-first.
 
-Until Elite billing is live: **Request Elite access** → waitlist only. BI Academy checkout unchanged.
+## Checkout API
 
-## Future programs
+```json
+{ "skuType": "membership", "tier": "advanced", "billingPeriod": "annual", "provider": "paymongo" }
+```
 
-- Each new Master Class (Estate, Health, Wealth, Leadership) gets its own **Core / Professional / Complete** (or equivalent) when launched.
-- **Elite All-Access** supersedes buying each program separately for invited members.
+```json
+{ "skuType": "course", "courseId": "bi_series", "provider": "manual" }
+```
 
-## Site structure
+## Technical
 
-1. Learning Pathways — Discover | Programs | Elite  
-2. Business Insurance Academy — Preview + Core / Professional / Complete  
-3. More GIYA programs — waitlist; not billed until live  
-4. FAQ — no double pay  
-
-## Technical notes
-
-- `users.tier` = current **BI Academy depth** (until `program` entitlements exist).
-- `subscriptions.is_founding` = founding rate for that benefit bundle.
-- Elite SKU: add `tier: elite` + pricing when ready; do not conflate with `master`.
+- `subscriptions.sku_type`: `membership` | `course`
+- `subscriptions.course_id`: set for course checkouts
+- Course rows use `billing_period = 'annual'` in DB for legacy CHECK; amount is **one-time** (see checkout code)
+- `users.tier` = active **membership** digital level (admin may grant after course-only purchase)
 
 Edit prices: `functions/lib/pricing.js`.
