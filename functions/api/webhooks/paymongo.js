@@ -41,17 +41,34 @@ export async function onRequestPost(context) {
   if (!sub) return json({ received: true, error: 'subscription_not_found' });
 
   const tier = paid.tier || sub.tier;
-  const periodSec = sub.billing_period === 'annual' ? 365 * 86400 : 30 * 86400;
+  const skuType = sub.sku_type || 'membership';
+  const periodSec =
+    skuType === 'academy' || skuType === 'course'
+      ? 365 * 86400
+      : sub.billing_period === 'annual'
+        ? 365 * 86400
+        : 30 * 86400;
   const providerRef = paid.sessionId || sub.payment_ref;
 
-  await env.DB.batch([
+  const stmts = [
     env.DB.prepare(
       `UPDATE subscriptions SET status = 'paid', payment_provider = 'paymongo', payment_ref = ?, starts_at = ?, ends_at = ?, updated_at = ? WHERE id = ?`
     ).bind(providerRef, ts, ts + periodSec, ts, sub.id),
-    env.DB.prepare(
-      `UPDATE users SET tier = ?, status = 'active', updated_at = ? WHERE id = ?`
-    ).bind(tier, ts, sub.user_id),
-  ]);
+  ];
+
+  if (skuType === 'membership') {
+    stmts.push(
+      env.DB.prepare(
+        `UPDATE users SET tier = ?, status = 'active', updated_at = ? WHERE id = ?`
+      ).bind(tier, ts, sub.user_id)
+    );
+  } else {
+    stmts.push(
+      env.DB.prepare(`UPDATE users SET status = 'active', updated_at = ? WHERE id = ?`).bind(ts, sub.user_id)
+    );
+  }
+
+  await env.DB.batch(stmts);
 
   return json({ received: true, fulfilled: true });
 }

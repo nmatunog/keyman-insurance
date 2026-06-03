@@ -1,6 +1,6 @@
 import { error, json, now, readJson, requireAuth } from '../../lib/auth.js';
-import { resolveCoursePricing, resolveMembershipPricing } from '../../lib/founding.js';
-import { COURSES, MEMBERSHIP } from '../../lib/pricing.js';
+import { resolveAcademyPricing, resolveMembershipPricing } from '../../lib/founding.js';
+import { ACADEMIES, LIVE_ACADEMY_IDS, MEMBERSHIP } from '../../lib/pricing.js';
 import { createPaymongoCheckout } from '../../lib/paymongo.js';
 
 export async function onRequestPost(context) {
@@ -11,7 +11,7 @@ export async function onRequestPost(context) {
   const body = await readJson(request);
   if (!body) return error('Invalid JSON body');
 
-  const skuType = body.skuType === 'course' ? 'course' : 'membership';
+  const skuType = body.skuType === 'academy' ? 'academy' : 'membership';
   const provider = body.provider || 'paymongo';
   const siteUrl = env.GIYA_SITE_URL || 'https://joingiya.com';
   const subId = crypto.randomUUID();
@@ -21,23 +21,27 @@ export async function onRequestPost(context) {
   let tier;
   let courseId = null;
   let tierLabel;
-  /** @type {'monthly'|'annual'} */
   let billingPeriod;
 
-  if (skuType === 'course') {
-    courseId = body.courseId || body.tier || 'bi_series';
-    if (!COURSES[courseId]) return error('Unknown course');
-    quote = await resolveCoursePricing(env, courseId);
-    tier = courseId;
-    tierLabel = COURSES[courseId].label;
+  if (skuType === 'academy') {
+    const academyId = body.academyId || body.courseId || body.tier;
+    if (!ACADEMIES[academyId]) return error('Unknown academy');
+    if (!LIVE_ACADEMY_IDS.includes(academyId)) {
+      return error('This academy is not open for enrollment yet');
+    }
+    quote = await resolveAcademyPricing(env, academyId, user);
+    if (quote?.error) return error(quote.error);
+    tier = academyId;
+    courseId = academyId;
+    tierLabel = ACADEMIES[academyId].label;
     billingPeriod = 'annual';
   } else {
     tier = body.tier;
     billingPeriod = body.billingPeriod === 'annual' ? 'annual' : 'monthly';
-    if (!['basic', 'advanced', 'master'].includes(tier)) {
-      return error('Invalid membership tier');
+    if (!['professional', 'elite'].includes(tier)) {
+      return error('Invalid membership plan');
     }
-    if (!MEMBERSHIP[tier]) return error('Unknown membership tier');
+    if (!MEMBERSHIP[tier]) return error('Unknown membership plan');
     quote = await resolveMembershipPricing(env, tier, billingPeriod);
     tierLabel = MEMBERSHIP[tier].label;
   }
@@ -45,7 +49,7 @@ export async function onRequestPost(context) {
   if (!quote) return error('Unable to resolve pricing');
 
   const { amountPhp, isFounding, founding, rateLabel } = quote;
-  const refPrefix = skuType === 'course' ? 'CRS' : 'MEM';
+  const refPrefix = skuType === 'academy' ? 'ACD' : 'MEM';
   const paymentRef = `GIYA-${refPrefix}-${subId.slice(0, 8).toUpperCase()}`;
 
   await env.DB.prepare(
@@ -75,7 +79,7 @@ export async function onRequestPost(context) {
     tierLabel,
     skuType,
     courseId,
-    billingPeriod: skuType === 'course' ? 'one_time' : billingPeriod,
+    billingPeriod: skuType === 'academy' ? 'one_time' : billingPeriod,
     amountPhp,
     subId,
     paymentRef,
@@ -93,7 +97,6 @@ export async function onRequestPost(context) {
       subscriptionId: subId,
       paymentRef,
       amountPhp,
-      isFounding,
       rateLabel,
       founding,
       checkoutUrl: checkout.url,
@@ -110,7 +113,6 @@ export async function onRequestPost(context) {
       subscriptionId: subId,
       paymentRef,
       amountPhp,
-      isFounding,
       rateLabel,
       founding,
       checkoutUrl: checkout.url,
@@ -127,7 +129,6 @@ export async function onRequestPost(context) {
     subscriptionId: subId,
     paymentRef,
     amountPhp,
-    isFounding,
     rateLabel,
     founding,
     tier,
@@ -135,13 +136,9 @@ export async function onRequestPost(context) {
     billingPeriod: checkoutOpts.billingPeriod,
     instructions: {
       title:
-        skuType === 'course'
-          ? isFounding
-            ? 'Complete BI Series cohort payment'
-            : 'Complete BI Series enrollment payment'
-          : isFounding
-            ? 'Complete founding membership payment'
-            : 'Complete membership payment',
+        skuType === 'academy'
+          ? `Complete payment — ${tierLabel}`
+          : `Complete payment — ${tierLabel} membership`,
       reference: paymentRef,
       amount: amountPhp,
       currency: 'PHP',
@@ -166,9 +163,9 @@ export async function onRequestPost(context) {
         },
       ],
       note:
-        skuType === 'course'
-          ? 'Admin confirms your cohort seat after payment (usually within 1 business day).'
-          : 'Admin activates your 12-month academy access after verification.',
+        skuType === 'academy'
+          ? 'Admin activates academy access after payment verification.'
+          : 'Admin activates membership after payment verification.',
     },
   });
 }
@@ -192,7 +189,7 @@ function formatPhp(amount) {
 async function createStripeCheckout(env, opts) {
   const { user, tier, tierLabel, billingPeriod, amountPhp, subId, paymentRef, siteUrl, isFounding, skuType } =
     opts;
-  const periodLabel = billingPeriod === 'one_time' ? 'one-time enrollment' : billingPeriod;
+  const periodLabel = billingPeriod === 'one_time' ? 'one-time' : billingPeriod;
   const params = new URLSearchParams();
   params.set('mode', 'payment');
   params.set('success_url', `${siteUrl}/account.html?paid=1&ref=${paymentRef}`);
@@ -210,7 +207,6 @@ async function createStripeCheckout(env, opts) {
   params.set('metadata[giya_tier]', tier);
   params.set('metadata[giya_sku_type]', skuType);
   params.set('metadata[giya_payment_ref]', paymentRef);
-  params.set('metadata[giya_is_founding]', isFounding ? '1' : '0');
 
   const res = await fetch('https://api.stripe.com/v1/checkout/sessions', {
     method: 'POST',

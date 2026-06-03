@@ -1,110 +1,67 @@
-import { COURSES, MEMBERSHIP, MEMBERSHIP_PAID_IDS } from './pricing.js';
+import { ACADEMIES, MEMBERSHIP, normalizeMembershipTier } from './pricing.js';
+import { applyAcademyDiscount, getMembershipPricePhp } from './pricing.js';
 
-/** Count founding slots in use (paid + pending checkout holds). */
-export async function getFoundingUsed(env, tier, skuType = 'membership') {
-  const row = await env.DB.prepare(
-    `SELECT COUNT(*) AS n FROM subscriptions
-     WHERE tier = ? AND COALESCE(sku_type, 'membership') = ? AND is_founding = 1 AND status IN ('paid', 'pending')`
-  )
-    .bind(tier, skuType)
-    .first();
-  return Number(row?.n || 0);
+export async function getAllFoundingStatus() {
+  return { membership: {}, academies: {} };
 }
 
-export async function getFoundingStatus(env, tier, skuType = 'membership') {
-  const config = skuType === 'course' ? COURSES[tier] : MEMBERSHIP[tier];
-  const limit = config?.foundingLimit ?? 0;
-  if (!limit) {
-    return { limit: 0, used: 0, remaining: 0, full: false, available: false };
-  }
-  const used = await getFoundingUsed(env, tier, skuType);
-  const remaining = Math.max(0, limit - used);
-  return {
-    limit,
-    used,
-    remaining,
-    full: remaining <= 0,
-    available: remaining > 0,
-  };
-}
-
-export async function getAllFoundingStatus(env) {
-  const membership = {};
-  for (const tier of MEMBERSHIP_PAID_IDS) {
-    membership[tier] = await getFoundingStatus(env, tier, 'membership');
-  }
-  const courses = {};
-  for (const id of Object.keys(COURSES)) {
-    courses[id] = await getFoundingStatus(env, id, 'course');
-  }
-  return { membership, courses };
-}
-
-/**
- * Membership checkout (monthly / annual).
- */
 export async function resolveMembershipPricing(env, tier, billingPeriod) {
   const config = MEMBERSHIP[tier];
-  if (!config) return null;
+  if (!config || tier === 'preview') return null;
 
-  const founding = await getFoundingStatus(env, tier, 'membership');
   const isAnnual = billingPeriod === 'annual';
-
-  if (founding.available) {
-    return {
-      amountPhp: isAnnual ? config.priceAnnual : config.priceMonthly,
-      isFounding: true,
-      founding,
-      rateLabel: 'Founding membership rate',
-      skuType: 'membership',
-      billingPeriod,
-    };
-  }
-
-  const listMonthly = config.listPriceMonthly ?? config.priceMonthly;
-  const listAnnual = config.listPriceAnnual ?? config.priceAnnual;
-
   return {
-    amountPhp: isAnnual ? listAnnual : listMonthly,
+    amountPhp: getMembershipPricePhp(tier, billingPeriod),
     isFounding: false,
-    founding,
-    rateLabel: founding.limit ? 'Standard membership (founding full)' : 'Standard membership',
+    founding: null,
+    rateLabel: isAnnual ? 'Annual membership' : 'Monthly membership',
     skuType: 'membership',
     billingPeriod,
   };
 }
 
 /**
- * Course checkout (one-time cohort enrollment).
+ * Academy one-time checkout — Professional 20% off; Elite included.
  */
-export async function resolveCoursePricing(env, courseId) {
-  const config = COURSES[courseId];
+export async function resolveAcademyPricing(env, academyId, user) {
+  const config = ACADEMIES[academyId];
   if (!config) return null;
+  if (config.status !== 'live') return { error: 'This academy is not open for enrollment yet' };
 
-  const founding = await getFoundingStatus(env, courseId, 'course');
+  const memberTier =
+    user?.status === 'active' ? normalizeMembershipTier(user.tier) : 'preview';
+  const { amountPhp, discountPct, rateLabel } = applyAcademyDiscount(config.priceOneTime, memberTier);
 
-  if (founding.available) {
-    return {
-      amountPhp: config.priceOneTime,
-      isFounding: true,
-      founding,
-      rateLabel: 'Founding cohort rate',
-      skuType: 'course',
-      billingPeriod: 'one_time',
-    };
+  if (amountPhp === 0 && discountPct === 100) {
+    return { error: 'This academy is included in your GIYA Elite membership' };
   }
 
   return {
-    amountPhp: config.listPriceOneTime ?? config.priceOneTime,
+    amountPhp,
     isFounding: false,
-    founding,
-    rateLabel: founding.limit ? 'Standard cohort rate (founding full)' : 'Standard cohort rate',
-    skuType: 'course',
+    founding: null,
+    rateLabel,
+    skuType: 'academy',
     billingPeriod: 'one_time',
+    listPricePhp: config.priceOneTime,
+    discountPct,
   };
 }
 
-/** @deprecated */
+export async function getUserOwnedAcademies(env, userId) {
+  const ids = Object.keys(ACADEMIES);
+  if (!ids.length) return [];
+  const placeholders = ids.map(() => '?').join(',');
+  const { results } = await env.DB.prepare(
+    `SELECT DISTINCT tier FROM subscriptions
+     WHERE user_id = ? AND COALESCE(sku_type, 'membership') IN ('academy', 'course')
+     AND status = 'paid' AND tier IN (${placeholders})`
+  )
+    .bind(userId, ...ids)
+    .all();
+  return (results || []).map((r) => r.tier);
+}
+
 export async function resolveCheckoutPricing(env, tier, billingPeriod) {
   return resolveMembershipPricing(env, tier, billingPeriod);
 }

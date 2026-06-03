@@ -25,19 +25,34 @@ export async function onRequestPost(context) {
     const tier = session.metadata?.giya_tier;
     if (subId && tier) {
       const ts = now();
-      const sub = await env.DB.prepare('SELECT user_id, billing_period FROM subscriptions WHERE id = ?')
+      const sub = await env.DB.prepare('SELECT user_id, billing_period, sku_type FROM subscriptions WHERE id = ?')
         .bind(subId)
         .first();
       if (sub) {
-        const periodSec = sub.billing_period === 'annual' ? 365 * 86400 : 30 * 86400;
-        await env.DB.batch([
+        const skuType = sub.sku_type || 'membership';
+        const periodSec =
+          skuType === 'academy' || skuType === 'course'
+            ? 365 * 86400
+            : sub.billing_period === 'annual'
+              ? 365 * 86400
+              : 30 * 86400;
+        const stmts = [
           env.DB.prepare(
             `UPDATE subscriptions SET status = 'paid', payment_ref = ?, starts_at = ?, ends_at = ?, updated_at = ? WHERE id = ?`
           ).bind(session.id, ts, ts + periodSec, ts, subId),
-          env.DB.prepare(
-            `UPDATE users SET tier = ?, status = 'active', updated_at = ? WHERE id = ?`
-          ).bind(tier, ts, sub.user_id),
-        ]);
+        ];
+        if (skuType === 'membership') {
+          stmts.push(
+            env.DB.prepare(
+              `UPDATE users SET tier = ?, status = 'active', updated_at = ? WHERE id = ?`
+            ).bind(tier, ts, sub.user_id)
+          );
+        } else {
+          stmts.push(
+            env.DB.prepare(`UPDATE users SET status = 'active', updated_at = ? WHERE id = ?`).bind(ts, sub.user_id)
+          );
+        }
+        await env.DB.batch(stmts);
       }
     }
   }

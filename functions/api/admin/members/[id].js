@@ -16,7 +16,7 @@ export async function onRequestPatch(context) {
     return error('Cannot modify other admin accounts', 403);
   }
 
-  const allowedTier = ['preview', 'basic', 'advanced', 'master'];
+  const allowedTier = ['preview', 'professional', 'elite', 'basic', 'advanced', 'master'];
   const allowedStatus = ['pending', 'active', 'suspended'];
   const allowedRole = ['member', 'mentee', 'admin'];
 

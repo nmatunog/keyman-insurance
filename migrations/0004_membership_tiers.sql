@@ -1,0 +1,1 @@
+-- Tier remap runs in 0005_expand_tier_values.sql after CHECK constraint update

@@ -19,16 +19,34 @@ export async function onRequestPost(context) {
   const ts = now();
 
   if (action === 'approve') {
-    const periodSec = sub.billing_period === 'annual' ? 365 * 86400 : 30 * 86400;
-    await context.env.DB.batch([
+    const skuType = sub.sku_type || 'membership';
+    const periodSec =
+      skuType === 'academy' || skuType === 'course'
+        ? 365 * 86400
+        : sub.billing_period === 'annual'
+          ? 365 * 86400
+          : 30 * 86400;
+    const stmts = [
       context.env.DB.prepare(
         `UPDATE subscriptions SET status = 'paid', starts_at = ?, ends_at = ?, updated_at = ? WHERE id = ?`
       ).bind(ts, ts + periodSec, ts, subId),
-      context.env.DB.prepare(
-        `UPDATE users SET tier = ?, status = 'active', updated_at = ? WHERE id = ?`
-      ).bind(sub.tier, ts, sub.user_id),
-    ]);
-    return json({ ok: true, message: 'Payment approved and tier activated' });
+    ];
+    if (skuType === 'membership') {
+      stmts.push(
+        context.env.DB.prepare(
+          `UPDATE users SET tier = ?, status = 'active', updated_at = ? WHERE id = ?`
+        ).bind(sub.tier, ts, sub.user_id)
+      );
+    } else {
+      stmts.push(
+        context.env.DB.prepare(`UPDATE users SET status = 'active', updated_at = ? WHERE id = ?`).bind(
+          ts,
+          sub.user_id
+        )
+      );
+    }
+    await context.env.DB.batch(stmts);
+    return json({ ok: true, message: 'Payment approved' });
   }
 
   if (action === 'reject') {

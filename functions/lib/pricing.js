@@ -1,98 +1,116 @@
-/** @typedef {'preview'|'basic'|'advanced'|'master'} MembershipTier */
-/** @typedef {'monthly'|'annual'|'one_time'} BillingPeriod */
+/** @typedef {'preview'|'professional'|'elite'} MembershipTierId */
+/** @typedef {'monthly'|'annual'} BillingPeriod */
 
-/** SKU 1 — Live cohort courses (one-time per enrollment, not annual subs) */
-export const COURSES = {
-  bi_series: {
-    id: 'bi_series',
-    skuType: 'course',
-    label: 'Business Insurance Series',
-    shortLabel: 'BI Series',
-    format: '4–6 day live intensive',
-    billing: 'one_time',
-    priceOneTime: 14990,
-    listPriceOneTime: 19990,
-    promoNote: 'Founding cohort rate — limited seats per run (live event, not a 12-month subscription)',
-    foundingLimit: 40,
-    description:
-      'Live cohort: entity risk, buy-sell, key person, corporate prospecting. Includes session materials; replay window per cohort.',
-    duration: '4–6 days',
-  },
-};
-
-/** SKU 2 — GIYA Academy membership (recurring digital platform + benefits) */
+/** Platform membership — learning community vs full ecosystem */
 export const MEMBERSHIP = {
   preview: {
     id: 'preview',
     skuType: 'membership',
-    label: 'GIYA Academy — Preview',
-    shortLabel: 'Preview',
+    label: 'GIYA Discover',
+    shortLabel: 'Discover',
     priceMonthly: 0,
     priceAnnual: 0,
-    includesBiSeries: false,
-    description: 'Free sampler — partial Module 1, 1 calculator, 1 script (included in GIYA Discover)',
+    academyDiscountPct: 0,
+    includesAllAcademies: false,
+    features: ['Advisor Readiness Assessment', 'Newsletter', 'Webinars'],
+    description: 'Free entry — assessment, newsletter, and webinars.',
   },
-  basic: {
-    id: 'basic',
+  professional: {
+    id: 'professional',
     skuType: 'membership',
-    label: 'GIYA Academy — Core',
-    shortLabel: 'Core',
-    priceMonthly: 990,
-    priceAnnual: 9990,
-    listPriceMonthly: 1499,
-    listPriceAnnual: 14990,
-    promoNote: 'Founding rate — first 100 members at Core digital benefits',
-    foundingLimit: 100,
-    includesBiSeries: false,
-    description:
-      '12-month academy access: Modules 1–2, calculators, pitch scripts. BI Series live cohort sold separately.',
-  },
-  advanced: {
-    id: 'advanced',
-    skuType: 'membership',
-    label: 'GIYA Academy — Professional',
+    label: 'GIYA Professional',
     shortLabel: 'Professional',
-    priceMonthly: 3990,
-    priceAnnual: 39990,
-    listPriceMonthly: 4990,
-    listPriceAnnual: 49900,
-    promoNote: 'Founding rate — first 30 members; includes 1 BI Series cohort seat',
-    foundingLimit: 30,
-    includesBiSeries: true,
-    description:
-      '12-month academy access: Core benefits + Module 3, BIR tools, templates. Includes one BI Series (4–6 day) enrollment.',
+    priceMonthly: 999,
+    priceAnnual: 9990,
+    academyDiscountPct: 20,
+    includesAllAcademies: false,
+    features: [
+      'Community',
+      'Monthly Master Class',
+      'Resource library',
+      'Case studies',
+      '20% discount on all Academies',
+    ],
+    description: 'Learning community — plus 20% off every Academy purchase.',
   },
-  master: {
-    id: 'master',
+  elite: {
+    id: 'elite',
     skuType: 'membership',
-    label: 'GIYA Academy — Complete',
-    shortLabel: 'Complete',
-    priceMonthly: 6990,
-    priceAnnual: 69990,
-    listPriceMonthly: 5990,
-    listPriceAnnual: 59990,
-    promoNote: 'Founding rate — first 10 members; includes BI Series + full digital + certification',
-    foundingLimit: 10,
-    includesBiSeries: true,
-    description:
-      '12-month academy access: full digital library, case labs, board decks, certification track. Includes one BI Series enrollment.',
+    label: 'GIYA Elite',
+    shortLabel: 'Elite',
+    priceMonthly: 2999,
+    priceAnnual: 29990,
+    academyDiscountPct: 100,
+    includesAllAcademies: true,
+    features: [
+      'Everything in Professional',
+      'Access to ALL Academies',
+      'Coaching sessions',
+    ],
+    description: 'Full knowledge ecosystem — all Academies and coaching included.',
   },
 };
 
-/** @deprecated Use MEMBERSHIP — kept for imports */
-export const TIERS = MEMBERSHIP;
-
-export const ELITE_PLANNED = {
-  id: 'elite',
-  label: 'GIYA Elite — All-Access',
-  description:
-    'Planned: all live courses + Complete-level digital access + mentorship. Separate SKU from membership and single-course enrollment.',
+/** Standalone Academy purchases (one-time) */
+export const ACADEMIES = {
+  business_insurance: {
+    id: 'business_insurance',
+    skuType: 'academy',
+    label: 'Business Insurance Academy',
+    shortLabel: 'Business Insurance',
+    priceOneTime: 7990,
+    status: 'live',
+    description: 'Entity risk, buy-sell, key person, corporate prospecting — SEC, Civil Code, BIR aligned.',
+  },
+  estate_conservation: {
+    id: 'estate_conservation',
+    skuType: 'academy',
+    label: 'Estate Conservation Academy',
+    shortLabel: 'Estate Conservation',
+    priceOneTime: 7990,
+    status: 'coming_soon',
+    description: 'TRAIN, trusts, non-probate transfers.',
+  },
+  health_planning: {
+    id: 'health_planning',
+    skuType: 'academy',
+    label: 'Health Planning Academy',
+    shortLabel: 'Health Planning',
+    priceOneTime: 7990,
+    status: 'coming_soon',
+    description: 'Critical illness, HMO integration, funding strategies.',
+  },
+  wealth_management: {
+    id: 'wealth_management',
+    skuType: 'academy',
+    label: 'Wealth Management Academy',
+    shortLabel: 'Wealth Management',
+    priceOneTime: 9990,
+    status: 'coming_soon',
+    description: 'Portfolio, goals-based planning, HNW service design.',
+  },
+  succession_planning: {
+    id: 'succession_planning',
+    skuType: 'academy',
+    label: 'Succession Planning Academy',
+    shortLabel: 'Succession Planning',
+    priceOneTime: 12990,
+    status: 'coming_soon',
+    description: 'Business succession, continuity, and legacy transfer.',
+  },
 };
 
-export const TIER_ORDER = { preview: 0, basic: 1, advanced: 2, master: 3 };
+/** @deprecated */
+export const TIERS = MEMBERSHIP;
+export const COURSES = ACADEMIES;
 
-export const MEMBERSHIP_PAID_IDS = ['basic', 'advanced', 'master'];
-export const COURSE_IDS = Object.keys(COURSES);
+export const TIER_ORDER = { preview: 0, professional: 1, elite: 2 };
+/** Gating ladder for BI tools (preview < professional community < elite / owned academy) */
+export const ACCESS_ORDER = { preview: 0, professional: 1, elite: 2 };
+
+export const MEMBERSHIP_PAID_IDS = ['professional', 'elite'];
+export const ACADEMY_IDS = Object.keys(ACADEMIES);
+export const LIVE_ACADEMY_IDS = ACADEMY_IDS.filter((id) => ACADEMIES[id].status === 'live');
 
 export const PAYMENT_CHANNELS = {
   stripe: {
@@ -118,22 +136,29 @@ export const PAYMENT_CHANNELS = {
   },
 };
 
-/**
- * @param {MembershipTier} tier
- * @param {'monthly'|'annual'} period
- */
 export function getMembershipPricePhp(tier, period) {
   const t = MEMBERSHIP[tier];
   if (!t || tier === 'preview') return 0;
   return period === 'annual' ? t.priceAnnual : t.priceMonthly;
 }
 
-/** @param {keyof COURSES} courseId */
-export function getCoursePricePhp(courseId, useFoundingPrice) {
-  const c = COURSES[courseId];
-  if (!c) return 0;
-  if (useFoundingPrice) return c.priceOneTime;
-  return c.listPriceOneTime ?? c.priceOneTime;
+export function getAcademyListPricePhp(academyId) {
+  return ACADEMIES[academyId]?.priceOneTime ?? 0;
+}
+
+export function applyAcademyDiscount(listPrice, membershipTierId) {
+  const m = MEMBERSHIP[membershipTierId];
+  if (!m || !m.academyDiscountPct) return { amountPhp: listPrice, discountPct: 0, rateLabel: 'Standard academy price' };
+  if (m.includesAllAcademies) {
+    return { amountPhp: 0, discountPct: 100, rateLabel: 'Included in GIYA Elite' };
+  }
+  const pct = m.academyDiscountPct;
+  const amountPhp = Math.round(listPrice * (1 - pct / 100));
+  return {
+    amountPhp,
+    discountPct: pct,
+    rateLabel: `Professional member — ${pct}% off`,
+  };
 }
 
 export function formatPhp(amount) {
@@ -152,39 +177,52 @@ export function publicMembershipPricing(tier) {
     shortLabel: tier.shortLabel,
     priceMonthly: tier.priceMonthly,
     priceAnnual: tier.priceAnnual,
-    listPriceMonthly: tier.listPriceMonthly ?? null,
-    listPriceAnnual: tier.listPriceAnnual ?? null,
-    promoNote: tier.promoNote ?? null,
-    foundingLimit: tier.foundingLimit ?? null,
-    includesBiSeries: !!tier.includesBiSeries,
+    academyDiscountPct: tier.academyDiscountPct,
+    includesAllAcademies: tier.includesAllAcademies,
+    features: tier.features,
     description: tier.description,
     billing: 'recurring',
   };
 }
 
-export function publicCoursePricing(course) {
+export function publicAcademyPricing(academy, memberTier = 'preview') {
+  const list = academy.priceOneTime;
+  const discounted = applyAcademyDiscount(list, memberTier);
   return {
-    skuType: 'course',
-    id: course.id,
-    label: course.label,
-    shortLabel: course.shortLabel,
-    format: course.format,
-    duration: course.duration,
-    priceOneTime: course.priceOneTime,
-    listPriceOneTime: course.listPriceOneTime ?? null,
-    promoNote: course.promoNote ?? null,
-    foundingLimit: course.foundingLimit ?? null,
-    description: course.description,
+    skuType: 'academy',
+    id: academy.id,
+    label: academy.label,
+    shortLabel: academy.shortLabel,
+    priceOneTime: list,
+    priceForYou: discounted.amountPhp,
+    discountPct: discounted.discountPct,
+    rateLabel: discounted.rateLabel,
+    status: academy.status,
+    description: academy.description,
     billing: 'one_time',
   };
 }
 
-/** @deprecated */
 export function publicTierPricing(tier) {
   return publicMembershipPricing(tier);
 }
 
-/** @deprecated */
 export function getPricePhp(tier, period) {
   return getMembershipPricePhp(tier, period);
+}
+
+/** Map legacy DB tiers to new membership for display */
+export function normalizeMembershipTier(tier) {
+  if (tier === 'basic' || tier === 'advanced') return 'professional';
+  if (tier === 'master') return 'elite';
+  if (tier === 'professional' || tier === 'elite' || tier === 'preview') return tier;
+  return 'preview';
+}
+
+/** Effective content access for BI academy gating */
+export function effectiveAccessTier(membershipTier, ownedAcademyIds = []) {
+  const m = normalizeMembershipTier(membershipTier);
+  if (m === 'elite') return 'elite';
+  if (ownedAcademyIds.includes('business_insurance')) return 'elite';
+  return m;
 }

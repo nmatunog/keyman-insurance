@@ -1,55 +1,58 @@
 import { getSessionUser, json, publicUser } from '../../lib/auth.js';
-import { getAllFoundingStatus } from '../../lib/founding.js';
+import { getAllFoundingStatus, getUserOwnedAcademies } from '../../lib/founding.js';
 import {
-  COURSES,
-  ELITE_PLANNED,
+  ACADEMIES,
   MEMBERSHIP,
   PAYMENT_CHANNELS,
-  publicCoursePricing,
+  effectiveAccessTier,
+  normalizeMembershipTier,
+  publicAcademyPricing,
   publicMembershipPricing,
 } from '../../lib/pricing.js';
 
 export async function onRequestGet(context) {
   const user = await getSessionUser(context.request, context.env);
-  const foundingAll = await getAllFoundingStatus(context.env);
+  await getAllFoundingStatus(context.env);
+
+  const memberTier = user ? normalizeMembershipTier(user.tier) : 'preview';
+  const ownedAcademies = user ? await getUserOwnedAcademies(context.env, user.id) : [];
 
   const membership = Object.fromEntries(
-    Object.entries(MEMBERSHIP).map(([k, v]) => [
-      k,
-      { ...publicMembershipPricing(v), founding: foundingAll.membership[k] || null },
-    ])
+    Object.entries(MEMBERSHIP).map(([k, v]) => [k, publicMembershipPricing(v)])
   );
 
-  const courses = Object.fromEntries(
-    Object.entries(COURSES).map(([k, v]) => [
+  const academies = Object.fromEntries(
+    Object.entries(ACADEMIES).map(([k, v]) => [
       k,
-      { ...publicCoursePricing(v), founding: foundingAll.courses[k] || null },
+      { ...publicAcademyPricing(v, memberTier), owned: ownedAcademies.includes(k) },
     ])
   );
 
   const payload = {
     ok: true,
     membershipNote:
-      'Two SKUs: (1) BI Series — one-time 4–6 day cohort. (2) GIYA Academy membership — 12-month digital access. Professional & Complete include a BI Series seat; Core does not.',
-    elite: ELITE_PLANNED,
+      'GIYA Professional (₱999/mo) = learning community + 20% off Academies. GIYA Elite (₱2,999/mo) = everything + all Academies + coaching. Academies are also sold standalone.',
+    upsell:
+      'Buy one Academy from ₱7,990 — or join Elite for ₱2,999/month and access all Academies plus coaching.',
     membership,
-    courses,
-    /** @deprecated use membership */
+    academies,
     pricing: membership,
     paymentChannels: PAYMENT_CHANNELS,
+    accessTier: effectiveAccessTier(memberTier, ownedAcademies),
+    ownedAcademies,
   };
 
   if (!user) {
-    return json({
-      ...payload,
-      authenticated: false,
-      user: null,
-    });
+    return json({ ...payload, authenticated: false, user: null });
   }
 
   return json({
     ...payload,
     authenticated: true,
-    user: publicUser(user),
+    user: {
+      ...publicUser(user),
+      membershipTier: memberTier,
+      accessTier: effectiveAccessTier(memberTier, ownedAcademies),
+    },
   });
 }

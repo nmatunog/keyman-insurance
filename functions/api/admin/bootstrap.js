@@ -42,7 +42,7 @@ export async function onRequestPost(context) {
 
   await env.DB.prepare(
     `INSERT INTO users (id, email, password_hash, name, role, tier, status, created_at, updated_at)
-     VALUES (?, ?, ?, ?, 'admin', 'master', 'active', ?, ?)`
+     VALUES (?, ?, ?, ?, 'admin', 'elite', 'active', ?, ?)`
   )
     .bind(id, email, passwordHash, name, ts, ts)
     .run();

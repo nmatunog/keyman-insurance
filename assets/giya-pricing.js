@@ -66,5 +66,25 @@
     return html;
   }
 
-  global.GiyaPricing = { formatPhp, slotBadge, priceBlock, coursePriceBlock, tierCtaLabel };
+  function academyPriceBlock(a) {
+    const list = a.priceOneTime;
+    const yours = a.priceForYou ?? list;
+    const showDisc = a.discountPct > 0 && yours < list;
+    let html = '<div class="price-block mt-2">';
+    if (a.status !== 'live') {
+      html += `<p class="text-lg font-bold text-g-black">${formatPhp(list)}</p><p class="text-xs text-g-slate-500">one-time · coming soon</p>`;
+    } else if (a.discountPct === 100) {
+      html += `<p class="text-sm font-bold text-g-gold">Included in Elite</p>`;
+    } else if (showDisc) {
+      html += `<p class="text-sm text-g-slate-400 line-through">${formatPhp(list)}</p>`;
+      html += `<p class="text-xl font-extrabold text-g-black">${formatPhp(yours)} <span class="text-xs text-g-gold">one-time</span></p>`;
+      html += `<p class="text-xs text-g-gold">${a.rateLabel || ''}</p>`;
+    } else {
+      html += `<p class="text-xl font-extrabold text-g-black">${formatPhp(list)} <span class="text-xs text-g-gold">one-time</span></p>`;
+    }
+    html += '</div>';
+    return html;
+  }
+
+  global.GiyaPricing = { formatPhp, slotBadge, priceBlock, coursePriceBlock, academyPriceBlock, tierCtaLabel };
 })(typeof window !== 'undefined' ? window : globalThis);
