@@ -30,7 +30,6 @@ export const INITIAL_FORM = {
   full_name: '',
   mobile: '',
   email: '',
-  agency: '',
   years_in_service: '',
   keyman_cases: '',
   confidence_level: '',

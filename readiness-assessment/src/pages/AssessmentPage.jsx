@@ -27,7 +27,6 @@ function validateStep(step, form) {
       if (!form.full_name.trim()) return 'Please enter your full name.';
       if (!form.mobile.trim()) return 'Please enter your mobile number.';
       if (!emailOk) return 'Please enter a valid email address.';
-      if (!form.agency.trim()) return 'Please enter your agency or unit.';
       if (!form.years_in_service) return 'Please select years in financial services.';
       return null;
     case 2:
@@ -132,14 +131,6 @@ export default function AssessmentPage() {
                 onChange={(e) => patch('email', e.target.value)}
                 autoComplete="email"
                 placeholder="you@agency.com"
-              />
-            </Field>
-            <Field label="Agency / Unit">
-              <input
-                type="text"
-                value={form.agency}
-                onChange={(e) => patch('agency', e.target.value)}
-                placeholder="Your agency or unit"
               />
             </Field>
             <Field label="Years in Financial Services">
