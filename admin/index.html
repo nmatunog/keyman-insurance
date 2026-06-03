@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | GIYA</title>
+    <meta name="robots" content="noindex">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Serif+4:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif'],display:['"Source Serif 4"','Georgia','serif']},colors:{g:{black:'#0A0A0B',ink:'#141416',pearl:'#F5F3EE',gold:'#C4A052',slate:{200:'#D1D5DB',400:'#6B7280',600:'#374151'}}}}}}</script>
+</head>
+<body class="bg-g-ink min-h-screen font-sans text-white">
+    <header class="border-b border-white/10 px-6 py-4 flex flex-wrap justify-between items-center gap-4">
+        <div>
+            <a href="/" class="font-display text-g-gold text-xl font-semibold">GIYA Admin</a>
+            <p class="text-xs text-white/50 mt-0.5">Members, mentees, subscriptions</p>
+        </div>
+        <div class="flex gap-3 text-sm">
+            <a href="/account.html#security" class="text-white/70 hover:text-white">Change password</a>
+            <a href="/" class="text-white/70 hover:text-white">View site</a>
+            <button type="button" id="logout-btn" class="text-g-gold font-semibold">Sign out</button>
+        </div>
+    </header>
+    <main class="max-w-6xl mx-auto px-6 py-8">
+        <div id="gate" class="hidden bg-white/5 rounded-2xl p-10 text-center border border-white/10">
+            <p class="text-white/70">Admin sign-in required.</p>
+            <a href="/login.html" class="inline-block mt-4 bg-g-gold text-g-black px-6 py-3 rounded-xl font-bold">Sign in</a>
+        </div>
+        <div id="panel" class="hidden space-y-8">
+            <div class="grid sm:grid-cols-4 gap-4" id="stats"></div>
+            <section class="bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
+                <div class="px-5 py-4 border-b border-white/10 flex justify-between items-center">
+                    <h2 class="font-bold">Pending payments</h2>
+                </div>
+                <div id="payments" class="p-5 text-sm text-white/60">None</div>
+            </section>
+            <section class="bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
+                <div class="px-5 py-4 border-b border-white/10">
+                    <h2 class="font-bold">Members & mentees</h2>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead class="text-white/50 text-left">
+                            <tr class="border-b border-white/10">
+                                <th class="p-3">Name</th>
+                                <th class="p-3">Email</th>
+                                <th class="p-3">Role</th>
+                                <th class="p-3">Tier</th>
+                                <th class="p-3">Status</th>
+                                <th class="p-3">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="members"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script src="/assets/giya-auth.js"></script>
+    <script>
+        const php = (n) => new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP', maximumFractionDigits: 0 }).format(n);
+
+        document.getElementById('logout-btn').addEventListener('click', async () => {
+            await GiyaAuth.logout();
+            location.href = '/login.html';
+        });
+
+        async function approvePayment(id) {
+            await GiyaAuth.api(`/admin/subscriptions/${id}`, { method: 'POST', body: JSON.stringify({ action: 'approve' }) });
+            load();
+        }
+
+        async function updateMember(id, patch) {
+            await GiyaAuth.api(`/admin/members/${id}`, { method: 'PATCH', body: JSON.stringify(patch) });
+            load();
+        }
+
+        async function load() {
+            const user = await GiyaAuth.refreshSession();
+            if (!user || user.role !== 'admin') {
+                document.getElementById('gate').classList.remove('hidden');
+                return;
+            }
+            const { ok, data } = await GiyaAuth.api('/admin/members');
+            if (!ok) {
+                alert(data.error || 'Failed to load admin data');
+                return;
+            }
+            document.getElementById('panel').classList.remove('hidden');
+            const s = data.stats || {};
+            document.getElementById('stats').innerHTML = [
+                ['Pending', s.pending || 0],
+                ['Active', s.active || 0],
+                ['Mentees', s.mentees || 0],
+                ['Admins', s.admins || 0],
+            ].map(([l, v]) => `<div class="bg-white/5 rounded-xl p-4 border border-white/10"><p class="text-white/50 text-xs uppercase">${l}</p><p class="text-2xl font-bold mt-1">${v}</p></div>`).join('');
+
+            const payments = data.pendingPayments || [];
+            document.getElementById('payments').innerHTML = payments.length
+                ? payments.map((p) => `<div class="flex flex-wrap justify-between gap-3 py-3 border-b border-white/10 last:border-0">
+                    <div><strong>${p.name || p.email}</strong> · ${p.tier} · ${php(p.amount_php)} · ${p.payment_provider}<br><span class="text-white/40 font-mono text-xs">${p.payment_ref}</span></div>
+                    <button type="button" onclick="approvePayment('${p.id}')" class="bg-g-gold text-g-black px-4 py-2 rounded-lg font-bold text-xs">Approve</button>
+                  </div>`).join('')
+                : 'No pending manual payments.';
+
+            document.getElementById('members').innerHTML = (data.members || []).map((m) => `<tr class="border-b border-white/5 hover:bg-white/5">
+                <td class="p-3">${m.name || '—'}</td>
+                <td class="p-3">${m.email}</td>
+                <td class="p-3 capitalize">${m.role}</td>
+                <td class="p-3"><select onchange="updateMember('${m.id}', { tier: this.value })" class="bg-g-black border border-white/20 rounded px-2 py-1 text-xs">${['preview','basic','advanced','master'].map((t) => `<option value="${t}" ${m.tier===t?'selected':''}>${t}</option>`).join('')}</select></td>
+                <td class="p-3"><select onchange="updateMember('${m.id}', { status: this.value })" class="bg-g-black border border-white/20 rounded px-2 py-1 text-xs">${['pending','active','suspended'].map((st) => `<option value="${st}" ${m.status===st?'selected':''}>${st}</option>`).join('')}</select></td>
+                <td class="p-3 text-xs text-white/40">${new Date(m.created_at * 1000).toLocaleDateString()}</td>
+            </tr>`).join('');
+        }
+
+        window.approvePayment = approvePayment;
+        window.updateMember = updateMember;
+        load();
+    </script>
+</body>
+</html>

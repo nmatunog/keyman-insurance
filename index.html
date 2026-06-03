@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="GIYA — Guiding Advisors. Protecting Legacies. Learning platform for financial advisors with Business Insurance Master Class, pathways, and boardroom-ready tools.">
+    <link rel="canonical" href="https://joingiya.com/">
+    <meta property="og:url" content="https://joingiya.com/">
+    <meta property="og:title" content="GIYA | Guiding Advisors. Protecting Legacies.">
+    <meta property="og:description" content="Learning platform for financial advisors — Business Insurance Master Class, pathways, and boardroom-ready tools.">
+    <meta property="og:site_name" content="GIYA">
     <title>GIYA | Guiding Advisors. Protecting Legacies.</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,13 +115,11 @@
             GIYA requires JavaScript for the academy tools. Please enable JavaScript and reload.
         </div>
     </noscript>
-    <div id="preview-banner" class="preview-banner hidden bg-gradient-to-r from-g-black via-g-ink to-g-slate-800 text-white text-center py-2.5 px-4 type-small">
-        <span class="inline-flex items-center gap-2 flex-wrap justify-center">
+    <div id="preview-banner" class="preview-banner hidden bg-g-ink text-white text-center py-2 px-4 text-sm">
+        <span class="inline-flex items-center gap-2 justify-center flex-wrap">
             <i class="fa-solid fa-eye text-g-gold"></i>
-            <strong>Preview mode</strong> — Limited Business Insurance Academy sample.
-            <button type="button" onclick="scrollToSection('academy-pricing')" class="underline font-semibold hover:text-g-gold ml-1 touch-target inline-flex items-center px-1">View plans</button>
-            <span class="text-white/30 hidden sm:inline">|</span>
-            <button type="button" onclick="openUpgradeModal()" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg text-xs font-semibold touch-target">Simulate upgrade</button>
+            <span>Preview mode — limited academy sample.</span>
+            <button type="button" onclick="scrollToSection('academy-pricing')" class="underline font-semibold text-g-gold">View plans</button>
         </span>
     </div>
 
@@ -139,6 +142,9 @@
             </div>
             <div class="flex items-center gap-2 sm:gap-3">
                 <div id="tier-badge" class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold border"></div>
+                <a href="/login.html" id="nav-signin" class="hidden sm:inline-flex text-sm font-semibold text-g-slate-600 hover:text-g-black px-3 py-2">Sign in</a>
+                <a href="/account.html" id="nav-account" class="hidden sm:inline-flex text-sm font-semibold text-g-gold hover:text-g-black px-3 py-2">Account</a>
+                <a href="/admin/" id="nav-admin" class="hidden sm:inline-flex text-sm font-semibold text-g-gold px-3 py-2">Admin</a>
                 <a href="#join" class="hidden sm:inline-flex bg-g-black hover:bg-g-ink text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-colors shadow-card touch-target items-center min-h-[44px]">Join GIYA</a>
                 <button type="button" class="lg:hidden text-g-black text-xl touch-target flex items-center justify-center w-11 h-11" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" aria-label="Open menu">
                     <i class="fa-solid fa-bars"></i>
@@ -151,6 +157,8 @@
             <a href="keyman/" class="block py-3 touch-target">Keyman Reference</a>
             <a href="#pathways" class="block py-3 touch-target">Pathways</a>
             <a href="#founder" class="block py-3 touch-target">Founder</a>
+            <a href="/register.html" class="block py-3 touch-target">Register</a>
+            <a href="/login.html" class="block py-3 touch-target">Sign in</a>
             <a href="#join" class="block py-3 text-g-gold font-semibold touch-target">Join GIYA</a>
         </div>
     </header>
@@ -325,72 +333,50 @@
                 </nav>
             </div>
 <!-- Pricing / Tiers -->
-        <section id="academy-pricing" class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16 space-y-10">
-            <div class="text-center max-w-2xl mx-auto space-y-2">
-                <h2 class="text-3xl font-bold text-g-white">Choose your access level</h2>
-                <p class="text-g-slate-300">Start with Preview at no cost. Upgrade when you need deeper modules, tools, and live-practice assets.</p>
+        <section id="academy-pricing" class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-14 space-y-8">
+            <div class="text-center max-w-xl mx-auto">
+                <h2 class="text-2xl font-bold text-g-white">Membership & access</h2>
+                <p class="text-g-slate-400 text-sm mt-2">Founding rates for a limited number of members per tier. Standard pricing applies when slots fill.</p>
             </div>
-            <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
-                <!-- Preview -->
-                <article class="rounded-2xl border-2 border-g-gold bg-white p-6 shadow-soft flex flex-col relative">
-                    <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-g-gold text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">Free</span>
-                    <h3 class="text-xl font-bold text-g-black mt-2">Preview</h3>
-                    <p class="text-3xl font-extrabold text-g-black mt-2">₱0</p>
-                    <p class="text-xs text-g-slate-500 mb-4">Forever free sampler</p>
-                    <ul class="text-sm space-y-2 text-g-slate-700 flex-grow mb-6">
-                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> Module 1 overview (partial)</li>
-                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> 1 keyman calculator run</li>
-                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> 1 startup pitch script</li>
-                        <li class="flex gap-2 text-g-slate-400"><i class="fa-solid fa-xmark mt-0.5"></i> Days 2–4 full content</li>
-                        <li class="flex gap-2 text-g-slate-400"><i class="fa-solid fa-xmark mt-0.5"></i> Case labs & worksheets</li>
+            <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
+                <article class="rounded-xl border-2 border-g-gold bg-white p-5 flex flex-col">
+                    <span class="text-[10px] font-bold uppercase text-g-gold tracking-wider">Free</span>
+                    <h3 class="text-lg font-bold text-g-black mt-1">Preview</h3>
+                    <p class="text-2xl font-extrabold mt-2">₱0</p>
+                    <ul class="text-sm space-y-1.5 text-g-slate-600 flex-grow my-4">
+                        <li>Partial Module 1 · 1 calculator run · 1 pitch script</li>
                     </ul>
-                    <button onclick="activateTier('preview')" class="w-full py-3 rounded-xl border-2 border-g-gold text-g-gold font-bold text-sm hover:bg-g-pearl transition-all">Start preview</button>
+                    <button type="button" onclick="activateTier('preview')" class="w-full py-2.5 rounded-lg border-2 border-g-gold text-g-gold font-semibold text-sm">Start preview</button>
                 </article>
-                <!-- Basic -->
-                <article class="rounded-2xl border border-g-slate-200 bg-white p-6 shadow-soft flex flex-col">
-                    <h3 class="text-xl font-bold text-g-black">Basic</h3>
-                    <p class="text-3xl font-extrabold text-g-black mt-2">Tier 1</p>
-                    <p class="text-xs text-g-slate-500 mb-4">New corporate advisors</p>
-                    <ul class="text-sm space-y-2 text-g-slate-700 flex-grow mb-6">
-                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> Full Modules 1–2</li>
-                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> Both calculators (unlimited)</li>
-                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> All 3 pitch scripts</li>
-                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> Entity comparison worksheets</li>
-                        <li class="flex gap-2 text-g-slate-400"><i class="fa-solid fa-xmark mt-0.5"></i> BIR Section 36 masterclass</li>
+                <article id="plan-basic" data-tier="basic" class="plan-card rounded-xl border bg-white p-5 flex flex-col relative">
+                    <div class="plan-slot mb-2"></div>
+                    <h3 class="text-base font-bold text-g-black leading-snug">GIYA Founding Members (Basic)</h3>
+                    <div class="plan-price mt-3 mb-3"></div>
+                    <ul class="text-sm text-g-slate-600 flex-grow mb-4 space-y-1">
+                        <li>Modules 1–2 · calculators · pitch scripts</li>
                     </ul>
-                    <button onclick="activateTier('basic')" class="w-full py-3 rounded-xl bg-g-black text-white font-bold text-sm hover:bg-g-black/90 transition-all">Enter Basic (demo)</button>
+                    <button type="button" data-subscribe="basic" class="plan-cta w-full py-2.5 rounded-lg bg-g-black text-white font-semibold text-sm">Subscribe</button>
                 </article>
-                <!-- Advanced -->
-                <article class="rounded-2xl border border-g-slate-200 bg-white p-6 shadow-soft flex flex-col ring-2 ring-g-gold/30">
-                    <span class="text-[10px] font-bold text-g-gold uppercase">Popular</span>
-                    <h3 class="text-xl font-bold text-g-black">Advanced</h3>
-                    <p class="text-3xl font-extrabold text-g-black mt-2">Tier 2</p>
-                    <p class="text-xs text-g-slate-500 mb-4">Active producers</p>
-                    <ul class="text-sm space-y-2 text-g-slate-700 flex-grow mb-6">
-                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> Everything in Basic</li>
-                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> Full Modules 1–3 + prospecting</li>
-                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> BIR beneficiary decision tree</li>
-                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> CPA/lawyer outreach templates</li>
-                        <li class="flex gap-2 text-g-slate-400"><i class="fa-solid fa-xmark mt-0.5"></i> Live case lab recordings</li>
+                <article id="plan-advanced" data-tier="advanced" class="plan-card rounded-xl border ring-2 ring-g-gold/25 bg-white p-5 flex flex-col relative">
+                    <div class="plan-slot mb-2"></div>
+                    <h3 class="text-base font-bold text-g-black leading-snug">Founding GIYA Advanced</h3>
+                    <div class="plan-price mt-3 mb-3"></div>
+                    <ul class="text-sm text-g-slate-600 flex-grow mb-4 space-y-1">
+                        <li>Basic + Module 3 · BIR tools · outreach templates</li>
                     </ul>
-                    <button onclick="activateTier('advanced')" class="w-full py-3 rounded-xl bg-g-gold text-g-black font-bold text-sm shadow-gold hover:bg-g-gold/90 transition-all">Enter Advanced (demo)</button>
+                    <button type="button" data-subscribe="advanced" class="plan-cta w-full py-2.5 rounded-lg bg-g-gold text-g-black font-semibold text-sm">Subscribe</button>
                 </article>
-                <!-- Master -->
-                <article class="rounded-2xl border border-g-gold/40 bg-gradient-to-b from-g-pearl to-white p-6 shadow-soft flex flex-col">
-                    <h3 class="text-xl font-bold text-g-black"><i class="fa-solid fa-crown text-g-gold mr-1"></i> Master Class</h3>
-                    <p class="text-3xl font-extrabold text-g-black mt-2">Tier 3</p>
-                    <p class="text-xs text-g-slate-500 mb-4">Boardroom-ready specialists</p>
-                    <ul class="text-sm space-y-2 text-g-slate-700 flex-grow mb-6">
-                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> Full academy + case labs</li>
-                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> Board deck templates</li>
-                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> Objection handling scripts</li>
-                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> Certification checklist</li>
-                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> Quarterly content updates</li>
+                <article id="plan-master" data-tier="master" class="plan-card rounded-xl border border-g-gold/40 bg-gradient-to-b from-g-pearl to-white p-5 flex flex-col relative">
+                    <div class="plan-slot mb-2"></div>
+                    <h3 class="text-base font-bold text-g-black leading-snug"><i class="fa-solid fa-crown text-g-gold mr-1 text-sm"></i>Master Class — Founding</h3>
+                    <div class="plan-price mt-3 mb-3"></div>
+                    <ul class="text-sm text-g-slate-600 flex-grow mb-4 space-y-1">
+                        <li>Full academy · case labs · board decks · certification</li>
                     </ul>
-                    <button onclick="activateTier('master')" class="w-full py-3 rounded-xl bg-g-black text-white font-bold text-sm hover:bg-g-black/90 transition-all">Enter Master Class (demo)</button>
+                    <button type="button" data-subscribe="master" class="plan-cta w-full py-2.5 rounded-lg bg-g-black text-white font-semibold text-sm">Subscribe</button>
                 </article>
             </div>
-            <p class="text-center text-xs text-g-slate-400 max-w-xl mx-auto">Demo mode stores your selected tier in this browser only. Connect Stripe or your LMS later for real subscriptions.</p>
+            <p class="text-center text-xs text-g-slate-500 max-w-lg mx-auto">Checkout: PayMongo (GCash · Maya · card) or direct GCash / GoTyme transfer.</p>
         </section>
 
         <!-- Curriculum -->
@@ -880,23 +866,16 @@
                 <span class="text-g-slate-600">|</span>
                 <span>Guiding Advisors. Protecting Legacies.</span>
             </div>
-            <p class="text-g-slate-400 text-center md:text-right">© 2026 Nilo B. Matunog. Educational content — not legal or tax advice.</p>
+            <p class="text-g-slate-400 text-center md:text-right">
+                <a href="https://joingiya.com/" class="hover:text-g-pearl transition-colors">joingiya.com</a>
+                <span class="text-g-slate-600 mx-2">·</span>
+                © 2026 Nilo B. Matunog. Educational content — not legal or tax advice.
+            </p>
         </div>
     </footer>
 
-    <div id="upgrade-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/60" onclick="if(event.target===this)closeUpgradeModal()">
-        <div class="bg-g-white rounded-2xl max-w-md w-full p-6 shadow-2xl" onclick="event.stopPropagation()">
-            <h3 class="type-h3 font-bold text-g-black">Demo: switch tier</h3>
-            <p class="type-small text-g-slate-600 mt-2">Simulates subscription access locally.</p>
-            <div class="grid grid-cols-2 gap-2 mt-4">
-                <button type="button" onclick="activateTier('preview'); closeUpgradeModal()" class="py-3 rounded-lg border font-semibold type-small touch-target min-h-[44px]">Preview</button>
-                <button type="button" onclick="activateTier('basic'); closeUpgradeModal()" class="py-3 rounded-lg border font-semibold type-small touch-target min-h-[44px]">Basic</button>
-                <button type="button" onclick="activateTier('advanced'); closeUpgradeModal()" class="py-3 rounded-lg border font-semibold type-small touch-target min-h-[44px]">Advanced</button>
-                <button type="button" onclick="activateTier('master'); closeUpgradeModal()" class="py-3 rounded-lg border font-semibold type-small bg-g-pearl touch-target min-h-[44px]">Master</button>
-            </div>
-            <button type="button" onclick="closeUpgradeModal()" class="mt-4 w-full type-small text-g-slate-500 touch-target min-h-[44px]">Close</button>
-        </div>
-    </div>
+    <script src="/assets/giya-auth.js"></script>
+    <script src="/assets/giya-pricing.js"></script>
 <script>
         const TIER_ORDER = { preview: 0, basic: 1, advanced: 2, master: 3 };
         const STORAGE_KEY = 'giya_academy_tier';
@@ -993,17 +972,6 @@
             document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
         }
 
-        function openUpgradeModal() {
-            const m = document.getElementById('upgrade-modal');
-            m.classList.remove('hidden');
-            m.classList.add('flex');
-        }
-        function closeUpgradeModal() {
-            const m = document.getElementById('upgrade-modal');
-            m.classList.add('hidden');
-            m.classList.remove('flex');
-        }
-
         const php = new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP', maximumFractionDigits: 0 });
 
         function calculateKeyman() {
@@ -1064,11 +1032,73 @@
             if (btn) btn.className = 'script-btn flex-1 py-3 px-4 rounded-xl font-bold text-sm min-w-[100px] bg-g-gold text-white shadow-gold';
         }
 
+        function subscribeTier(tier) {
+            if (window.GiyaAuth?.getUser()) {
+                window.location.href = `/account.html#${tier}`;
+                return;
+            }
+            window.location.href = '/register.html';
+        }
+
+        document.querySelectorAll('[data-subscribe]').forEach((btn) => {
+            btn.addEventListener('click', () => subscribeTier(btn.dataset.subscribe));
+        });
+
+        let pricingPeriod = 'monthly';
+        async function refreshPlanCards() {
+            if (!window.GiyaPricing) return;
+            const { data } = await GiyaAuth.api('/auth/me');
+            if (!data?.pricing) return;
+            ['basic', 'advanced', 'master'].forEach((t) => {
+                const card = document.getElementById('plan-' + t);
+                const p = data.pricing[t];
+                if (!card || !p) return;
+                const slotEl = card.querySelector('.plan-slot');
+                const priceEl = card.querySelector('.plan-price');
+                const cta = card.querySelector('.plan-cta');
+                if (slotEl) slotEl.innerHTML = GiyaPricing.slotBadge(p.founding);
+                if (priceEl) priceEl.innerHTML = GiyaPricing.priceBlock(p, pricingPeriod);
+                if (cta) {
+                    cta.textContent = p.founding?.full ? 'Subscribe — standard rate' : 'Subscribe — founding rate';
+                }
+            });
+        }
+
+        function syncAuthNav(user) {
+            const signin = document.getElementById('nav-signin');
+            const account = document.getElementById('nav-account');
+            const admin = document.getElementById('nav-admin');
+            if (!signin) return;
+            if (user) {
+                signin.classList.add('hidden');
+                account?.classList.remove('hidden');
+                admin?.classList.toggle('hidden', user.role !== 'admin');
+                if (user.status === 'active' && user.tier) {
+                    localStorage.setItem(STORAGE_KEY, user.tier);
+                    applyTierGating();
+                }
+            } else {
+                signin.classList.remove('hidden');
+                account?.classList.add('hidden');
+                admin?.classList.add('hidden');
+            }
+        }
+
+        document.addEventListener('giya:auth', (e) => syncAuthNav(e.detail?.user));
+
         function initApp() {
             try {
                 if (!localStorage.getItem(STORAGE_KEY)) localStorage.setItem(STORAGE_KEY, 'preview');
                 if (!localStorage.getItem(CALC_RUNS_KEY)) localStorage.setItem(CALC_RUNS_KEY, '1');
                 applyTierGating();
+                if (window.GiyaAuth) {
+                    GiyaAuth.refreshSession().then((user) => {
+                        syncAuthNav(user);
+                        refreshPlanCards();
+                    });
+                } else {
+                    refreshPlanCards();
+                }
                 if (document.getElementById('sc-keyman-salary')) calculateKeyman();
                 if (tierAtLeast('basic') && document.getElementById('sc-buyout-val')) calculateBuyout();
             } catch (err) {

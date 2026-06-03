@@ -67,5 +67,70 @@ npx wrangler pages deploy . --project-name=keyman-insurance --branch=main
 
 ## Live URLs
 
-- https://keyman-insurance.pages.dev/
-- https://keyman-insurance.pages.dev/keyman/
+**Production domain:** [https://joingiya.com/](https://joingiya.com/)
+
+| Page | URL |
+|------|-----|
+| GIYA home + Academy | https://joingiya.com/ |
+| Keyman Reference | https://joingiya.com/keyman/ |
+
+Preview hostname: https://keyman-insurance.pages.dev/
+
+---
+
+## Custom domain: joingiya.com
+
+Connect **joingiya.com** to the existing Pages project **keyman-insurance** (one-time in the dashboard).
+
+### Prerequisites
+
+- Domain **joingiya.com** is on the **same Cloudflare account** as the Pages project (`66e72ecb625c7e76d017a366156ec53f`), **or** you will add the CNAME records Cloudflare shows after setup.
+
+### Steps
+
+1. Open **[Workers & Pages → keyman-insurance → Custom domains](https://dash.cloudflare.com/66e72ecb625c7e76d017a366156ec53f/pages/view/keyman-insurance/domains)**.
+2. Click **Set up a custom domain**.
+3. Enter **`joingiya.com`** → **Continue** → confirm DNS (Cloudflare usually creates the records automatically if the zone is on your account).
+4. Repeat for **`www.joingiya.com`** (recommended). The repo `_redirects` sends `www` → apex.
+5. Wait until both domains show **Active** (often 1–5 minutes).
+
+### If the domain is not on Cloudflare yet
+
+1. Add site **joingiya.com** in **[Websites](https://dash.cloudflare.com/)** and point nameservers at your registrar to Cloudflare.
+2. After the zone is active, complete the Custom domains steps above.
+
+### If status stays “Verifying”
+
+- In **DNS** for `joingiya.com`, ensure a **proxied** CNAME for the apex/www points to **`keyman-insurance.pages.dev`** (exact target shown in the Custom domains UI).
+- Do not only add a DNS record without also adding the domain under **Pages → Custom domains**.
+
+### After activation
+
+- Production: **https://joingiya.com/** and **https://joingiya.com/keyman/**
+- `keyman-insurance.pages.dev` continues to work as a preview URL.
+
+---
+
+## DNS cleanup (joingiya.com zone)
+
+Do this **after** Pages custom domains (`joingiya.com` and `www.joingiya.com`) are **Active**.
+
+1. Open **[joingiya.com → DNS → Records](https://dash.cloudflare.com/7b74ea384bc2ff38a5fb532c3b1c3e48/joingiya.com/dns)**.
+2. **Delete** only these legacy Namecheap/parking records (Edit → Delete on each row):
+
+   | Type | Name | Content (approx.) | Why |
+   |------|------|-------------------|-----|
+   | **A** | `joingiya.com` | `162.255.119.111` | Old parking/hosting IP |
+   | **CNAME** | `www` | `parkingpage.namecheap.com` (or similar) | Namecheap parking page |
+
+3. **Do not delete:**
+
+   - **MX** records pointing to `eforward1`–`eforward5.registrar-servers.com` (email forwarding), unless you no longer use `@joingiya.com` email.
+   - Records created for **Pages** (often CNAME to `keyman-insurance.pages.dev` or shown in **Pages → Custom domains**).
+
+4. After cleanup, test:
+
+   - https://joingiya.com/
+   - https://www.joingiya.com/ (should reach the site or redirect to apex)
+
+If the site stops loading, re-check **Pages → Custom domains** and restore any CNAME Cloudflare shows there.

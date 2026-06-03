@@ -1,0 +1,1 @@
+ALTER TABLE subscriptions ADD COLUMN is_founding INTEGER NOT NULL DEFAULT 0;

@@ -6,12 +6,25 @@ Unified site: GIYA landing + Business Insurance Academy + **Keyman Planning Refe
 
 ## Live site
 
-- **https://keyman-insurance.pages.dev/** — GIYA home + Academy
-- **https://keyman-insurance.pages.dev/keyman/** — Keyman Planning Reference
+**Primary domain:** [https://joingiya.com/](https://joingiya.com/)
 
-## GitHub
+| Page | URL |
+|------|-----|
+| GIYA home + Academy | https://joingiya.com/ |
+| Keyman Planning Reference | https://joingiya.com/keyman/ |
 
-https://github.com/nmatunog/keyman-insurance
+Cloudflare Pages preview (always available): [keyman-insurance.pages.dev](https://keyman-insurance.pages.dev/)
+
+## Auth & subscriptions
+
+Member login, admin panel, and paid tiers — see **[AUTH_SETUP.md](./AUTH_SETUP.md)**.
+
+| Page | URL |
+|------|-----|
+| Sign in | `/login.html` |
+| Register | `/register.html` |
+| Account / billing | `/account.html` |
+| Admin | `/admin/` |
 
 ## Run locally
 

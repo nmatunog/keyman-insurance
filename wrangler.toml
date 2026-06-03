@@ -1,0 +1,18 @@
+name = "keyman-insurance"
+compatibility_date = "2024-09-23"
+pages_build_output_dir = "."
+
+[[d1_databases]]
+binding = "DB"
+database_name = "giya-platform"
+database_id = "34aa7580-045d-46c3-99cd-64f9cb129308"
+
+[vars]
+GIYA_SITE_URL = "https://joingiya.com"
+GIYA_ADMIN_EMAIL = "nmatunog@gmail.com"
+GIYA_GCASH_NUMBER = "09209648523"
+GIYA_GCASH_LABEL = "Giya Gcash — NILO M."
+GIYA_BANK_DETAILS = "GoTyme Bank · NILO MATUNOG · 010330299152"
+GIYA_BANK_NAME = "GoTyme Bank"
+GIYA_ACCOUNT_NAME = "NILO MATUNOG"
+GIYA_ACCOUNT_NUMBER = "010330299152"
