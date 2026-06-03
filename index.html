@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GIYA — Guiding Advisors. Protecting Legacies. Learning platform for financial advisors with Business Insurance Master Class, pathways, and boardroom-ready tools.">
+    <title>GIYA | Guiding Advisors. Protecting Legacies.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['"Source Serif 4"', 'Georgia', 'serif'],
+                    },
+                    colors: {
+                        g: {
+                            black: '#0A0A0B',
+                            ink: '#141416',
+                            pearl: '#F5F3EE',
+                            white: '#FFFFFF',
+                            gold: '#C4A052',
+                            goldMuted: '#8A7340',
+                            slate: {
+                                50: '#F4F5F6',
+                                200: '#D1D5DB',
+                                400: '#6B7280',
+                                600: '#374151',
+                                800: '#1F2937',
+                            }
+                        }
+                    },
+                    boxShadow: {
+                        soft: '0 12px 40px -12px rgba(10, 10, 11, 0.14)',
+                        card: '0 4px 24px -4px rgba(10, 10, 11, 0.08)',
+                        gold: '0 4px 14px 0 rgba(196, 160, 82, 0.25)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --fs-display: clamp(2.25rem, 4.5vw + 1rem, 4.25rem);
+            --fs-h1: clamp(1.625rem, 2.5vw + 0.75rem, 2.5rem);
+            --fs-h2: clamp(1.375rem, 2vw + 0.5rem, 2rem);
+            --fs-h3: clamp(1.125rem, 1.25vw + 0.5rem, 1.5rem);
+            --fs-h4: clamp(1rem, 0.75vw + 0.5rem, 1.25rem);
+            --fs-body: clamp(0.9375rem, 0.25vw + 0.875rem, 1.0625rem);
+            --fs-small: clamp(0.8125rem, 0.15vw + 0.75rem, 0.875rem);
+        }
+        .type-display { font-family: "Source Serif 4", Georgia, serif; font-size: var(--fs-display); line-height: 1.1; letter-spacing: -0.02em; }
+        .type-h1 { font-size: var(--fs-h1); line-height: 1.2; }
+        .type-h2 { font-family: "Source Serif 4", Georgia, serif; font-size: var(--fs-h2); line-height: 1.25; }
+        .type-h3 { font-size: var(--fs-h3); line-height: 1.3; }
+        .type-h4 { font-size: var(--fs-h4); line-height: 1.35; }
+        .type-body { font-size: var(--fs-body); line-height: 1.65; }
+        .type-small { font-size: var(--fs-small); line-height: 1.5; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #F4F5F6; }
+        ::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #C4A052; }
+        .hero-gradient {
+            background:
+                radial-gradient(ellipse 70% 50% at 80% 0%, rgba(196, 160, 82, 0.07), transparent),
+                radial-gradient(ellipse 40% 35% at 0% 100%, rgba(20, 20, 22, 0.04), transparent),
+                linear-gradient(180deg, #F5F3EE 0%, #FFFFFF 50%, #F4F5F6 100%);
+        }
+        .pillar-card { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+        .pillar-card:hover { transform: translateY(-4px); }
+        .tab-panel { transition: opacity 0.3s ease, transform 0.3s ease; }
+        .tab-panel.hidden { opacity: 0; transform: translateY(8px); pointer-events: none; position: absolute; width: 100%; }
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=number] { -moz-appearance: textfield; }
+        .preview-banner { animation: slideDown 0.4s ease; }
+        @keyframes slideDown { from { transform: translateY(-100%); } to { transform: translateY(0); } }
+        .touch-target { min-height: 44px; }
+        /* Light panels sit inside dark #business-academy — reset inherited pearl text */
+        #business-academy .bg-white,
+        #business-academy .bg-g-slate-50,
+        #business-academy .academy-panel {
+            color: #374151;
+        }
+        #business-academy .bg-white strong,
+        #business-academy .bg-g-slate-50 strong,
+        #business-academy .academy-panel strong {
+            color: #0A0A0B;
+            font-weight: 700;
+        }
+        #business-academy .bg-white h3,
+        #business-academy .bg-white h4,
+        #business-academy .academy-panel h3,
+        #business-academy .academy-panel h4 {
+            color: #0A0A0B;
+        }
+        /* Fallback if Tailwind CDN is slow or blocked */
+        body { background-color: #F5F3EE; color: #141416; margin: 0; }
+        .hero-fallback { min-height: 40vh; padding: 2rem 1.25rem; }
+    </style>
+</head>
+<body class="bg-g-pearl text-g-ink font-sans antialiased type-body">
+    <noscript>
+        <div style="background:#0A0A0B;color:#F5F3EE;padding:1rem;text-align:center;">
+            GIYA requires JavaScript for the academy tools. Please enable JavaScript and reload.
+        </div>
+    </noscript>
+    <div id="preview-banner" class="preview-banner hidden bg-gradient-to-r from-g-black via-g-ink to-g-slate-800 text-white text-center py-2.5 px-4 type-small">
+        <span class="inline-flex items-center gap-2 flex-wrap justify-center">
+            <i class="fa-solid fa-eye text-g-gold"></i>
+            <strong>Preview mode</strong> — Limited Business Insurance Academy sample.
+            <button type="button" onclick="scrollToSection('academy-pricing')" class="underline font-semibold hover:text-g-gold ml-1 touch-target inline-flex items-center px-1">View plans</button>
+            <span class="text-white/30 hidden sm:inline">|</span>
+            <button type="button" onclick="openUpgradeModal()" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg text-xs font-semibold touch-target">Simulate upgrade</button>
+        </span>
+    </div>
+
+    <header class="sticky top-0 z-50 bg-g-white/95 backdrop-blur-md border-b border-g-slate-200">
+        <nav class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-3 flex items-center justify-between gap-4">
+            <a href="#" class="group flex items-center gap-3 shrink-0">
+                <div class="w-11 h-11 rounded-full bg-g-black flex items-center justify-center text-g-gold font-display font-bold text-xl tracking-tight shadow-card">G</div>
+                <div>
+                    <span class="block font-display type-h4 font-semibold text-g-black leading-none tracking-wide">GIYA</span>
+                    <span class="text-[10px] uppercase tracking-[0.18em] text-g-slate-400 font-medium">Advisor Development</span>
+                </div>
+            </a>
+            <div class="hidden lg:flex items-center gap-7 text-sm font-medium text-g-slate-600">
+                <a href="#platform" class="hover:text-g-black transition-colors py-2">Platform</a>
+                <a href="#business-academy" class="hover:text-g-black transition-colors py-2">Business Academy</a>
+                <a href="keyman.html" class="hover:text-g-black transition-colors py-2">Keyman Reference</a>
+                <a href="#pathways" class="hover:text-g-black transition-colors py-2">Pathways</a>
+                <a href="#founder" class="hover:text-g-black transition-colors py-2">Founder</a>
+                <a href="#join" class="hover:text-g-gold transition-colors py-2 font-semibold">Join</a>
+            </div>
+            <div class="flex items-center gap-2 sm:gap-3">
+                <div id="tier-badge" class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold border"></div>
+                <a href="#join" class="hidden sm:inline-flex bg-g-black hover:bg-g-ink text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-colors shadow-card touch-target items-center min-h-[44px]">Join GIYA</a>
+                <button type="button" class="lg:hidden text-g-black text-xl touch-target flex items-center justify-center w-11 h-11" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" aria-label="Open menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-g-slate-200 bg-g-white px-5 py-4 space-y-1 text-sm font-medium">
+            <a href="#platform" class="block py-3 touch-target">Platform</a>
+            <a href="#business-academy" class="block py-3 touch-target">Business Academy</a>
+            <a href="keyman.html" class="block py-3 touch-target">Keyman Reference</a>
+            <a href="#pathways" class="block py-3 touch-target">Pathways</a>
+            <a href="#founder" class="block py-3 touch-target">Founder</a>
+            <a href="#join" class="block py-3 text-g-gold font-semibold touch-target">Join GIYA</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-gradient relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 pt-14 pb-16 md:pt-20 md:pb-24">
+                <div class="max-w-3xl">
+                    <p class="font-display type-display text-g-goldMuted italic mb-1">Guiding Advisors.</p>
+                    <p class="font-display type-display font-semibold text-g-black mb-8">Protecting Legacies.</p>
+                    <div class="w-16 h-0.5 bg-g-gold mb-8"></div>
+                    <h1 class="type-h1 font-bold text-g-black leading-snug tracking-tight">Financial Advisory Beyond Products</h1>
+                    <p class="mt-5 text-g-slate-600 type-body leading-relaxed max-w-2xl">
+                        Master the disciplines that matter most to modern financial advisors — and build a practice that serves at a higher level.
+                    </p>
+                    <div class="mt-10 flex flex-col sm:flex-row gap-4">
+                        <a href="#join" class="touch-target inline-flex items-center justify-center gap-2 bg-g-black hover:bg-g-ink text-white px-8 py-4 rounded-full font-semibold text-sm shadow-soft transition-all min-h-[44px]">
+                            <i class="fa-solid fa-people-group"></i> Join the Community
+                        </a>
+                        <a href="#assessment" class="touch-target inline-flex items-center justify-center gap-2 border-2 border-g-gold text-g-goldMuted hover:bg-g-gold hover:text-g-black px-8 py-4 rounded-full font-semibold text-sm transition-all min-h-[44px]">
+                            <i class="fa-solid fa-clipboard-list"></i> Advisor Readiness Assessment
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="platform" class="bg-g-white border-y border-g-slate-200">
+            <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16 md:py-20">
+                <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+                    <div>
+                        <h2 class="type-small font-bold uppercase tracking-widest text-g-gold mb-4">Core disciplines</h2>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-4"><span class="w-11 h-11 rounded-xl bg-g-slate-50 flex items-center justify-center text-g-slate-600 shrink-0"><i class="fa-solid fa-chart-line"></i></span><div><strong class="text-g-black">Wealth Management</strong><p class="type-small text-g-slate-600 mt-0.5">Accumulate, preserve, and distribute with intention.</p></div></li>
+                            <li class="flex items-start gap-4"><span class="w-11 h-11 rounded-xl bg-g-pearl flex items-center justify-center text-g-gold shrink-0"><i class="fa-solid fa-building-shield"></i></span><div><strong class="text-g-black">Business Insurance</strong><p class="type-small text-g-slate-600 mt-0.5">Keyman, buy-sell, continuity, and corporate risk.</p></div></li>
+                            <li class="flex items-start gap-4"><span class="w-11 h-11 rounded-xl bg-g-slate-50 flex items-center justify-center text-g-slate-600 shrink-0"><i class="fa-solid fa-heart-pulse"></i></span><div><strong class="text-g-black">Health Planning</strong><p class="type-small text-g-slate-600 mt-0.5">Protection aligned with long-term financial wellbeing.</p></div></li>
+                            <li class="flex items-start gap-4"><span class="w-11 h-11 rounded-xl bg-g-slate-50 flex items-center justify-center text-g-slate-600 shrink-0"><i class="fa-solid fa-landmark"></i></span><div><strong class="text-g-black">Estate Conservation</strong><p class="type-small text-g-slate-600 mt-0.5">Generational wealth transfer and legacy design.</p></div></li>
+                            <li class="flex items-start gap-4"><span class="w-11 h-11 rounded-xl bg-g-slate-50 flex items-center justify-center text-g-slate-600 shrink-0"><i class="fa-solid fa-arrow-right-arrow-left"></i></span><div><strong class="text-g-black">Succession Planning</strong><p class="type-small text-g-slate-600 mt-0.5">Ownership transitions for families and firms.</p></div></li>
+                            <li class="flex items-start gap-4"><span class="w-11 h-11 rounded-xl bg-g-pearl flex items-center justify-center text-g-gold shrink-0"><i class="fa-solid fa-seedling"></i></span><div><strong class="text-g-black">Advisory Practice Growth</strong><p class="type-small text-g-slate-600 mt-0.5">Build expertise, impact, and an enduring practice.</p></div></li>
+                        </ul>
+                    </div>
+                    <div class="bg-g-pearl border border-g-slate-200 rounded-3xl p-8 md:p-10 shadow-card">
+                        <p class="text-g-slate-600 leading-relaxed"><strong class="text-g-black">GIYA</strong> is a learning and development platform dedicated to helping financial advisors elevate their expertise, create greater client impact, and build practices that endure.</p>
+                        <p class="mt-4 text-g-slate-600 leading-relaxed">Founded by <strong class="text-g-black">Nilo B. Matunog</strong> — Registered Financial Planner (RFP), Professional Financial Advisor by LIMRA (PFA), Wealth Planner, and Estate Planner; also a visionary leader, agency director, and engineer with more than two decades of client-centered planning experience.</p>
+                        <div class="mt-8 pt-8 border-t border-g-slate-200 flex flex-wrap gap-2">
+                            <span class="type-small font-semibold text-g-slate-700 px-3 py-1.5 bg-g-white rounded-full border border-g-slate-200">RFP</span>
+                            <span class="type-small font-semibold text-g-slate-700 px-3 py-1.5 bg-g-white rounded-full border border-g-slate-200">PFA · LIMRA</span>
+                            <span class="type-small font-semibold text-g-slate-700 px-3 py-1.5 bg-g-white rounded-full border border-g-slate-200">Wealth Planner</span>
+                            <span class="type-small font-semibold text-g-slate-700 px-3 py-1.5 bg-g-white rounded-full border border-g-slate-200">Estate Planner</span>
+                            <span class="type-small font-semibold text-g-slate-700 px-3 py-1.5 bg-g-white rounded-full border border-g-slate-200">Visionary Leader</span>
+                            <span class="type-small font-semibold text-g-slate-700 px-3 py-1.5 bg-g-white rounded-full border border-g-slate-200">Agency Director</span>
+                            <span class="type-small font-semibold text-g-slate-700 px-3 py-1.5 bg-g-white rounded-full border border-g-slate-200">Engineer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="why" class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16 md:py-24">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <h2 class="type-h2 font-display font-semibold text-g-black">Why GIYA?</h2>
+                <p class="mt-4 text-g-slate-600 type-body">Today's advisors face increasingly complex client needs.</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-10 items-center">
+                <div class="space-y-6 text-g-slate-600 type-body leading-relaxed">
+                    <p>Clients are not simply looking for <em class="text-g-black not-italic font-semibold">insurance</em>.</p>
+                    <p class="font-display type-h3 text-g-goldMuted italic">They are looking for guidance.</p>
+                    <p>They need advisors who can help them protect families, preserve wealth, secure health, safeguard businesses, and transfer legacy with confidence.</p>
+                </div>
+                <div class="bg-g-black text-g-pearl rounded-3xl p-8 md:p-10 shadow-soft">
+                    <p class="text-g-gold font-semibold type-small uppercase tracking-wider mb-6">GIYA helps advisors</p>
+                    <ul class="space-y-4 type-body">
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-g-gold mt-1 shrink-0"></i> Develop knowledge across wealth, health, business, and estate</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-g-gold mt-1 shrink-0"></i> Apply practical frameworks and case design</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-g-gold mt-1 shrink-0"></i> Build confidence to serve HNW and business owners</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-g-gold mt-1 shrink-0"></i> Grow practices that create lasting client impact</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                <div class="text-center p-4 rounded-2xl bg-g-white border border-g-slate-200"><i class="fa-solid fa-house-chimney-user text-g-gold text-xl mb-2"></i><p class="type-small font-semibold text-g-black">Protect families</p></div>
+                <div class="text-center p-4 rounded-2xl bg-g-white border border-g-slate-200"><i class="fa-solid fa-coins text-g-gold text-xl mb-2"></i><p class="type-small font-semibold text-g-black">Preserve wealth</p></div>
+                <div class="text-center p-4 rounded-2xl bg-g-white border border-g-slate-200"><i class="fa-solid fa-heart text-g-gold text-xl mb-2"></i><p class="type-small font-semibold text-g-black">Secure health</p></div>
+                <div class="text-center p-4 rounded-2xl bg-g-white border border-g-slate-200"><i class="fa-solid fa-briefcase text-g-gold text-xl mb-2"></i><p class="type-small font-semibold text-g-black">Safeguard business</p></div>
+                <div class="text-center p-4 rounded-2xl bg-g-white border border-g-slate-200 col-span-2 sm:col-span-1"><i class="fa-solid fa-book-open text-g-gold text-xl mb-2"></i><p class="type-small font-semibold text-g-black">Transfer legacy</p></div>
+            </div>
+        </section>
+
+        <section id="pillars" class="bg-g-white border-y border-g-slate-200 py-16 md:py-24">
+            <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+                <div class="text-center mb-14">
+                    <h2 class="type-h2 font-display font-semibold text-g-black">The GIYA Pillars</h2>
+                    <p class="mt-3 text-g-slate-600 max-w-xl mx-auto">Five domains that shape exceptional advisory work.</p>
+                </div>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
+                    <article class="pillar-card bg-g-pearl border border-g-slate-200 rounded-2xl p-6 shadow-card"><div class="w-12 h-12 rounded-full bg-g-pearl flex items-center justify-center text-g-gold mb-4"><i class="fa-solid fa-chart-pie"></i></div><h3 class="font-bold text-g-black type-h4">Wealth</h3><p class="type-small text-g-slate-600 mt-2 leading-relaxed">Helping clients accumulate, preserve, and distribute wealth effectively.</p></article>
+                    <article class="pillar-card bg-g-pearl border border-g-slate-200 rounded-2xl p-6 shadow-card"><div class="w-12 h-12 rounded-full bg-g-slate-50 flex items-center justify-center text-g-slate-600 mb-4"><i class="fa-solid fa-heart-pulse"></i></div><h3 class="font-bold text-g-black type-h4">Health</h3><p class="type-small text-g-slate-600 mt-2 leading-relaxed">Building protection strategies that support long-term financial wellbeing.</p></article>
+                    <article class="pillar-card bg-g-pearl border border-g-gold/40 rounded-2xl p-6 shadow-card ring-1 ring-g-gold/20"><div class="w-12 h-12 rounded-full bg-g-pearl flex items-center justify-center text-g-gold mb-4"><i class="fa-solid fa-building"></i></div><h3 class="font-bold text-g-black type-h4">Business</h3><p class="type-small text-g-slate-600 mt-2 leading-relaxed">Keyman, buy-sell, succession, and business continuity planning.</p><a href="#business-academy" class="inline-block mt-4 type-small font-bold text-g-gold hover:underline touch-target">Explore Master Class →</a></article>
+                    <article class="pillar-card bg-g-pearl border border-g-slate-200 rounded-2xl p-6 shadow-card"><div class="w-12 h-12 rounded-full bg-g-pearl flex items-center justify-center text-g-gold mb-4"><i class="fa-solid fa-tree"></i></div><h3 class="font-bold text-g-black type-h4">Estate</h3><p class="type-small text-g-slate-600 mt-2 leading-relaxed">Protecting family wealth across generations.</p></article>
+                    <article class="pillar-card bg-g-pearl border border-g-slate-200 rounded-2xl p-6 shadow-card sm:col-span-2 lg:col-span-1"><div class="w-12 h-12 rounded-full bg-g-black flex items-center justify-center text-g-gold mb-4"><i class="fa-solid fa-crown"></i></div><h3 class="font-bold text-g-black type-h4">Leadership</h3><p class="type-small text-g-slate-600 mt-2 leading-relaxed">Developing advisors into trusted professionals and industry leaders.</p></article>
+                </div>
+            </div>
+        </section>
+
+        <section id="pathways" class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16 md:py-24">
+            <div class="text-center mb-14">
+                <h2 class="type-h2 font-display font-semibold text-g-black">Learning Pathways</h2>
+                <p class="mt-3 text-g-slate-600">Progress from discovery to mastery — at your pace.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <article class="rounded-3xl border-2 border-g-slate-200 bg-g-slate-50 p-8 flex flex-col">
+                    <span class="type-small font-bold uppercase tracking-widest text-g-slate-600">Free entry</span>
+                    <h3 class="font-display type-h2 font-semibold text-g-black mt-2">GIYA Discover</h3>
+                    <p class="type-small text-g-slate-600 mt-3 flex-grow leading-relaxed">Free resources, assessments, webinars, and foundational learning to explore GIYA before you commit.</p>
+                    <ul class="mt-6 space-y-2 type-small text-g-black">
+                        <li><i class="fa-solid fa-circle text-[6px] text-g-gold mr-2 align-middle"></i>Advisor Readiness Assessment</li>
+                        <li><i class="fa-solid fa-circle text-[6px] text-g-gold mr-2 align-middle"></i>Intro webinars & guides</li>
+                        <li><i class="fa-solid fa-circle text-[6px] text-g-gold mr-2 align-middle"></i>Community access</li>
+                    </ul>
+                    <a href="#assessment" class="mt-8 touch-target inline-flex justify-center items-center bg-g-black hover:bg-g-ink text-white py-3 rounded-full type-small font-semibold transition-colors min-h-[44px]">Start with Discover</a>
+                </article>
+                <article class="rounded-3xl border border-g-gold/30 bg-g-white p-8 flex flex-col shadow-soft relative overflow-hidden">
+                    <span class="absolute top-4 right-4 type-small font-bold uppercase bg-g-gold text-g-black px-2 py-0.5 rounded-full">Flagship</span>
+                    <span class="type-small font-bold uppercase tracking-widest text-g-gold">Implementation</span>
+                    <h3 class="font-display type-h2 font-semibold text-g-black mt-2">GIYA Master Class</h3>
+                    <p class="type-small text-g-slate-600 mt-3 flex-grow leading-relaxed">Advanced programs focused on practical implementation, case design, and boardroom-ready advisory skills.</p>
+                    <ul class="mt-6 space-y-2 type-small text-g-black">
+                        <li><i class="fa-solid fa-circle text-[6px] text-g-gold mr-2 align-middle"></i>Structured multi-day curricula</li>
+                        <li><i class="fa-solid fa-circle text-[6px] text-g-gold mr-2 align-middle"></i>Calculators & case labs</li>
+                        <li><i class="fa-solid fa-circle text-[6px] text-g-gold mr-2 align-middle"></i>Certification track (select programs)</li>
+                    </ul>
+                    <a href="#business-academy" class="mt-8 touch-target inline-flex justify-center items-center bg-g-black hover:bg-g-ink text-white py-3 rounded-full type-small font-semibold transition-colors min-h-[44px]">Business Insurance — Preview</a>
+                </article>
+                <article class="rounded-3xl border border-g-slate-800 bg-g-black p-8 flex flex-col text-g-pearl">
+                    <span class="type-small font-bold uppercase tracking-widest text-g-gold">Invitation</span>
+                    <h3 class="font-display type-h2 font-semibold mt-2 text-g-white">GIYA Elite</h3>
+                    <p class="type-small text-g-slate-200 mt-3 flex-grow leading-relaxed">A curated community for advisors seeking mentorship, collaboration, and advanced growth with peers and faculty.</p>
+                    <ul class="mt-6 space-y-2 type-small">
+                        <li><i class="fa-solid fa-circle text-[6px] text-g-gold mr-2 align-middle"></i>Mentorship circles</li>
+                        <li><i class="fa-solid fa-circle text-[6px] text-g-gold mr-2 align-middle"></i>Deal review & JV playbooks</li>
+                        <li><i class="fa-solid fa-circle text-[6px] text-g-gold mr-2 align-middle"></i>Priority access to new programs</li>
+                    </ul>
+                    <a href="#join" class="mt-8 touch-target inline-flex justify-center items-center border border-g-gold text-g-gold hover:bg-g-gold hover:text-g-black py-3 rounded-full type-small font-semibold transition-colors min-h-[44px]">Request Elite access</a>
+                </article>
+            </div>
+        </section>
+        <section id="business-academy" class="bg-g-black text-g-pearl border-y border-g-slate-800">
+            <div id="academy-overview" class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 pt-16 pb-10 md:pt-20">
+                <div class="grid lg:grid-cols-2 gap-10 lg:gap-14 items-end">
+                    <div>
+                        <p class="type-small font-bold uppercase tracking-[0.2em] text-g-gold mb-4">GIYA Master Class</p>
+                        <h2 class="type-h2 font-display font-semibold text-g-white">Business Insurance Academy</h2>
+                        <p class="mt-4 text-g-slate-200 type-body max-w-xl leading-relaxed">
+                            A structured program for advisors: entity risk, funded buy-sell accords, key person design, and corporate prospecting — aligned with SEC, Civil Code, and BIR frameworks.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-3">
+                        <button type="button" onclick="activateTier('preview')" class="touch-target inline-flex items-center gap-2 bg-g-gold hover:bg-g-gold/90 text-g-black px-6 py-3 rounded-full font-semibold text-sm transition-all min-h-[44px]">
+                            <i class="fa-solid fa-play"></i> Start free preview
+                        </button>
+                        <button type="button" onclick="scrollToSection('academy-pricing')" class="touch-target inline-flex items-center gap-2 border border-g-slate-600 text-g-pearl hover:border-g-gold hover:text-g-gold px-6 py-3 rounded-full font-semibold text-sm transition-all min-h-[44px]">
+                            Compare access tiers
+                        </button>
+                    </div>
+                </div>
+                <nav class="mt-10 flex flex-wrap gap-2 border-b border-g-slate-800 pb-4" aria-label="Academy sections">
+                    <a href="#academy-overview" class="touch-target inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium text-g-pearl bg-g-ink border border-g-slate-800 min-h-[44px]">Overview</a>
+                    <a href="#academy-pricing" class="touch-target inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium text-g-slate-400 hover:text-g-gold hover:bg-g-ink transition-colors min-h-[44px]">Access</a>
+                    <a href="#academy-curriculum" class="touch-target inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium text-g-slate-400 hover:text-g-gold hover:bg-g-ink transition-colors min-h-[44px]">Curriculum</a>
+                    <a href="#academy-tools" class="touch-target inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium text-g-slate-400 hover:text-g-gold hover:bg-g-ink transition-colors min-h-[44px]">Tools</a>
+                    <a href="keyman.html" class="touch-target inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium text-g-slate-400 hover:text-g-gold hover:bg-g-ink transition-colors min-h-[44px]">Keyman Reference</a>
+                </nav>
+            </div>
+<!-- Pricing / Tiers -->
+        <section id="academy-pricing" class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16 space-y-10">
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <h2 class="text-3xl font-bold text-g-white">Choose your access level</h2>
+                <p class="text-g-slate-300">Start with Preview at no cost. Upgrade when you need deeper modules, tools, and live-practice assets.</p>
+            </div>
+            <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+                <!-- Preview -->
+                <article class="rounded-2xl border-2 border-g-gold bg-white p-6 shadow-soft flex flex-col relative">
+                    <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-g-gold text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">Free</span>
+                    <h3 class="text-xl font-bold text-g-black mt-2">Preview</h3>
+                    <p class="text-3xl font-extrabold text-g-black mt-2">₱0</p>
+                    <p class="text-xs text-g-slate-500 mb-4">Forever free sampler</p>
+                    <ul class="text-sm space-y-2 text-g-slate-700 flex-grow mb-6">
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> Module 1 overview (partial)</li>
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> 1 keyman calculator run</li>
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> 1 startup pitch script</li>
+                        <li class="flex gap-2 text-g-slate-400"><i class="fa-solid fa-xmark mt-0.5"></i> Days 2–4 full content</li>
+                        <li class="flex gap-2 text-g-slate-400"><i class="fa-solid fa-xmark mt-0.5"></i> Case labs & worksheets</li>
+                    </ul>
+                    <button onclick="activateTier('preview')" class="w-full py-3 rounded-xl border-2 border-g-gold text-g-gold font-bold text-sm hover:bg-g-pearl transition-all">Start preview</button>
+                </article>
+                <!-- Basic -->
+                <article class="rounded-2xl border border-g-slate-200 bg-white p-6 shadow-soft flex flex-col">
+                    <h3 class="text-xl font-bold text-g-black">Basic</h3>
+                    <p class="text-3xl font-extrabold text-g-black mt-2">Tier 1</p>
+                    <p class="text-xs text-g-slate-500 mb-4">New corporate advisors</p>
+                    <ul class="text-sm space-y-2 text-g-slate-700 flex-grow mb-6">
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> Full Modules 1–2</li>
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> Both calculators (unlimited)</li>
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> All 3 pitch scripts</li>
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> Entity comparison worksheets</li>
+                        <li class="flex gap-2 text-g-slate-400"><i class="fa-solid fa-xmark mt-0.5"></i> BIR Section 36 masterclass</li>
+                    </ul>
+                    <button onclick="activateTier('basic')" class="w-full py-3 rounded-xl bg-g-black text-white font-bold text-sm hover:bg-g-black/90 transition-all">Enter Basic (demo)</button>
+                </article>
+                <!-- Advanced -->
+                <article class="rounded-2xl border border-g-slate-200 bg-white p-6 shadow-soft flex flex-col ring-2 ring-g-gold/30">
+                    <span class="text-[10px] font-bold text-g-gold uppercase">Popular</span>
+                    <h3 class="text-xl font-bold text-g-black">Advanced</h3>
+                    <p class="text-3xl font-extrabold text-g-black mt-2">Tier 2</p>
+                    <p class="text-xs text-g-slate-500 mb-4">Active producers</p>
+                    <ul class="text-sm space-y-2 text-g-slate-700 flex-grow mb-6">
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> Everything in Basic</li>
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> Full Modules 1–3 + prospecting</li>
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> BIR beneficiary decision tree</li>
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> CPA/lawyer outreach templates</li>
+                        <li class="flex gap-2 text-g-slate-400"><i class="fa-solid fa-xmark mt-0.5"></i> Live case lab recordings</li>
+                    </ul>
+                    <button onclick="activateTier('advanced')" class="w-full py-3 rounded-xl bg-g-gold text-g-black font-bold text-sm shadow-gold hover:bg-g-gold/90 transition-all">Enter Advanced (demo)</button>
+                </article>
+                <!-- Master -->
+                <article class="rounded-2xl border border-g-gold/40 bg-gradient-to-b from-g-pearl to-white p-6 shadow-soft flex flex-col">
+                    <h3 class="text-xl font-bold text-g-black"><i class="fa-solid fa-crown text-g-gold mr-1"></i> Master Class</h3>
+                    <p class="text-3xl font-extrabold text-g-black mt-2">Tier 3</p>
+                    <p class="text-xs text-g-slate-500 mb-4">Boardroom-ready specialists</p>
+                    <ul class="text-sm space-y-2 text-g-slate-700 flex-grow mb-6">
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> Full academy + case labs</li>
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> Board deck templates</li>
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> Objection handling scripts</li>
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> Certification checklist</li>
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-g-gold mt-0.5"></i> Quarterly content updates</li>
+                    </ul>
+                    <button onclick="activateTier('master')" class="w-full py-3 rounded-xl bg-g-black text-white font-bold text-sm hover:bg-g-black/90 transition-all">Enter Master Class (demo)</button>
+                </article>
+            </div>
+            <p class="text-center text-xs text-g-slate-400 max-w-xl mx-auto">Demo mode stores your selected tier in this browser only. Connect Stripe or your LMS later for real subscriptions.</p>
+        </section>
+
+        <!-- Curriculum -->
+        <section id="academy-curriculum" class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-12 space-y-10">
+            <div class="text-center max-w-3xl mx-auto space-y-2">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-g-gold/20 text-g-gold border border-g-gold/30">
+                    4-Module Core Curriculum
+                </span>
+                <h2 class="text-3xl md:text-4xl font-bold text-g-white">Business Insurance Mastery Series</h2>
+                <p class="text-g-slate-300">Content depth expands with your tier. Locked sections show what you unlock when you upgrade.</p>
+            </div>
+
+            <div class="academy-panel p-1.5 bg-white border border-g-slate-200 rounded-2xl shadow-soft max-w-5xl mx-auto flex flex-wrap gap-2 text-g-slate-700">
+                <button onclick="switchTab(1)" id="tab-btn-1" class="tab-btn flex-1 min-w-[140px] py-3 px-4 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 bg-g-black text-white shadow-lg">
+                    <span class="w-6 h-6 rounded-full bg-white/10 text-xs flex items-center justify-center border border-white/20">01</span>
+                    <span class="hidden sm:inline">Entity Structures</span><span class="sm:hidden">Day 1</span>
+                </button>
+                <button onclick="switchTab(2)" id="tab-btn-2" class="tab-btn flex-1 min-w-[140px] py-3 px-4 rounded-xl font-bold text-sm transition-all text-g-slate-500 hover:text-g-black flex items-center justify-center gap-2">
+                    <span class="w-6 h-6 rounded-full bg-g-slate-100 text-xs flex items-center justify-center border border-g-slate-200">02</span>
+                    <span class="hidden sm:inline">Buy-Sell</span><span class="sm:hidden">Day 2</span>
+                </button>
+                <button onclick="switchTab(3)" id="tab-btn-3" class="tab-btn flex-1 min-w-[140px] py-3 px-4 rounded-xl font-bold text-sm transition-all text-g-slate-500 hover:text-g-black flex items-center justify-center gap-2">
+                    <span class="w-6 h-6 rounded-full bg-g-slate-100 text-xs flex items-center justify-center border border-g-slate-200">03</span>
+                    <span class="hidden sm:inline">Key Person</span><span class="sm:hidden">Day 3</span>
+                </button>
+                <button onclick="switchTab(4)" id="tab-btn-4" class="tab-btn flex-1 min-w-[140px] py-3 px-4 rounded-xl font-bold text-sm transition-all text-g-slate-500 hover:text-g-black flex items-center justify-center gap-2">
+                    <span class="w-6 h-6 rounded-full bg-g-slate-100 text-xs flex items-center justify-center border border-g-slate-200">04</span>
+                    <span class="hidden sm:inline">Prospecting</span><span class="sm:hidden">Day 4</span>
+                </button>
+            </div>
+
+            <div class="relative min-h-[400px]">
+                <!-- DAY 1 -->
+                <div id="tab-content-1" class="tab-panel grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+                    <div class="academy-panel xl:col-span-8 bg-white p-8 md:p-10 rounded-3xl shadow-soft border border-g-slate-200 space-y-8 text-g-slate-700">
+                        <header class="space-y-3">
+                            <div class="flex flex-wrap items-center gap-3">
+                                <span class="tier-pill text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-g-pearl text-g-gold">Preview+</span>
+                            </div>
+                            <h3 class="text-2xl md:text-3xl font-bold text-g-black">Module 1: Corporate Anatomy & Legal Structures</h3>
+                            <p class="text-g-slate-600 leading-relaxed">Philippine entity types create different continuity, liability, and estate-tax exposures. Advisors must map each structure before recommending funded solutions.</p>
+                        </header>
+
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="bg-g-slate-50 p-5 rounded-2xl border border-g-slate-200">
+                                <h4 class="font-bold text-g-black">Sole Proprietorship</h4>
+                                <p class="text-sm text-g-slate-600 mt-2">DTI-registered. No separate juridical personality — business debts reach personal assets. Death ends the enterprise unless heirs continue informally.</p>
+                                <p class="text-xs text-g-gold font-semibold mt-2">Risk: unlimited liability</p>
+                            </div>
+                            <div class="bg-g-slate-50 p-5 rounded-2xl border border-g-slate-200">
+                                <h4 class="font-bold text-g-black">Partnership</h4>
+                                <p class="text-sm text-g-slate-600 mt-2">SEC or general partnership. Civil Code default: death of a partner dissolves the firm unless agreement says otherwise — triggers valuation and buyout pressure.</p>
+                                <p class="text-xs text-g-gold font-semibold mt-2">Risk: automatic dissolution</p>
+                            </div>
+                            <div class="bg-g-slate-50 p-5 rounded-2xl border border-g-slate-200">
+                                <h4 class="font-bold text-g-black">Corporation</h4>
+                                <p class="text-sm text-g-slate-600 mt-2">Separate entity; shares are estate assets. Probate can freeze transfer of shares, blocking cap tables and lender covenants until estate tax is settled.</p>
+                                <p class="text-xs text-g-gold font-semibold mt-2">Risk: shareholder gridlock</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-g-slate-50 p-6 rounded-2xl border border-g-slate-200">
+                            <h4 class="font-bold text-g-black mb-4"><i class="fa-solid fa-user-gear text-g-gold mr-2"></i>The Three Hats Framework</h4>
+                            <div class="space-y-3">
+                                <div class="bg-white p-4 rounded-xl border border-g-slate-200 flex gap-4 text-g-slate-700">
+                                    <i class="fa-solid fa-briefcase text-2xl text-g-black shrink-0 mt-0.5"></i>
+                                    <div class="space-y-2">
+                                        <p class="text-g-black"><strong class="text-g-black">Business Owner</strong> — continuity, lender confidence, funded buy-sell.</p>
+                                        <p class="text-sm text-g-slate-700"><span class="font-semibold text-g-black">Discovery question:</span> "If your partner died next quarter, who votes their shares?"</p>
+                                    </div>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-g-slate-200 flex gap-4 text-g-slate-700">
+                                    <i class="fa-solid fa-users-gear text-2xl text-g-gold shrink-0 mt-0.5"></i>
+                                    <div class="space-y-2">
+                                        <p class="text-g-black"><strong class="text-g-black">Employer</strong> — retention, deferred comp, key person.</p>
+                                        <p class="text-sm text-g-slate-700"><span class="font-semibold text-g-black">Discovery question:</span> "What revenue walks out the door if your top producer left?"</p>
+                                    </div>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-g-slate-200 flex gap-4 text-g-slate-700">
+                                    <i class="fa-solid fa-hand-holding-dollar text-2xl text-g-gold shrink-0 mt-0.5"></i>
+                                    <div class="space-y-2">
+                                        <p class="text-g-black"><strong class="text-g-black">Family Head</strong> — TRAIN 6% estate tax, non-probate transfers.</p>
+                                        <p class="text-sm text-g-slate-700"><span class="font-semibold text-g-black">Discovery question:</span> "Where will heirs get cash to pay BIR without selling the company?"</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Basic+ content -->
+                        <div data-min-tier="basic" class="tier-gated hidden space-y-4">
+                            <h4 class="font-bold text-g-black">Basic tier: Entity decision matrix</h4>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-sm border border-g-slate-200 rounded-xl overflow-hidden">
+                                    <thead class="bg-g-black text-white"><tr><th class="p-3 text-left">Structure</th><th class="p-3 text-left">Best insurance door</th><th class="p-3 text-left">First meeting ask</th></tr></thead>
+                                    <tbody class="divide-y divide-g-slate-200">
+                                        <tr class="bg-white"><td class="p-3">Sole prop</td><td class="p-3">Personal life + disability</td><td class="p-3">Personal financials + DTI registration</td></tr>
+                                        <tr class="bg-g-slate-50"><td class="p-3">Partnership</td><td class="p-3">Cross-purchase buy-sell</td><td class="p-3">Partnership agreement + latest financials</td></tr>
+                                        <tr class="bg-white"><td class="p-3">Corporation</td><td class="p-3">Stock redemption or cross-purchase</td><td class="p-3">GIS, articles, shareholder list</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Advanced+ -->
+                        <div data-min-tier="advanced" class="tier-gated hidden bg-g-black text-white p-6 rounded-2xl space-y-3">
+                            <h4 class="font-bold text-g-gold">Advanced: TRAIN Law estate freeze playbook</h4>
+                            <p class="text-sm text-g-slate-200">When a controlling shareholder dies, voting shares often cannot transfer until estate tax (6% over threshold) is paid in cash. Insurance owned by the estate or funded buy-sell proceeds can be structured to provide liquidity without fire-selling operating assets.</p>
+                            <ul class="text-sm space-y-2">
+                                <li><i class="fa-solid fa-angle-right text-g-gold mr-2"></i>Map illiquid blocks on the personal balance sheet (land, unlisted shares).</li>
+                                <li><i class="fa-solid fa-angle-right text-g-gold mr-2"></i>Separate corporate continuity (buy-sell) from personal estate (irrevocable trust / personal policy).</li>
+                            </ul>
+                        </div>
+
+                        <!-- Master+ -->
+                        <div data-min-tier="master" class="tier-gated hidden border-2 border-g-gold/40 bg-g-pearl p-6 rounded-2xl">
+                            <h4 class="font-bold text-g-black"><i class="fa-solid fa-crown text-g-gold"></i> Master Class case lab</h4>
+                            <p class="text-sm text-g-slate-700 mt-2"><strong>Scenario:</strong> Family-held corporation, 3 siblings equal shares, ₱80M revenue, ₱12M net income. Father-founder still chairs board. Task: draft a 15-minute discovery agenda using Three Hats and identify which hat gets the first funded solution.</p>
+                            <button class="mt-3 text-sm font-semibold text-g-black underline" onclick="alert('Master Class: Download case lab worksheet (connect your LMS or PDF host).')">Download worksheet (placeholder)</button>
+                        </div>
+                    </div>
+                    <aside class="xl:col-span-4 space-y-6 sticky top-28">
+                        <div class="bg-white p-6 rounded-2xl shadow-soft border border-g-slate-200">
+                            <h4 class="font-bold text-g-black mb-3">Module 1 objectives</h4>
+                            <ul class="text-sm space-y-2 text-g-slate-700">
+                                <li class="flex gap-2"><i class="fa-solid fa-circle-check text-g-gold"></i> Classify liability & continuity risk by entity</li>
+                                <li class="flex gap-2"><i class="fa-solid fa-circle-check text-g-gold"></i> Run Three Hats discovery on live prospects</li>
+                                <li class="flex gap-2 tier-gated hidden" data-min-tier="basic"><i class="fa-solid fa-circle-check text-g-gold"></i> Complete entity decision matrix</li>
+                                <li class="flex gap-2 tier-gated hidden" data-min-tier="master"><i class="fa-solid fa-circle-check text-g-gold"></i> Present case lab to peer group</li>
+                            </ul>
+                        </div>
+                        <div id="lock-card-1" class="hidden bg-g-slate-100 border border-g-slate-200 p-5 rounded-2xl text-center text-sm">
+                            <i class="fa-solid fa-lock text-g-slate-400 text-2xl mb-2"></i>
+                            <p class="font-semibold text-g-black">More Module 1 content</p>
+                            <p class="text-g-slate-500 text-xs mt-1">Upgrade to Basic for worksheets and Advanced for estate freeze playbooks.</p>
+                            <button onclick="scrollToSection('academy-pricing')" class="mt-3 text-g-gold font-bold text-xs">View plans</button>
+                        </div>
+                    </aside>
+                </div>
+
+                <!-- DAY 2 -->
+                <div id="tab-content-2" class="tab-panel hidden grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+                    <div class="academy-panel xl:col-span-8 bg-white p-8 md:p-10 rounded-3xl shadow-soft border border-g-slate-200 space-y-8 text-g-slate-700">
+                        <div id="day2-teaser" class="tier-gated-preview">
+                            <h3 class="text-2xl font-bold text-g-black">Module 2: Funding Buy-Sell Accords</h3>
+                            <p class="text-g-slate-600 mt-2">Corporate-owned or cross-owned life insurance funds share purchase agreements without draining operating cash or triggering probate delays.</p>
+                        </div>
+                        <div data-min-tier="basic" class="tier-gated hidden space-y-6">
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-g-slate-50 p-5 rounded-2xl border border-g-slate-200">
+                                    <h4 class="font-bold text-g-black">Cross-purchase</h4>
+                                    <p class="text-sm text-g-slate-600 mt-2">Each owner buys policy on others. Proceeds fund personal purchase of deceased's shares. Policy count: n×(n−1).</p>
+                                    <span class="text-xs font-semibold text-g-gold mt-2 inline-block">Best for 2–3 owners</span>
+                                </div>
+                                <div class="bg-g-slate-50 p-5 rounded-2xl border border-g-slate-200">
+                                    <h4 class="font-bold text-g-black">Stock redemption</h4>
+                                    <p class="text-sm text-g-slate-600 mt-2">Corporation owns policies; proceeds redeem shares into treasury stock. Fewer policies to administer.</p>
+                                    <span class="text-xs font-semibold text-g-gold mt-2 inline-block">Best for 4+ shareholders</span>
+                                </div>
+                            </div>
+                            <div class="bg-g-slate-50 p-6 rounded-2xl">
+                                <h4 class="font-bold text-g-black mb-3">7-step buy-sell implementation</h4>
+                                <ol class="text-sm space-y-2 list-decimal list-inside text-g-slate-700">
+                                    <li>Obtain latest financials and cap table</li>
+                                    <li>Agree valuation method (formula, appraisal, fixed)</li>
+                                    <li>Draft buy-sell agreement (lawyer)</li>
+                                    <li>Select funding mechanism (cross vs redemption)</li>
+                                    <li>Corporate resolution authorizing premiums</li>
+                                    <li>Issue policies; assign to agreement</li>
+                                    <li>Annual review with CPA on tax treatment</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <div data-min-tier="advanced" class="tier-gated hidden bg-g-black text-white p-6 rounded-2xl">
+                            <h4 class="font-bold text-g-gold">Advanced: Trigger events checklist</h4>
+                            <p class="text-sm text-g-slate-200 mt-2">Standard agreements should define: death, disability (define % loss), retirement (optional), voluntary exit, bankruptcy, divorce (if shares marital). Each trigger needs a price formula and funding source.</p>
+                        </div>
+                        <div data-min-tier="master" class="tier-gated hidden border border-g-gold/40 p-6 rounded-2xl bg-g-pearl">
+                            <h4 class="font-bold text-g-black">Master: Board resolution language (sample)</h4>
+                            <p class="text-sm italic text-g-slate-700 mt-2">"RESOLVED, that the Corporation is authorized to enter into a Stock Redemption Agreement and to purchase life insurance on shareholders [names] in amounts consistent with the attached valuation schedule, with the Corporation as owner and beneficiary of such policies."</p>
+                        </div>
+                    </div>
+                    <aside class="xl:col-span-4">
+                        <div id="lock-card-2" class="bg-white border-2 border-dashed border-g-slate-300 p-8 rounded-2xl text-center">
+                            <i class="fa-solid fa-lock text-3xl text-g-slate-400 mb-3"></i>
+                            <p class="font-bold text-g-black">Module 2 locked in Preview</p>
+                            <p class="text-sm text-g-slate-500 mt-2">Unlock full buy-sell content, implementation steps, and calculators with <strong>Basic</strong> or higher.</p>
+                            <button onclick="activateTier('basic')" class="mt-4 bg-g-black text-white px-4 py-2 rounded-lg text-sm font-semibold">Try Basic (demo)</button>
+                        </div>
+                    </aside>
+                </div>
+
+                <!-- DAY 3 -->
+                <div id="tab-content-3" class="tab-panel hidden grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+                    <div class="academy-panel xl:col-span-8 bg-white p-8 md:p-10 rounded-3xl shadow-soft border border-g-slate-200 space-y-8 text-g-slate-700">
+                        <h3 class="text-2xl font-bold text-g-black">Module 3: Key Person & Executive Retention</h3>
+                        <p class="text-g-slate-600">Quantify economic loss, align beneficiary design with BIR deductibility goals, and position corporate-owned cash value where appropriate.</p>
+                        <a href="keyman.html" class="inline-flex items-center gap-2 mt-4 text-sm font-bold text-g-gold hover:underline touch-target">
+                            <i class="fa-solid fa-book-open"></i> Open the full Keyman Planning Reference (calculator, tests, discovery agenda)
+                        </a>
+                        <div data-min-tier="advanced" class="tier-gated hidden space-y-6">
+                            <div class="bg-g-black text-white p-6 rounded-2xl">
+                                <h4 class="font-bold text-g-gold">BIR Section 36 — beneficiary drives everything</h4>
+                                <ul class="text-sm mt-4 space-y-3">
+                                    <li><strong>Corp is beneficiary:</strong> Death benefit generally exempt (Sec. 32); premiums NOT deductible (Sec. 36). Use for key person indemnification.</li>
+                                    <li><strong>Employee/estate is beneficiary:</strong> Premiums may be deductible (Sec. 34); death benefit can flow to taxable estate. Use for golden handcuffs / DBO-style benefits.</li>
+                                </ul>
+                            </div>
+                            <div class="bg-g-slate-50 p-6 rounded-2xl">
+                                <h4 class="font-bold text-g-black">Valuation methods (choose defensibly)</h4>
+                                <ul class="text-sm text-g-slate-700 space-y-2 mt-2">
+                                    <li><strong>Salary multiple:</strong> 5–10× annual compensation (common for sales leaders)</li>
+                                    <li><strong>Profit contribution:</strong> % of EBIT attributable × years to replace</li>
+                                    <li><strong>Replacement cost:</strong> Recruiting + training + lost revenue window</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div data-min-tier="master" class="tier-gated hidden p-6 rounded-2xl border border-g-gold/40 bg-g-pearl">
+                            <h4 class="font-bold text-g-black">Master: Objection — "Insurance is expense, not investment"</h4>
+                            <p class="text-sm text-g-slate-700 mt-2">Reframe: "We're not buying an investment — we're buying a balance-sheet hedge against a named risk the auditors already worry about: sudden loss of [name]'s relationships and decisions. The question is whether you self-insure from retained earnings or transfer it for a known premium."</p>
+                        </div>
+                    </div>
+                    <aside class="xl:col-span-4">
+                        <div id="lock-card-3" class="bg-white border-2 border-dashed border-g-slate-300 p-8 rounded-2xl text-center">
+                            <i class="fa-solid fa-lock text-3xl text-g-slate-400 mb-3"></i>
+                            <p class="font-bold text-g-black">Module 3 requires Advanced</p>
+                            <p class="text-sm text-g-slate-500 mt-2">BIR deep dive and valuation frameworks unlock at Advanced tier.</p>
+                            <button onclick="activateTier('advanced')" class="mt-4 bg-g-gold text-g-black px-4 py-2 rounded-lg text-sm font-semibold min-h-[44px]">Try Advanced (demo)</button>
+                        </div>
+                    </aside>
+                </div>
+
+                <!-- DAY 4 -->
+                <div id="tab-content-4" class="tab-panel hidden grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+                    <div class="academy-panel xl:col-span-8 bg-white p-8 md:p-10 rounded-3xl shadow-soft border border-g-slate-200 space-y-8 text-g-slate-700">
+                        <h3 class="text-2xl font-bold text-g-black">Module 4: Corporate Prospecting & Joint Ventures</h3>
+                        <p class="text-g-slate-600">Access HNW boardrooms through CPAs, corporate lawyers, and the Corporate Cash Risk Review.</p>
+                        <div class="bg-g-slate-50 p-6 rounded-2xl italic text-sm text-g-slate-700 border border-g-slate-200">
+                            "Mr. President, if your co-founder passed away tomorrow, their family may inherit voting shares under Civil Code rules. That forces you to drain cash, borrow, or accept inexperienced partners. I help boards install non-probate funding so you keep control and families get immediate liquidity."
+                        </div>
+                        <div data-min-tier="basic" class="tier-gated hidden">
+                            <h4 class="font-bold text-g-black mb-3">Gatekeeper bypass channels</h4>
+                            <ul class="text-sm space-y-2 text-g-slate-700">
+                                <li><i class="fa-solid fa-check text-g-gold mr-2"></i>CPA: offer continuity checklist for audit season</li>
+                                <li><i class="fa-solid fa-check text-g-gold mr-2"></i>Corporate counsel: co-branded shareholder risk memo</li>
+                                <li><i class="fa-solid fa-check text-g-gold mr-2"></i>Bank RM: covenant review when key person uninsured</li>
+                            </ul>
+                        </div>
+                        <div data-min-tier="master" class="tier-gated hidden bg-g-black text-white p-6 rounded-2xl">
+                            <h4 class="font-bold text-g-gold">Master: 90-day JV pipeline</h4>
+                            <p class="text-sm text-g-slate-200 mt-2">Week 1–2: 10 CPA intros. Week 3–4: 5 lunch-and-learns. Week 5–8: 3 joint client reviews. Week 9–12: 1 board presentation. Track referrals in CRM with source = "JV-CPA".</p>
+                        </div>
+                    </div>
+                    <aside class="xl:col-span-4">
+                        <div id="lock-card-4" class="bg-white border-2 border-dashed border-g-slate-300 p-8 rounded-2xl text-center">
+                            <p class="text-sm text-g-slate-500">Prospecting tools expand at Basic; pipeline system at Master.</p>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculators -->
+        <section id="academy-tools" class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-12 space-y-8">
+            <a href="keyman.html" class="block max-w-4xl mx-auto group rounded-2xl border-2 border-g-gold/40 bg-gradient-to-r from-g-ink to-g-black p-6 md:p-8 shadow-soft hover:border-g-gold transition-all">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div>
+                        <p class="text-xs font-bold uppercase tracking-widest text-g-gold mb-2">Flagship reference · Boardroom ready</p>
+                        <h3 class="text-xl md:text-2xl font-display font-semibold text-g-white">Keyman Planning &amp; Continuity Reference</h3>
+                        <p class="text-sm text-g-slate-300 mt-2 max-w-xl">Full calculator (lost profit, replacement cost, salary multiple), five dependency tests, discovery agenda, tax realities, and PDF export — by Nilo B. Matunog, PFA, RFP.</p>
+                    </div>
+                    <span class="inline-flex items-center justify-center gap-2 bg-g-gold text-g-black font-bold text-sm px-6 py-3 rounded-full shrink-0 group-hover:shadow-gold min-h-[44px]">
+                        Open reference <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </div>
+            </a>
+            <div class="academy-panel bg-white p-8 md:p-10 rounded-3xl shadow-soft border border-g-slate-200 space-y-10 text-g-slate-700">
+                <div class="text-center max-w-2xl mx-auto">
+                    <h3 class="text-2xl font-bold text-g-black">Quick advisory calculators</h3>
+                    <p class="text-sm text-g-slate-500 mt-1">Fast estimates on this page. Use the <a href="keyman.html" class="text-g-gold font-semibold hover:underline">full Keyman Reference</a> for boardroom presentations.</p>
+                </div>
+                <div id="preview-calc-notice" class="hidden bg-amber-50 border border-amber-200 text-amber-900 text-sm p-4 rounded-xl text-center">
+                    <i class="fa-solid fa-hourglass-half mr-2"></i>
+                    Preview mode: <span id="calc-runs-left">1</span> keyman calculation remaining. <button onclick="scrollToSection('academy-pricing')" class="underline font-semibold">Upgrade for unlimited use</button>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-g-slate-50 p-6 rounded-2xl border border-g-slate-200 space-y-5">
+                        <h4 class="font-bold text-g-black"><i class="fa-solid fa-calculator text-g-gold mr-2"></i>Keyman liability station</h4>
+                        <label class="block text-sm font-medium">Annual salary (₱)</label>
+                        <input type="number" id="sc-keyman-salary" value="1200000" class="w-full bg-white border border-g-slate-200 rounded-lg p-3 font-bold focus:ring-2 focus:ring-g-gold focus:outline-none">
+                        <label class="block text-sm font-medium">Recruit & train cost (₱)</label>
+                        <input type="number" id="sc-keyman-recruit" value="500000" class="w-full bg-white border border-g-slate-200 rounded-lg p-3 font-bold focus:ring-2 focus:ring-g-gold focus:outline-none">
+                        <label class="block text-sm font-medium">Salary multiple</label>
+                        <select id="sc-keyman-multiple" class="w-full bg-white border border-g-slate-200 rounded-lg p-3 font-bold focus:ring-2 focus:ring-g-gold focus:outline-none">
+                            <option value="5">5× (conservative)</option>
+                            <option value="7" selected>7× (standard)</option>
+                            <option value="10">10× (aggressive / rainmaker)</option>
+                        </select>
+                        <button onclick="calculateKeyman()" class="w-full bg-g-gold text-g-black font-bold py-3 rounded-xl shadow-gold min-h-[44px]">Calculate</button>
+                        <p id="keyman-total-output" class="text-center text-3xl font-extrabold text-g-black">—</p>
+                    </div>
+                    <div id="buyout-calc-wrap" class="bg-g-slate-50 p-6 rounded-2xl border border-g-slate-200 space-y-5 relative">
+                        <div id="buyout-lock" class="hidden absolute inset-0 bg-white/90 backdrop-blur-[2px] z-10 rounded-2xl flex flex-col items-center justify-center p-6 text-center">
+                            <i class="fa-solid fa-lock text-2xl text-g-slate-400 mb-2"></i>
+                            <p class="font-bold text-g-black text-sm">Buyout structurer</p>
+                            <p class="text-xs text-g-slate-500 mt-1">Available from Basic tier upward</p>
+                            <button onclick="activateTier('basic')" class="mt-3 text-g-gold font-bold text-xs">Unlock (demo)</button>
+                        </div>
+                        <h4 class="font-bold text-g-black"><i class="fa-solid fa-arrows-down-to-people text-g-gold mr-2"></i>Partnership buyout structurer</h4>
+                        <label class="block text-sm font-medium">Enterprise valuation (₱)</label>
+                        <input type="number" id="sc-buyout-val" value="10000000" class="w-full bg-white border rounded-lg p-3 font-bold focus:ring-2 focus:ring-g-gold focus:outline-none">
+                        <label class="block text-sm font-medium">Number of owners</label>
+                        <select id="sc-buyout-partners" class="w-full bg-white border rounded-lg p-3 font-bold">
+                            <option value="2">2 (50/50)</option>
+                            <option value="3">3 (equal)</option>
+                            <option value="4">4 (equal)</option>
+                        </select>
+                        <button onclick="calculateBuyout()" class="w-full bg-g-gold text-g-black font-bold py-3 rounded-xl min-h-[44px]">Model buyout</button>
+                        <p id="buyout-policy-output" class="text-center text-3xl font-extrabold text-g-black">—</p>
+                        <p id="buyout-policies-needed" class="text-center text-xs text-g-slate-500">—</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pitch scripts -->
+        <section id="academy-scripts" class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-12">
+            <div class="academy-panel bg-white p-8 md:p-12 rounded-3xl shadow-soft border border-g-slate-200 text-center space-y-6 text-g-slate-700">
+                <h3 class="text-2xl font-bold text-g-black">Segment pitch generator</h3>
+                <div id="script-buttons" class="p-1.5 bg-g-slate-50 border rounded-2xl max-w-lg mx-auto flex flex-wrap gap-2">
+                    <button data-script="startup" onclick="generateScript('startup', this)" class="script-btn flex-1 py-3 px-4 rounded-xl font-bold text-sm text-g-slate-500 hover:text-g-black min-w-[100px]">Startup</button>
+                    <button data-script="family" onclick="generateScript('family', this)" class="script-btn flex-1 py-3 px-4 rounded-xl font-bold text-sm text-g-slate-500 hover:text-g-black min-w-[100px] opacity-50" data-min-tier="basic" disabled title="Basic tier required">Family</button>
+                    <button data-script="agency" onclick="generateScript('agency', this)" class="script-btn flex-1 py-3 px-4 rounded-xl font-bold text-sm text-g-slate-500 hover:text-g-black min-w-[100px] opacity-50" data-min-tier="basic" disabled title="Basic tier required">Agency</button>
+                </div>
+                <p id="script-output" class="font-serif italic text-sm text-g-slate-700 max-w-3xl mx-auto leading-relaxed bg-g-slate-50 p-6 rounded-2xl border"></p>
+            </div>
+        </section>
+
+        <!-- Certification (Master) -->
+        <section data-min-tier="master" class="tier-gated hidden max-w-7xl mx-auto px-5 sm:px-8 pb-16">
+            <div class="bg-gradient-to-br from-g-black to-g-black/90 text-white p-10 rounded-3xl">
+                <h3 class="text-2xl font-bold"><i class="fa-solid fa-certificate text-g-gold mr-2"></i>Master Class certification track</h3>
+                <ul class="mt-6 grid sm:grid-cols-2 gap-3 text-sm">
+                    <li class="flex gap-2"><i class="fa-solid fa-square-check text-g-gold"></i>Complete all 4 module assessments</li>
+                    <li class="flex gap-2"><i class="fa-solid fa-square-check text-g-gold"></i>Submit 2 annotated case studies</li>
+                    <li class="flex gap-2"><i class="fa-solid fa-square-check text-g-gold"></i>Record 10-min mock board presentation</li>
+                    <li class="flex gap-2"><i class="fa-solid fa-square-check text-g-gold"></i>Peer review & advisor sign-off</li>
+                </ul>
+            </div>
+        </section>
+            </section>
+
+        <section id="classes" class="bg-g-ink text-g-pearl py-16 md:py-24">
+            <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+                    <div>
+                        <h2 class="type-h2 font-display font-semibold text-g-white">Featured Master Classes</h2>
+                        <p class="mt-2 text-g-slate-200 max-w-lg type-body">Deep-dive programs aligned to the GIYA pillars. Enroll as they launch.</p>
+                    </div>
+                    <a href="#join" class="inline-flex items-center gap-2 text-g-gold font-semibold type-small hover:underline shrink-0 touch-target min-h-[44px]">Join the waitlist <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <a href="#business-academy" class="group block bg-g-black/50 hover:bg-g-black border border-g-slate-800 rounded-2xl p-6 transition-all">
+                        <i class="fa-solid fa-building-shield text-g-gold text-2xl mb-4"></i>
+                        <h3 class="font-bold type-h4 group-hover:text-g-gold transition-colors text-g-white">Business Insurance Master Class</h3>
+                        <p class="type-small text-g-slate-400 mt-2">Academy curriculum + <a href="keyman.html" class="text-g-gold hover:underline" onclick="event.stopPropagation()">Keyman Reference</a> live</p>
+                        <span class="inline-block mt-4 type-small font-semibold text-g-gold">Explore academy →</span>
+                    </a>
+                    <div class="bg-g-black/40 border border-g-slate-800 rounded-2xl p-6"><i class="fa-solid fa-landmark text-g-gold text-2xl mb-4"></i><h3 class="font-bold type-h4 text-g-white">Estate Conservation Master Class</h3><p class="type-small text-g-slate-400 mt-2">TRAIN, trusts, non-probate transfers</p><span class="inline-block mt-4 type-small font-semibold text-g-slate-500 uppercase tracking-wider">Coming soon</span></div>
+                    <div class="bg-g-black/40 border border-g-slate-800 rounded-2xl p-6"><i class="fa-solid fa-heart-pulse text-g-gold text-2xl mb-4"></i><h3 class="font-bold type-h4 text-g-white">Health Planning Master Class</h3><p class="type-small text-g-slate-400 mt-2">Critical illness, HMO integration, funding</p><span class="inline-block mt-4 type-small font-semibold text-g-slate-500 uppercase tracking-wider">Coming soon</span></div>
+                    <div class="bg-g-black/40 border border-g-slate-800 rounded-2xl p-6"><i class="fa-solid fa-chart-line text-g-gold text-2xl mb-4"></i><h3 class="font-bold type-h4 text-g-white">Wealth Management Master Class</h3><p class="type-small text-g-slate-400 mt-2">Portfolio, goals-based planning, HNW service</p><span class="inline-block mt-4 type-small font-semibold text-g-slate-500 uppercase tracking-wider">Coming soon</span></div>
+                    <div class="bg-g-black/40 border border-g-slate-800 rounded-2xl p-6 sm:col-span-2 lg:col-span-2"><i class="fa-solid fa-crown text-g-gold text-2xl mb-4"></i><h3 class="font-bold type-h4 text-g-white">Advisor Leadership Master Class</h3><p class="type-small text-g-slate-400 mt-2">Practice growth, team building, ethical influence, and legacy practice design</p><span class="inline-block mt-4 type-small font-semibold text-g-slate-500 uppercase tracking-wider">Coming soon</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="assessment" class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16 md:py-20">
+            <div class="bg-g-pearl border border-g-slate-200 rounded-3xl p-8 md:p-12 shadow-card">
+                <div class="grid lg:grid-cols-2 gap-10 items-center">
+                    <div>
+                        <h2 class="type-h2 font-display font-semibold text-g-black">Advisor Readiness Assessment</h2>
+                        <p class="mt-4 text-g-slate-600 type-body leading-relaxed">A short self-assessment to identify your strengths across the GIYA pillars and recommend your ideal learning pathway — Discover, Master Class, or Elite.</p>
+                    </div>
+                    <form class="space-y-4" onsubmit="event.preventDefault(); alert('Thank you. Connect this form to your email tool (Mailchimp, ConvertKit, etc.).');">
+                        <label class="block type-small font-medium text-g-black">Full name</label>
+                        <input type="text" required placeholder="Your name" class="w-full border border-g-slate-200 rounded-xl px-4 py-3 min-h-[44px] focus:ring-2 focus:ring-g-gold focus:outline-none bg-g-white">
+                        <label class="block type-small font-medium text-g-black">Email</label>
+                        <input type="email" required placeholder="you@agency.com" class="w-full border border-g-slate-200 rounded-xl px-4 py-3 min-h-[44px] focus:ring-2 focus:ring-g-gold focus:outline-none bg-g-white">
+                        <label class="block type-small font-medium text-g-black">Years in advisory practice</label>
+                        <select class="w-full border border-g-slate-200 rounded-xl px-4 py-3 min-h-[44px] focus:ring-2 focus:ring-g-gold focus:outline-none bg-g-white">
+                            <option>Less than 2 years</option>
+                            <option>2–5 years</option>
+                            <option>6–10 years</option>
+                            <option>More than 10 years</option>
+                        </select>
+                        <button type="submit" class="w-full bg-g-black hover:bg-g-ink text-white font-semibold py-3.5 rounded-full transition-colors touch-target min-h-[44px]">Begin assessment</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="founder" class="bg-g-white border-y border-g-slate-200 py-16 md:py-24">
+            <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+                <div class="grid md:grid-cols-5 gap-10 items-center">
+                    <div class="md:col-span-2 flex justify-center">
+                        <figure class="w-full max-w-[260px] sm:max-w-[300px] md:max-w-[320px]">
+                            <img
+                                src="assets/founder-nilo-matunog.png"
+                                alt="Nilo B. Matunog, RFP and PFA — Founder of GIYA"
+                                width="320"
+                                height="400"
+                                class="w-full h-auto rounded-2xl shadow-soft ring-1 ring-g-slate-200/80 bg-g-white"
+                                loading="lazy"
+                                decoding="async"
+                            />
+                        </figure>
+                    </div>
+                    <div class="md:col-span-3 space-y-5">
+                        <p class="type-small font-bold uppercase tracking-widest text-g-gold">Founder</p>
+                        <h2 class="type-h2 font-display font-semibold text-g-black">Nilo B. Matunog</h2>
+
+                        <div class="bg-g-pearl border border-g-slate-200 rounded-2xl p-5 md:p-6 space-y-3">
+                            <p class="type-small font-bold uppercase tracking-wider text-g-gold">Professional credentials</p>
+                            <ul class="space-y-2.5 type-small text-g-slate-700">
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-certificate text-g-gold mt-0.5 shrink-0"></i>
+                                    <span><strong class="text-g-black">Registered Financial Planner (RFP)</strong></span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-award text-g-gold mt-0.5 shrink-0"></i>
+                                    <span><strong class="text-g-black">Professional Financial Advisor by LIMRA (PFA)</strong></span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-chart-pie text-g-gold mt-0.5 shrink-0"></i>
+                                    <span><strong class="text-g-black">Wealth Planner</strong></span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-landmark text-g-gold mt-0.5 shrink-0"></i>
+                                    <span><strong class="text-g-black">Estate Planner</strong></span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="flex flex-wrap gap-3 type-small text-g-slate-600">
+                            <span><i class="fa-solid fa-lightbulb text-g-gold mr-1"></i> Visionary Leader</span>
+                            <span><i class="fa-solid fa-sitemap text-g-gold mr-1"></i> Agency Director</span>
+                            <span><i class="fa-solid fa-gear text-g-gold mr-1"></i> Engineer</span>
+                            <span><i class="fa-solid fa-chalkboard-user text-g-gold mr-1"></i> Educator</span>
+                            <span><i class="fa-solid fa-handshake text-g-gold mr-1"></i> Mentor</span>
+                        </div>
+                        <p class="text-g-slate-600 type-body leading-relaxed">For more than two decades, Nilo has helped individuals, families, business owners, and advisors navigate complex financial decisions through practical strategies and client-centered planning.</p>
+                        <p class="text-g-slate-600 type-body leading-relaxed"><strong class="text-g-black">GIYA</strong> was established to share those lessons and help develop the next generation of exceptional advisors.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="join" class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16 md:py-24">
+            <div class="text-center max-w-2xl mx-auto">
+                <h2 class="type-h2 font-display font-semibold text-g-black">Start Your GIYA Journey</h2>
+                <p class="mt-4 text-g-slate-600 type-body">Join a growing community of advisors committed to excellence.</p>
+                <div class="mt-8 flex flex-wrap justify-center gap-6 type-small font-bold text-g-black">
+                    <span>Build Expertise.</span><span class="text-g-gold">·</span><span>Create Impact.</span><span class="text-g-gold">·</span><span>Leave a Legacy.</span>
+                </div>
+                <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#join-form" class="touch-target inline-flex items-center justify-center bg-g-black hover:bg-g-ink text-white px-10 py-4 rounded-full font-semibold shadow-soft transition-colors min-h-[44px]">Join GIYA</a>
+                    <a href="#waitlist" class="touch-target inline-flex items-center justify-center border-2 border-g-gold text-g-goldMuted hover:bg-g-gold hover:text-g-black px-10 py-4 rounded-full font-semibold transition-colors min-h-[44px]">Master Class Waitlist</a>
+                </div>
+            </div>
+            <div id="join-form" class="mt-14 max-w-md mx-auto">
+                <form id="waitlist" class="bg-g-white border border-g-slate-200 rounded-2xl p-6 space-y-4 shadow-card" onsubmit="event.preventDefault(); alert('Welcome to GIYA. Connect this to your CRM or email platform.');">
+                    <p class="type-small font-semibold text-g-black text-center">Community & waitlist signup</p>
+                    <input type="email" required placeholder="Email address" class="w-full border border-g-slate-200 rounded-xl px-4 py-3 min-h-[44px] focus:ring-2 focus:ring-g-gold focus:outline-none">
+                    <label class="flex items-start gap-2 type-small text-g-slate-600">
+                        <input type="checkbox" required class="mt-1 rounded border-g-slate-200 text-g-gold focus:ring-g-gold w-5 h-5">
+                        I agree to receive GIYA updates and educational content.
+                    </label>
+                    <button type="submit" class="w-full bg-g-black text-white font-semibold py-3 rounded-full hover:bg-g-ink transition-colors touch-target min-h-[44px]">Submit</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-g-black text-g-slate-200 py-10">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 flex flex-col md:flex-row justify-between items-center gap-4 type-small">
+            <div class="flex items-center gap-2 flex-wrap justify-center md:justify-start">
+                <span class="font-display text-xl text-g-gold">GIYA</span>
+                <span class="text-g-slate-600">|</span>
+                <span>Guiding Advisors. Protecting Legacies.</span>
+            </div>
+            <p class="text-g-slate-400 text-center md:text-right">© 2026 Nilo B. Matunog. Educational content — not legal or tax advice.</p>
+        </div>
+    </footer>
+
+    <div id="upgrade-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/60" onclick="if(event.target===this)closeUpgradeModal()">
+        <div class="bg-g-white rounded-2xl max-w-md w-full p-6 shadow-2xl" onclick="event.stopPropagation()">
+            <h3 class="type-h3 font-bold text-g-black">Demo: switch tier</h3>
+            <p class="type-small text-g-slate-600 mt-2">Simulates subscription access locally.</p>
+            <div class="grid grid-cols-2 gap-2 mt-4">
+                <button type="button" onclick="activateTier('preview'); closeUpgradeModal()" class="py-3 rounded-lg border font-semibold type-small touch-target min-h-[44px]">Preview</button>
+                <button type="button" onclick="activateTier('basic'); closeUpgradeModal()" class="py-3 rounded-lg border font-semibold type-small touch-target min-h-[44px]">Basic</button>
+                <button type="button" onclick="activateTier('advanced'); closeUpgradeModal()" class="py-3 rounded-lg border font-semibold type-small touch-target min-h-[44px]">Advanced</button>
+                <button type="button" onclick="activateTier('master'); closeUpgradeModal()" class="py-3 rounded-lg border font-semibold type-small bg-g-pearl touch-target min-h-[44px]">Master</button>
+            </div>
+            <button type="button" onclick="closeUpgradeModal()" class="mt-4 w-full type-small text-g-slate-500 touch-target min-h-[44px]">Close</button>
+        </div>
+    </div>
+<script>
+        const TIER_ORDER = { preview: 0, basic: 1, advanced: 2, master: 3 };
+        const STORAGE_KEY = 'giya_academy_tier';
+        const CALC_RUNS_KEY = 'giya_preview_calc_runs';
+
+        const pitchScripts = {
+            startup: `"Hi, I'm calling regarding shareholder continuity for [Company]. Most founders protect IP and cap tables in docs — but not the Civil Code risk when a co-founder dies. We install funded buy-sell and key-person structures so the board keeps voting control without draining cash. Can we run a 20-minute balance-sheet exposure review next week?"`,
+            family: `"Good morning. When a controlling shareholder passes, BIR estate tax often must be paid in cash before shares transfer — freezing the company in probate. We design non-probate liquidity so heirs pay tax without selling operating assets or bringing in outside partners. May I share a one-page estate freeze checklist?"`,
+            agency: `"Mr. Partner, if a director died tomorrow, their family could inherit voting shares under default Civil Code rules. I structure funded buyouts so remaining partners keep control and the family receives immediate, agreed liquidity. Do you have 15 minutes to review your partnership agreement triggers?"`
+        };
+
+        function getTier() {
+            return localStorage.getItem(STORAGE_KEY) || 'preview';
+        }
+
+        function tierAtLeast(required) {
+            return TIER_ORDER[getTier()] >= TIER_ORDER[required];
+        }
+
+        function activateTier(tier) {
+            localStorage.setItem(STORAGE_KEY, tier);
+            if (tier === 'preview') {
+                if (!localStorage.getItem(CALC_RUNS_KEY)) localStorage.setItem(CALC_RUNS_KEY, '1');
+            }
+            applyTierGating();
+            scrollToSection('academy-curriculum');
+        }
+
+        function applyTierGating() {
+            const tier = getTier();
+            const banner = document.getElementById('preview-banner');
+            const badge = document.getElementById('tier-badge');
+            const previewNotice = document.getElementById('preview-calc-notice');
+            const buyoutLock = document.getElementById('buyout-lock');
+
+            if (banner) banner.classList.toggle('hidden', tier !== 'preview');
+            if (previewNotice) previewNotice.classList.toggle('hidden', tier !== 'preview');
+            if (buyoutLock) buyoutLock.classList.toggle('hidden', tierAtLeast('basic'));
+
+            const labels = { preview: 'Preview', basic: 'Basic', advanced: 'Advanced', master: 'Master Class' };
+            const colors = { preview: 'bg-g-pearl text-g-gold border-g-gold/30', basic: 'bg-g-slate-50 text-g-black border-g-slate-200', advanced: 'bg-g-pearl text-g-gold border-g-gold/30', master: 'bg-g-pearl text-g-gold border-g-gold/40' };
+            if (badge) {
+                badge.className = `sm:flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold border ${colors[tier]}`;
+                badge.innerHTML = `<i class="fa-solid fa-layer-group"></i> ${labels[tier]}`;
+            }
+
+            document.querySelectorAll('[data-min-tier]').forEach(el => {
+                const required = el.getAttribute('data-min-tier');
+                const show = tierAtLeast(required);
+                el.classList.toggle('hidden', !show);
+            });
+
+            ['lock-card-1','lock-card-2','lock-card-3','lock-card-4'].forEach((id, i) => {
+                const card = document.getElementById(id);
+                if (!card) return;
+                const minTiers = ['basic', 'basic', 'advanced', 'basic'];
+                const needsLock = !tierAtLeast(minTiers[i]);
+                if (i === 0) card.classList.toggle('hidden', tierAtLeast('basic'));
+                else card.classList.toggle('hidden', !needsLock || tierAtLeast(minTiers[i]));
+            });
+            if (document.getElementById('lock-card-2')) {
+                document.getElementById('lock-card-2').classList.toggle('hidden', tierAtLeast('basic'));
+            }
+            if (document.getElementById('lock-card-3')) {
+                document.getElementById('lock-card-3').classList.toggle('hidden', tierAtLeast('advanced'));
+            }
+
+            document.querySelectorAll('.script-btn[data-min-tier]').forEach(btn => {
+                const req = btn.getAttribute('data-min-tier');
+                const ok = tierAtLeast(req);
+                btn.disabled = !ok;
+                btn.classList.toggle('opacity-50', !ok);
+            });
+
+            document.querySelectorAll('[data-path-icon]').forEach(el => {
+                const t = el.getAttribute('data-path-icon');
+                el.className = 'w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm shrink-0 ' +
+                    (tierAtLeast(t) ? 'bg-g-gold text-white' : 'bg-g-slate-200 text-g-slate-600');
+            });
+
+            updateCalcRunsDisplay();
+            const scriptOut = document.getElementById('script-output');
+            if (scriptOut && !scriptOut.textContent.trim()) {
+                generateScript('startup', document.querySelector('[data-script="startup"]'));
+            }
+        }
+
+        function updateCalcRunsDisplay() {
+            const left = document.getElementById('calc-runs-left');
+            if (left) left.textContent = localStorage.getItem(CALC_RUNS_KEY) ?? '1';
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function openUpgradeModal() {
+            const m = document.getElementById('upgrade-modal');
+            m.classList.remove('hidden');
+            m.classList.add('flex');
+        }
+        function closeUpgradeModal() {
+            const m = document.getElementById('upgrade-modal');
+            m.classList.add('hidden');
+            m.classList.remove('flex');
+        }
+
+        const php = new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP', maximumFractionDigits: 0 });
+
+        function calculateKeyman() {
+            if (getTier() === 'preview') {
+                let runs = parseInt(localStorage.getItem(CALC_RUNS_KEY) ?? '1', 10);
+                if (runs <= 0) {
+                    alert('Preview limit reached. Upgrade to Basic for unlimited calculator access.');
+                    scrollToSection('academy-pricing');
+                    return;
+                }
+                runs--;
+                localStorage.setItem(CALC_RUNS_KEY, String(runs));
+                updateCalcRunsDisplay();
+            }
+            const salary = parseFloat(document.getElementById('sc-keyman-salary').value) || 0;
+            const recruit = parseFloat(document.getElementById('sc-keyman-recruit').value) || 0;
+            const mult = parseFloat(document.getElementById('sc-keyman-multiple').value) || 7;
+            document.getElementById('keyman-total-output').textContent = php.format(salary * mult + recruit);
+        }
+
+        function calculateBuyout() {
+            if (!tierAtLeast('basic')) {
+                alert('Unlock the buyout structurer with Basic tier or higher.');
+                return;
+            }
+            const val = parseFloat(document.getElementById('sc-buyout-val').value) || 0;
+            const n = parseInt(document.getElementById('sc-buyout-partners').value, 10) || 2;
+            document.getElementById('buyout-policy-output').textContent = php.format(val / n);
+            document.getElementById('buyout-policies-needed').textContent =
+                `Cross-purchase: ${n * (n - 1)} policies total · ${php.format(val / n)} per owner`;
+        }
+
+        function switchTab(n) {
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+            document.getElementById(`tab-content-${n}`).classList.remove('hidden');
+            document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+                const active = i + 1 === n;
+                btn.className = active
+                    ? 'tab-btn flex-1 min-w-[140px] py-3 px-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 bg-g-black text-white shadow-lg'
+                    : 'tab-btn flex-1 min-w-[140px] py-3 px-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 text-g-slate-500 hover:text-g-black';
+                const circle = btn.querySelector('span');
+                if (circle) circle.className = active
+                    ? 'w-6 h-6 rounded-full bg-white/10 text-xs flex items-center justify-center border border-white/20'
+                    : 'w-6 h-6 rounded-full bg-g-slate-50 text-xs flex items-center justify-center border border-g-slate-200';
+            });
+        }
+
+        function generateScript(type, btn) {
+            if (type !== 'startup' && !tierAtLeast('basic')) {
+                alert('This script requires Basic tier or higher.');
+                scrollToSection('academy-pricing');
+                return;
+            }
+            document.getElementById('script-output').textContent = pitchScripts[type];
+            document.querySelectorAll('.script-btn').forEach(b => {
+                b.className = 'script-btn flex-1 py-3 px-4 rounded-xl font-bold text-sm min-w-[100px] text-g-slate-500 hover:text-g-black';
+            });
+            if (btn) btn.className = 'script-btn flex-1 py-3 px-4 rounded-xl font-bold text-sm min-w-[100px] bg-g-gold text-white shadow-gold';
+        }
+
+        function initApp() {
+            try {
+                if (!localStorage.getItem(STORAGE_KEY)) localStorage.setItem(STORAGE_KEY, 'preview');
+                if (!localStorage.getItem(CALC_RUNS_KEY)) localStorage.setItem(CALC_RUNS_KEY, '1');
+                applyTierGating();
+                if (document.getElementById('sc-keyman-salary')) calculateKeyman();
+                if (tierAtLeast('basic') && document.getElementById('sc-buyout-val')) calculateBuyout();
+            } catch (err) {
+                console.error('GIYA init error:', err);
+            }
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initApp);
+        } else {
+            initApp();
+        }
+    </script>
+</body>
+</html>

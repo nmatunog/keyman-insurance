@@ -1,0 +1,3 @@
+# Optional Cloudflare Pages redirects (unify legacy Keyman subdomain paths)
+/keyman /keyman.html 301
+/keyman/ /keyman.html 301

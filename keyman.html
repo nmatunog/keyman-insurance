@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyman Planning Reference | GIYA Business Insurance Academy</title>
+    <meta name="description" content="GIYA Keyman Planning & Continuity Reference — calculators, discovery scripts, and boardroom tools by Nilo B. Matunog, PFA, RFP.">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    screens: { xs: '480px' },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['"Source Serif 4"', 'Georgia', 'serif'],
+                    },
+                    colors: {
+                        g: {
+                            black: '#0A0A0B', ink: '#141416', pearl: '#F5F3EE', white: '#FFFFFF',
+                            gold: '#C4A052', goldMuted: '#8A7340',
+                            slate: { 50: '#F4F5F6', 200: '#D1D5DB', 300: '#9CA3AF', 400: '#6B7280', 600: '#374151', 700: '#1F2937', 800: '#1F2937' }
+                        },
+                        gold: {
+                            50: '#FBF6E8', 100: '#F5EFE3', 200: '#E8D9A8', 300: '#D4BC6A',
+                            400: '#C4A052', 500: '#C4A052', 600: '#8A7340', 700: '#6B5A30',
+                            800: '#4A3D20', 900: '#2A2212',
+                        },
+                        stone: {
+                            50: '#F4F5F6', 100: '#F4F5F6', 200: '#D1D5DB', 300: '#9CA3AF',
+                            400: '#6B7280', 500: '#6B7280', 600: '#374151', 700: '#374151',
+                            800: '#1F2937', 900: '#141416', 950: '#0A0A0B',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts for Editorial Luxury Presentation Feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- PDF Generation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 5rem;
+            -webkit-text-size-adjust: 100%;
+        }
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+        }
+        .serif-title {
+            font-family: "Source Serif 4", Georgia, serif;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1c1917; }
+        ::-webkit-scrollbar-thumb { background: #C4A052; border-radius: 4px; }
+
+        :focus-visible { outline: 2px solid #C4A052; outline-offset: 2px; }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        @media (max-width: 640px) {
+            input[type="number"], input[type="text"], select, textarea { font-size: 16px !important; }
+            html { scroll-padding-top: 4.25rem; }
+            main { padding-bottom: 5.5rem; }
+        }
+        .touch-target { min-height: 44px; min-width: 44px; }
+        .nav-link-touch {
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .step-scroll {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            scroll-snap-type: x proximity;
+            padding-bottom: 2px;
+        }
+        .step-scroll::-webkit-scrollbar { display: none; }
+        .step-scroll button { scroll-snap-align: start; flex-shrink: 0; }
+        #mobileNav {
+            padding-bottom: env(safe-area-inset-bottom);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        #mobileNav a.active { color: #C4A052; background: rgba(196, 160, 82, 0.12); }
+        #backToTop {
+            bottom: calc(4.5rem + env(safe-area-inset-bottom));
+            transition: opacity 0.25s, transform 0.25s;
+        }
+        #backToTop.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        .hero-headline { font-size: clamp(2rem, 7vw, 3.75rem); line-height: 1.05; }
+        .metric-value { font-size: clamp(1rem, 4vw, 1.25rem); word-break: break-word; }
+        #outRecommendedRange { font-size: clamp(1.125rem, 5vw, 2.25rem); line-height: 1.2; word-break: break-word; }
+        @media (max-width: 380px) { .bar-label-full { display: none; } .bar-label-short { display: inline; } }
+        @media (min-width: 381px) { .bar-label-short { display: none; } }
+        [id^="card_t"] { -webkit-tap-highlight-color: transparent; }
+        [id^="card_t"] input[type="checkbox"] { width: 1.25rem; height: 1.25rem; }
+        @media (max-width: 640px) {
+            #exportModal > div {
+                margin-top: auto;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+            #exportModal.flex { align-items: flex-end; }
+        }
+        section[id] { scroll-margin-top: 5rem; }
+
+        /* High Quality Print Styles (Pure Ink Saver & Perfectly Formatted PDF) */
+        @media print {
+            #mobileNav, #backToTop { display: none !important; }
+            main { padding-bottom: 0 !important; }
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                font-size: 11pt !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .print-only {
+                display: block !important;
+            }
+            .print-bg-white {
+                background: #ffffff !important;
+                color: #0c0a09 !important;
+                border: 1px solid #e7e5e4 !important;
+                box-shadow: none !important;
+            }
+            .print-text-dark {
+                color: #1c1917 !important;
+            }
+            .print-text-gold {
+                color: #866118 !important; /* High contrast gold for physical paper */
+            }
+            .print-border-gold {
+                border-color: #866118 !important;
+            }
+            .page-break {
+                page-break-before: always;
+                height: 0;
+                line-height: 0;
+            }
+            .avoid-break {
+                page-break-inside: avoid;
+            }
+            input, select, textarea {
+                border: none !important;
+                background: transparent !important;
+                padding: 0 !important;
+                font-weight: bold !important;
+                color: #000000 !important;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+            }
+            input[type="range"] {
+                display: none !important;
+            }
+            .range-val-print {
+                display: inline !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-stone-950 text-stone-100 min-h-screen transition-colors duration-300 relative font-sans" id="mainBody">
+
+    <!-- GIYA unified header -->
+    <header id="topHeader" class="border-b border-stone-200 bg-white text-stone-800 sticky top-0 z-50 no-print shadow-sm safe-top">
+        <nav class="max-w-7xl mx-auto px-3 sm:px-5 py-3 flex items-center justify-between gap-3">
+            <a href="index.html" class="flex items-center gap-2.5 min-w-0 shrink">
+                <div class="w-10 h-10 rounded-full bg-g-black flex items-center justify-center text-gold font-display font-bold text-lg shrink-0">G</div>
+                <div class="min-w-0">
+                    <span class="block font-display font-semibold text-stone-900 leading-none">GIYA</span>
+                    <span class="text-[9px] uppercase tracking-[0.16em] text-stone-400">Business Insurance Academy</span>
+                </div>
+            </a>
+            <div class="hidden md:flex items-center gap-5 text-xs font-medium text-stone-600">
+                <a href="index.html#platform" class="hover:text-stone-900">Platform</a>
+                <a href="index.html#business-academy" class="hover:text-stone-900">Academy</a>
+                <a href="index.html#founder" class="hover:text-stone-900">Founder</a>
+                <span class="text-gold-500 font-semibold">Keyman Reference</span>
+            </div>
+            <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                <button onclick="toggleInkSaver()" id="themeBtn" aria-label="Toggle ink-saver print theme" class="touch-target flex items-center justify-center gap-1.5 bg-stone-100 hover:bg-stone-200 text-gold-600 text-xs px-2.5 py-2 rounded-lg border border-stone-200">
+                    <i class="fa-solid fa-print text-sm"></i>
+                    <span id="themeBtnText" class="hidden sm:inline">Ink-Saver</span>
+                </button>
+                <button onclick="openExportModal()" aria-label="Print or download PDF" class="touch-target flex items-center justify-center gap-1.5 bg-gold-500 hover:bg-gold-600 text-stone-950 font-bold text-xs px-3 py-2 rounded-lg shadow">
+                    <i class="fa-solid fa-file-pdf text-sm"></i>
+                    <span class="hidden sm:inline">PDF</span>
+                </button>
+            </div>
+        </nav>
+        <div class="border-t border-stone-100 bg-stone-950 text-stone-300 px-3 sm:px-5 py-2">
+            <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2 text-[10px] sm:text-xs">
+                <p class="font-medium truncate" id="headerTitle"><span class="text-gold-400">Keyman Planning Reference</span> · Save the Business. Protect the Family.</p>
+                <a href="index.html#academy-curriculum" class="text-gold-400 hover:text-gold-300 font-semibold shrink-0">← Back to Academy</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- EXPORT MODAL DIALOG -->
+    <div id="exportModal" role="dialog" aria-modal="true" aria-labelledby="exportModalTitle" class="fixed inset-0 bg-stone-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-0 sm:p-4 no-print" onclick="if(event.target===this)closeExportModal()">
+        <div class="bg-white rounded-t-2xl sm:rounded-xl border border-stone-200 shadow-2xl max-w-md w-full p-5 sm:p-6 space-y-5 sm:space-y-6 animate-in fade-in zoom-in-95 duration-200">
+            <div class="flex items-start justify-between gap-3">
+                <div class="space-y-1">
+                    <h3 id="exportModalTitle" class="serif-title text-lg sm:text-xl font-bold text-stone-900">Download Reference Material</h3>
+                    <p class="text-xs text-stone-500">Choose your preferred format for this reference guide.</p>
+                </div>
+                <button onclick="closeExportModal()" aria-label="Close dialog" class="touch-target flex items-center justify-center text-stone-400 hover:text-stone-600 transition -mr-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="space-y-3">
+                <!-- Method A: Direct PDF Download (Client side render) -->
+                <button onclick="downloadDirectPDF()" class="touch-target w-full flex items-center p-4 border border-gold-300 bg-gold-50/50 hover:bg-gold-50 active:bg-gold-100 rounded-lg text-left transition group">
+                    <div class="p-3 bg-gold-500 text-stone-950 rounded-lg mr-4 group-hover:scale-105 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                    </div>
+                    <div class="space-y-1">
+                        <span class="block font-bold text-sm text-stone-900">Direct PDF Download</span>
+                        <span class="block text-[11px] text-stone-500">Converts and saves the reference directly to your offline storage.</span>
+                    </div>
+                </button>
+
+                <!-- Method B: Print via System Dialog -->
+                <button onclick="triggerSystemPrint()" class="touch-target w-full flex items-center p-4 border border-stone-200 hover:bg-stone-50 active:bg-stone-100 rounded-lg text-left transition group">
+                    <div class="p-3 bg-stone-100 text-stone-600 rounded-lg mr-4 group-hover:scale-105 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                        </svg>
+                    </div>
+                    <div class="space-y-1">
+                        <span class="block font-bold text-sm text-stone-900">Standard Print/Print-to-PDF</span>
+                        <span class="block text-[11px] text-stone-500">Launches system printer dialog (May be blocked inside sandboxed frames).</span>
+                    </div>
+                </button>
+            </div>
+
+            <div class="text-center">
+                <span class="text-[10px] text-stone-400">GIYA · Keyman Planning &amp; Continuity Framework</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- EXPORT PROGRESS INDICATOR -->
+    <div id="exportLoader" class="fixed inset-0 bg-stone-950/70 backdrop-blur-xs z-50 flex items-center justify-center hidden no-print">
+        <div class="bg-white border border-stone-200 rounded-xl p-6 shadow-2xl max-w-xs w-full text-center space-y-4">
+            <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-gold-500 border-t-transparent"></div>
+            <p class="text-xs font-semibold text-stone-800" id="loaderText">Generating your reference PDF...</p>
+        </div>
+    </div>
+
+    <!-- CONTENT ROOT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-3 sm:px-4 py-6 sm:py-8 space-y-8 sm:space-y-12 animate-fade-in" id="printableContent">
+        
+        <!-- COVER PAGE HERO / BANNER -->
+        <section id="heroBanner" class="relative overflow-hidden rounded-xl sm:rounded-2xl border-l-4 sm:border-l-8 border-gold-500 bg-white p-5 sm:p-8 md:p-12 border border-stone-200 transition-all duration-350 text-stone-900 shadow-sm print-bg-white print-text-dark print-border-gold">
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-center">
+                <div class="lg:col-span-2 space-y-4 sm:space-y-6">
+                    <span id="heroSubtitle" class="text-gold-600 font-semibold tracking-widest text-[10px] sm:text-xs uppercase block">GIYA · Business Continuity & Legacy Planning</span>
+                    <h1 class="serif-title hero-headline font-bold tracking-tight text-stone-900">
+                        KEYMAN<br>
+                        <span id="heroTitleAccent" class="text-gold-600 font-normal italic block mt-1">Save the Business. Protect the Family.</span>
+                    </h1>
+                    <p id="heroDescription" class="text-stone-600 text-sm md:text-base max-w-2xl">
+                        This executive reference summarizes key methodologies, calculators, and communication strategies for corporate key person planning. Keyman planning bridges the absolute disconnect between protecting physical assets and insuring the human enterprise that creates the actual value.
+                    </p>
+                    <div class="flex flex-wrap gap-4 text-xs">
+                        <div id="metaBox1" class="bg-stone-50 border border-stone-200 text-stone-600 px-3 py-1.5 rounded">
+                            <strong>Content Creator:</strong> Nilo B. Matunog, PFA, RFP
+                        </div>
+                        <div id="metaBox2" class="bg-stone-50 border border-stone-200 text-stone-600 px-3 py-1.5 rounded">
+                            <strong>Framework Date:</strong> June 2026
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Quick-Navigation Panel (Fixing contrast on dark background explicitly) -->
+                <div id="navPanel" class="bg-stone-900 border border-gold-500/30 rounded-xl p-4 sm:p-6 space-y-3 sm:space-y-4 no-print shadow-md">
+                    <h3 id="navPanelTitle" class="text-gold-400 font-bold text-xs uppercase tracking-wider">Quick Navigator</h3>
+                    <nav aria-label="Page sections" class="grid grid-cols-1 gap-1 sm:gap-2.5 text-xs sm:text-sm">
+                        <a href="#coreDisruption" data-section="coreDisruption" class="nav-link-touch text-stone-300 hover:text-gold-400 active:text-gold-400 py-2 px-2 -mx-2 rounded-lg hover:bg-white/5 transition font-medium">
+                            <span class="w-1.5 h-1.5 bg-gold-500 rounded-full mr-2 shrink-0"></span> Core Concept: The Empty Chair
+                        </a>
+                        <a href="#findingKeyman" data-section="findingKeyman" class="nav-link-touch text-stone-300 hover:text-gold-400 active:text-gold-400 py-2 px-2 -mx-2 rounded-lg hover:bg-white/5 transition font-medium">
+                            <span class="w-1.5 h-1.5 bg-gold-500 rounded-full mr-2 shrink-0"></span> Finding the Keyman Tests
+                        </a>
+                        <a href="#liveCalculator" data-section="liveCalculator" class="nav-link-touch text-stone-300 hover:text-gold-400 active:text-gold-400 py-2 px-2 -mx-2 rounded-lg hover:bg-white/5 transition font-medium">
+                            <span class="w-1.5 h-1.5 bg-gold-500 rounded-full mr-2 shrink-0"></span> Live Risk Coverage Calculator
+                        </a>
+                        <a href="#debtRisk" data-section="debtRisk" class="nav-link-touch text-stone-300 hover:text-gold-400 active:text-gold-400 py-2 px-2 -mx-2 rounded-lg hover:bg-white/5 transition font-medium">
+                            <span class="w-1.5 h-1.5 bg-gold-500 rounded-full mr-2 shrink-0"></span> 4 Business Risks Solved
+                        </a>
+                        <a href="#conversationFramework" data-section="conversationFramework" class="nav-link-touch text-stone-300 hover:text-gold-400 active:text-gold-400 py-2 px-2 -mx-2 rounded-lg hover:bg-white/5 transition font-medium">
+                            <span class="w-1.5 h-1.5 bg-gold-500 rounded-full mr-2 shrink-0"></span> Advisor Conversation Guide
+                        </a>
+                    </nav>
+                </div>
+            </div>
+            <!-- Background Graphic Accent -->
+            <div class="absolute right-0 top-0 w-96 h-96 bg-gold-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        </section>
+
+        <!-- SECTION 1: THE DISCONNECT & THE EMPTY CHAIR -->
+        <section id="coreDisruption" class="grid grid-cols-1 lg:grid-cols-12 gap-8 avoid-break">
+            <!-- Left Narrative Box -->
+            <div class="lg:col-span-5 bg-stone-900 border border-stone-850 shadow-sm rounded-xl p-6 flex flex-col justify-between print-bg-white print-text-dark text-stone-200">
+                <div class="space-y-4">
+                    <h3 class="text-xs font-bold text-gold-500 uppercase tracking-widest">Core Philosophy</h3>
+                    <h2 class="serif-title text-2xl font-bold text-white leading-tight">
+                        Which Asset Creates the Real Value?
+                    </h2>
+                    <p class="text-stone-300 text-xs md:text-sm">
+                        Most businesses readily insure modern factory equipment valued at <strong>₱50 Million</strong> (and pay high premiums without hesitation), yet they leave their <strong>Key Person</strong>—the actual engine of customer relationships, vision, and operational success—completely uninsured. 
+                    </p>
+                    <p class="text-stone-300 text-xs md:text-sm italic border-l-2 border-gold-500 pl-3">
+                        "The Empty Chair tomorrow creates a catastrophic business and family crisis simultaneously."
+                    </p>
+                </div>
+                
+                <div class="mt-6 pt-4 border-t border-stone-800">
+                    <div class="flex flex-col xs:flex-row xs:items-center xs:justify-between gap-2 text-xs font-bold mb-2">
+                        <span class="text-red-400 flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-red-500 shrink-0"></span>
+                            <span class="leading-tight">Physical Assets (Insured)</span>
+                        </span>
+                        <span class="text-gold-400 flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-gold-500 shrink-0"></span>
+                            <span class="leading-tight">Human Capital (Uninsured)</span>
+                        </span>
+                    </div>
+                    
+                    <div class="w-full bg-stone-950 h-6 sm:h-5 rounded-full overflow-hidden flex border border-stone-800 shadow-inner relative">
+                        <div class="bg-gradient-to-r from-red-600 to-red-400 h-full w-[90%] relative flex items-center pl-2 sm:pl-3" title="Insured Physical Asset">
+                            <span class="text-[8px] sm:text-[9px] font-extrabold text-white tracking-wider sm:tracking-widest"><span class="bar-label-full">90% INSURED</span><span class="bar-label-short">90%</span></span>
+                        </div>
+                        <div class="bg-gradient-to-r from-gold-500 to-gold-400 h-full w-[10%] relative flex items-center justify-center border-l border-stone-900" title="Often Uninsured Human Value">
+                            <span class="text-[8px] sm:text-[9px] font-extrabold text-stone-950 tracking-wider">10%</span>
+                        </div>
+                    </div>
+                    <span class="text-[10px] sm:text-xs text-stone-500 mt-2 block italic text-center leading-relaxed">90% of local corporations fully insure machinery; less than 10% protect key personnel.</span>
+                </div>
+            </div>
+
+            <!-- Right Impact Grid -->
+            <div class="lg:col-span-7 space-y-6">
+                <h3 class="text-sm font-bold text-gold-400 uppercase tracking-wider">The Impact of One Loss: Four Affected Worlds</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Impact Card 1 -->
+                    <div class="bg-stone-900 border border-stone-850 shadow-sm rounded-lg p-5 text-stone-200">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <span class="p-2 bg-stone-950 text-gold-400 rounded-lg">🏢</span>
+                            <h4 class="font-bold text-sm text-white">Business Operations</h4>
+                        </div>
+                        <ul class="text-xs text-stone-300 space-y-1 list-disc pl-4">
+                            <li>Immediate revenue disruption &amp; lost profit</li>
+                            <li>Operational gridlock &amp; delayed execution</li>
+                            <li>Loss of critical technical or domain expertise</li>
+                        </ul>
+                    </div>
+
+                    <!-- Impact Card 2 -->
+                    <div class="bg-stone-900 border border-stone-850 shadow-sm rounded-lg p-5 text-stone-200">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <span class="p-2 bg-stone-950 text-gold-400 rounded-lg">🏠</span>
+                            <h4 class="font-bold text-sm text-white">The Owner's Family</h4>
+                        </div>
+                        <ul class="text-xs text-stone-300 space-y-1 list-disc pl-4">
+                            <li>Sudden income halt &amp; salary discontinuity</li>
+                            <li>Estate and inheritance taxes triggered instantly</li>
+                            <li>Potential forced liquidation of family assets</li>
+                        </ul>
+                    </div>
+
+                    <!-- Impact Card 3 -->
+                    <div class="bg-stone-900 border border-stone-850 shadow-sm rounded-lg p-5 text-stone-200">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <span class="p-2 bg-stone-950 text-gold-400 rounded-lg">👥</span>
+                            <h4 class="font-bold text-sm text-white">Employees &amp; Staff</h4>
+                        </div>
+                        <ul class="text-xs text-stone-300 space-y-1 list-disc pl-4">
+                            <li>Critical loss of morale &amp; general security</li>
+                            <li>Key talent attrition to eager competitors</li>
+                            <li>Uncertainty about business future viability</li>
+                        </ul>
+                    </div>
+
+                    <!-- Impact Card 4 -->
+                    <div class="bg-stone-900 border border-stone-850 shadow-sm rounded-lg p-5 text-stone-200">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <span class="p-2 bg-stone-950 text-gold-400 rounded-lg">🤝</span>
+                            <h4 class="font-bold text-sm text-white">Clients &amp; Creditors</h4>
+                        </div>
+                        <ul class="text-xs text-stone-300 space-y-1 list-disc pl-4">
+                            <li>Dramatically reduced customer confidence</li>
+                            <li>Immediate calls on corporate loan guarantees</li>
+                            <li>Risk of credit facility lines being frozen</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: IDENTIFYING THE KEYMAN (INTERACTIVE TEST CHECKLIST) -->
+        <section id="findingKeyman" class="bg-stone-900 border border-stone-800 shadow-sm rounded-xl p-6 avoid-break print-border-gold text-stone-200">
+            <div class="mb-6">
+                <span class="text-gold-400 font-bold uppercase text-xs tracking-widest block">Framework Protocol</span>
+                <h2 class="serif-title text-2xl font-bold text-white">Determining Key Person Status by Dependency, Not Title</h2>
+                <p class="checklist-subtitle text-xs text-stone-400 mt-1">
+                    Use these tests on any executive or team member to assess corporate exposure. Check all that apply to run a live assessment.
+                </p>
+            </div>
+
+            <!-- Checklist Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 sm:gap-4">
+                <!-- Test 1 -->
+                <div onclick="toggleTest('t1')" id="card_t1" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleTest('t1')}" class="cursor-pointer border border-stone-800 bg-stone-950/50 rounded-lg p-4 sm:p-5 transition hover:border-gold-500 active:scale-[0.98] select-none min-h-[100px]">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-lg">📈</span>
+                        <input type="checkbox" id="check_t1" class="rounded border-stone-650 text-gold-600 focus:ring-gold-500 bg-stone-800 w-4 h-4 cursor-pointer" onclick="event.stopPropagation(); updateAssessments();">
+                    </div>
+                    <h4 class="font-bold text-xs sm:text-sm text-stone-200 uppercase tracking-wide">1. Revenue Test</h4>
+                    <p class="checklist-desc text-[11px] sm:text-xs text-stone-400 mt-1 leading-relaxed">Does this person generate substantial directly-attributable corporate income?</p>
+                </div>
+
+                <!-- Test 2 -->
+                <div onclick="toggleTest('t2')" id="card_t2" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleTest('t2')}" class="cursor-pointer border border-stone-800 bg-stone-950/50 rounded-lg p-4 sm:p-5 transition hover:border-gold-500 active:scale-[0.98] select-none min-h-[100px]">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-lg">🤝</span>
+                        <input type="checkbox" id="check_t2" class="rounded border-stone-650 text-gold-600 focus:ring-gold-500 bg-stone-800 w-4 h-4 cursor-pointer" onclick="event.stopPropagation(); updateAssessments();">
+                    </div>
+                    <h4 class="font-bold text-xs text-stone-200 uppercase tracking-wide">2. Relationship Test</h4>
+                    <p class="checklist-desc text-[11px] sm:text-xs text-stone-400 mt-1 leading-relaxed">Would major clients immediately migrate if this person left the company?</p>
+                </div>
+
+                <!-- Test 3 -->
+                <div onclick="toggleTest('t3')" id="card_t3" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleTest('t3')}" class="cursor-pointer border border-stone-855 bg-stone-950/50 rounded-lg p-4 sm:p-5 transition hover:border-gold-500 active:scale-[0.98] select-none min-h-[100px]">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-lg">💡</span>
+                        <input type="checkbox" id="check_t3" class="rounded border-stone-650 text-gold-600 focus:ring-gold-500 bg-stone-800 w-4 h-4 cursor-pointer" onclick="event.stopPropagation(); updateAssessments();">
+                    </div>
+                    <h4 class="font-bold text-xs text-stone-200 uppercase tracking-wide">3. Expertise Test</h4>
+                    <p class="checklist-desc text-[11px] sm:text-xs text-stone-400 mt-1 leading-relaxed">Is this specific technical or strategic knowledge nearly impossible to quickly source?</p>
+                </div>
+
+                <!-- Test 4 -->
+                <div onclick="toggleTest('t4')" id="card_t4" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleTest('t4')}" class="cursor-pointer border border-stone-855 bg-stone-950/50 rounded-lg p-4 sm:p-5 transition hover:border-gold-500 active:scale-[0.98] select-none min-h-[100px]">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-lg">⚖️</span>
+                        <input type="checkbox" id="check_t4" class="rounded border-stone-650 text-gold-600 focus:ring-gold-500 bg-stone-800 w-4 h-4 cursor-pointer" onclick="event.stopPropagation(); updateAssessments();">
+                    </div>
+                    <h4 class="font-bold text-xs text-stone-200 uppercase tracking-wide">4. Leadership Test</h4>
+                    <p class="checklist-desc text-[11px] sm:text-xs text-stone-400 mt-1 leading-relaxed">Does this person drive the central strategic and capital allocation decisions?</p>
+                </div>
+
+                <!-- Test 5 -->
+                <div onclick="toggleTest('t5')" id="card_t5" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleTest('t5')}" class="cursor-pointer border border-stone-855 bg-stone-950/50 rounded-lg p-4 sm:p-5 transition hover:border-gold-500 active:scale-[0.98] select-none min-h-[100px]">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-lg">⛓️</span>
+                        <input type="checkbox" id="check_t5" class="rounded border-stone-650 text-gold-600 focus:ring-gold-500 bg-stone-800 w-4 h-4 cursor-pointer" onclick="event.stopPropagation(); updateAssessments();">
+                    </div>
+                    <h4 class="font-bold text-xs text-stone-200 uppercase tracking-wide">5. Dependency Test</h4>
+                    <p class="checklist-desc text-[11px] sm:text-xs text-stone-400 mt-1 leading-relaxed">Would core operational capacity immediately fall below 50% without them?</p>
+                </div>
+            </div>
+
+            <!-- Checklist Assessment Feedback Bar -->
+            <div id="assessmentFeedback" class="mt-6 p-4 rounded-xl text-sm flex flex-col md:flex-row items-center justify-between border transition-all duration-300 gap-4 bg-stone-950 border-stone-850">
+                <div class="flex items-center gap-3">
+                    <span id="feedbackIcon" class="text-xl bg-stone-900 p-2 rounded-lg text-stone-400">❓</span>
+                    <div>
+                        <p id="feedbackTitle" class="font-bold text-stone-300 text-xs md:text-sm">Corporate Risk Appraisal</p>
+                        <p id="feedbackContext" class="text-[11px] text-stone-400 mt-0.5">Toggle criteria above to gauge the relative depth of Keyman dependency risk.</p>
+                    </div>
+                </div>
+                <!-- Dynamic Pill Badge -->
+                <div id="riskRatingPill" class="w-full md:w-auto px-4 py-2.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-widest text-center shadow-md bg-stone-900 text-stone-400 border border-stone-800">
+                    Risk Assessment: Pending
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: THE INTERACTIVE RISK CALCULATOR -->
+        <section id="liveCalculator" class="page-break bg-stone-900 border border-stone-800 rounded-xl overflow-hidden shadow-lg print-border-gold text-stone-200">
+            <!-- Header Banner -->
+            <div id="calcHeader" class="bg-stone-950 p-6 text-white flex flex-col md:flex-row md:items-center justify-between gap-4 transition-colors duration-300">
+                <div>
+                    <h2 class="serif-title text-2xl font-bold text-gold-400">The Keyman Risk Calculator</h2>
+                    <p class="text-xs font-medium text-stone-300">Calculate real enterprise exposure based on proven methodologies instead of arbitrary multiples.</p>
+                </div>
+                <!-- Case Study Toggle -->
+                <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 no-print w-full sm:w-auto">
+                    <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-stone-200">Use Case Study Data:</span>
+                    <button onclick="applyABCManufacturing()" class="touch-target w-full sm:w-auto bg-stone-850 text-gold-400 border border-gold-400/40 px-4 py-2.5 text-xs rounded hover:bg-stone-800 active:bg-stone-700 transition font-bold shadow-md">
+                        Load Case Study (ABC Corp)
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 p-6">
+                <!-- Inputs Side (5 Cols) -->
+                <div class="lg:col-span-5 space-y-4">
+                    <h3 class="text-sm font-bold text-gold-400 uppercase tracking-wider border-b border-stone-800 pb-2">Business Profile Inputs</h3>
+                    
+                    <div>
+                        <label class="block text-xs font-semibold text-stone-300 mb-1">Annual Enterprise Revenue (PHP)</label>
+                        <div class="relative">
+                            <span class="absolute left-3 top-2.5 text-xs text-stone-500">₱</span>
+                            <input type="number" id="inpRevenue" value="120000000" inputmode="numeric" class="w-full bg-stone-950 border border-stone-800 rounded-lg px-3 py-3 sm:py-2 pl-7 text-sm sm:text-xs font-bold text-stone-100 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500/50" oninput="calculateExposure()">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-stone-300 mb-1">Net Profit Margin (%)</label>
+                            <input type="number" id="inpProfitMargin" value="12" step="0.5" inputmode="decimal" class="w-full bg-stone-950 border border-stone-800 rounded-lg px-3 py-3 sm:py-2 text-sm sm:text-xs font-bold text-stone-100 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500/50" oninput="calculateExposure()">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-stone-300 mb-1">Recovery Time (Years)</label>
+                            <input type="number" id="inpRecoveryTime" value="3" step="1" min="1" max="10" inputmode="numeric" class="w-full bg-stone-950 border border-stone-800 rounded-lg px-3 py-3 sm:py-2 text-sm sm:text-xs font-bold text-stone-100 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500/50" oninput="calculateExposure()">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-stone-300 mb-1">Key Person Annual Compensation (PHP)</label>
+                        <div class="relative">
+                            <span class="absolute left-3 top-2.5 text-xs text-stone-500">₱</span>
+                            <input type="number" id="inpCompensation" value="3500000" inputmode="numeric" class="w-full bg-stone-950 border border-stone-800 rounded-lg px-3 py-3 sm:py-2 pl-7 text-sm sm:text-xs font-bold text-stone-100 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500/50" oninput="calculateExposure()">
+                        </div>
+                    </div>
+
+                    <!-- Recruitment Detail Foldout -->
+                    <div class="p-3 bg-stone-950 border border-stone-855 rounded space-y-3">
+                        <span class="text-[10px] font-bold text-gold-400 uppercase tracking-widest block">Transition &amp; Hiring Assumptions (Replacement Method)</span>
+                        
+                        <div class="grid grid-cols-1 xs:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[11px] sm:text-xs text-stone-400 mb-1">Headhunter Fee (PHP)</label>
+                                <input type="number" id="inpHunter" value="800000" inputmode="numeric" class="w-full bg-stone-900 border border-stone-855 rounded-lg px-3 py-2.5 sm:py-2 text-sm sm:text-xs text-stone-200 font-semibold focus:outline-none focus:border-gold-500" oninput="calculateExposure()">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] sm:text-xs text-stone-400 mb-1">Training Cost (PHP)</label>
+                                <input type="number" id="inpTraining" value="500000" inputmode="numeric" class="w-full bg-stone-900 border border-stone-855 rounded-lg px-3 py-2.5 sm:py-2 text-sm sm:text-xs text-stone-200 font-semibold focus:outline-none focus:border-gold-500" oninput="calculateExposure()">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 xs:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[11px] sm:text-xs text-stone-400 mb-1">Operational Drift Loss</label>
+                                <input type="number" id="inpProductivityLoss" value="1200000" inputmode="numeric" class="w-full bg-stone-900 border border-stone-855 rounded-lg px-3 py-2.5 sm:py-2 text-sm sm:text-xs text-stone-200 font-semibold focus:outline-none focus:border-gold-500" oninput="calculateExposure()">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] sm:text-xs text-stone-400 mb-1">Signing/Ramp Bonus</label>
+                                <input type="number" id="inpRampBonus" value="500000" inputmode="numeric" class="w-full bg-stone-900 border border-stone-855 rounded-lg px-3 py-2.5 sm:py-2 text-sm sm:text-xs text-stone-200 font-semibold focus:outline-none focus:border-gold-500" oninput="calculateExposure()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outputs Side (7 Cols) -->
+                <div class="lg:col-span-7 space-y-6 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-sm font-bold text-gold-400 uppercase tracking-wider border-b border-stone-800 pb-2">Quantified Exposure Metrics</h3>
+                        
+                        <!-- Output Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                            <!-- Metric 1: Salary Multiple -->
+                            <div class="bg-stone-950 border border-stone-855 p-4 rounded shadow-sm">
+                                <span class="text-[10px] uppercase font-bold text-stone-400 block">1. Salary Multiple</span>
+                                <span class="text-[11px] text-stone-500 block mt-1">Common fast metric (10x Comp)</span>
+                                <span class="metric-value font-bold text-white block mt-2" id="outSalaryMultiple">₱0.00</span>
+                            </div>
+
+                            <!-- Metric 2: Lost Profit -->
+                            <div class="bg-stone-950 border border-stone-855 p-4 rounded shadow-sm">
+                                <span class="text-[10px] uppercase font-bold text-stone-400 block">2. Lost Profit Method</span>
+                                <span class="text-[11px] text-stone-500 block mt-1">Calculates gross profit at risk</span>
+                                <span class="metric-value font-bold text-white block mt-2" id="outLostProfit">₱0.00</span>
+                            </div>
+
+                            <!-- Metric 3: Replacement Method -->
+                            <div class="bg-stone-950 border border-stone-855 p-4 rounded shadow-sm">
+                                <span class="text-[10px] uppercase font-bold text-stone-400 block">3. Replacement Cost</span>
+                                <span class="text-[11px] text-stone-500 block mt-1">Sum of hiring, drift &amp; ramp</span>
+                                <span class="metric-value font-bold text-white block mt-2" id="outReplacementCost">₱0.00</span>
+                            </div>
+                        </div>
+
+                        <!-- Main recommended range panel -->
+                        <div id="recommendedRangeCard" class="bg-stone-950 border-l-4 border-gold-500 p-5 rounded-r mt-6 text-white transition-colors duration-300">
+                            <span class="text-xs uppercase tracking-widest font-bold text-gold-400">Recommended Keyman Coverage Framework Range</span>
+                            <div class="flex flex-wrap items-baseline gap-4 mt-2">
+                                <span class="font-extrabold text-white" id="outRecommendedRange">₱0.00 - ₱0.00</span>
+                            </div>
+                            <p id="rangeHelpText" class="text-[11px] text-stone-300 mt-2">
+                                Range automatically calculated utilizing the Lost Profit exposure ceiling down to the Replacement Cost floor to establish a scientifically defensive corporate planning portfolio.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Client Advisory Insight Box -->
+                    <div class="bg-stone-950 p-4 border border-stone-800 rounded flex items-start space-x-3">
+                        <span class="text-lg">💡</span>
+                        <div>
+                            <h4 class="text-xs font-bold text-gold-400 uppercase tracking-wider">Advisory Transition Insight</h4>
+                            <p class="text-xs text-stone-300 mt-1">
+                                "Corporate clients do not buy policies to save taxes—they allocate reserves to guarantee ongoing liquidity. Present this range dynamically so corporate directors see premium as capital reallocation rather than an operating expense."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: THE FOUR CENTRAL RISK ARCS & QUIZ -->
+        <section id="debtRisk" class="grid grid-cols-1 lg:grid-cols-2 gap-8 avoid-break text-stone-200">
+            <!-- 4 Risks Details -->
+            <div class="bg-stone-900 border border-stone-800 shadow-sm rounded-xl p-6">
+                <span class="text-gold-400 font-bold uppercase text-xs tracking-widest block">The Solve Block</span>
+                <h2 class="serif-title text-2xl font-bold text-white mt-1">Four Business Risks Solved by Keyman Liquidity</h2>
+                
+                <div class="space-y-4 mt-6">
+                    <div class="border-l-2 border-gold-500 pl-4">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-white">1. Revenue Protection Risk</h4>
+                        <p class="text-xs text-stone-300 mt-0.5">Insures the immediate revenue shortfall that occurs when key client interactions and projects stall after executive loss.</p>
+                    </div>
+                    <div class="border-l-2 border-gold-500 pl-4">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-white">2. Debt &amp; Credit Stability Risk</h4>
+                        <p class="text-xs text-stone-300 mt-0.5">Provides guaranteed liquid capital so business loan guarantees aren't called on personal assets and credit ratings remain secure.</p>
+                    </div>
+                    <div class="border-l-2 border-gold-500 pl-4">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-white">3. Ownership Stability Risk</h4>
+                        <p class="text-xs text-stone-300 mt-0.5">Funds Buy-Sell arrangements. Prevents family from inheriting operational burdens they cannot handle, and preserves business integrity.</p>
+                    </div>
+                    <div class="border-l-2 border-gold-500 pl-4">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-white">4. Talent Retention (Golden Handcuffs)</h4>
+                        <p class="text-xs text-stone-300 mt-0.5">Utilizes premium cash value accumulation to incentivize key executives with non-qualified deferred compensation perks to ward off competitor poaching.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Panel -->
+            <div class="bg-stone-900 border border-stone-800 shadow-sm rounded-xl p-6 flex flex-col justify-between">
+                <div>
+                    <span class="text-gold-400 font-bold uppercase text-xs tracking-widest block">Interactive Review Quiz</span>
+                    <h2 class="serif-title text-2xl font-bold text-white mt-1">Module Competency Check</h2>
+                    <p class="text-xs sm:text-sm text-stone-300 mt-2 leading-relaxed">
+                        Which underlying corporate structures should trigger a direct <strong>Debt Risk Keyman</strong> discussion?
+                    </p>
+
+                    <!-- Quiz Options -->
+                    <div class="space-y-3 mt-6">
+                        <label onclick="selectQuizOption('a')" id="lbl_a" class="touch-target flex items-center gap-3 p-3 sm:p-4 bg-stone-950 border border-stone-855 rounded-lg cursor-pointer transition select-none hover:border-stone-700 active:scale-[0.99]">
+                            <input type="radio" name="debtQuiz" id="opt_a" class="text-gold-600 focus:ring-gold-500 bg-stone-800 w-4 h-4 shrink-0">
+                            <span class="text-xs sm:text-sm font-semibold text-stone-200 leading-snug">A. Clients with standing commercial business loans</span>
+                        </label>
+                        <label onclick="selectQuizOption('b')" id="lbl_b" class="touch-target flex items-center gap-3 p-3 sm:p-4 bg-stone-950 border border-stone-855 rounded-lg cursor-pointer transition select-none hover:border-stone-700 active:scale-[0.99]">
+                            <input type="radio" name="debtQuiz" id="opt_b" class="text-gold-600 focus:ring-gold-500 bg-stone-800 w-4 h-4 shrink-0">
+                            <span class="text-xs sm:text-sm font-semibold text-stone-200 leading-snug">B. Clients with active lines of bank credit</span>
+                        </label>
+                        <label onclick="selectQuizOption('c')" id="lbl_c" class="touch-target flex items-center gap-3 p-3 sm:p-4 bg-stone-950 border border-stone-855 rounded-lg cursor-pointer transition select-none hover:border-stone-700 active:scale-[0.99]">
+                            <input type="radio" name="debtQuiz" id="opt_c" class="text-gold-600 focus:ring-gold-500 bg-stone-800 w-4 h-4 shrink-0">
+                            <span class="text-xs sm:text-sm font-semibold text-stone-200 leading-snug">C. Clients leveraging high-volume supplier financing</span>
+                        </label>
+                        <label onclick="selectQuizOption('d')" id="lbl_d" class="touch-target flex items-center gap-3 p-3 sm:p-4 bg-stone-950 border border-stone-855 rounded-lg cursor-pointer transition select-none hover:border-stone-700 active:scale-[0.99]">
+                            <input type="radio" name="debtQuiz" id="opt_d" class="text-gold-600 focus:ring-gold-500 bg-stone-800 w-4 h-4 shrink-0">
+                            <span class="text-xs sm:text-sm font-semibold text-stone-200 leading-snug">D. All of the above</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="quizResult" class="mt-4 p-3 bg-stone-950 rounded border border-stone-855 text-xs text-stone-400">
+                    Click an option to confirm your answer.
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: DISCOVERY SCRIPT & AGENDA NAVIGATOR -->
+        <section id="conversationFramework" class="page-break bg-stone-900 border border-stone-800 rounded-xl overflow-hidden shadow-lg print-border-gold">
+            <!-- Navigation Header -->
+            <div id="meetingHeader" class="bg-stone-950 p-6 border-b-2 border-gold-500 text-white flex flex-wrap items-center justify-between gap-4 transition-colors duration-300">
+                <div>
+                    <h3 class="text-gold-400 font-bold uppercase text-xs tracking-widest">Advisory Playbook</h3>
+                    <h2 class="serif-title text-2xl font-bold">The 10-Minute Discovery Agenda</h2>
+                </div>
+                <nav aria-label="Meeting agenda steps" class="step-scroll flex gap-2 no-print w-full lg:w-auto pb-1">
+                    <button onclick="setMeetingStep(1)" id="stepBtn1" class="touch-target px-4 py-2.5 rounded-lg text-xs font-bold bg-gold-500 text-stone-950 transition whitespace-nowrap">1. Open</button>
+                    <button onclick="setMeetingStep(2)" id="stepBtn2" class="touch-target px-4 py-2.5 rounded-lg text-xs font-bold bg-stone-800 text-stone-300 hover:bg-stone-700 active:bg-stone-600 transition border border-stone-700 whitespace-nowrap">2. Discover</button>
+                    <button onclick="setMeetingStep(3)" id="stepBtn3" class="touch-target px-4 py-2.5 rounded-lg text-xs font-bold bg-stone-800 text-stone-300 hover:bg-stone-700 active:bg-stone-600 transition border border-stone-700 whitespace-nowrap">3. Explore</button>
+                    <button onclick="setMeetingStep(4)" id="stepBtn4" class="touch-target px-4 py-2.5 rounded-lg text-xs font-bold bg-stone-800 text-stone-300 hover:bg-stone-700 active:bg-stone-600 transition border border-stone-700 whitespace-nowrap">4. Quantify</button>
+                    <button onclick="setMeetingStep(5)" id="stepBtn5" class="touch-target px-4 py-2.5 rounded-lg text-xs font-bold bg-stone-800 text-stone-300 hover:bg-stone-700 active:bg-stone-600 transition border border-stone-700 whitespace-nowrap">5. Transition</button>
+                </nav>
+            </div>
+
+            <!-- Script Content Box -->
+            <div class="p-6 space-y-6">
+                <!-- Live Display Step Panel -->
+                <div id="meetingDisplayBox" class="bg-stone-950 p-5 rounded-lg border border-stone-850 space-y-3 text-stone-200">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 border-b border-stone-850 pb-2" id="scriptHeaderBorder">
+                        <span class="text-xs font-bold text-gold-400 uppercase tracking-widest" id="scriptStepTag">Meeting Phase 1: The Open</span>
+                        <span class="text-[10px] sm:text-xs text-stone-400 font-semibold" id="scriptTimeTag">Suggested Duration: 2 Minutes</span>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="text-xs font-bold text-white uppercase" id="scriptObjHeading">Objective:</h4>
+                            <p class="text-xs text-stone-300 mt-1" id="scriptObjText">Create safety, establish credentials, and build an understanding of the business operations without mentioning specific insurance products.</p>
+                        </div>
+                        <div id="scriptVerbatimBox" class="bg-stone-900 p-4 rounded border-l-2 border-gold-500 shadow-sm">
+                            <h4 class="text-[10px] font-bold text-gold-400 uppercase tracking-wider" id="scriptVerbatimHeading">Verbatim Advisor Script:</h4>
+                            <p class="text-xs md:text-sm text-stone-200 italic mt-1 leading-relaxed" id="scriptVerbatim">
+                                "Thank you for sharing your calendar with me today. Most business owners invite me over when they want to talk about specific tax products or buy policies. I actually prefer starting somewhere different: tell me about the story of your business. How did you get started, and what are the core drivers of your operations?"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Print-Only Full Script Block (Will appear when printed, replaces the tab system) -->
+                <div class="hidden print-only space-y-6 text-stone-855">
+                    <h3 class="text-xs font-bold text-gold-600 uppercase tracking-widest">Complete Print Agenda &amp; Discovery Script</h3>
+                    <div class="space-y-4">
+                        <div class="border-b border-stone-200 pb-2 avoid-break">
+                            <span class="font-bold text-xs text-gold-600">Phase 1: Open (2 Mins)</span>
+                            <p class="text-xs text-stone-700 italic">"Thank you for sharing your calendar. Tell me about the story of your business. How did you get started, and what are the core drivers of your operations?"</p>
+                        </div>
+                        <div class="border-b border-stone-200 pb-2 avoid-break">
+                            <span class="font-bold text-xs text-gold-600">Phase 2: Discover (3 Mins)</span>
+                            <p class="text-xs text-slate-700 italic">"If we looked at your entire company directory today, who is the one single person whose empty chair tomorrow would cause you to stay up at night worrying about financial damage?"</p>
+                        </div>
+                        <div class="border-b border-stone-200 pb-2 avoid-break">
+                            <span class="font-bold text-xs text-gold-600">Phase 3: Explore (2 Mins)</span>
+                            <p class="text-xs text-slate-700 italic">"If that specific key person was no longer available tomorrow, what actually happens to current client contracts, outstanding credit lines, and bank guarantees?"</p>
+                        </div>
+                        <div class="border-b border-stone-200 pb-2 avoid-break">
+                            <span class="font-bold text-xs text-gold-600">Phase 4: Quantify (2 Mins)</span>
+                            <p class="text-xs text-slate-700 italic">"How much real financial loss does the corporation sustain while we search, recruit, train, and ramp up their replacement?"</p>
+                        </div>
+                        <div class="border-b border-stone-200 pb-2 avoid-break">
+                            <span class="font-bold text-xs text-gold-600">Phase 5: Transition (1 Min)</span>
+                            <p class="text-xs text-slate-700 italic">"Would it be valuable to review corporate funding structures designed to secure that specific exposure using off-balance-sheet reserves?"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Framework Graphic Banner -->
+                <div id="frameworkBanner" class="bg-stone-950 p-4 border border-stone-850 rounded grid grid-cols-1 md:grid-cols-5 gap-4 text-center text-stone-200">
+                    <div class="p-2"><span class="font-bold text-gold-400 block" id="fbStep1">1. IDENTIFY</span><span class="text-[10px] text-stone-400" id="fbDesc1">Locate key dependency</span></div>
+                    <div class="p-2 border-t md:border-t-0 md:border-l border-stone-850" id="fbBorder1"><span class="font-bold text-gold-400 block" id="fbStep2">2. QUANTIFY</span><span class="text-[10px] text-stone-400" id="fbDesc2">Calculate financial threat</span></div>
+                    <div class="p-2 border-t md:border-t-0 md:border-l border-stone-850" id="fbBorder2"><span class="font-bold text-gold-400 block" id="fbStep3">3. PRIORITIZE</span><span class="text-[10px] text-stone-400" id="fbDesc3">Classify primary threat</span></div>
+                    <div class="p-2 border-t md:border-t-0 md:border-l border-stone-850" id="fbBorder3"><span class="font-bold text-gold-400 block" id="fbStep4">4. FUND</span><span class="text-[10px] text-stone-400" id="fbDesc4">Structure corporate assets</span></div>
+                    <div class="p-2 border-t md:border-t-0 md:border-l border-stone-850" id="fbBorder4"><span class="font-bold text-gold-400 block" id="fbStep5">5. IMPLEMENT</span><span class="text-[10px] text-stone-400" id="fbDesc5">Reallocate reserves</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: THE TAX COMPLIANCE MATRIX -->
+        <section id="taxReality" class="grid grid-cols-1 md:grid-cols-3 gap-6 avoid-break text-stone-200">
+            <!-- Premiums Deductibility -->
+            <div class="bg-stone-900 border border-stone-800 p-6 rounded-xl space-y-3">
+                <span class="text-xs font-bold text-gold-400 uppercase tracking-widest block">Tax Reality A</span>
+                <h3 class="serif-title text-xl font-bold text-white">Premiums Deductibility</h3>
+                <p class="text-xs text-stone-300 leading-relaxed font-normal">
+                    Under standard revenue regulations, corporate Keyman premiums are <strong>Generally Not Deductible</strong> for corporate income tax purposes if the company is directly or indirectly the designated beneficiary.
+                </p>
+                <div class="p-2.5 bg-stone-950 text-[10px] text-stone-400 rounded border border-stone-850 tax-note-box">
+                    <strong class="text-white">Rule:</strong> Keep continuity structure as the primary business focus; treat tax optimization as secondary.
+                </div>
+            </div>
+
+            <!-- Death Benefit Exemption -->
+            <div class="bg-stone-900 border border-stone-800 p-6 rounded-xl space-y-3">
+                <span class="text-xs font-bold text-gold-400 uppercase tracking-widest block">Tax Reality B</span>
+                <h3 class="serif-title text-xl font-bold text-white">Death Benefit Status</h3>
+                <p class="text-xs text-stone-300 leading-relaxed font-normal">
+                    Keyman insurance proceeds received by the corporate employer upon the death of the insured are <strong>Generally Received Tax-Free</strong>, allowing instant, non-taxable liquidity to hit the balance sheet.
+                </p>
+                <div class="p-2.5 bg-stone-950 text-[10px] text-stone-400 rounded border border-stone-855 tax-note-box">
+                    <strong class="text-white">Value:</strong> Immediate tax-free reserves can be used to meet obligations, loans, and settle estate claims.
+                </div>
+            </div>
+
+            <!-- Corporate Cash Values -->
+            <div class="bg-stone-900 border border-stone-800 p-6 rounded-xl space-y-3">
+                <span class="text-xs font-bold text-gold-400 uppercase tracking-widest block">Tax Reality C</span>
+                <h3 class="serif-title text-xl font-bold text-white">Cash Value Allocation</h3>
+                <p class="text-xs text-stone-300 leading-relaxed font-normal">
+                    Premium policy cash values build on the balance sheet as an asset. Withdrawals, policy loans, or plan assignments require <strong>Proper Structuring</strong> to ensure minimal tax implications.
+                </p>
+                <div class="p-2.5 bg-stone-950 text-[10px] text-stone-400 rounded border border-stone-855 tax-note-box">
+                    <strong class="text-white">Structure First:</strong> Ensure cash accumulation supports ongoing operations and keyman deferred benefits.
+                </div>
+            </div>
+        </section>
+
+        <!-- CORPORATE ADVISORY SIGN-OFF BOX -->
+        <section id="signOffBlock" class="border border-gold-500/20 bg-stone-900 text-white p-8 rounded-xl text-center space-y-4 max-w-2xl mx-auto avoid-break transition-colors duration-300 shadow-lg">
+            <span class="serif-title text-2xl font-bold text-gold-400 block">Secure the Foundation. Save the Legacy.</span>
+            <p id="signOffText" class="text-xs text-stone-300 max-w-lg mx-auto">
+                Keyman and business continuity planning is a continuous strategic conversation. Keep this reference as a guide for your next corporate meeting.
+            </p>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-stone-800 bg-stone-950 py-6 pb-20 sm:pb-6 text-center text-xs text-stone-500 no-print" id="mainFooter">
+        <p>&copy; 2026 Nilo B. Matunog · GIYA Business Insurance Academy. Educational &amp; advisory reference — not legal or tax advice.</p>
+    </footer>
+
+    <!-- MOBILE BOTTOM NAVIGATION -->
+    <nav id="mobileNav" aria-label="Mobile section navigation" class="fixed bottom-0 inset-x-0 z-40 bg-stone-950/95 border-t border-stone-800 no-print md:hidden">
+        <div class="grid grid-cols-5 gap-0">
+            <a href="#coreDisruption" data-section="coreDisruption" class="flex flex-col items-center justify-center py-2 px-1 text-[9px] font-semibold text-stone-400 hover:text-gold-400 transition min-h-[52px]">
+                <span class="text-base mb-0.5" aria-hidden="true">💡</span>Concept
+            </a>
+            <a href="#findingKeyman" data-section="findingKeyman" class="flex flex-col items-center justify-center py-2 px-1 text-[9px] font-semibold text-stone-400 hover:text-gold-400 transition min-h-[52px]">
+                <span class="text-base mb-0.5" aria-hidden="true">✓</span>Tests
+            </a>
+            <a href="#liveCalculator" data-section="liveCalculator" class="flex flex-col items-center justify-center py-2 px-1 text-[9px] font-semibold text-stone-400 hover:text-gold-400 transition min-h-[52px]">
+                <span class="text-base mb-0.5" aria-hidden="true">🧮</span>Calc
+            </a>
+            <a href="#debtRisk" data-section="debtRisk" class="flex flex-col items-center justify-center py-2 px-1 text-[9px] font-semibold text-stone-400 hover:text-gold-400 transition min-h-[52px]">
+                <span class="text-base mb-0.5" aria-hidden="true">🛡</span>Risks
+            </a>
+            <a href="#conversationFramework" data-section="conversationFramework" class="flex flex-col items-center justify-center py-2 px-1 text-[9px] font-semibold text-stone-400 hover:text-gold-400 transition min-h-[52px]">
+                <span class="text-base mb-0.5" aria-hidden="true">💬</span>Script
+            </a>
+        </div>
+    </nav>
+
+    <!-- BACK TO TOP -->
+    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top" class="fixed right-4 z-40 no-print opacity-0 pointer-events-none translate-y-2 touch-target flex items-center justify-center w-11 h-11 rounded-full bg-gold-500 text-stone-950 shadow-lg hover:bg-gold-400 active:bg-gold-600 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7" />
+        </svg>
+    </button>
+
+    <!-- LOGIC SCRIPT FOR INTERACTIVE TOOLS -->
+    <script>
+        const meetingSteps = {
+            1: {
+                tag: "Meeting Phase 1: The Open",
+                time: "Suggested Duration: 2 Minutes",
+                obj: "Create safety, establish credentials, and build an understanding of the business operations without mentioning specific insurance products.",
+                verbatim: "\"Thank you for sharing your calendar with me today. Most business owners invite me over when they want to talk about specific tax products or buy policies. I actually prefer starting somewhere different: tell me about the story of your business. How did you get started, and what are the core drivers of your operations?\""
+            },
+            2: {
+                tag: "Meeting Phase 2: The Discovery Test",
+                time: "Suggested Duration: 3 Minutes",
+                obj: "Pivot from history to human capital dependency. Highlight that the enterprise's value is created by its people rather than its machinery.",
+                verbatim: "\"Your business model is fascinating. If we looked at your entire company directory today, who is the one single person whose empty chair tomorrow would cause you to stay up at night worrying about corporate stability? If they disappeared, what happens?\""
+            },
+            3: {
+                tag: "Meeting Phase 3: The Exploration of Consequence",
+                time: "Suggested Duration: 2 Minutes",
+                obj: "Drill down on the details of business loss. Assess specific risk arcs: clients, supplier financing, loans, and competitors.",
+                verbatim: "\"That's a major vulnerability. If that specific key person was no longer available tomorrow, what actually happens to current client contracts, outstanding credit lines, and bank guarantees? Do the banks lend money to the corporation or to the confidence of the key individual?\""
+            },
+            4: {
+                tag: "Meeting Phase 4: Risk Quantification",
+                time: "Suggested Duration: 2 Minutes",
+                obj: "Introduce the risk calculation concepts logically before introducing any specific products. Focus the client on replacement cost and profit at risk.",
+                verbatim: "\"Most businesses calculate their risk on arbitrary metrics. Let me ask you: how much real financial loss does the corporation sustain while we search, recruit, train, and ramp up their replacement? If it takes three years, what is the profit at risk?\""
+            },
+            5: {
+                tag: "Meeting Phase 5: The Advisory Transition",
+                time: "Suggested Duration: 1 Minute",
+                obj: "Pitch the planning solution. Close for a follow-up presentation focused on off-balance-sheet corporate premium structures.",
+                verbatim: "\"Now that we've mapped out that exposure, would it be valuable to explore corporate funding structures designed specifically to secure that cash flow? We can use corporate cash reserves to fund this so it remains an asset rather than an expense. Let's look at the numbers next Tuesday.\""
+            }
+        };
+
+        // Ink Saver State
+        let inkSaverActive = false;
+
+        function toggleInkSaver() {
+            const body = document.getElementById('mainBody');
+            const themeBtnText = document.getElementById('themeBtnText');
+            
+            const topHeader = document.getElementById('topHeader');
+            const heroBanner = document.getElementById('heroBanner');
+            const calcHeader = document.getElementById('calcHeader');
+            const recommendedRangeCard = document.getElementById('recommendedRangeCard');
+            const outRecommendedRange = document.getElementById('outRecommendedRange');
+            const meetingHeader = document.getElementById('meetingHeader');
+            const signOffBlock = document.getElementById('signOffBlock');
+
+            const heroTitleAccent = document.getElementById('heroTitleAccent');
+            const heroDescription = document.getElementById('heroDescription');
+            const heroSubtitle = document.getElementById('heroSubtitle');
+            
+            const metaBox1 = document.getElementById('metaBox1');
+            const metaBox2 = document.getElementById('metaBox2');
+            
+            const rangeHelpText = document.getElementById('rangeHelpText');
+            const signOffText = document.getElementById('signOffText');
+
+            const navPanel = document.getElementById('navPanel');
+            const navPanelTitle = document.getElementById('navPanelTitle');
+
+            // Dynamic playbook controls
+            const conversationCard = document.getElementById('conversationFramework');
+            const meetingDisplayBox = document.getElementById('meetingDisplayBox');
+
+            inkSaverActive = !inkSaverActive;
+
+            // Target elements that change backgrounds inside subsections dynamically
+            const coreDisruptionCards = document.querySelectorAll('#coreDisruption .bg-stone-900, #coreDisruption .bg-white');
+            const findingKeymanCard = document.getElementById('findingKeyman');
+            const calcCard = document.getElementById('liveCalculator');
+            const calcInputs = document.querySelectorAll('#liveCalculator input');
+            const debtRiskCards = document.querySelectorAll('#debtRisk .bg-stone-900, #debtRisk .bg-white');
+            const quizLabels = document.querySelectorAll('#debtRisk label');
+            const quizResult = document.getElementById('quizResult');
+            const taxRealityCards = document.querySelectorAll('#taxReality > div');
+
+            if (inkSaverActive) {
+                // LIGHT MODE (Pure Ink Saver & Printable Theme)
+                body.className = "bg-white text-stone-800 min-h-screen transition-colors duration-300 relative";
+                themeBtnText.innerText = "Disable Ink-Saver";
+                
+                topHeader.className = "border-b border-stone-200 bg-white text-stone-850 sticky top-0 z-50 no-print shadow-sm";
+                heroBanner.className = "relative overflow-hidden rounded-2xl border-l-8 border-gold-500 bg-white p-8 md:p-12 shadow-sm text-stone-800 border border-stone-200 transition-colors duration-300";
+                calcHeader.className = "bg-stone-50 border-b border-stone-200 p-6 text-stone-850 flex flex-col md:flex-row md:items-center justify-between gap-4";
+                recommendedRangeCard.className = "bg-stone-50 border border-stone-200 border-l-4 border-l-gold-500 p-5 rounded-r mt-6 text-stone-800";
+                outRecommendedRange.className = "font-extrabold text-stone-900";
+                meetingHeader.className = "bg-stone-50 p-6 border-b border-stone-200 text-stone-850 flex flex-wrap items-center justify-between gap-4";
+                signOffBlock.className = "border-l-4 border-l-gold-500 bg-white border border-stone-200 text-stone-800 p-8 rounded-xl text-center space-y-4 max-w-2xl mx-auto avoid-break shadow-sm";
+
+                heroTitleAccent.className = "text-gold-600 font-normal italic";
+                heroSubtitle.className = "text-gold-600 font-semibold tracking-widest text-xs uppercase block";
+                heroDescription.className = "text-stone-600 text-sm md:text-base max-w-2xl";
+
+                metaBox1.className = "bg-stone-50 border border-stone-200 text-stone-600 px-3 py-1.5 rounded";
+                metaBox2.className = "bg-stone-50 border border-stone-200 text-stone-600 px-3 py-1.5 rounded";
+
+                rangeHelpText.className = "text-[11px] text-stone-500 mt-2";
+                signOffText.className = "text-xs text-stone-500 max-w-lg mx-auto";
+
+                // Fix Navigator panel for Light Mode (Resolves image_113cf9.png contrast issue)
+                navPanel.className = "bg-stone-100 border border-stone-200 rounded-xl p-6 space-y-4 no-print shadow-sm";
+                navPanelTitle.className = "text-gold-700 font-bold text-xs uppercase tracking-wider";
+                const navLinks = navPanel.querySelectorAll('a');
+                navLinks.forEach(link => {
+                    link.className = "nav-link-touch text-stone-700 hover:text-gold-600 active:text-gold-700 py-2 px-2 -mx-2 rounded-lg hover:bg-stone-200/60 transition font-medium";
+                });
+
+                // Section 1: Core Disruption
+                coreDisruptionCards.forEach(c => {
+                    c.className = "lg:col-span-5 bg-white border border-stone-200 shadow-sm rounded-xl p-6 flex flex-col justify-between print-bg-white print-text-dark text-stone-800";
+                });
+                document.querySelectorAll('#coreDisruption p').forEach(p => {
+                    if (!p.className.includes('tracking-widest')) p.className = "text-stone-600 text-xs md:text-sm";
+                });
+                document.querySelectorAll('#coreDisruption h2').forEach(h => h.className = "serif-title text-2xl font-bold text-stone-900 leading-tight");
+
+                // Section 2: Checklist (Resolves image_106263.png contrast issue)
+                findingKeymanCard.className = "bg-white border border-stone-200 shadow-sm rounded-xl p-6 avoid-break print-border-gold text-stone-800";
+                document.querySelectorAll('#findingKeyman h2').forEach(h => h.className = "serif-title text-2xl font-bold text-stone-900");
+                document.querySelectorAll('#findingKeyman .checklist-subtitle').forEach(p => p.className = "checklist-subtitle text-xs text-stone-500 mt-1");
+                document.querySelectorAll('#findingKeyman .checklist-desc').forEach(p => p.className = "checklist-desc text-[10px] text-stone-500 mt-1");
+                document.getElementById('feedbackTitle').className = "font-bold text-stone-800 text-xs md:text-sm";
+                document.getElementById('feedbackContext').className = "text-[11px] text-stone-600 mt-0.5";
+                document.getElementById('assessmentFeedback').className = "mt-6 p-4 rounded-xl text-sm flex flex-col md:flex-row items-center justify-between border transition-all duration-300 gap-4 bg-stone-50 border-stone-200";
+
+                // Section 3: Calculator
+                calcCard.className = "page-break bg-white border border-stone-200 rounded-xl overflow-hidden shadow-lg print-border-gold";
+                document.querySelectorAll('#liveCalculator h3').forEach(h => h.className = "text-sm font-bold text-gold-600 uppercase tracking-wider border-b border-stone-100 pb-2");
+                calcInputs.forEach(inp => inp.className = "w-full bg-white border border-stone-200 rounded-lg px-3 py-3 sm:py-2 pl-7 text-sm sm:text-xs font-bold text-stone-800 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500/50");
+                document.getElementById('inpProfitMargin').className = "w-full bg-white border border-stone-200 rounded-lg px-3 py-3 sm:py-2 text-sm sm:text-xs font-bold text-stone-800 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500/50";
+                document.getElementById('inpRecoveryTime').className = "w-full bg-white border border-stone-200 rounded-lg px-3 py-3 sm:py-2 text-sm sm:text-xs font-bold text-stone-800 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500/50";
+                
+                document.querySelectorAll('#liveCalculator .bg-stone-50').forEach(div => {
+                    if (!div.id) div.className = "bg-stone-50 border border-stone-200 p-4 rounded shadow-sm";
+                });
+                document.getElementById('outSalaryMultiple').className = "metric-value font-bold text-stone-900 block mt-2";
+                document.getElementById('outLostProfit').className = "metric-value font-bold text-stone-900 block mt-2";
+                document.getElementById('outReplacementCost').className = "metric-value font-bold text-stone-900 block mt-2";
+
+                // Section 4: Risks
+                debtRiskCards.forEach(c => {
+                    c.className = "bg-white border border-stone-200 shadow-sm rounded-xl p-6 flex flex-col justify-between text-stone-850";
+                });
+                document.querySelectorAll('#debtRisk h2').forEach(h => h.className = "serif-title text-2xl font-bold text-stone-900 mt-1");
+                document.querySelectorAll('#debtRisk p').forEach(p => {
+                    if (!p.className.includes('uppercase')) p.className = "text-xs text-stone-600 mt-2";
+                });
+                document.querySelectorAll('#debtRisk h4').forEach(h => h.className = "text-xs font-bold uppercase tracking-wider text-stone-900");
+                quizLabels.forEach(l => {
+                    if (!l.className.includes('border-gold-500')) l.className = "touch-target flex items-center gap-3 p-3 sm:p-4 bg-stone-50 border border-stone-200 rounded-lg cursor-pointer transition select-none hover:border-stone-300 active:scale-[0.99]";
+                });
+                quizResult.className = "mt-4 p-3 bg-stone-50 rounded border border-stone-200 text-xs text-stone-600";
+
+                // Section 5: Playbook
+                conversationCard.className = "page-break bg-white border border-stone-200 rounded-xl overflow-hidden shadow-lg print-border-gold";
+                document.querySelectorAll('#meetingHeader h2').forEach(h => h.className = "serif-title text-2xl font-bold text-stone-900");
+                
+                // Box
+                meetingDisplayBox.className = "bg-stone-50 p-5 rounded-lg border border-stone-200 space-y-3 text-stone-800";
+                document.getElementById('scriptHeaderBorder').className = "flex items-center justify-between border-b border-stone-200 pb-2";
+                document.getElementById('scriptStepTag').className = "text-xs font-bold text-gold-600 uppercase tracking-widest";
+                document.getElementById('scriptTimeTag').className = "text-[10px] text-stone-500 font-semibold";
+                document.getElementById('scriptObjHeading').className = "text-xs font-bold text-stone-800 uppercase";
+                document.getElementById('scriptObjText').className = "text-xs text-stone-600 mt-1";
+                
+                // Verbatim box
+                document.getElementById('scriptVerbatimBox').className = "bg-white p-4 rounded border border-stone-200 border-l-4 border-l-gold-500 shadow-sm";
+                document.getElementById('scriptVerbatimHeading').className = "text-[10px] font-bold text-gold-600 uppercase tracking-wider";
+                document.getElementById('scriptVerbatim').className = "text-xs md:text-sm text-stone-800 italic mt-1 leading-relaxed";
+                
+                // Framework Banner
+                const frameworkBanner = document.getElementById('frameworkBanner');
+                frameworkBanner.className = "bg-stone-100 p-4 border border-stone-200 rounded grid grid-cols-1 md:grid-cols-5 gap-4 text-center text-stone-800";
+                
+                // Borders & steps
+                ['fbBorder1', 'fbBorder2', 'fbBorder3', 'fbBorder4'].forEach(id => {
+                    const b = document.getElementById(id);
+                    if (b) b.className = "p-2 border-t md:border-t-0 md:border-l border-stone-200";
+                });
+                ['fbStep1', 'fbStep2', 'fbStep3', 'fbStep4', 'fbStep5'].forEach(id => {
+                    const s = document.getElementById(id);
+                    if (s) s.className = "font-bold text-gold-700 block";
+                });
+                ['fbDesc1', 'fbDesc2', 'fbDesc3', 'fbDesc4', 'fbDesc5'].forEach(id => {
+                    const d = document.getElementById(id);
+                    if (d) d.className = "text-[10px] text-stone-600";
+                });
+
+                // Section 6: Tax Compliance (Fixes image_0ff567.jpg dark boxes contrast)
+                taxRealityCards.forEach(c => {
+                    c.className = "bg-white border border-stone-200 p-6 rounded-xl space-y-3 text-stone-850 shadow-sm";
+                });
+                document.querySelectorAll('#taxReality h3').forEach(h => h.className = "serif-title text-xl font-bold text-stone-900");
+                document.querySelectorAll('#taxReality p').forEach(p => p.className = "text-xs text-stone-600 leading-relaxed");
+                document.querySelectorAll('.tax-note-box').forEach(box => {
+                    box.className = "p-2.5 bg-stone-100 text-[10px] text-stone-700 rounded border border-stone-200 tax-note-box";
+                    const boldText = box.querySelector('strong');
+                    if (boldText) boldText.className = "text-stone-900 font-bold";
+                });
+
+            } else {
+                // DARK ACCENTS MODE (Luxury Slide Dark Dashboard Style)
+                body.className = "bg-stone-950 text-stone-100 min-h-screen transition-colors duration-300 relative";
+                themeBtnText.innerText = "Ink-Saver Mode";
+                
+                topHeader.className = "border-b border-stone-200 bg-white text-stone-800 sticky top-0 z-50 no-print transition-colors duration-300 shadow-sm";
+                heroBanner.className = "relative overflow-hidden rounded-2xl border-l-8 border-gold-500 bg-white p-8 md:p-12 border border-stone-200 transition-colors duration-300 text-stone-900 shadow-sm";
+                calcHeader.className = "bg-stone-950 p-6 text-white flex flex-col md:flex-row md:items-center justify-between gap-4";
+                recommendedRangeCard.className = "bg-stone-900 border-l-4 border-gold-500 p-5 rounded-r mt-6 text-white";
+                outRecommendedRange.className = "font-extrabold text-white";
+                meetingHeader.className = "bg-stone-950 p-6 border-b-2 border-gold-500 text-white flex flex-wrap items-center justify-between gap-4";
+                signOffBlock.className = "border border-gold-500/20 bg-stone-900 text-white p-8 rounded-xl text-center space-y-4 max-w-2xl mx-auto avoid-break shadow-lg";
+
+                heroTitleAccent.className = "text-gold-600 font-normal italic";
+                heroSubtitle.className = "text-gold-600 font-semibold tracking-widest text-xs uppercase block";
+                heroDescription.className = "text-stone-600 text-sm md:text-base max-w-2xl";
+
+                metaBox1.className = "bg-stone-50 border border-stone-200 text-stone-600 px-3 py-1.5 rounded";
+                metaBox2.className = "bg-stone-50 border border-stone-200 text-stone-600 px-3 py-1.5 rounded";
+
+                rangeHelpText.className = "text-[11px] text-stone-300 mt-2";
+                signOffText.className = "text-xs text-stone-300 max-w-lg mx-auto";
+
+                // Restore Premium Navigator Panel Dark contrast explicitly (Fixes image_113cf9.png contrast issue)
+                navPanel.className = "bg-stone-900 border border-gold-500/30 rounded-xl p-6 space-y-4 no-print shadow-md";
+                navPanelTitle.className = "text-gold-400 font-bold text-xs uppercase tracking-wider";
+                const navLinks = navPanel.querySelectorAll('a');
+                navLinks.forEach(link => {
+                    link.className = "nav-link-touch text-stone-300 hover:text-gold-400 active:text-gold-400 py-2 px-2 -mx-2 rounded-lg hover:bg-white/5 transition font-medium";
+                });
+
+                // Section 1: Core Disruption
+                coreDisruptionCards.forEach(c => {
+                    c.className = "lg:col-span-5 bg-stone-900 border border-stone-850 shadow-sm rounded-xl p-6 flex flex-col justify-between print-bg-white print-text-dark text-stone-200";
+                });
+                document.querySelectorAll('#coreDisruption p').forEach(p => {
+                    if (!p.className.includes('tracking-widest')) p.className = "text-stone-300 text-xs md:text-sm";
+                });
+                document.querySelectorAll('#coreDisruption h2').forEach(h => h.className = "serif-title text-2xl font-bold text-white leading-tight");
+
+                // Section 2: Checklist (Resolves image_106263.png contrast issue)
+                findingKeymanCard.className = "bg-stone-900 border border-stone-800 shadow-sm rounded-xl p-6 avoid-break print-border-gold text-stone-200";
+                document.querySelectorAll('#findingKeyman h2').forEach(h => h.className = "serif-title text-2xl font-bold text-white");
+                document.querySelectorAll('#findingKeyman .checklist-subtitle').forEach(p => p.className = "checklist-subtitle text-xs text-stone-400 mt-1");
+                document.querySelectorAll('#findingKeyman .checklist-desc').forEach(p => p.className = "checklist-desc text-[10px] text-stone-400 mt-1");
+                document.getElementById('feedbackTitle').className = "font-bold text-stone-300 text-xs md:text-sm";
+                document.getElementById('feedbackContext').className = "text-[11px] text-stone-400 mt-0.5";
+                document.getElementById('assessmentFeedback').className = "mt-6 p-4 rounded-xl text-sm flex flex-col md:flex-row items-center justify-between border transition-all duration-300 gap-4 bg-stone-950 border-stone-850";
+
+                // Section 3: Calculator
+                calcCard.className = "page-break bg-stone-900 border border-stone-800 shadow-lg rounded-xl overflow-hidden print-border-gold";
+                document.querySelectorAll('#liveCalculator h3').forEach(h => h.className = "text-sm font-bold text-gold-400 uppercase tracking-wider border-b border-stone-800 pb-2");
+                calcInputs.forEach(inp => inp.className = "w-full bg-stone-950 border border-stone-800 rounded-lg px-3 py-3 sm:py-2 pl-7 text-sm sm:text-xs font-bold text-stone-100 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500/50");
+                document.getElementById('inpProfitMargin').className = "w-full bg-stone-950 border border-stone-800 rounded-lg px-3 py-3 sm:py-2 text-sm sm:text-xs font-bold text-stone-100 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500/50";
+                document.getElementById('inpRecoveryTime').className = "w-full bg-stone-950 border border-stone-800 rounded-lg px-3 py-3 sm:py-2 text-sm sm:text-xs font-bold text-stone-100 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500/50";
+                
+                document.querySelectorAll('#liveCalculator .bg-stone-50').forEach(div => {
+                    if (!div.id) div.className = "bg-stone-950 border border-stone-855 p-4 rounded shadow-sm";
+                });
+                document.getElementById('outSalaryMultiple').className = "metric-value font-bold text-white block mt-2";
+                document.getElementById('outLostProfit').className = "metric-value font-bold text-white block mt-2";
+                document.getElementById('outReplacementCost').className = "metric-value font-bold text-white block mt-2";
+
+                // Section 4: Risks
+                debtRiskCards.forEach(c => {
+                    c.className = "bg-stone-900 border border-stone-800 shadow-sm rounded-xl p-6 flex flex-col justify-between text-stone-200";
+                });
+                document.querySelectorAll('#debtRisk h2').forEach(h => h.className = "serif-title text-2xl font-bold text-white mt-1");
+                document.querySelectorAll('#debtRisk p').forEach(p => {
+                    if (!p.className.includes('uppercase')) p.className = "text-xs text-stone-300 mt-2";
+                });
+                document.querySelectorAll('#debtRisk h4').forEach(h => h.className = "text-xs font-bold uppercase tracking-wider text-white");
+                quizLabels.forEach(l => {
+                    if (!l.className.includes('border-gold-500')) l.className = "touch-target flex items-center gap-3 p-3 sm:p-4 bg-stone-950 border border-stone-855 rounded-lg cursor-pointer transition select-none hover:border-stone-700 active:scale-[0.99]";
+                });
+                quizResult.className = "mt-4 p-3 bg-stone-950 rounded border border-stone-855 text-xs text-stone-400";
+
+                // Section 5: Playbook
+                conversationCard.className = "page-break bg-stone-900 border border-stone-800 rounded-xl overflow-hidden shadow-lg print-border-gold";
+                document.querySelectorAll('#meetingHeader h2').forEach(h => h.className = "serif-title text-2xl font-bold");
+                
+                // Box
+                meetingDisplayBox.className = "bg-stone-950 p-5 rounded-lg border border-stone-855 space-y-3 text-stone-200";
+                document.getElementById('scriptHeaderBorder').className = "flex items-center justify-between border-b border-stone-855 pb-2";
+                document.getElementById('scriptStepTag').className = "text-xs font-bold text-gold-400 uppercase tracking-widest";
+                document.getElementById('scriptTimeTag').className = "text-[10px] text-stone-400 font-semibold";
+                document.getElementById('scriptObjHeading').className = "text-xs font-bold text-white uppercase";
+                document.getElementById('scriptObjText').className = "text-xs text-stone-300 mt-1";
+                
+                // Verbatim box
+                document.getElementById('scriptVerbatimBox').className = "bg-stone-900 p-4 rounded border-l-2 border-gold-500 shadow-sm";
+                document.getElementById('scriptVerbatimHeading').className = "text-[10px] font-bold text-gold-400 uppercase tracking-wider";
+                document.getElementById('scriptVerbatim').className = "text-xs md:text-sm text-stone-200 italic mt-1 leading-relaxed";
+                
+                // Framework Banner
+                const frameworkBanner = document.getElementById('frameworkBanner');
+                frameworkBanner.className = "bg-stone-950 p-4 border border-stone-855 rounded grid grid-cols-1 md:grid-cols-5 gap-4 text-center text-stone-200";
+                
+                // Borders & steps
+                ['fbBorder1', 'fbBorder2', 'fbBorder3', 'fbBorder4'].forEach(id => {
+                    const b = document.getElementById(id);
+                    if (b) b.className = "p-2 border-t md:border-t-0 md:border-l border-stone-855";
+                });
+                ['fbStep1', 'fbStep2', 'fbStep3', 'fbStep4', 'fbStep5'].forEach(id => {
+                    const s = document.getElementById(id);
+                    if (s) s.className = "font-bold text-gold-400 block";
+                });
+                ['fbDesc1', 'fbDesc2', 'fbDesc3', 'fbDesc4', 'fbDesc5'].forEach(id => {
+                    const d = document.getElementById(id);
+                    if (d) d.className = "text-[10px] text-stone-455";
+                });
+
+                // Section 6: Tax Compliance
+                taxRealityCards.forEach(c => {
+                    c.className = "bg-stone-900 border border-stone-800 p-6 rounded-xl space-y-3 text-stone-200";
+                });
+                document.querySelectorAll('#taxReality h3').forEach(h => h.className = "serif-title text-xl font-bold text-white");
+                document.querySelectorAll('#taxReality p').forEach(p => p.className = "text-xs text-stone-300 leading-relaxed");
+                document.querySelectorAll('.tax-note-box').forEach(box => {
+                    box.className = "p-2.5 bg-stone-950 text-[10px] text-stone-400 rounded border border-stone-855 tax-note-box";
+                    const boldText = box.querySelector('strong');
+                    if (boldText) boldText.className = "text-white font-bold";
+                });
+            }
+
+            // Always update checklist rendering dynamically on theme change
+            updateAssessments();
+        }
+
+        function toggleTest(id) {
+            const checkbox = document.getElementById('check_' + id);
+            if (checkbox) {
+                checkbox.checked = !checkbox.checked;
+                updateAssessments();
+            }
+        }
+
+        function updateAssessments() {
+            let checkedCount = 0;
+            const checkIds = ['t1', 't2', 't3', 't4', 't5'];
+            
+            checkIds.forEach(id => {
+                const card = document.getElementById('card_' + id);
+                const checkbox = document.getElementById('check_' + id);
+                
+                if (checkbox && checkbox.checked) {
+                    checkedCount++;
+                    if (card) {
+                        card.classList.remove('border-stone-855', 'bg-stone-955/50', 'border-stone-200', 'bg-stone-50/50', 'border-stone-800');
+                        card.classList.add('border-gold-500', 'bg-gold-550/10');
+                        // Ensure dynamic colors show clean gold transparency
+                        card.style.backgroundColor = "rgba(197, 155, 39, 0.1)";
+                        card.style.borderColor = "#c59b27";
+                    }
+                } else if (card) {
+                    card.style.backgroundColor = "";
+                    card.style.borderColor = "";
+                    card.classList.remove('border-gold-500');
+                    if (inkSaverActive) {
+                        card.classList.add('border-stone-200', 'bg-stone-50/50');
+                    } else {
+                        card.classList.add('border-stone-800', 'bg-stone-950/50');
+                    }
+                }
+            });
+
+            const ratingPill = document.getElementById('riskRatingPill');
+            const feedbackIcon = document.getElementById('feedbackIcon');
+            const feedbackContext = document.getElementById('feedbackContext');
+            const feedbackTitle = document.getElementById('feedbackTitle');
+            const feedbackContainer = document.getElementById('assessmentFeedback');
+
+            // Apply theme-specific styles dynamically for both Dark Accents Mode and Ink Saver Light Mode
+            if (checkedCount === 0) {
+                if (ratingPill) {
+                    ratingPill.innerText = "Risk Assessment: Pending";
+                    if (inkSaverActive) {
+                        ratingPill.className = "w-full md:w-auto px-4 py-2.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-widest text-center shadow-md bg-stone-100 text-stone-600 border border-stone-200";
+                    } else {
+                        ratingPill.className = "w-full md:w-auto px-4 py-2.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-widest text-center shadow-md bg-stone-900 text-stone-400 border border-stone-800";
+                    }
+                }
+                if (feedbackIcon) feedbackIcon.className = "text-xl bg-stone-900 p-2 rounded-lg text-stone-400";
+                if (feedbackIcon) feedbackIcon.innerText = "❓";
+                if (feedbackContext) feedbackContext.innerText = "Toggle criteria above to gauge the relative depth of Keyman dependency risk.";
+            } else if (checkedCount <= 2) {
+                if (ratingPill) {
+                    ratingPill.innerText = "Risk Level: MODERATE EXPOSURE";
+                    if (inkSaverActive) {
+                        ratingPill.className = "w-full md:w-auto px-4 py-2.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-widest text-center shadow-md bg-blue-50 text-blue-700 border border-blue-200";
+                    } else {
+                        ratingPill.className = "w-full md:w-auto px-4 py-2.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-widest text-center shadow-md bg-blue-950/80 text-blue-400 border border-blue-900/60";
+                    }
+                }
+                if (feedbackIcon) feedbackIcon.className = "text-xl bg-blue-900/40 p-2 rounded-lg text-blue-400";
+                if (feedbackIcon) feedbackIcon.innerText = "⚠️";
+                if (feedbackContext) feedbackContext.innerText = "The business has noticeable dependency. A basic Keyman safety buffer is advised.";
+            } else if (checkedCount <= 4) {
+                if (ratingPill) {
+                    ratingPill.innerText = "Risk Level: SIGNIFICANT EXPOSURE";
+                    if (inkSaverActive) {
+                        ratingPill.className = "w-full md:w-auto px-4 py-2.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-widest text-center shadow-md bg-amber-50 text-amber-800 border border-amber-200";
+                    } else {
+                        ratingPill.className = "w-full md:w-auto px-4 py-2.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-widest text-center shadow-md bg-amber-950/80 text-amber-400 border border-amber-900/60";
+                    }
+                }
+                if (feedbackIcon) feedbackIcon.className = "text-xl bg-amber-900/40 p-2 rounded-lg text-amber-400";
+                if (feedbackIcon) feedbackIcon.innerText = "🔥";
+                if (feedbackContext) feedbackContext.innerText = "Multiple active dependency triggers. Structured succession or funding is highly critical.";
+            } else {
+                if (ratingPill) {
+                    ratingPill.innerText = "Risk Level: CRITICAL EXPOSURE";
+                    if (inkSaverActive) {
+                        ratingPill.className = "w-full md:w-auto px-4 py-2.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-widest text-center shadow-md bg-red-50 text-red-700 border border-red-200";
+                    } else {
+                        ratingPill.className = "w-full md:w-auto px-4 py-2.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-widest text-center shadow-md bg-red-950/80 text-red-400 border border-red-900/60";
+                    }
+                }
+                if (feedbackIcon) feedbackIcon.className = "text-xl bg-red-900/40 p-2 rounded-lg text-red-400";
+                if (feedbackIcon) feedbackIcon.innerText = "🚨";
+                if (feedbackContext) feedbackContext.innerText = "Maximum exposure detected! This business is entirely vulnerable to sudden disruption.";
+            }
+        }
+
+        // Load preset case study (ABC Manufacturing Corp)
+        function applyABCManufacturing() {
+            document.getElementById('inpRevenue').value = 500000000;
+            document.getElementById('inpProfitMargin').value = 15;
+            document.getElementById('inpRecoveryTime').value = 3;
+            document.getElementById('inpCompensation').value = 5000000;
+            
+            document.getElementById('inpHunter').value = 10000000;
+            document.getElementById('inpTraining').value = 8000000;
+            document.getElementById('inpProductivityLoss').value = 5000000;
+            document.getElementById('inpRampBonus').value = 2000000;
+            
+            calculateExposure();
+        }
+
+        function calculateExposure() {
+            const revenue = parseFloat(document.getElementById('inpRevenue').value) || 0;
+            const margin = parseFloat(document.getElementById('inpProfitMargin').value) / 100 || 0;
+            const years = parseFloat(document.getElementById('inpRecoveryTime').value) || 0;
+            const comp = parseFloat(document.getElementById('inpCompensation').value) || 0;
+            
+            const hunter = parseFloat(document.getElementById('inpHunter').value) || 0;
+            const training = parseFloat(document.getElementById('inpTraining').value) || 0;
+            const productivity = parseFloat(document.getElementById('inpProductivityLoss').value) || 0;
+            const ramp = parseFloat(document.getElementById('inpRampBonus').value) || 0;
+
+            // Metric 1: Salary Multiple (10x Standard compensation limit)
+            const salaryMultiple = comp * 10;
+            
+            // Metric 2: Lost Profit (Revenue * Margin * Recovery Time)
+            const lostProfit = revenue * margin * years;
+            
+            // Metric 3: Replacement Cost
+            const replacementCost = hunter + training + productivity + ramp;
+
+            // Update UI Outputs
+            document.getElementById('outSalaryMultiple').innerText = formatPHP(salaryMultiple);
+            document.getElementById('outLostProfit').innerText = formatPHP(lostProfit);
+            document.getElementById('outReplacementCost').innerText = formatPHP(replacementCost);
+
+            // Recommended Range Framework (Floor is Replacement Cost, Ceiling is Lost Profit)
+            let minRange = Math.max(replacementCost, salaryMultiple);
+            let maxRange = Math.max(lostProfit, minRange * 1.5);
+
+            document.getElementById('outRecommendedRange').innerText = `${formatPHP(minRange)} - ${formatPHP(maxRange)}`;
+        }
+
+        function formatPHP(val) {
+            return "₱" + val.toLocaleString('en-US', { maximumFractionDigits: 0 });
+        }
+
+        function selectQuizOption(choice) {
+            const letters = ['a', 'b', 'c', 'd'];
+            letters.forEach(letter => {
+                const label = document.getElementById('lbl_' + letter);
+                if (label) label.classList.remove('border-gold-500', 'bg-gold-50/50', 'bg-gold-550/10');
+            });
+
+            const activeLabel = document.getElementById('lbl_' + choice);
+            if (activeLabel) activeLabel.classList.add('border-gold-500', 'bg-gold-50/50');
+            
+            const radioOption = document.getElementById('opt_' + choice);
+            if (radioOption) radioOption.checked = true;
+
+            const resultBox = document.getElementById('quizResult');
+            if (resultBox) {
+                if (choice === 'd') {
+                    resultBox.innerHTML = "<strong>Correct!</strong> Corporate loans, credit lines, and high-volume supplier trade terms all constitute significant corporate liability lines backed directly by the Keyman's signature/guarantees.";
+                    resultBox.className = "mt-4 p-3 bg-emerald-950/40 text-emerald-300 rounded border border-emerald-900/30 text-stone-200";
+                } else {
+                    resultBox.innerHTML = "<strong>Incorrect/Incomplete.</strong> While that option is a factor, this framework emphasizes that ALL three liability structures (business loans, credit lines, and supplier financing) constitute corporate debt risk.";
+                    resultBox.className = "mt-4 p-3 bg-red-950/40 text-red-305 rounded border border-red-900/30 text-stone-200";
+                }
+            }
+        }
+
+        const STEP_BTN_INACTIVE = "touch-target px-4 py-2.5 rounded-lg text-xs font-bold bg-stone-800 text-stone-300 hover:bg-stone-700 active:bg-stone-600 transition border border-stone-700 whitespace-nowrap";
+        const STEP_BTN_ACTIVE = "touch-target px-4 py-2.5 rounded-lg text-xs font-bold bg-gold-500 text-stone-950 transition whitespace-nowrap";
+
+        function setMeetingStep(stepNum) {
+            for (let i = 1; i <= 5; i++) {
+                const btn = document.getElementById('stepBtn' + i);
+                if (btn) btn.className = STEP_BTN_INACTIVE;
+            }
+
+            const activeBtn = document.getElementById('stepBtn' + stepNum);
+            if (activeBtn) activeBtn.className = STEP_BTN_ACTIVE;
+
+            // Update displays
+            const data = meetingSteps[stepNum];
+            if (data) {
+                document.getElementById('scriptStepTag').innerText = data.tag;
+                document.getElementById('scriptTimeTag').innerText = data.time;
+                document.getElementById('scriptObjText').innerText = data.obj;
+                
+                // Keep inner verbatim scripting responsive to current theme active status
+                const scriptBoxText = document.getElementById('scriptVerbatim');
+                scriptBoxText.innerText = data.verbatim.replace(/^"|"$/g, ''); // strip outer escapes
+            }
+        }
+
+        // Modal triggers
+        function openExportModal() {
+            document.getElementById('exportModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeExportModal() {
+            document.getElementById('exportModal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        // Mobile UX: section highlighting, back-to-top, keyboard nav
+        function initMobileUX() {
+            const sectionIds = ['coreDisruption', 'findingKeyman', 'liveCalculator', 'debtRisk', 'conversationFramework'];
+            const navLinks = document.querySelectorAll('[data-section]');
+            const backToTop = document.getElementById('backToTop');
+
+            // Intersection observer for active nav state
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            navLinks.forEach(link => {
+                                const isActive = link.dataset.section === entry.target.id;
+                                link.classList.toggle('active', isActive);
+                            });
+                        }
+                    });
+                }, { rootMargin: '-20% 0px -60% 0px', threshold: 0 });
+
+                sectionIds.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) observer.observe(el);
+                });
+            }
+
+            // Back to top visibility
+            window.addEventListener('scroll', () => {
+                if (backToTop) {
+                    backToTop.classList.toggle('visible', window.scrollY > 400);
+                }
+            }, { passive: true });
+
+            // Escape closes modal
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeExportModal();
+            });
+
+            // Smooth anchor clicks with header offset
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const targetId = link.getAttribute('href')?.slice(1);
+                    const target = targetId && document.getElementById(targetId);
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        history.replaceState(null, '', '#' + targetId);
+                    }
+                });
+            });
+        }
+
+        // Method 1: Programmatic html2pdf generator
+        function downloadDirectPDF() {
+            closeExportModal();
+            const loader = document.getElementById('exportLoader');
+            if (loader) loader.classList.remove('hidden');
+
+            // Force Ink Saver temporary print mode for clean paper layout
+            const initiallySaver = inkSaverActive;
+            if (!initiallySaver) {
+                toggleInkSaver();
+            }
+
+            // Capture target element
+            const element = document.getElementById('printableContent');
+            
+            // Render settings optimized for standard letter sized PDF sheets
+            const options = {
+                margin: [0.5, 0.5, 0.5, 0.5],
+                filename: 'Keyman_Insurance_Framework.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+                pagebreak: { mode: ['css', 'legacy'] }
+            };
+
+            // Programmatically output the PDF file bypassing modals
+            html2pdf().set(options).from(element).save().then(() => {
+                // Restore state
+                if (!initiallySaver) {
+                    toggleInkSaver();
+                }
+                if (loader) loader.classList.add('hidden');
+            }).catch(err => {
+                console.error("PDF generation failed:", err);
+                if (loader) loader.classList.add('hidden');
+                triggerSystemPrint();
+            });
+        }
+
+        // Method 2: System Printing
+        function triggerSystemPrint() {
+            closeExportModal();
+            const previouslyActive = inkSaverActive;
+            if (!previouslyActive) {
+                toggleInkSaver();
+            }
+            setTimeout(() => {
+                window.print();
+                if (!previouslyActive) {
+                    toggleInkSaver();
+                }
+            }, 150);
+        }
+
+        // Trigger default calculations on load
+        window.onload = function() {
+            calculateExposure();
+            setMeetingStep(1);
+            updateAssessments();
+            initMobileUX();
+        }
+    </script>
+</body>
+</html>
