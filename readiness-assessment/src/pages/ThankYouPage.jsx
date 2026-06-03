@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
+  BI_READY_TIERS,
   getResultProfile,
   loadResultPayload,
   scoreToDisplay,
@@ -44,6 +45,7 @@ export default function ThankYouPage() {
   const highInterest =
     insights?.masterclassInterest === 'Yes, definitely' ||
     insights?.masterclassInterest === 'Possibly';
+  const showBiCongrats = BI_READY_TIERS.has(scoring.tier) && profile.congratulatory;
 
   return (
     <div className="thank-you assessment-layout" style={{ maxWidth: '640px' }}>
@@ -52,6 +54,15 @@ export default function ThankYouPage() {
         {name ? `${name}here is your ` : 'Here is your '}
         Keyman readiness profile
       </h1>
+
+      {showBiCongrats && (
+        <div className="result-congrats" role="status">
+          <p className="result-congrats-eyebrow">
+            <span aria-hidden="true">✦</span> Congratulations
+          </p>
+          <p className="result-congrats-body">{profile.congratulatory}</p>
+        </div>
+      )}
 
       <div className="result-card">
         <div className="result-score-row">

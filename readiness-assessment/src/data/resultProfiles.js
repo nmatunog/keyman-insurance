@@ -28,10 +28,12 @@ export const RESULT_PROFILES = {
     headline: 'You are developing solid Business Insurance readiness',
     summary:
       'You have meaningful opportunity in your network and growing interest in advanced topics. Structured training will accelerate your confidence and case flow.',
+    congratulatory:
+      'Congratulations — your assessment shows you are well positioned to move forward now. Enrolling in the GIYA Business Insurance Academy is the clearest next step to turn readiness into consistent cases and client conversations.',
     nextStep:
-      'Reserve your spot on the Master Class waiting list and review Academy enrollment to unlock tools and curriculum.',
-    primaryCta: { label: 'Reserve my Master Class spot', href: SITE_LINKS.waitlist, icon: 'waitlist' },
-    secondaryCta: { label: 'Enroll in BI Academy (₱7,990)', href: SITE_LINKS.enrollBi, icon: 'enroll' },
+      'Start with the Academy for curriculum, tools, and case frameworks — then join the Master Class waitlist for advanced live sessions.',
+    primaryCta: { label: 'Enroll in Business Insurance Academy', href: SITE_LINKS.enrollBi, icon: 'enroll' },
+    secondaryCta: { label: 'Join Master Class waitlist', href: SITE_LINKS.waitlist, icon: 'waitlist' },
   },
   MasterClass: {
     readinessLabel: 'Master Class Candidate',
@@ -39,10 +41,12 @@ export const RESULT_PROFILES = {
     headline: 'You are a strong candidate for advanced training',
     summary:
       'Your experience, network, and interest align with advisors who benefit most from small-group Master Class work on Keyman, buy-sell, and succession design.',
+    congratulatory:
+      'Congratulations — you are among the advisors best positioned to advance right now. The Business Insurance Academy gives you the structured path to master Keyman, buy-sell, and succession cases while you wait for Master Class invitations.',
     nextStep:
-      'Join the waiting list for priority invitations, or enroll now in the Business Insurance Academy to begin immediately.',
-    primaryCta: { label: 'Join Master Class waiting list', href: SITE_LINKS.waitlist, icon: 'waitlist' },
-    secondaryCta: { label: 'Enroll in BI Academy now', href: SITE_LINKS.enrollBi, icon: 'enroll' },
+      'Enroll in the Academy today to begin immediately; your waitlist spot keeps you in line for small-group advanced labs.',
+    primaryCta: { label: 'Enroll in BI Academy now — ₱7,990', href: SITE_LINKS.enrollBi, icon: 'enroll' },
+    secondaryCta: { label: 'Reserve Master Class waitlist spot', href: SITE_LINKS.waitlist, icon: 'waitlist' },
   },
   InnerCircle: {
     readinessLabel: 'Advanced / Inner Circle',
@@ -50,12 +54,17 @@ export const RESULT_PROFILES = {
     headline: 'You show advanced readiness for high-level case work',
     summary:
       'Your profile suggests you are prepared for MDRT-level business insurance conversations, coaching, and inner-circle advanced case labs.',
+    congratulatory:
+      'Congratulations — your results place you in our top readiness tier. You are best positioned to move forward by enrolling in the Business Insurance Academy now and unlocking the full GIYA toolkit while we prioritize you for coaching and inner-circle invitations.',
     nextStep:
-      'We will prioritize you for Master Class and coaching invitations. Enroll in the Academy or Elite membership to unlock full platform access today.',
-    primaryCta: { label: 'Priority waitlist — reserve now', href: SITE_LINKS.waitlist, icon: 'waitlist' },
-    secondaryCta: { label: 'Go to enrollment & billing', href: SITE_LINKS.enrollBi, icon: 'enroll' },
+      'Complete Academy enrollment to access curriculum and calculators today; Elite membership includes all Academies if you want the full ecosystem.',
+    primaryCta: { label: 'Enroll in Business Insurance Academy', href: SITE_LINKS.enrollBi, icon: 'enroll' },
+    secondaryCta: { label: 'View Elite & Academy pricing', href: SITE_LINKS.academyPricing, icon: 'academy' },
   },
 };
+
+/** Tiers that receive the BI enrollment congratulations block */
+export const BI_READY_TIERS = new Set(['Warm', 'MasterClass', 'InnerCircle']);
 
 export function getResultProfile(tier) {
   return RESULT_PROFILES[tier] || RESULT_PROFILES.General;
