@@ -54,7 +54,9 @@ supabase db push
 
 ## Viewing leads
 
-[Table Editor → assessments](https://supabase.com/dashboard/project/iljmyodcpozsnzlsdacb/editor/assessments)
+**GIYA Admin (recommended):** Sign in at [/login.html](https://joingiya.com/login.html) → [/admin/](https://joingiya.com/admin/) → **Keyman Readiness leads**. Email, WhatsApp, SMS, call, and copy actions per lead.
+
+**Supabase:** [Table Editor → assessments](https://supabase.com/dashboard/project/iljmyodcpozsnzlsdacb/editor/assessments)
 
 Filter by `lead_tier`: `General`, `Warm`, `MasterClass`, `InnerCircle`.
 

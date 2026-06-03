@@ -10,6 +10,7 @@ Cloudflare **Pages Functions** + **D1** power member login, admin panel, and sub
 | Register (member / mentee) | `/register.html` |
 | Account & billing | `/account.html` |
 | Admin dashboard | `/admin/` |
+| Admin readiness leads API | `GET /api/admin/assessments` (admin session) |
 
 ## Subscription pricing (PHP)
 
