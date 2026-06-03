@@ -4,6 +4,15 @@
 
 Unified site: GIYA landing + Business Insurance Academy + **Keyman Planning Reference**.
 
+## Live site
+
+- **https://keyman-insurance.pages.dev/** — GIYA home + Academy
+- **https://keyman-insurance.pages.dev/keyman/** — Keyman Planning Reference
+
+## GitHub
+
+https://github.com/nmatunog/keyman-insurance
+
 ## Run locally
 
 ```bash
@@ -14,34 +23,25 @@ cd /Users/nmatunog2/Business-insurance
 | Page | URL |
 |------|-----|
 | GIYA home + Academy | http://127.0.0.1:8765/ |
-| Keyman Reference | http://127.0.0.1:8765/keyman.html |
-| Academy anchor | http://127.0.0.1:8765/#business-academy |
+| Keyman Reference | http://127.0.0.1:8765/keyman/ |
 
 ## Files
 
-| File | Purpose |
-|------|-----|
-| `index.html` | GIYA platform + embedded Business Insurance Academy |
-| `keyman.html` | Full Keyman Planning Reference (calculators, scripts, PDF) |
+| Path | Purpose |
+|------|---------|
+| `index.html` | GIYA platform + Business Insurance Academy |
+| `keyman/index.html` | Full Keyman Planning Reference |
 | `academy.html` | Redirects to `index.html#business-academy` |
 | `assets/` | Founder photo and static assets |
 
-## Cloudflare Pages (one deployment)
+## Deploy (Cloudflare Pages)
 
-Deploy the **`Business-insurance`** folder as your Pages project root (same project that served [keyman-insurance.pages.dev](https://keyman-insurance.pages.dev/)).
-
-- `/` → GIYA home
-- `/keyman.html` → Keyman reference (replaces standalone subdomain content)
-- Optional: add a `_redirects` file to forward old URLs:
-
+```bash
+npx wrangler pages deploy . --project-name=keyman-insurance --branch=main
 ```
-/keyman-insurance/*  /keyman.html  301
-```
+
+Project: **keyman-insurance** (same as [keyman-insurance.pages.dev](https://keyman-insurance.pages.dev/))
 
 ## Brand
 
 Black `#0A0A0B` · Ink `#141416` · Pearl `#F5F3EE` · Gold `#C4A052` · Inter + Source Serif 4
-
-## Source
-
-Keyman reference source also lives at `~/ Keyman-insurance/` (note: folder name has a leading space). The canonical branded copy is **`keyman.html`** in this repo.
