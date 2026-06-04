@@ -98,11 +98,23 @@ function escapeHtml(s) {
     .replace(/"/g, '&quot;');
 }
 
-async function sendViaResend(env, to, payload) {
-  const apiKey = env.RESEND_API_KEY;
-  if (!apiKey) return { sent: false, reason: 'RESEND_API_KEY not configured' };
+const RESEND_SANDBOX_FROM = 'GIYA <onboarding@resend.dev>';
 
-  const from = env.GIYA_EMAIL_FROM || 'GIYA <onboarding@resend.dev>';
+function isResendSandboxLimit(reason) {
+  const r = String(reason || '').toLowerCase();
+  return (
+    r.includes('only send') ||
+    r.includes('testing emails') ||
+    r.includes('verify a domain') ||
+    r.includes('not authorized to send')
+  );
+}
+
+async function sendViaResend(env, to, payload, options = {}) {
+  const apiKey = env.RESEND_API_KEY;
+  if (!apiKey) return { sent: false, reason: 'RESEND_API_KEY not configured', provider: 'resend' };
+
+  const from = options.from || env.GIYA_EMAIL_FROM || RESEND_SANDBOX_FROM;
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
@@ -121,7 +133,8 @@ async function sendViaResend(env, to, payload) {
 
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
-    return { sent: false, reason: data.message || `Resend HTTP ${res.status}` };
+    const reason = data.message || data.error || `Resend HTTP ${res.status}`;
+    return { sent: false, reason, provider: 'resend', status: res.status };
   }
   return { sent: true, provider: 'resend', id: data.id };
 }
@@ -147,6 +160,38 @@ async function sendViaCloudflareEmail(env, to, payload) {
   }
 }
 
+async function notifyAdminFailedAdvisorEmail(env, lead, scoring, failReason) {
+  const admin = env.GIYA_ADMIN_EMAIL;
+  if (!admin || !env.RESEND_API_KEY) return { sent: false };
+
+  const links = bonusLinks(env);
+  const first = lead.full_name?.split(/\s+/)[0] || 'Advisor';
+  const subject = `[GIYA] Forward assessment guides to ${lead.email}`;
+  const text = `An advisor completed the Keyman Readiness Assessment but automatic email to them failed.
+
+Advisor: ${lead.full_name}
+Email: ${lead.email}
+Score: ${scoring.score ?? lead.lead_score ?? '—'}/100
+Tier: ${scoring.tier ?? lead.lead_tier ?? '—'}
+
+Failure: ${failReason}
+
+Please forward these links:
+1. Keyman Discovery Framework — ${links.discovery}
+2. Business Insurance Conversation Guide — ${links.conversation}
+
+Until joingiya.com is verified in Resend, only the Resend account owner inbox receives automated mail.`;
+
+  const html = `<p>An advisor completed the assessment but did not receive the automated email.</p>
+<ul><li><strong>${escapeHtml(lead.full_name)}</strong> · <a href="mailto:${escapeHtml(lead.email)}">${escapeHtml(lead.email)}</a></li>
+<li>Score: ${scoring.score ?? '—'}/100 · ${escapeHtml(scoring.tier || '')}</li></ul>
+<p style="color:#6B7280;font-size:13px">${escapeHtml(failReason)}</p>
+<p><a href="${links.discovery}">Keyman Discovery Framework</a><br>
+<a href="${links.conversation}">Business Insurance Conversation Guide</a></p>`;
+
+  return sendViaResend(env, admin, { subject, text, html }, { from: RESEND_SANDBOX_FROM });
+}
+
 /**
  * Send post-assessment follow-up with bonus resource links. Never throws.
  */
@@ -155,12 +200,43 @@ export async function sendReadinessFollowUpEmail(env, lead, scoring) {
 
   const payload = buildReadinessEmail(lead, scoring, env);
 
-  let result = await sendViaResend(env, lead.email, payload);
-  if (!result.sent) {
-    result = await sendViaCloudflareEmail(env, lead.email, payload);
+  let resendResult = await sendViaResend(env, lead.email, payload);
+  if (
+    !resendResult.sent &&
+    env.GIYA_EMAIL_FROM &&
+    !String(env.GIYA_EMAIL_FROM).includes('resend.dev')
+  ) {
+    resendResult = await sendViaResend(env, lead.email, payload, { from: RESEND_SANDBOX_FROM });
   }
 
-  return result;
+  if (resendResult.sent) {
+    return { sent: true, provider: 'resend', id: resendResult.id };
+  }
+
+  let cfResult = { sent: false, reason: 'EMAIL binding not configured', provider: 'cloudflare' };
+  if (!isResendSandboxLimit(resendResult.reason)) {
+    cfResult = await sendViaCloudflareEmail(env, lead.email, payload);
+    if (cfResult.sent) return cfResult;
+  }
+
+  const primaryReason = resendResult.reason || cfResult.reason;
+  const adminNotify = await notifyAdminFailedAdvisorEmail(env, lead, scoring, primaryReason);
+
+  if (isResendSandboxLimit(primaryReason)) {
+    return {
+      sent: false,
+      reason: 'resend_domain_pending',
+      detail: primaryReason,
+      admin_notified: Boolean(adminNotify.sent),
+    };
+  }
+
+  return {
+    sent: false,
+    reason: primaryReason,
+    detail: cfResult.reason !== primaryReason ? cfResult.reason : undefined,
+    admin_notified: Boolean(adminNotify.sent),
+  };
 }
 
 export { buildReadinessEmail, bonusLinks };

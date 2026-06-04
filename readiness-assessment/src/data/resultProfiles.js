@@ -122,6 +122,32 @@ export function saveResultPayload(payload) {
   }
 }
 
+/** User-facing copy for post-assessment email status (hide infra errors). */
+export function emailDeliveryMessage(emailSent, emailReason) {
+  if (emailSent === true) {
+    return {
+      tone: 'ok',
+      text: 'We sent these two guides to your inbox. Check spam or promotions if you do not see them within a few minutes.',
+    };
+  }
+  if (emailSent === false && emailReason === 'resend_domain_pending') {
+    return {
+      tone: 'warn',
+      text: 'Your guides are ready above. GIYA is enabling email to all advisor addresses — our team may forward your copies shortly. Save the links now.',
+    };
+  }
+  if (emailSent === false) {
+    return {
+      tone: 'warn',
+      text: 'Your guides are always available using the links above. If you expected an email, check spam or try again later.',
+    };
+  }
+  return {
+    tone: 'ok',
+    text: 'If you opted in to email updates, your two guides are on the way. Check spam if needed.',
+  };
+}
+
 export function loadResultPayload() {
   try {
     const raw = sessionStorage.getItem(RESULT_STORAGE_KEY);

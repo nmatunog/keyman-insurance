@@ -59,5 +59,6 @@ export async function onRequestPost(context) {
     lead_tier_label: tierLabel,
     email_sent: Boolean(emailResult.sent),
     email_reason: emailResult.sent ? null : emailResult.reason || 'send_failed',
+    admin_notified: Boolean(emailResult.admin_notified),
   });
 }

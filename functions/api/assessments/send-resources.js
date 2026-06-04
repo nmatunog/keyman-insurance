@@ -37,5 +37,6 @@ export async function onRequestPost(context) {
     ok: true,
     email_sent: Boolean(emailResult.sent),
     email_reason: emailResult.reason || null,
+    admin_notified: Boolean(emailResult.admin_notified),
   });
 }

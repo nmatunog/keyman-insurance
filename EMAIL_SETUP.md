@@ -55,7 +55,8 @@ Upload files to the site and update links in `functions/lib/readinessEmail.js` �
 
 | Symptom | Fix |
 |---------|-----|
+| `email_sent: false`, `email_reason: resend_domain_pending` | Verify **joingiya.com** in Resend so mail can go to any advisor (until then, only the Resend account owner inbox works; admin gets a forward request automatically) |
 | `email_sent: false` | Add `RESEND_API_KEY` or Email Sending binding |
-| No email, Resend sandbox | Unverified domain: Resend may only deliver to your Resend account email until `joingiya.com` is verified |
+| Misleading `EMAIL binding not configured` | Fixed — UI now shows advisor-friendly copy; check API `email_reason` for the real Resend error |
 | Local `serve.sh` only | Static server has no `/api` — run `npx wrangler pages dev` for email, or test on production |
 | Supabase-only submit | Client always calls `/api/assessments/submit` for email; ensure that request succeeds |

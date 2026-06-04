@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   BONUS_RESOURCES,
   COMMUNITY_BENEFITS,
+  emailDeliveryMessage,
   getGrowthOpportunity,
   getResultProfile,
   loadResultPayload,
@@ -45,6 +46,7 @@ export default function ThankYouPage() {
   const growth = getGrowthOpportunity(insights);
   const greet = firstName ? `${firstName}, ` : '';
   const showEmailNote = insights?.resourcePermission !== false;
+  const emailNote = emailDeliveryMessage(emailSent, emailReason);
 
   return (
     <div className="thank-you assessment-layout" style={{ maxWidth: '640px' }}>
@@ -94,13 +96,7 @@ export default function ThankYouPage() {
           ))}
         </ul>
         {showEmailNote && (
-          <p className={`email-delivery-note ${emailSent ? 'email-delivery-ok' : 'email-delivery-warn'}`}>
-            {emailSent === true
-              ? 'We sent these two guides to your inbox. Check spam or promotions if you do not see them within a few minutes.'
-              : emailSent === false
-                ? `Email could not be sent${emailReason ? ` (${emailReason})` : ''}. Use the links above — they are always available here.`
-                : 'If you opted in to email updates, your two guides are on the way. Check spam if needed.'}
-          </p>
+          <p className={`email-delivery-note email-delivery-${emailNote.tone}`}>{emailNote.text}</p>
         )}
       </section>
 
