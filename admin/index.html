@@ -114,6 +114,31 @@
             </section>
 
             <section class="bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
+                <div class="px-5 py-4 border-b border-white/10 flex flex-wrap justify-between items-center gap-3">
+                    <div>
+                        <h2 class="font-bold">Contributor submissions</h2>
+                        <p class="text-xs text-white/50 mt-0.5" id="contributor-count">Loading…</p>
+                    </div>
+                    <button type="button" id="refresh-contributors" class="text-xs bg-white/10 hover:bg-white/15 px-3 py-1.5 rounded-lg font-semibold">Refresh</button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead class="text-white/50 text-left">
+                            <tr class="border-b border-white/10">
+                                <th class="p-3">Date</th>
+                                <th class="p-3">Name</th>
+                                <th class="p-3">Email</th>
+                                <th class="p-3">Type</th>
+                                <th class="p-3">Discipline</th>
+                            </tr>
+                        </thead>
+                        <tbody id="contributor-rows"></tbody>
+                    </table>
+                </div>
+                <p id="contributor-empty" class="hidden p-8 text-center text-white/50 text-sm">No contributor submissions yet.</p>
+            </section>
+
+            <section class="bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
                 <div class="px-5 py-4 border-b border-white/10 flex justify-between items-center">
                     <h2 class="font-bold">Pending payments</h2>
                 </div>
@@ -323,6 +348,38 @@ GIYA — Guiding Advisors. Protecting Legacies.`;
         document.getElementById('tier-filter').addEventListener('change', loadAssessments);
         document.getElementById('refresh-leads').addEventListener('click', loadAssessments);
         document.getElementById('refresh-waitlist').addEventListener('click', loadWaitlist);
+        document.getElementById('refresh-contributors')?.addEventListener('click', loadContributors);
+
+        async function loadContributors() {
+            const { ok, data } = await GiyaAuth.api('/admin/contributors');
+            const tbody = document.getElementById('contributor-rows');
+            const empty = document.getElementById('contributor-empty');
+            const countEl = document.getElementById('contributor-count');
+            if (!ok || !tbody) {
+                if (countEl) countEl.textContent = 'Unable to load';
+                return;
+            }
+            const rows = data.submissions || [];
+            if (countEl) countEl.textContent = `${rows.length} submission(s)`;
+            if (!rows.length) {
+                tbody.innerHTML = '';
+                empty?.classList.remove('hidden');
+                return;
+            }
+            empty?.classList.add('hidden');
+            const typeLabels = { article: 'Article', case_study: 'Case study', research: 'Research', template: 'Template' };
+            tbody.innerHTML = rows
+                .map(
+                    (r) => `<tr class="border-b border-white/5 hover:bg-white/5">
+                <td class="p-3 text-xs text-white/50">${new Date(r.created_at * 1000).toLocaleString()}</td>
+                <td class="p-3">${esc(r.name)}</td>
+                <td class="p-3"><a href="mailto:${esc(r.email)}" class="text-g-gold hover:underline">${esc(r.email)}</a></td>
+                <td class="p-3">${esc(typeLabels[r.contribution_type] || r.contribution_type)}</td>
+                <td class="p-3 text-xs capitalize">${esc((r.discipline || '').replace(/_/g, ' '))}</td>
+            </tr>`
+                )
+                .join('');
+        }
 
         async function loadWaitlist() {
             const { ok, data } = await GiyaAuth.api('/admin/waitlist');
@@ -393,6 +450,7 @@ GIYA — Guiding Advisors. Protecting Legacies.`;
                 .join('');
 
             loadWaitlist();
+            loadContributors();
             loadAssessments().then(() => {
                 const el = document.getElementById('stat-leads');
                 if (el) {

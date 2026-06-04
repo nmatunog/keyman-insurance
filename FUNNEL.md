@@ -33,3 +33,5 @@ All product copy, CTAs, and onboarding should follow this order. Do not push bil
 - **Professional / Academies / Elite** only after meaningful exploration (soft CTA at 3+ sections).
 
 See also `ONBOARDING.md` for waitlist vs community vs register flows.
+
+**Version 2 (Institute platform):** see `VISION.md` — Fellows, Contributors, certification ladder, and long-term site IA.

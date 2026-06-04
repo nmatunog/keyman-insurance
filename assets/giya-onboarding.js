@@ -8,9 +8,10 @@
   const SECTIONS = [
     { id: 'keyman', label: 'Keyman Resource Center', href: '/keyman/' },
     { id: 'assessment', label: 'Readiness assessment', href: '/readiness/' },
-    { id: 'platform', label: 'Platform overview' },
-    { id: 'pathways', label: 'Advisor pathways' },
-    { id: 'business-academy', label: 'Academy preview' },
+    { id: 'certification', label: 'Certification path' },
+    { id: 'fellows', label: 'GIYA Fellows', href: '/fellows/' },
+    { id: 'platform', label: 'Learn · disciplines' },
+    { id: 'business-academy', label: 'Academies' },
   ];
   const MIN_EXPLORE_FOR_SOFT_CTA = 3;
 
