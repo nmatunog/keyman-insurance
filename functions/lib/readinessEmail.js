@@ -15,9 +15,10 @@ function bonusLinks(env) {
     discovery: `${base}/assets/bonus/keyman-discovery-framework.html`,
     conversation: `${base}/assets/bonus/business-insurance-conversation-guide.html`,
     readiness: `${base}/readiness/`,
-    academy: `${base}/#academy-pricing`,
+    join: `${base}/#join`,
+    keyman: `${base}/keyman/`,
     waitlist: `${base}/#waitlist`,
-    enroll: `${base}/account.html#business_insurance`,
+    masterClass: `${base}/#business-academy`,
   };
 }
 
@@ -42,9 +43,13 @@ Your complimentary resources:
 2. Business Insurance Conversation Guide
    ${links.conversation}
 
-Recommended next steps:
-- Business Insurance Academy: ${links.enroll}
-- Master Class waiting list: ${links.waitlist}
+Your next step (free):
+Join the GIYA community: ${links.join}
+
+Explore the Keyman Resource Center: ${links.keyman}
+
+Interested in advanced learning later?
+Master Class waitlist (no purchase today): ${links.waitlist}
 
 Save the Business. Protect the Family. Preserve the Legacy.
 
@@ -63,16 +68,20 @@ ${siteUrl(env)}`;
     <strong>${escapeHtml(tierLabel)}</strong><br>
     Readiness score: <strong>${score}</strong> / 100
   </p>
-  <h2 style="font-size:16px;color:#0A0A0B;margin-top:24px">Your bonus resources</h2>
+  <h2 style="font-size:16px;color:#0A0A0B;margin-top:24px">Your two complimentary guides</h2>
+  <p style="font-size:14px;color:#374151;margin:0 0 12px">Delivered because you completed the assessment:</p>
   <ul style="padding-left:20px">
     <li style="margin-bottom:8px"><a href="${links.discovery}" style="color:#8A7340;font-weight:600">Keyman Discovery Framework</a></li>
     <li style="margin-bottom:8px"><a href="${links.conversation}" style="color:#8A7340;font-weight:600">Business Insurance Conversation Guide</a></li>
   </ul>
-  <h2 style="font-size:16px;color:#0A0A0B">Move forward</h2>
-  <p>
-    <a href="${links.enroll}" style="display:inline-block;background:#0A0A0B;color:#fff;text-decoration:none;padding:12px 20px;border-radius:999px;font-weight:600;font-size:14px;margin-right:8px">Enroll in BI Academy</a>
-    <a href="${links.waitlist}" style="display:inline-block;border:2px solid #C4A052;color:#8A7340;text-decoration:none;padding:10px 18px;border-radius:999px;font-weight:600;font-size:14px">Master Class waitlist</a>
+  ${lead.resource_permission === false ? '<p style="font-size:13px;color:#6B7280">You opted out of future GIYA updates; these two guides are still yours to keep.</p>' : ''}
+  <h2 style="font-size:16px;color:#0A0A0B;margin-top:24px">Your next step — join free</h2>
+  <p style="font-size:14px;color:#374151">Case studies, frameworks, resource updates, and Master Class invitations.</p>
+  <p style="margin:20px 0">
+    <a href="${links.join}" style="display:inline-block;background:#C4A052;color:#0A0A0B;text-decoration:none;padding:14px 24px;border-radius:999px;font-weight:700;font-size:15px">Join GIYA</a>
   </p>
+  <p style="font-size:13px;color:#6B7280;margin-top:24px">Interested in advanced learning? <a href="${links.masterClass}" style="color:#8A7340">Learn about the Master Class</a> · <a href="${links.waitlist}" style="color:#8A7340">Priority waitlist</a> (launching soon).</p>
+  <p style="font-size:13px;color:#6B7280">Then explore GIYA as a <strong>free member</strong>: <a href="${links.join}" style="color:#8A7340">Join the community</a> (case studies, frameworks, and learning roadmaps).</p>
   <p style="font-style:italic;color:#8A7340;margin-top:28px">Save the Business. Protect the Family. Preserve the Legacy.</p>
   <p style="font-size:13px;color:#6B7280">Nilo B. Matunog, PFA · RFP<br>
   <a href="${siteUrl(env)}" style="color:#8A7340">joingiya.com</a></p>
@@ -143,9 +152,6 @@ async function sendViaCloudflareEmail(env, to, payload) {
  */
 export async function sendReadinessFollowUpEmail(env, lead, scoring) {
   if (!lead?.email) return { sent: false, reason: 'no email' };
-  if (lead.resource_permission === false) {
-    return { sent: false, reason: 'user opted out of resources' };
-  }
 
   const payload = buildReadinessEmail(lead, scoring, env);
 

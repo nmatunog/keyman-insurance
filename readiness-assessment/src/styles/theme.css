@@ -365,30 +365,225 @@ a:hover {
   margin: 0 auto;
 }
 
-.result-congrats {
-  text-align: left;
-  margin: 1.25rem 0 0;
-  padding: 1.15rem 1.2rem;
-  border-radius: var(--radius);
-  border: 1px solid rgba(196, 160, 82, 0.55);
-  background: linear-gradient(135deg, rgba(196, 160, 82, 0.18), rgba(196, 160, 82, 0.06));
-  box-shadow: 0 8px 28px rgba(196, 160, 82, 0.12);
+.result-profile-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  margin: 0 0 1rem;
+  line-height: 1.25;
+  text-align: center;
 }
 
-.result-congrats-eyebrow {
-  margin: 0 0 0.5rem;
+.growth-opportunity {
+  margin-top: 1.25rem;
+  padding-top: 1.15rem;
+  border-top: 1px solid rgba(196, 160, 82, 0.25);
+}
+
+.growth-opportunity-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 0.35rem;
+}
+
+.growth-opportunity-area {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--white);
+  margin: 0 0 0.4rem;
+}
+
+.growth-opportunity-detail {
+  font-size: 0.88rem;
+  color: var(--gray);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.bonus-resources-box {
+  margin: 1.25rem 0 0;
+  padding: 1.2rem 1.25rem;
+  border-radius: var(--radius);
+  border: 1px solid rgba(196, 160, 82, 0.35);
+  background: rgba(196, 160, 82, 0.08);
+}
+
+.bonus-resources-eyebrow {
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--gold);
+  margin: 0 0 0.35rem;
 }
 
-.result-congrats-body {
+.bonus-resources-copy {
+  font-size: 0.88rem;
+  color: var(--gray);
+  margin: 0 0 0.75rem;
+  line-height: 1.45;
+}
+
+.bonus-resources-list {
+  list-style: none;
   margin: 0;
-  font-size: 0.95rem;
-  line-height: 1.55;
+  padding: 0;
+}
+
+.bonus-resources-list li {
+  margin-bottom: 0.5rem;
+}
+
+.bonus-resources-list a {
+  color: var(--gold-light);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.bonus-resources-list a:hover {
+  color: var(--gold);
+}
+
+.email-delivery-note {
+  font-size: 0.8rem;
+  margin: 0.85rem 0 0;
+  line-height: 1.45;
+}
+
+.email-delivery-ok {
+  color: var(--gray);
+}
+
+.email-delivery-warn {
+  color: #e8b86d;
+}
+
+.free-membership-box {
+  text-align: center;
+  margin: 1rem 0 0;
+  padding: 1.5rem 1.35rem;
+  border-radius: var(--radius);
+  border: 2px solid rgba(196, 160, 82, 0.5);
+  background: linear-gradient(160deg, rgba(196, 160, 82, 0.2), rgba(10, 10, 11, 0.9));
+  box-shadow: 0 12px 40px rgba(196, 160, 82, 0.15);
+}
+
+.community-cta-box {
+  text-align: center;
+  margin: 1.5rem 0 0;
+  padding: 1.5rem 1.35rem;
+  border-radius: var(--radius);
+  border: 2px solid rgba(196, 160, 82, 0.5);
+  background: linear-gradient(160deg, rgba(196, 160, 82, 0.2), rgba(10, 10, 11, 0.9));
+  box-shadow: 0 12px 40px rgba(196, 160, 82, 0.15);
+}
+
+.community-cta-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 0.5rem;
+}
+
+.community-cta-title {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  color: var(--white);
+  margin: 0 0 0.25rem;
+}
+
+.community-cta-free {
+  font-size: 0.85rem;
+  color: var(--gold-light);
+  margin: 0 0 1rem;
+  font-weight: 600;
+}
+
+.community-benefits {
+  list-style: none;
+  margin: 0 auto 1.25rem;
+  padding: 0;
+  max-width: 300px;
+  text-align: left;
+  font-size: 0.88rem;
   color: var(--pearl);
+}
+
+.community-benefits li {
+  padding: 0.35rem 0 0.35rem 1.4rem;
+  position: relative;
+}
+
+.community-benefits li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.community-cta-note {
+  font-size: 0.78rem;
+  color: var(--gray-muted);
+  margin: 1rem 0 0;
+  line-height: 1.45;
+}
+
+.secondary-interest-box {
+  text-align: center;
+  margin-top: 1rem;
+  padding: 1.15rem 1.2rem;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.secondary-interest-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray-muted);
+  margin: 0 0 0.35rem;
+}
+
+.secondary-interest-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--pearl);
+  margin: 0 0 0.2rem;
+}
+
+.secondary-interest-status {
+  font-size: 0.8rem;
+  color: var(--gold);
+  margin: 0 0 0.5rem;
+}
+
+.secondary-interest-copy {
+  font-size: 0.82rem;
+  color: var(--gray-muted);
+  margin: 0 0 0.85rem;
+  line-height: 1.45;
+}
+
+.secondary-interest-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.result-cta-waitlist {
+  border-color: rgba(196, 160, 82, 0.35);
+  color: var(--gold-light);
 }
 
 .result-card {

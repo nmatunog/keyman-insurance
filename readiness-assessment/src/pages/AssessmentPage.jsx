@@ -98,10 +98,16 @@ export default function AssessmentPage() {
           cases: form.keyman_cases,
           masterclassInterest: form.masterclass_interest,
           resourcePermission: form.resource_permission === 'Yes',
+          markets: form.markets,
+          advancedTopics: form.advanced_topics,
         },
       };
-      saveResultPayload(payload);
-      navigate('/thank-you', { state: { result: payload } });
+      saveResultPayload({
+        ...payload,
+        emailSent: outcome.emailSent,
+        emailReason: outcome.emailReason,
+      });
+      navigate('/thank-you', { state: { result: { ...payload, emailSent: outcome.emailSent, emailReason: outcome.emailReason } } });
     } catch (e) {
       setError(e.message || 'Submission failed. Please try again.');
     } finally {
@@ -238,7 +244,7 @@ export default function AssessmentPage() {
                 onChange={(v) => patch('preferred_format', v)}
               />
             </Field>
-            <Field label="Would you like to receive future resources, case studies, and invitations?">
+            <Field label="Send my two complimentary guides by email, and keep me updated on case studies and invitations?">
               <RadioGroup
                 name="resource_permission"
                 options={YES_NO}

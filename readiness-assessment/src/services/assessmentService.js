@@ -2,6 +2,7 @@ import { calculateLeadScore } from './scoreCalculator';
 import { getSupabase, isSupabaseConfigured } from './supabase';
 
 const API_SUBMIT = '/api/assessments/submit';
+const API_SEND_RESOURCES = '/api/assessments/send-resources';
 
 function toRow(formData, scoring) {
   return {
@@ -33,22 +34,44 @@ async function saveToSupabase(row) {
   if (error) throw error;
 }
 
+function apiPayload(formData, scoring) {
+  return {
+    ...formData,
+    resource_permission: formData.resource_permission === 'Yes',
+    lead_score: scoring.score,
+    lead_tier: scoring.tier,
+    lead_tier_label: scoring.tierLabel,
+  };
+}
+
 async function saveToGiyaApi(formData, scoring) {
   const res = await fetch(API_SUBMIT, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      ...formData,
-      resource_permission: formData.resource_permission === 'Yes',
-      lead_score: scoring.score,
-      lead_tier: scoring.tier,
-    }),
+    body: JSON.stringify(apiPayload(formData, scoring)),
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok || !data.ok) {
     throw new Error(data.error || 'Unable to save assessment. Please try again.');
   }
   return data;
+}
+
+/** Retry bonus-email delivery when full submit did not run (e.g. static local server). */
+async function sendBonusEmail(formData, scoring) {
+  const res = await fetch(API_SEND_RESOURCES, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(apiPayload(formData, scoring)),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok || !data.ok) {
+    return { email_sent: false, email_reason: data.error || 'email_api_unavailable' };
+  }
+  return {
+    email_sent: Boolean(data.email_sent),
+    email_reason: data.email_reason || null,
+  };
 }
 
 export async function submitAssessment(formData) {
@@ -76,10 +99,29 @@ export async function submitAssessment(formData) {
         tierLabel: data.lead_tier_label ?? scoring.tierLabel,
       },
       channel: channels.join('+') || 'giya',
+      emailSent: Boolean(data.email_sent),
+      emailReason: data.email_reason || null,
     };
   } catch (giyaErr) {
+    const email = await sendBonusEmail(formData, scoring);
+    if (channels.includes('supabase') || email.email_sent) {
+      return {
+        ok: true,
+        scoring,
+        channel: channels.includes('supabase') ? 'supabase+email_retry' : 'email_retry',
+        emailSent: email.email_sent,
+        emailReason: email.email_reason,
+        giyaError: giyaErr.message,
+      };
+    }
     if (channels.includes('supabase')) {
-      return { ok: true, scoring, channel: 'supabase' };
+      return {
+        ok: true,
+        scoring,
+        channel: 'supabase',
+        emailSent: false,
+        emailReason: email.email_reason || giyaErr.message,
+      };
     }
     throw giyaErr;
   }

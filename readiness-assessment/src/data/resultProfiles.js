@@ -1,76 +1,110 @@
-/** Personalized thank-you copy and CTAs by lead tier */
+/** Personalized thank-you copy — relationship ladder (community → waitlist → course later) */
 export const RESULT_STORAGE_KEY = 'giya_readiness_result';
 
 export const SITE_LINKS = {
+  joinCommunity: '/#join',
   waitlist: '/#waitlist',
-  academyPricing: '/#academy-pricing',
-  businessAcademy: '/#business-academy',
-  enrollBi: '/account.html#business_insurance',
+  masterClassLearn: '/#business-academy',
+  keymanResource: '/keyman/',
   register: '/register.html',
   home: '/',
 };
 
-export const RESULT_PROFILES = {
+export const BONUS_RESOURCES = [
+  {
+    title: 'Keyman Discovery Framework',
+    href: '/assets/bonus/keyman-discovery-framework.html',
+  },
+  {
+    title: 'Business Insurance Conversation Guide',
+    href: '/assets/bonus/business-insurance-conversation-guide.html',
+  },
+];
+
+/** Public-facing advisor profile (not internal lead tier) */
+export const ADVISOR_PROFILES = {
   General: {
-    readinessLabel: 'Foundation Builder',
+    profileTitle: 'Emerging Business Insurance Advisor',
     stars: 2,
-    headline: 'You are building your Business Insurance foundation',
+    headline: 'You are at the curiosity-to-engagement stage',
     summary:
-      'Your profile shows early-stage readiness. Focus on discovery conversations and foundational Keyman concepts before advanced case design.',
-    nextStep:
-      'Start with GIYA Discover resources, then explore the Business Insurance Academy when you are ready to go deeper.',
-    primaryCta: { label: 'Join the Master Class waitlist', href: SITE_LINKS.waitlist, icon: 'waitlist' },
-    secondaryCta: { label: 'View Business Insurance Academy', href: SITE_LINKS.academyPricing, icon: 'academy' },
+      'You have taken the right first step. Your focus now is building familiarity with GIYA frameworks and steady practice conversations — not jumping to a major purchase.',
   },
   Warm: {
-    readinessLabel: 'Developing Advisor',
+    profileTitle: 'Developing Business Insurance Advisor',
     stars: 3,
-    headline: 'You are developing solid Business Insurance readiness',
+    headline: 'You are building meaningful readiness',
     summary:
-      'You have meaningful opportunity in your network and growing interest in advanced topics. Structured training will accelerate your confidence and case flow.',
-    congratulatory:
-      'Congratulations — your assessment shows you are well positioned to move forward now. Enrolling in the GIYA Business Insurance Academy is the clearest next step to turn readiness into consistent cases and client conversations.',
-    nextStep:
-      'Start with the Academy for curriculum, tools, and case frameworks — then join the Master Class waitlist for advanced live sessions.',
-    primaryCta: { label: 'Enroll in Business Insurance Academy', href: SITE_LINKS.enrollBi, icon: 'enroll' },
-    secondaryCta: { label: 'Join Master Class waitlist', href: SITE_LINKS.waitlist, icon: 'waitlist' },
+      'Your network and interest show real potential. The next win is joining the GIYA community, using shared case studies, and staying on the learning path before any major investment.',
   },
   MasterClass: {
-    readinessLabel: 'Master Class Candidate',
+    profileTitle: 'Strategic Planning Advisor',
     stars: 4,
-    headline: 'You are a strong candidate for advanced training',
+    headline: 'You are well positioned for advanced growth',
     summary:
-      'Your experience, network, and interest align with advisors who benefit most from small-group Master Class work on Keyman, buy-sell, and succession design.',
-    congratulatory:
-      'Congratulations — you are among the advisors best positioned to advance right now. The Business Insurance Academy gives you the structured path to master Keyman, buy-sell, and succession cases while you wait for Master Class invitations.',
-    nextStep:
-      'Enroll in the Academy today to begin immediately; your waitlist spot keeps you in line for small-group advanced labs.',
-    primaryCta: { label: 'Enroll in BI Academy now — ₱7,990', href: SITE_LINKS.enrollBi, icon: 'enroll' },
-    secondaryCta: { label: 'Reserve Master Class waitlist spot', href: SITE_LINKS.waitlist, icon: 'waitlist' },
+      'Your experience aligns with advisors who benefit from community learning, Master Class previews, and structured case work — trust first, then depth.',
   },
   InnerCircle: {
-    readinessLabel: 'Advanced / Inner Circle',
+    profileTitle: 'Advanced Advisor',
     stars: 5,
-    headline: 'You show advanced readiness for high-level case work',
+    headline: 'You show advanced advisory readiness',
     summary:
-      'Your profile suggests you are prepared for MDRT-level business insurance conversations, coaching, and inner-circle advanced case labs.',
-    congratulatory:
-      'Congratulations — your results place you in our top readiness tier. You are best positioned to move forward by enrolling in the Business Insurance Academy now and unlocking the full GIYA toolkit while we prioritize you for coaching and inner-circle invitations.',
-    nextStep:
-      'Complete Academy enrollment to access curriculum and calculators today; Elite membership includes all Academies if you want the full ecosystem.',
-    primaryCta: { label: 'Enroll in Business Insurance Academy', href: SITE_LINKS.enrollBi, icon: 'enroll' },
-    secondaryCta: { label: 'View Elite & Academy pricing', href: SITE_LINKS.academyPricing, icon: 'academy' },
+      'Your profile suggests you are ready for high-level conversations. We will prioritize you for community leadership, Master Class invitations, and future inner-circle opportunities.',
   },
 };
 
-/** Tiers that receive the BI enrollment congratulations block */
-export const BI_READY_TIERS = new Set(['Warm', 'MasterClass', 'InnerCircle']);
+export const COMMUNITY_BENEFITS = [
+  'Case studies & advisor frameworks',
+  'Resource updates & learning roadmaps',
+  'Master Class invitations',
+  'Keyman & business insurance tools',
+];
 
 export function getResultProfile(tier) {
-  return RESULT_PROFILES[tier] || RESULT_PROFILES.General;
+  return ADVISOR_PROFILES[tier] || ADVISOR_PROFILES.General;
 }
 
-/** Map 0–100+ score to a 0–100 display and star count */
+/** Personalized growth pillar from assessment answers */
+export function getGrowthOpportunity(insights) {
+  const markets = insights?.markets || [];
+  const topics = insights?.advancedTopics || [];
+
+  if (markets.includes('Medical Practices')) {
+    return {
+      area: 'Health Planning',
+      detail: 'Your market focus suggests integrating health and protection conversations with business-owner relationships.',
+    };
+  }
+
+  const estateSignals = topics.some(
+    (t) =>
+      t.includes('Succession') ||
+      t.includes('Buy-Sell') ||
+      t.includes('Estate')
+  );
+  const familyBiz = markets.includes('Family Businesses');
+
+  if (estateSignals && familyBiz) {
+    return {
+      area: 'Estate Conservation',
+      detail: 'Your interests point toward succession, family business continuity, and legacy planning alongside insurance solutions.',
+    };
+  }
+
+  if (estateSignals) {
+    return {
+      area: 'Business Insurance & Succession',
+      detail: 'Buy-sell and succession topics pair naturally with Keyman and business continuity planning.',
+    };
+  }
+
+  return {
+    area: 'Business Insurance',
+    detail: 'Keyman, business continuity, and owner conversations are your strongest near-term growth lever.',
+  };
+}
+
+/** Map 0–100+ score to display */
 export function scoreToDisplay(score) {
   const clamped = Math.min(100, Math.max(0, score));
   let stars = 2;

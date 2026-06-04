@@ -5,7 +5,7 @@ After each assessment submission, GIYA can automatically email the advisor their
 - [Keyman Discovery Framework](https://joingiya.com/assets/bonus/keyman-discovery-framework.html)
 - [Business Insurance Conversation Guide](https://joingiya.com/assets/bonus/business-insurance-conversation-guide.html)
 
-Emails send only when the user answered **Yes** to receiving future resources. Sending runs in `POST /api/assessments/submit` (D1 path).
+The **two complimentary guides** are emailed on every completed assessment (regardless of future-updates preference). The resources question only controls ongoing nurture messaging. Sending runs in `POST /api/assessments/submit` (D1 path), with retry via `POST /api/assessments/send-resources`.
 
 ## Option A — Resend (recommended, fastest setup)
 
@@ -56,5 +56,6 @@ Upload files to the site and update links in `functions/lib/readinessEmail.js` �
 | Symptom | Fix |
 |---------|-----|
 | `email_sent: false` | Add `RESEND_API_KEY` or Email Sending binding |
-| No email, opted out | User chose **No** on resources question |
+| No email, Resend sandbox | Unverified domain: Resend may only deliver to your Resend account email until `joingiya.com` is verified |
+| Local `serve.sh` only | Static server has no `/api` — run `npx wrangler pages dev` for email, or test on production |
 | Supabase-only submit | Client always calls `/api/assessments/submit` for email; ensure that request succeeds |

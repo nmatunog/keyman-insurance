@@ -19,6 +19,9 @@ export default function HeroSection() {
         <Link to="/assessment" className="btn btn-primary">
           Start assessment
         </Link>
+        <p style={{ marginTop: '1rem', fontSize: '0.8rem', color: 'var(--gray-muted)' }}>
+          ~3 minutes · Free community access after you complete
+        </p>
       </div>
     </section>
   );
