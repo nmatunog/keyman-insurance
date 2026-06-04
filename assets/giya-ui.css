@@ -18,6 +18,10 @@
   }
 }
 
+html.giya-explore-landing {
+  scroll-behavior: auto !important;
+}
+
 body {
   font-family: Inter, system-ui, sans-serif;
   font-weight: 500;

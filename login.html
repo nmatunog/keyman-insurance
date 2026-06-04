@@ -43,7 +43,7 @@
 
         /** Never land on billing / academy catalog after sign-in — explore home first. */
         function resolveLoginReturn(raw) {
-            const exploreHome = '/?welcome=1&signedin=1';
+            const exploreHome = '/?welcome=1';
             if (!raw) return exploreHome;
             try {
                 const url = new URL(raw, location.origin);

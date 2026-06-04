@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +12,27 @@
     <meta property="og:image" content="https://joingiya.com/assets/giya-logo.png">
     <link rel="icon" href="/assets/giya-logo.png" type="image/png">
     <title>GIYA | Guiding Advisors. Protecting Legacies.</title>
+    <script>
+        /* Block browser hash jump + scroll restoration before first paint (welcome / post sign-in). */
+        (function () {
+            var search = location.search;
+            var welcome = /(?:^|[?&])welcome=1(?:&|$)/.test(search);
+            var signedIn = /(?:^|[?&])signedin=1(?:&|$)/.test(search);
+            if (!welcome && !signedIn) return;
+            if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+            try {
+                var hash = (location.hash || '').replace('#', '');
+                sessionStorage.setItem('giya_pending_hash', hash);
+            } catch (e) { /* ignore */ }
+            var params = new URLSearchParams(search);
+            params.delete('account');
+            if (signedIn) params.delete('signedin');
+            var qs = params.toString();
+            history.replaceState(null, '', location.pathname + (qs ? '?' + qs : ''));
+            window.scrollTo(0, 0);
+            document.documentElement.classList.add('giya-explore-landing');
+        })();
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1216,10 +1237,10 @@
             btn.addEventListener('click', () => goCheckout(`#membership-${btn.dataset.subscribe}`));
         });
         async function renderAcademyGrid() {
-            if (!window.GiyaPricing) return;
+            if (!window.GiyaPricing) return Promise.resolve();
             const { data } = await GiyaAuth.api('/auth/me');
             const grid = document.getElementById('academy-grid');
-            if (!grid || !data?.academies) return;
+            if (!grid || !data?.academies) return Promise.resolve();
             if (data.upsell) {
                 const u = document.getElementById('upsell-copy');
                 if (u) u.textContent = data.upsell;
@@ -1245,6 +1266,7 @@
                 localStorage.setItem(STORAGE_KEY, accessToGateTier(data.accessTier));
                 applyTierGating();
             }
+            return Promise.resolve();
         }
 
         function syncAuthNav(user) {
@@ -1464,51 +1486,93 @@
             document.getElementById(id)?.scrollIntoView({ behavior: behavior || 'instant', block: 'start' });
         }
 
-        /** After sign-in or ?welcome=1 — never land on Academy catalog from scroll restoration. */
+        function getPendingHash() {
+            try {
+                const h = sessionStorage.getItem('giya_pending_hash') || '';
+                sessionStorage.removeItem('giya_pending_hash');
+                return h.replace('#', '');
+            } catch {
+                return '';
+            }
+        }
+
+        function headerOffset() {
+            const header = document.querySelector('header');
+            const banner = document.getElementById('giya-welcome-banner');
+            return (header?.offsetHeight || 72) + (banner?.offsetHeight || 0) + 12;
+        }
+
+        function scrollToExploreTarget(id) {
+            if (!id || ACADEMY_HASHES.has(id)) {
+                window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                return;
+            }
+            const el = document.getElementById(id);
+            if (!el) {
+                window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                return;
+            }
+            const top = el.getBoundingClientRect().top + window.scrollY - headerOffset();
+            window.scrollTo({ top: Math.max(0, top), left: 0, behavior: 'instant' });
+        }
+
+        /** True when viewport has scrolled into the Academy catalog block. */
+        function isInAcademyCatalog() {
+            const catalog = document.getElementById('academy-pricing');
+            if (!catalog) return false;
+            const top = catalog.getBoundingClientRect().top + window.scrollY;
+            return window.scrollY > top - headerOffset() - 40;
+        }
+
+        /** After sign-in or ?welcome=1 — hero first; never stay on Academy catalog. */
         function handleExploreLanding() {
             const params = new URLSearchParams(location.search);
             const isWelcome = params.get('welcome') === '1';
-            const isSignedIn = params.get('signedin') === '1';
-            if (!isWelcome && !isSignedIn) return;
+            if (!isWelcome) return;
 
             if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+            params.delete('account');
 
-            if (params.has('account')) params.delete('account');
-
-            let hash = location.hash.replace('#', '');
+            let hash = getPendingHash() || location.hash.replace('#', '');
             if (ACADEMY_HASHES.has(hash)) hash = '';
 
-            if (isSignedIn) {
-                params.delete('signedin');
-                scrollToSectionId('', 'instant');
-                replaceUrl(params, '');
-                return;
+            if (isInAcademyCatalog()) {
+                hash = '';
             }
 
-            if (isWelcome) {
-                if (!hash || !WELCOME_EXPLORE_HASHES.has(hash)) {
-                    scrollToSectionId('', 'instant');
-                    replaceUrl(params, '');
-                } else {
-                    replaceUrl(params, hash);
-                    requestAnimationFrame(() => scrollToSectionId(hash, 'instant'));
-                }
+            if (!hash || !WELCOME_EXPLORE_HASHES.has(hash)) {
+                window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                replaceUrl(params, '');
+            } else {
+                scrollToExploreTarget(hash);
+                replaceUrl(params, hash);
+            }
+        }
+
+        function guardExploreLanding() {
+            const params = new URLSearchParams(location.search);
+            if (params.get('welcome') !== '1') return;
+            if (!isInAcademyCatalog()) return;
+            const hash = location.hash.replace('#', '');
+            if (hash && WELCOME_EXPLORE_HASHES.has(hash) && !ACADEMY_HASHES.has(hash)) {
+                scrollToExploreTarget(hash);
+            } else {
+                window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                replaceUrl(params, '');
             }
         }
 
         function scheduleExploreLanding() {
             handleExploreLanding();
-            requestAnimationFrame(() => handleExploreLanding());
-            window.addEventListener(
-                'load',
-                () => {
-                    const p = new URLSearchParams(location.search);
-                    if (p.get('welcome') === '1' || p.get('signedin') === '1') handleExploreLanding();
-                },
-                { once: true }
-            );
-            window.addEventListener('pageshow', (e) => {
-                if (e.persisted) handleExploreLanding();
+            [50, 150, 350, 700, 1200].forEach((ms) => setTimeout(handleExploreLanding, ms));
+            [100, 400, 900].forEach((ms) => setTimeout(guardExploreLanding, ms));
+            window.addEventListener('load', () => {
+                handleExploreLanding();
+                guardExploreLanding();
+            }, { once: true });
+            window.addEventListener('pageshow', () => {
+                handleExploreLanding();
+                guardExploreLanding();
             });
         }
 
@@ -1523,10 +1587,16 @@
                 if (window.GiyaAuth) {
                     GiyaAuth.refreshSession().then((user) => {
                         syncAuthNav(user);
-                        renderAcademyGrid();
+                        renderAcademyGrid().then(() => {
+                            handleExploreLanding();
+                            guardExploreLanding();
+                        });
                     });
                 } else {
-                    renderAcademyGrid();
+                    renderAcademyGrid().then(() => {
+                        handleExploreLanding();
+                        guardExploreLanding();
+                    });
                 }
                 if (document.getElementById('sc-keyman-salary')) calculateKeyman();
                 if (tierAtLeast('basic') && document.getElementById('sc-buyout-val')) calculateBuyout();
