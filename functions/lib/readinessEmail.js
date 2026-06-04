@@ -98,7 +98,13 @@ function escapeHtml(s) {
     .replace(/"/g, '&quot;');
 }
 
+/** Verified domain default (joingiya.com on Resend). Override with GIYA_EMAIL_FROM secret. */
+const RESEND_DEFAULT_FROM = 'Nilo Matunog <hello@joingiya.com>';
 const RESEND_SANDBOX_FROM = 'GIYA <onboarding@resend.dev>';
+
+function resendFromAddress(env, override) {
+  return override || env.GIYA_EMAIL_FROM || RESEND_DEFAULT_FROM;
+}
 
 function isResendSandboxLimit(reason) {
   const r = String(reason || '').toLowerCase();
@@ -114,7 +120,7 @@ async function sendViaResend(env, to, payload, options = {}) {
   const apiKey = env.RESEND_API_KEY;
   if (!apiKey) return { sent: false, reason: 'RESEND_API_KEY not configured', provider: 'resend' };
 
-  const from = options.from || env.GIYA_EMAIL_FROM || RESEND_SANDBOX_FROM;
+  const from = resendFromAddress(env, options.from);
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
@@ -180,7 +186,7 @@ Please forward these links:
 1. Keyman Discovery Framework — ${links.discovery}
 2. Business Insurance Conversation Guide — ${links.conversation}
 
-Until joingiya.com is verified in Resend, only the Resend account owner inbox receives automated mail.`;
+Please forward the guides if the advisor did not receive them.`;
 
   const html = `<p>An advisor completed the assessment but did not receive the automated email.</p>
 <ul><li><strong>${escapeHtml(lead.full_name)}</strong> · <a href="mailto:${escapeHtml(lead.email)}">${escapeHtml(lead.email)}</a></li>
@@ -189,7 +195,7 @@ Until joingiya.com is verified in Resend, only the Resend account owner inbox re
 <p><a href="${links.discovery}">Keyman Discovery Framework</a><br>
 <a href="${links.conversation}">Business Insurance Conversation Guide</a></p>`;
 
-  return sendViaResend(env, admin, { subject, text, html }, { from: RESEND_SANDBOX_FROM });
+  return sendViaResend(env, admin, { subject, text, html });
 }
 
 /**
@@ -201,11 +207,7 @@ export async function sendReadinessFollowUpEmail(env, lead, scoring) {
   const payload = buildReadinessEmail(lead, scoring, env);
 
   let resendResult = await sendViaResend(env, lead.email, payload);
-  if (
-    !resendResult.sent &&
-    env.GIYA_EMAIL_FROM &&
-    !String(env.GIYA_EMAIL_FROM).includes('resend.dev')
-  ) {
+  if (!resendResult.sent && isResendSandboxLimit(resendResult.reason)) {
     resendResult = await sendViaResend(env, lead.email, payload, { from: RESEND_SANDBOX_FROM });
   }
 

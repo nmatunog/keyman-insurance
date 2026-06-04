@@ -22,7 +22,7 @@ The **two complimentary guides** are emailed on every completed assessment (rega
 
 5. Redeploy (or push to `main` if CI deploys).
 
-Until the domain is verified, Resend allows testing from `onboarding@resend.dev` — set `GIYA_EMAIL_FROM` to `GIYA <onboarding@resend.dev>` for tests only.
+**joingiya.com** is verified in Resend. Production defaults to `Nilo Matunog <hello@joingiya.com>`. Optional: set secret `GIYA_EMAIL_FROM` to override. Sandbox fallback (`onboarding@resend.dev`) only applies if Resend still rejects the verified sender.
 
 ## Option B — Cloudflare Email Sending
 
