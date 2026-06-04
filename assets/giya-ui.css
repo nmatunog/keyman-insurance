@@ -145,9 +145,114 @@ h1 {
 }
 
 .hero-pillar-card--featured {
-  border-color: rgba(196, 160, 82, 0.45);
-  background: linear-gradient(135deg, #fffdf8 0%, #f5f3ee 100%);
-  box-shadow: 0 4px 20px -6px rgba(196, 160, 82, 0.25);
+  position: relative;
+  overflow: hidden;
+  border-width: 2px;
+  border-color: rgba(212, 179, 104, 0.72);
+  background: linear-gradient(135deg, #fffef6 0%, #faf0d4 48%, #f3e4b8 100%);
+  box-shadow:
+    0 6px 28px -6px rgba(212, 179, 104, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.hero-pillar-card--featured:hover,
+.hero-pillar-card--featured:focus-within {
+  transform: translateY(-4px) scale(1.02);
+  border-color: rgba(228, 198, 120, 0.95);
+  box-shadow:
+    0 14px 36px -8px rgba(212, 179, 104, 0.55),
+    0 0 0 1px rgba(255, 252, 235, 0.6) inset;
+}
+
+.hero-pillar-name--business {
+  font-size: 1.0625rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  background: linear-gradient(105deg, #7a5c18 0%, #c9a03d 42%, #e8c96a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-pillar-card--featured .hero-pillar-body p {
+  color: #5c4a28;
+}
+
+.hero-pillar-card--featured .hero-pillar-link {
+  color: #7a5c18;
+  font-weight: 800;
+}
+
+.hero-pillar-flagship {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.85rem 0.65rem;
+  margin: 0;
+  text-align: center;
+  background: linear-gradient(
+    155deg,
+    rgba(255, 254, 248, 0.98) 0%,
+    rgba(252, 243, 210, 0.99) 55%,
+    rgba(245, 228, 170, 0.99) 100%
+  );
+  border-radius: inherit;
+  opacity: 0;
+  transform: scale(0.94);
+  transition:
+    opacity 0.28s var(--giya-ease),
+    transform 0.32s var(--giya-ease);
+  pointer-events: none;
+}
+
+.hero-pillar-card--featured:hover .hero-pillar-flagship,
+.hero-pillar-card--featured:focus-within .hero-pillar-flagship {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.hero-pillar-flagship__label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #8a7340;
+}
+
+.hero-pillar-flagship__title {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: clamp(0.95rem, 3.2vw, 1.2rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #0a0a0b;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+@media (min-width: 1024px) {
+  .hero-pillar-card--featured:hover .hero-pillar-flagship__title,
+  .hero-pillar-card--featured:focus-within .hero-pillar-flagship__title {
+    font-size: clamp(1.05rem, 1.35vw, 1.35rem);
+    letter-spacing: 0.08em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-pillar-flagship {
+    transition: opacity 0.15s ease;
+    transform: none;
+  }
+
+  .hero-pillar-card--featured:hover,
+  .hero-pillar-card--featured:focus-within {
+    transform: translateY(-2px);
+  }
 }
 
 .hero-pillar-icon {
@@ -180,16 +285,25 @@ h1 {
 .hero-pillar-icon--business {
   background: linear-gradient(
     152deg,
-    #f0e4bc 0%,
-    #d4b56e 45%,
-    #b89448 100%
+    #fff4c8 0%,
+    #e8c96a 38%,
+    #d4b368 72%,
+    #a88442 100%
   );
   color: #1c160a;
-  border: 1px solid rgba(150, 115, 55, 0.5);
+  border: 1px solid rgba(212, 179, 104, 0.75);
   box-shadow:
-    inset 0 1px 0 rgba(255, 252, 240, 0.7),
-    0 4px 14px -2px rgba(196, 160, 82, 0.45);
-  font-size: 1.35rem;
+    inset 0 1px 0 rgba(255, 252, 240, 0.85),
+    0 6px 18px -2px rgba(212, 179, 104, 0.55);
+  font-size: 1.45rem;
+}
+
+.hero-pillar-card--featured:hover .hero-pillar-icon--business,
+.hero-pillar-card--featured:focus-within .hero-pillar-icon--business {
+  transform: scale(1.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 8px 22px -2px rgba(212, 179, 104, 0.65);
 }
 
 .hero-pillar-icon--estate {
@@ -417,7 +531,7 @@ header nav button:focus-visible {
 }
 
 .giya-logo--hero {
-  max-width: min(6.3rem, 36.4vw);
+  max-width: min(4.725rem, 27.3vw);
   width: auto;
   height: auto;
   margin: 0 0 1rem;
