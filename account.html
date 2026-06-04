@@ -24,7 +24,7 @@
     <main class="max-w-3xl mx-auto px-5 py-8 space-y-6">
         <div id="gate" class="hidden bg-white rounded-xl p-10 border text-center">
             <p class="text-g-slate-600">Sign in to manage billing.</p>
-            <a href="/login.html?return=/?welcome=1" class="inline-block mt-4 bg-g-black text-white px-6 py-2.5 rounded-lg text-sm font-semibold">Sign in</a>
+            <a href="/login.html?return=/" class="inline-block mt-4 bg-g-black text-white px-6 py-2.5 rounded-lg text-sm font-semibold">Sign in</a>
         </div>
         <div id="panel" class="hidden space-y-6">
             <section class="bg-white rounded-xl border p-5 flex justify-between items-center">
@@ -41,7 +41,7 @@
             <div id="explore-first" class="hidden rounded-xl border border-g-gold/40 bg-amber-50/50 p-4 text-sm">
                 <p class="font-bold text-g-black">Start by exploring</p>
                 <p class="text-g-slate-600 mt-1">Your free Discover account is active. Visit the assessment, Keyman tools, and pathways before choosing a paid plan.</p>
-                <a href="/?welcome=1" class="inline-block mt-3 font-bold text-g-gold hover:underline">Continue exploring →</a>
+                <a href="/" class="inline-block mt-3 font-bold text-g-gold hover:underline">Continue exploring →</a>
             </div>
             <p id="upsell" class="text-sm bg-white border rounded-xl p-4 text-g-slate-600"></p>
             <p id="membership-notice" class="hidden text-sm rounded-xl p-4 border"></p>
@@ -57,7 +57,7 @@
             <section class="bg-white rounded-xl border overflow-hidden">
                 <div class="px-5 py-4 border-b bg-g-slate-100">
                     <h1 class="font-semibold">GIYA membership</h1>
-                    <p class="text-xs text-g-slate-500 mt-1">Professional ₱999/mo · GIYA Fellow ₱2,999/mo (by invitation)</p>
+                    <p class="text-xs text-g-slate-500 mt-1">Professional ₱999/mo · GIYA Elite ₱2,999/mo</p>
                 </div>
                 <div class="p-5 space-y-3">
                     <div class="inline-flex rounded-lg border p-0.5 bg-g-slate-100">
@@ -71,7 +71,7 @@
             <section class="bg-white rounded-xl border overflow-hidden">
                 <div class="px-5 py-4 border-b">
                     <h1 class="font-semibold">Academies</h1>
-                    <p class="text-xs text-g-slate-500 mt-1">Standalone one-time · 20% off for Professional · included for Elite</p>
+                    <p class="text-xs text-g-slate-500 mt-1">Standalone one-time · 20% off for Professional · included for GIYA Elite</p>
                 </div>
                 <div id="academy-plans" class="p-5 space-y-3"></div>
             </section>
@@ -98,7 +98,7 @@
     <script>
         let billingPeriod = 'monthly';
         let catalog = null;
-        const tierLabels = { preview: 'Discover', professional: 'Professional', elite: 'GIYA Fellow', basic: 'Professional', advanced: 'Professional', master: 'GIYA Fellow' };
+        const tierLabels = { preview: 'Discover', professional: 'Professional', elite: 'GIYA Elite', basic: 'Professional', advanced: 'Professional', master: 'GIYA Elite' };
 
         document.getElementById('logout-btn').onclick = async () => { await GiyaAuth.logout(); location.href = '/'; };
 

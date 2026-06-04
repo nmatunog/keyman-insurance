@@ -44,7 +44,7 @@
         </div>
 
         <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="/?welcome=1" id="btn-explore" class="touch-target inline-flex items-center justify-center gap-2 bg-g-black text-white px-8 py-4 rounded-full font-bold text-sm min-h-[48px]" data-giya-explore="1">
+            <a href="/" id="btn-explore" class="touch-target inline-flex items-center justify-center gap-2 bg-g-black text-white px-8 py-4 rounded-full font-bold text-sm min-h-[48px]" data-giya-explore="1">
                 <i class="fa-solid fa-compass text-lg"></i> Explore GIYA
             </a>
             <a href="/register.html" id="btn-account" class="touch-target inline-flex items-center justify-center gap-2 border-2 border-g-gold text-g-gold px-8 py-4 rounded-full font-bold text-sm min-h-[48px] hidden">
@@ -116,7 +116,7 @@
         sessionStorage.setItem('giya_onboarding', JSON.stringify({ type, email, welcomedAt: Date.now() }));
         if (email) {
             const explore = document.getElementById('btn-explore');
-            if (explore) explore.href = '/?welcome=1';
+            if (explore) explore.href = '/';
         }
     </script>
 </body>

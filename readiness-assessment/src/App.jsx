@@ -15,7 +15,7 @@ function AppShell({ children }) {
             alt="GIYA — Guiding Advisors. Protecting Legacies."
             width={200}
             height={200}
-            className="giya-logo giya-logo--nav"
+            className="giya-logo giya-logo--nav giya-logo--on-dark"
             decoding="async"
           />
           <span className="brand-sub">Keyman Readiness</span>

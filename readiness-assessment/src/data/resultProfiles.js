@@ -9,7 +9,7 @@ export const SITE_LINKS = {
   joinCommunity: '/#community-signup',
   nurture: '/#platform',
   professionalPlans: '/#giya-plans',
-  masterClassLearn: '/#business-academy',
+  masterClassLearn: '/',
   waitlist: '/#waitlist',
   register: '/register.html',
   home: '/',
@@ -54,7 +54,7 @@ export const ADVISOR_PROFILES = {
     stars: 5,
     headline: 'You show advanced advisory readiness',
     summary:
-      'Your profile aligns with our highest-readiness advisors. We may invite you to explore the GIYA Fellow track (by invitation) after community and Master Class engagement.',
+      'Your profile aligns with our highest-readiness advisors. When you are ready, explore GIYA Elite membership (₱2,999/mo) for the full ecosystem — all Academies and coaching. GIYA Fellow is earned through contribution.',
   },
 };
 

@@ -33,7 +33,7 @@ export async function resolveAcademyPricing(env, academyId, user) {
   const { amountPhp, discountPct, rateLabel } = applyAcademyDiscount(config.priceOneTime, memberTier);
 
   if (amountPhp === 0 && discountPct === 100) {
-    return { error: 'This academy is included in your GIYA Fellow membership' };
+    return { error: 'This academy is included in your GIYA Elite membership' };
   }
 
   return {

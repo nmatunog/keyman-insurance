@@ -130,14 +130,14 @@ export default function ThankYouPage() {
       id: 'elite',
       icon: '★',
       title: 'Step 8 — GIYA Elite',
-      subtitle: 'By invitation',
+      subtitle: '₱2,999/mo',
       content: (
         <p>
-          Full ecosystem — all academies and coaching. Elite opens after deep engagement, not at signup.{' '}
+          Full ecosystem — all academies and coaching when you are ready.{' '}
           <a href={SITE_LINKS.professionalPlans} style={{ color: 'var(--gold)' }}>
-            Learn about Elite
+            View GIYA Elite
           </a>
-          .
+          . <strong>GIYA Fellow</strong> is an earned designation — not purchased.
         </p>
       ),
     },
@@ -146,6 +146,14 @@ export default function ThankYouPage() {
   return (
     <div className="thank-you assessment-layout">
       <div className="page-intro">
+        <img
+          src="/assets/giya-logo.png"
+          alt="GIYA"
+          width={160}
+          height={160}
+          className="giya-logo giya-logo--on-dark assessment-brand-logo"
+          decoding="async"
+        />
         <p className="hero-eyebrow">Step 3 · Personalized result</p>
         <h1>Your Advisor Readiness Result</h1>
         <p style={{ color: 'var(--gray)', fontSize: 'var(--text-sm)', marginTop: '0.35rem' }}>

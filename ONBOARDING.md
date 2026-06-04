@@ -17,7 +17,7 @@ Waitlist and community forms **do not** create a login. They only save to D1 `wa
 1. User submits email on homepage `#waitlist`
 2. API `POST /api/waitlist/submit` → D1 + confirmation email
 3. Browser redirects to **`/welcome.html?type=masterclass`**
-4. User clicks **Explore GIYA** → **`/?welcome=1`**
+4. User clicks **Explore GIYA** → **`/`** (hero; onboarding chips from sessionStorage)
 5. Welcome banner suggests sections to visit (no payment)
 6. After **3+ sections** viewed, optional soft CTA: “Compare plans” (dismissible)
 
@@ -28,12 +28,12 @@ Same as waitlist, but `type=community` and welcome page offers **Create free acc
 ## Flow after free account (register)
 
 1. `POST /api/auth/register` with `source: community` → user `status: active`, tier `preview`
-2. Redirect to login → then **`/?welcome=1`** (homepage top / safe sections — not `/account.html` or Academy catalog). Legacy `?account=1` is stripped on load. Do not use `#academy-pricing` on welcome links.
+2. Redirect to login → then **`/`** (homepage hero — not `/account.html` or membership/pricing hashes). Legacy `?welcome=1` / `?account=1` query params are stripped on load.
 3. User explores homepage; billing only when they open Account or soft CTA
 
 ## Login behavior
 
-- Default after login: **`/?welcome=1`** (explore home)
+- Default after login: **`/`** (explore home; optional hero chips via sessionStorage)
 - Admin: `/admin/`
 - Billing: `/account.html` only when user chooses Account in nav
 

@@ -41,9 +41,9 @@
         const emailPrefill = params.get('email') || '';
         if (emailPrefill) document.getElementById('email').value = emailPrefill;
 
-        /** Never land on billing / academy catalog after sign-in — explore home first. */
+        /** After sign-in, land on homepage hero — not account billing or membership/pricing hashes. */
         function resolveLoginReturn(raw) {
-            const exploreHome = '/?welcome=1';
+            const exploreHome = '/';
             if (!raw) return exploreHome;
             try {
                 const url = new URL(raw, location.origin);
@@ -66,10 +66,7 @@
                     return exploreHome;
                 }
                 if (url.pathname === '/' || url.pathname === '/index.html') {
-                    url.hash = '';
-                    if (!url.searchParams.has('welcome')) url.searchParams.set('welcome', '1');
-                    url.searchParams.set('signedin', '1');
-                    return url.pathname + '?' + url.searchParams.toString();
+                    return exploreHome;
                 }
                 return url.pathname + url.search + url.hash;
             } catch {
@@ -89,7 +86,16 @@
                     document.getElementById('password').value
                 );
                 if (user.role === 'admin') location.replace('/admin/');
-                else location.replace(returnTo);
+                else {
+                    if (returnTo === '/') {
+                        sessionStorage.setItem('giya_onboarding', JSON.stringify({
+                            type: 'signin',
+                            email: user.email || '',
+                            welcomedAt: Date.now(),
+                        }));
+                    }
+                    location.replace(returnTo);
+                }
             } catch (ex) {
                 err.textContent = ex.message;
                 err.classList.remove('hidden');

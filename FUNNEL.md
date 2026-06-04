@@ -10,8 +10,8 @@ All product copy, CTAs, and onboarding should follow this order. Do not push bil
 | 4 | **Free GIYA membership** | `/#community-signup` |
 | 5 | **Nurture & engagement** | Bonus guides, email, `/#platform` |
 | 6 | **GIYA Professional** | `/#giya-plans` (soft CTA after exploration) |
-| 7 | **Academy purchases** | `/#business-academy` |
-| 8 | **GIYA Elite** | By invitation; top tier in product UI may read **GIYA Fellow** |
+| 7 | **Academy purchases** | `/` (home first; use nav when ready) |
+| 8 | **GIYA Elite** | ₱2,999/mo subscription — full ecosystem, all Academies & coaching |
 
 ## Implementation map
 

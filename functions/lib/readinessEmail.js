@@ -13,7 +13,7 @@ function bonusLinks(env) {
     join: `${base}/#community-signup`,
     keyman: `${base}/keyman/`,
     waitlist: `${base}/#waitlist`,
-    masterClass: `${base}/#business-academy`,
+    masterClass: `${base}/`,
   };
 }
 

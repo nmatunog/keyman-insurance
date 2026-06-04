@@ -44,17 +44,33 @@
 
   function shouldShowWelcome() {
     if (sessionStorage.getItem(WELCOME_DISMISS_KEY)) return false;
-    const params = new URLSearchParams(location.search);
-    return params.get('welcome') === '1' || Boolean(getOnboarding());
+    return Boolean(getOnboarding());
   }
 
-  function cleanWelcomeQuery() {
+  const BLOCKED_HOME_HASHES = new Set([
+    'academy-pricing',
+    'business-academy',
+    'academy-overview',
+    'academy-curriculum',
+    'academy-tools',
+    'academy-scripts',
+    'giya-plans',
+    'pathways',
+  ]);
+
+  function cleanLegacyQueryParams() {
     const params = new URLSearchParams(location.search);
-    if (!params.has('welcome') && !params.has('account')) return;
+    const hadLegacy =
+      params.has('welcome') || params.has('account') || params.has('signedin');
     params.delete('account');
     params.delete('welcome');
+    params.delete('signedin');
     const qs = params.toString();
-    history.replaceState(null, '', location.pathname + (qs ? `?${qs}` : '') + location.hash);
+    let hash = location.hash.replace('#', '');
+    if (BLOCKED_HOME_HASHES.has(hash)) hash = '';
+    const needsUpdate = hadLegacy || (location.hash && !hash);
+    if (!needsUpdate) return;
+    history.replaceState(null, '', location.pathname + (qs ? `?${qs}` : '') + (hash ? `#${hash}` : ''));
   }
 
   function renderExploreChips() {
@@ -83,7 +99,7 @@
       dismiss.addEventListener('click', () => {
         sessionStorage.setItem(WELCOME_DISMISS_KEY, '1');
         wrap.classList.add('hidden');
-        cleanWelcomeQuery();
+        cleanLegacyQueryParams();
       });
     }
   }
@@ -135,6 +151,7 @@
   }
 
   function init() {
+    cleanLegacyQueryParams();
     initHeroExplore();
     observeSections();
     maybeShowSoftCta();

@@ -6,9 +6,9 @@ export const GIYA_FUNNEL = [
   { step: 4, label: 'Free GIYA Membership', href: '/#community-signup', icon: '👥' },
   { step: 5, label: 'Nurture & Engagement', href: '/#platform', icon: '📬' },
   { step: 6, label: 'GIYA Professional', href: '/#giya-plans', icon: '◆' },
-  { step: 7, label: 'Academy Purchases', href: '/#business-academy', icon: '🎓' },
-  { step: 8, label: 'GIYA Elite', href: '/#giya-plans', icon: '★', note: 'By invitation' },
+  { step: 7, label: 'Academy Purchases', href: '/#platform', icon: '🎓' },
+  { step: 8, label: 'GIYA Elite', href: '/#giya-plans', icon: '★', note: '₱2,999/mo' },
 ];
 
 export const FUNNEL_TAGLINE =
-  'Keyman → Assessment → Result → Free membership → Nurture → Professional → Academies → Elite';
+  'Keyman → Assessment → Result → Free membership → Nurture → Professional → Academies → GIYA Elite';

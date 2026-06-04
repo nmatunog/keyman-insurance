@@ -43,9 +43,9 @@ export async function onRequestGet(context) {
   const payload = {
     ok: true,
     membershipNote:
-      'GIYA Professional (₱999/mo) = learning community + 20% off Academies. GIYA Elite (₱2,999/mo) = everything + all Academies + coaching. Academies are also sold standalone.',
+      'GIYA Professional (₱999/mo) = learning community + 20% off Academies. GIYA Elite (₱2,999/mo) = everything + all Academies + coaching. GIYA Fellow is an earned designation, not a subscription. Academies are also sold standalone.',
     upsell:
-      'Buy one Academy from ₱7,990 — or join Elite for ₱2,999/month and access all Academies plus coaching.',
+      'Buy one Academy from ₱7,990 — or join GIYA Elite for ₱2,999/month and access all Academies plus coaching.',
     membership,
     academies,
     pricing: membership,

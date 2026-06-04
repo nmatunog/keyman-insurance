@@ -6,6 +6,14 @@ export default function HeroSection() {
     <section className="hero">
       <div className="hero-skyline" aria-hidden="true" />
       <div className="hero-inner">
+        <img
+          src="/assets/giya-logo.png"
+          alt="GIYA — Guiding Advisors. Protecting Legacies."
+          width={220}
+          height={220}
+          className="giya-logo giya-logo--hero giya-logo--on-dark"
+          decoding="async"
+        />
         <p className="hero-eyebrow">Step 2 · GIYA Advisor Readiness</p>
         <h1>Keyman Readiness Assessment</h1>
         <p className="hero-tagline">How prepared are you to protect a business, a family, and a legacy?</p>

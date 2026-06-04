@@ -58,7 +58,7 @@ GIYA becomes a platform (not a single-person brand)
 | 1 | **GIYA Certified Advisor** | Assessment + community engagement + foundational learning |
 | 2 | **GIYA Professional Advisor** | Professional membership + sustained practice development |
 | 3 | **GIYA Legacy Consultant** | Completion of Master Class academies (advanced case work) |
-| 4 | **GIYA Fellow** | Invitation / application — discipline leadership & contribution |
+| 4 | **GIYA Fellow** | Earned designation — discipline leadership & contribution (not purchased) |
 
 People should aspire to **Fellow**, not only buy a course.
 
@@ -69,7 +69,8 @@ People should aspire to **Fellow**, not only buy a course.
 | Certified Advisor (L1) | Readiness assessment tiers: Emerging / Developing / Strategic Advisor |
 | Professional Advisor (L2) | **GIYA Professional** membership (₱999/mo) |
 | Legacy Consultant (L3) | Post–Master Class label (copy + `graduateTitle` in pricing) |
-| GIYA Fellow (L4) | **GIYA Fellow** / Elite (₱2,999/mo, by invitation) |
+| GIYA Fellow (L4) | Application & recognition (see Fellows page) |
+| GIYA Elite (paid) | **GIYA Elite** membership (₱2,999/mo) — all Academies & coaching |
 
 Internal DB keys (`preview`, `professional`, `elite`, survey `General`/`Warm`/…) stay stable; public labels evolve per this doc.
 
@@ -130,7 +131,7 @@ See **`FUNNEL.md`** for live CTA order.
 1. **Platform over personality** — GIYA scales through Fellows and Contributors, with Nilo as Founding Mentor.
 2. **Contribution loop** — Fellows and Contributors publish; Community learns; certification recognizes depth.
 3. **No rush to billing** — v1 rule holds: explore → membership → nurture before Professional / Academies / Fellow.
-4. **Fellow by merit** — invitation/application, not checkout-only.
+4. **Elite as paid top tier** — subscription (₱2,999/mo) after community and academy depth; **Fellow** recognizes contribution (earned).
 
 ---
 
@@ -138,7 +139,7 @@ See **`FUNNEL.md`** for live CTA order.
 
 | Phase | Focus |
 |-------|--------|
-| **Now (v1)** | Funnel, Keyman, assessment, community, Professional, Business Academy, Fellow invitation |
+| **Now (v1)** | Funnel, Keyman, assessment, community, Professional, Business Academy, GIYA Elite subscription |
 | **Live (v2 preview)** | `/fellows/`, `#certification`, `#fellows` homepage preview, `#contributors` + API + admin |
 | **Next** | Resource Library hub, Certification tracker, Events, live Fellow roster beyond Chief Mentor |
 

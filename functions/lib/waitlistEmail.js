@@ -38,7 +38,7 @@ async function sendViaResend(env, to, payload) {
 
 function buildWaitlistConfirmationEmail(listType, env) {
   const base = siteUrl(env);
-  const exploreUrl = `${base}/?welcome=1`;
+  const exploreUrl = `${base}/`;
   const registerUrl = `${base}/register.html?source=community`;
 
   if (listType === 'masterclass') {

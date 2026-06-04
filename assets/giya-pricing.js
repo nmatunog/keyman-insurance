@@ -74,7 +74,7 @@
     if (a.status !== 'live') {
       html += `<p class="text-lg font-bold text-g-black">${formatPhp(list)}</p><p class="text-xs text-g-slate-500">one-time · coming soon</p>`;
     } else if (a.discountPct === 100) {
-      html += `<p class="text-sm font-bold text-g-gold">Included in Elite</p>`;
+      html += `<p class="text-sm font-bold text-g-gold">Included in GIYA Elite</p>`;
     } else if (showDisc) {
       html += `<p class="text-sm text-g-slate-400 line-through">${formatPhp(list)}</p>`;
       html += `<p class="text-xl font-extrabold text-g-black">${formatPhp(yours)} <span class="text-xs text-g-gold">one-time</span></p>`;

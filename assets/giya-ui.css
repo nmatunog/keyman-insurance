@@ -18,10 +18,6 @@
   }
 }
 
-html.giya-explore-landing {
-  scroll-behavior: auto !important;
-}
-
 .giya-explore-chip {
   text-decoration: none;
 }
@@ -193,11 +189,20 @@ header nav button:focus-visible {
   text-decoration: underline;
 }
 
-/* Official GIYA logo */
+/* Official GIYA logo — brighten metallic gold & lift contrast */
+:root {
+  /* New official logo asset — light polish only (metallic gold already bold in file) */
+  --giya-logo-filter: brightness(1.03) contrast(1.1) saturate(1.12);
+  --giya-logo-filter-strong: brightness(1.05) contrast(1.14) saturate(1.18);
+  --giya-logo-glow: drop-shadow(0 2px 12px rgba(196, 160, 82, 0.35));
+}
+
 .giya-logo {
   display: block;
   height: auto;
   object-fit: contain;
+  filter: var(--giya-logo-filter);
+  -webkit-filter: var(--giya-logo-filter);
 }
 
 .giya-logo--nav {
@@ -207,18 +212,44 @@ header nav button:focus-visible {
   border-radius: 0.5rem;
 }
 
+/* Logo PNG has a dark field — pearl panel on dark UI (headers, footers, hero on navy) */
+.giya-logo--on-dark,
+.app-header .giya-logo,
+.app-header .giya-logo--nav,
+.bg-g-black .giya-logo,
+.bg-g-black .giya-logo--footer,
+.bg-g-ink .giya-logo,
+.bg-g-ink .giya-logo--nav,
+.hero .giya-logo {
+  background: linear-gradient(165deg, #fffdf8 0%, #f5f3ee 55%, #ebe6dc 100%);
+  padding: 0.28rem 0.55rem;
+  box-shadow:
+    0 2px 14px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(212, 175, 90, 0.75);
+  filter: var(--giya-logo-filter-strong) var(--giya-logo-glow);
+  -webkit-filter: var(--giya-logo-filter-strong) var(--giya-logo-glow);
+}
+
 .giya-logo--hero {
-  max-width: min(280px, 88vw);
-  width: 100%;
-  margin: 0 auto 1.5rem;
-  border-radius: 0.75rem;
+  max-width: min(9rem, 52vw);
+  width: auto;
+  height: auto;
+  margin: 0 0 1.25rem;
+  border-radius: 0.5rem;
+  filter: var(--giya-logo-filter-strong) var(--giya-logo-glow);
+  -webkit-filter: var(--giya-logo-filter-strong) var(--giya-logo-glow);
 }
 
 .giya-logo--auth {
   max-width: 220px;
   width: 100%;
   border-radius: 0.75rem;
-  box-shadow: 0 8px 32px rgba(10, 10, 11, 0.12);
+  box-shadow:
+    0 8px 32px rgba(10, 10, 11, 0.12),
+    0 0 20px rgba(196, 160, 82, 0.15);
+  filter: var(--giya-logo-filter-strong) var(--giya-logo-glow);
+  -webkit-filter: var(--giya-logo-filter-strong) var(--giya-logo-glow);
 }
 
 .giya-logo--footer {
