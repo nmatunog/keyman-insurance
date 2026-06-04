@@ -146,43 +146,97 @@
         }
         .km-insight-bar__text { font-size: 0.8rem; line-height: 1.5; color: #e7e5e4; flex: 1; min-width: 12rem; }
         .km-insight-bar__text strong { color: #f5efe3; }
-        .km-pyramid-layout { display: flex; flex-direction: column; gap: 0.65rem; }
-        .km-pyramid-row {
+        /* Pyramid board — matches academy slide: icons | pyramid | bullets | insight */
+        .km-pyramid-grid {
             display: grid;
-            grid-template-columns: minmax(9.5rem, 13.5rem) minmax(0, 1fr);
-            gap: 0.85rem 1.25rem;
+            grid-template-columns: 2.75rem minmax(8.75rem, 11.5rem) minmax(0, 1fr);
+            grid-template-rows: auto auto auto auto;
+            gap: 0.6rem 0.85rem;
             align-items: center;
         }
-        .km-pyramid-row--base { align-items: start; }
-        .km-pyramid-col {
+        .km-pyramid-icon {
+            width: 2.75rem;
+            height: 2.75rem;
+            border-radius: 50%;
+            border: 2px solid rgba(196, 160, 82, 0.55);
+            background: #141416;
+            color: #C4A052;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            justify-self: center;
+        }
+        .km-pyramid-icon--top { grid-column: 1; grid-row: 1; }
+        .km-pyramid-icon--mid { grid-column: 1; grid-row: 2; }
+        .km-pyramid-icon--base { grid-column: 1; grid-row: 3; align-self: start; margin-top: 0.35rem; }
+        .km-pyramid-stack {
+            grid-column: 2;
+            grid-row: 1 / 4;
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            align-items: center;
+            gap: 0.35rem;
+            align-self: center;
             width: 100%;
+            max-width: 11.5rem;
+            justify-self: center;
         }
         .km-pyramid-tier {
+            width: 100%;
             text-align: center;
             border-radius: 0.5rem;
             padding: 0.55rem 0.65rem;
             border: 1px solid #44403c;
             background: #1c1917;
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             font-weight: 700;
             letter-spacing: 0.04em;
             text-transform: uppercase;
             color: #d6d3d1;
+            box-sizing: border-box;
         }
-        .km-pyramid-tier--top { width: 42%; min-width: 5.5rem; }
-        .km-pyramid-tier--mid { width: 68%; min-width: 7.5rem; }
+        .km-pyramid-tier--top { width: 42%; }
+        .km-pyramid-tier--mid { width: 68%; }
         .km-pyramid-tier--base {
             width: 100%;
-            background: linear-gradient(135deg, #2a2416 0%, #1c1917 100%);
-            border-color: rgba(196, 160, 82, 0.55);
-            color: #f5efe3;
-            box-shadow: 0 4px 20px -6px rgba(196, 160, 82, 0.25);
+            background: linear-gradient(135deg, #c4a052 0%, #8a7340 55%, #6b5a30 100%);
+            border-color: rgba(212, 179, 104, 0.75);
+            color: #0c0a09;
+            box-shadow: 0 4px 20px -6px rgba(196, 160, 82, 0.35);
         }
-        .km-pyramid-tier-sub { display: block; font-size: 0.6rem; font-weight: 600; color: #C4A052; margin-top: 0.15rem; text-transform: none; letter-spacing: 0.02em; }
-        .km-pyramid-detail { font-size: 0.75rem; color: #d6d3d1; }
+        .km-pyramid-tier--base .km-pyramid-tier-sub { color: #1c1917; font-weight: 700; }
+        .km-pyramid-tier-segments {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.35rem 0.5rem;
+            margin: 0.35rem 0 0.25rem;
+            font-size: 0.55rem;
+            font-weight: 800;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            color: #141416;
+        }
+        .km-pyramid-tier-segments span { display: inline-flex; align-items: center; gap: 0.2rem; }
+        .km-pyramid-tier-sub {
+            display: block;
+            font-size: 0.58rem;
+            font-weight: 600;
+            color: #C4A052;
+            margin-top: 0.15rem;
+            text-transform: none;
+            letter-spacing: 0.02em;
+            line-height: 1.35;
+        }
+        .km-pyramid-detail {
+            font-size: 0.75rem;
+            color: #d6d3d1;
+            align-self: center;
+        }
+        .km-pyramid-detail--top { grid-column: 3; grid-row: 1; }
+        .km-pyramid-detail--mid { grid-column: 3; grid-row: 2; }
+        .km-pyramid-detail--base { grid-column: 3; grid-row: 3; align-self: start; }
         .km-pyramid-detail h4 {
             font-size: 0.625rem;
             font-weight: 700;
@@ -192,9 +246,50 @@
             margin: 0 0 0.35rem;
         }
         .km-pyramid-detail ul { margin: 0; padding-left: 1rem; line-height: 1.45; }
+        .km-pyramid-insight {
+            grid-column: 1 / -1;
+            grid-row: 4;
+            margin-top: 0.35rem;
+        }
+        .km-pyramid-insight.km-insight-bar {
+            flex-direction: column;
+            align-items: flex-start;
+            border-left-width: 4px;
+        }
+        @media (min-width: 768px) {
+            .km-pyramid-grid {
+                grid-template-columns: 2.75rem minmax(9rem, 12rem) minmax(0, 1fr) minmax(9.5rem, 12.5rem);
+                gap: 0.65rem 1rem;
+            }
+            .km-pyramid-insight {
+                grid-column: 4;
+                grid-row: 1 / 4;
+                margin-top: 0;
+                align-self: stretch;
+                height: 100%;
+            }
+            .km-pyramid-insight.km-insight-bar {
+                justify-content: flex-start;
+                padding: 1rem;
+            }
+        }
         @media (max-width: 520px) {
-            .km-pyramid-row { grid-template-columns: 1fr; }
-            .km-pyramid-col { align-items: stretch; }
+            .km-pyramid-grid {
+                grid-template-columns: 2.5rem 1fr;
+            }
+            .km-pyramid-stack {
+                grid-column: 1 / -1;
+                grid-row: 1;
+                max-width: 16rem;
+                margin: 0 auto 0.5rem;
+            }
+            .km-pyramid-icon--top { grid-row: 2; }
+            .km-pyramid-detail--top { grid-column: 2; grid-row: 2; }
+            .km-pyramid-icon--mid { grid-row: 3; }
+            .km-pyramid-detail--mid { grid-column: 2; grid-row: 3; }
+            .km-pyramid-icon--base { grid-row: 4; }
+            .km-pyramid-detail--base { grid-column: 2; grid-row: 4; }
+            .km-pyramid-insight { grid-row: 5; }
             .km-pyramid-tier--top,
             .km-pyramid-tier--mid { width: 100%; }
         }
@@ -593,66 +688,66 @@
                 <h3 class="serif-title text-xl sm:text-2xl font-bold text-white">The Business Insurance Prospect Pyramid</h3>
                 <p class="text-xs text-stone-400 mt-1">Focus your time where access, need, and opportunity align.</p>
 
-                <div class="km-pyramid-layout mt-6" aria-label="Prospect pyramid tiers">
-                    <div class="km-pyramid-row km-pyramid-row--top">
-                        <div class="km-pyramid-col">
-                            <div class="km-pyramid-tier km-pyramid-tier--top">
-                                Top · Large Corporations
-                                <span class="km-pyramid-tier-sub">Hardest to penetrate</span>
-                            </div>
+                <div class="km-pyramid-grid mt-6" aria-label="Prospect pyramid tiers">
+                    <span class="km-pyramid-icon km-pyramid-icon--top" title="Hardest to penetrate" aria-hidden="true"><i class="fa-solid fa-flag"></i></span>
+                    <span class="km-pyramid-icon km-pyramid-icon--mid" title="Best balance" aria-hidden="true"><i class="fa-solid fa-scale-balanced"></i></span>
+                    <span class="km-pyramid-icon km-pyramid-icon--base" title="Highest opportunity" aria-hidden="true"><i class="fa-solid fa-people-group"></i></span>
+
+                    <div class="km-pyramid-stack">
+                        <div class="km-pyramid-tier km-pyramid-tier--top">
+                            <i class="fa-solid fa-city text-gold-500/90 text-sm block mb-1" aria-hidden="true"></i>
+                            Top · Large Corporations
+                            <span class="km-pyramid-tier-sub">Hardest to penetrate</span>
                         </div>
-                        <div class="km-pyramid-detail">
-                            <h4>Top tier</h4>
-                            <ul class="list-disc space-y-0.5">
-                                <li>Complex buying process</li>
-                                <li>Multiple stakeholders</li>
-                                <li>Existing relationships</li>
-                                <li>Long sales cycle</li>
-                            </ul>
+                        <div class="km-pyramid-tier km-pyramid-tier--mid">
+                            <i class="fa-solid fa-building text-gold-500/90 text-sm block mb-1" aria-hidden="true"></i>
+                            Middle · Established SMEs
+                            <span class="km-pyramid-tier-sub">Best balance</span>
+                        </div>
+                        <div class="km-pyramid-tier km-pyramid-tier--base">
+                            <div class="km-pyramid-tier-segments" aria-hidden="true">
+                                <span><i class="fa-solid fa-house"></i> Family</span>
+                                <span><i class="fa-solid fa-briefcase"></i> Professional</span>
+                                <span><i class="fa-solid fa-kit-medical"></i> Medical</span>
+                                <span><i class="fa-solid fa-store"></i> Agency</span>
+                            </div>
+                            Most Accessible · Highest Opportunity
                         </div>
                     </div>
 
-                    <div class="km-pyramid-row km-pyramid-row--mid">
-                        <div class="km-pyramid-col">
-                            <div class="km-pyramid-tier km-pyramid-tier--mid">
-                                Middle · Established SMEs
-                                <span class="km-pyramid-tier-sub">Best balance</span>
-                            </div>
-                        </div>
-                        <div class="km-pyramid-detail">
-                            <h4>Middle tier</h4>
-                            <ul class="list-disc space-y-0.5">
-                                <li>Growing businesses</li>
-                                <li>Recognize risk</li>
-                                <li>Open to solutions</li>
-                                <li>Good access and timing</li>
-                            </ul>
-                        </div>
+                    <div class="km-pyramid-detail km-pyramid-detail--top">
+                        <h4>Top tier</h4>
+                        <ul class="list-disc space-y-0.5">
+                            <li>Complex buying process</li>
+                            <li>Multiple stakeholders</li>
+                            <li>Existing relationships</li>
+                            <li>Long sales cycle</li>
+                        </ul>
+                    </div>
+                    <div class="km-pyramid-detail km-pyramid-detail--mid">
+                        <h4>Middle tier</h4>
+                        <ul class="list-disc space-y-0.5">
+                            <li>Growing businesses</li>
+                            <li>Recognize risk</li>
+                            <li>Open to solutions</li>
+                            <li>Good access and timing</li>
+                        </ul>
+                    </div>
+                    <div class="km-pyramid-detail km-pyramid-detail--base">
+                        <h4>Base tier · Start here</h4>
+                        <ul class="list-disc space-y-0.5">
+                            <li>High dependency on key people</li>
+                            <li>Easier access and relationships</li>
+                            <li>Immediate need awareness</li>
+                            <li>Faster decisions</li>
+                            <li>Strong potential for first cases</li>
+                        </ul>
                     </div>
 
-                    <div class="km-pyramid-row km-pyramid-row--base">
-                        <div class="km-pyramid-col">
-                            <div class="km-pyramid-tier km-pyramid-tier--base">
-                                Most Accessible · Highest Opportunity
-                                <span class="km-pyramid-tier-sub">Family businesses · Professional &amp; medical practices · Agency owners</span>
-                            </div>
-                        </div>
-                        <div class="km-pyramid-detail">
-                            <h4>Base tier · Start here</h4>
-                            <ul class="list-disc space-y-0.5">
-                                <li>High dependency on key people</li>
-                                <li>Easier access and relationships</li>
-                                <li>Immediate need awareness</li>
-                                <li>Faster decisions</li>
-                                <li>Strong potential for first cases</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="km-insight-bar">
+                    <aside class="km-pyramid-insight km-insight-bar">
                         <span class="km-insight-bar__label"><i class="fa-solid fa-lightbulb mr-1"></i> Key insight</span>
                         <p class="km-insight-bar__text">Your first 10 Keyman cases are unlikely to come from large corporations. <strong>They will come from businesses already within your network.</strong></p>
-                    </div>
+                    </aside>
                 </div>
 
                 <div class="km-principle-row mt-6 pt-4 border-t border-stone-800">
