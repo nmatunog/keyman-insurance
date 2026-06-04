@@ -22,6 +22,10 @@ html.giya-explore-landing {
   scroll-behavior: auto !important;
 }
 
+.giya-explore-chip {
+  text-decoration: none;
+}
+
 body {
   font-family: Inter, system-ui, sans-serif;
   font-weight: 500;

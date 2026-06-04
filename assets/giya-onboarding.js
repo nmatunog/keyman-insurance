@@ -1,17 +1,18 @@
 /**
- * GIYA homepage onboarding — explore first, subtle upgrade later.
+ * GIYA homepage onboarding — explore chips in hero only (no banner under header).
  */
 (function () {
   const EXPLORE_KEY = 'giya_explore_sections';
   const ONBOARD_KEY = 'giya_onboarding';
   const SOFT_CTA_KEY = 'giya_soft_cta_dismissed';
+  const WELCOME_DISMISS_KEY = 'giya_welcome_chips_dismissed';
   const SECTIONS = [
-    { id: 'keyman', label: 'Keyman Resource Center', href: '/keyman/' },
-    { id: 'assessment', label: 'Readiness assessment', href: '/readiness/' },
-    { id: 'certification', label: 'Certification path' },
-    { id: 'fellows', label: 'GIYA Fellows', href: '/fellows/' },
-    { id: 'platform', label: 'Learn · disciplines' },
-    { id: 'business-academy', label: 'Academies' },
+    { id: 'keyman', label: 'Keyman', href: '/keyman/' },
+    { id: 'assessment', label: 'Assessment', href: '/readiness/' },
+    { id: 'certification', label: 'Certification', href: '#certification' },
+    { id: 'fellows', label: 'Fellows', href: '/fellows/' },
+    { id: 'platform', label: 'Learn', href: '#platform' },
+    { id: 'business-academy', label: 'Academies', href: '#business-academy' },
   ];
   const MIN_EXPLORE_FOR_SOFT_CTA = 3;
 
@@ -29,7 +30,7 @@
     if (set.has(id)) return;
     set.add(id);
     localStorage.setItem(EXPLORE_KEY, JSON.stringify([...set]));
-    updateWelcomeBanner();
+    renderExploreChips();
     maybeShowSoftCta();
   }
 
@@ -41,69 +42,57 @@
     }
   }
 
-  function injectWelcomeBanner() {
-    if (document.getElementById('giya-welcome-banner')) return;
-
-    const ob = getOnboarding();
+  function shouldShowWelcome() {
+    if (sessionStorage.getItem(WELCOME_DISMISS_KEY)) return false;
     const params = new URLSearchParams(location.search);
-    const showWelcome = params.get('welcome') === '1' || ob;
-    if (!showWelcome) return;
+    return params.get('welcome') === '1' || Boolean(getOnboarding());
+  }
 
-    const isWaitlist = ob?.type === 'masterclass';
+  function cleanWelcomeQuery() {
+    const params = new URLSearchParams(location.search);
+    if (!params.has('welcome') && !params.has('account')) return;
+    params.delete('account');
+    params.delete('welcome');
+    const qs = params.toString();
+    history.replaceState(null, '', location.pathname + (qs ? `?${qs}` : '') + location.hash);
+  }
+
+  function renderExploreChips() {
+    const wrap = document.getElementById('giya-hero-explore');
+    const chips = document.getElementById('giya-explore-chips');
+    if (!wrap || !chips) return;
+
     const explored = getExplored();
     const remaining = SECTIONS.filter((s) => !explored.includes(s.id));
-
-    const banner = document.createElement('div');
-    banner.id = 'giya-welcome-banner';
-    banner.className = 'bg-g-black text-g-pearl border-b border-g-gold/30';
-    banner.innerHTML = `
-      <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-4">
-        <div class="flex flex-wrap items-start justify-between gap-4">
-          <div class="min-w-0 flex-1">
-            <p class="text-xs font-bold uppercase tracking-widest text-g-gold">Welcome to GIYA</p>
-            <p class="font-bold text-base mt-1">${isWaitlist ? 'Waitlist confirmed — explore while you wait' : 'Community confirmed — start exploring'}</p>
-            <p class="text-sm text-g-slate-200 mt-1">No payment required. Visit the highlights below (${explored.length}/${SECTIONS.length} started).</p>
-          </div>
-          <button type="button" id="giya-welcome-dismiss" class="text-sm font-semibold text-g-gold hover:text-white shrink-0">Dismiss</button>
-        </div>
-        <div class="flex flex-wrap gap-2 mt-3" id="giya-explore-chips"></div>
-      </div>`;
-
-    const header = document.querySelector('header');
-    if (header) header.after(banner);
-    else document.body.prepend(banner);
-
-    const chips = banner.querySelector('#giya-explore-chips');
     const targets = remaining.length ? remaining : SECTIONS;
+
+    chips.innerHTML = '';
     targets.forEach((s) => {
       const a = document.createElement('a');
       a.href = s.href || `#${s.id}`;
       a.className =
-        'inline-flex items-center gap-2 px-3 py-2 rounded-full text-xs font-bold bg-white/10 hover:bg-g-gold hover:text-g-black transition-colors touch-target min-h-[40px]';
-      a.innerHTML = `<i class="fa-solid fa-arrow-right text-sm"></i> ${s.label}`;
+        'giya-explore-chip inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold border border-g-slate-200 bg-white text-g-slate-700 hover:border-g-gold hover:text-g-black transition-colors touch-target min-h-[40px]';
+      a.textContent = s.label;
       a.addEventListener('click', () => markExplored(s.id));
       chips.appendChild(a);
     });
 
-    banner.querySelector('#giya-welcome-dismiss')?.addEventListener('click', () => {
-      banner.remove();
-      if (params.get('welcome')) {
-        const qs = new URLSearchParams(location.search);
-        qs.delete('account');
-        const q = qs.toString();
-        history.replaceState(null, '', location.pathname + (q ? `?${q}` : '') + location.hash);
-      }
-    });
+    const dismiss = document.getElementById('giya-explore-dismiss');
+    if (dismiss && !dismiss.dataset.bound) {
+      dismiss.dataset.bound = '1';
+      dismiss.addEventListener('click', () => {
+        sessionStorage.setItem(WELCOME_DISMISS_KEY, '1');
+        wrap.classList.add('hidden');
+        cleanWelcomeQuery();
+      });
+    }
   }
 
-  function updateWelcomeBanner() {
-    const banner = document.getElementById('giya-welcome-banner');
-    if (!banner) return;
-    const sub = banner.querySelector('.text-sm.text-g-slate-200');
-    const explored = getExplored();
-    if (sub) {
-      sub.textContent = `No payment required. Visit the highlights below (${explored.length}/${SECTIONS.length} started).`;
-    }
+  function initHeroExplore() {
+    const wrap = document.getElementById('giya-hero-explore');
+    if (!wrap || !shouldShowWelcome()) return;
+    wrap.classList.remove('hidden');
+    renderExploreChips();
   }
 
   function maybeShowSoftCta() {
@@ -146,7 +135,7 @@
   }
 
   function init() {
-    injectWelcomeBanner();
+    initHeroExplore();
     observeSections();
     maybeShowSoftCta();
   }

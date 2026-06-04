@@ -242,6 +242,10 @@
                         </a>
                     </div>
                     <p class="mt-4 type-small text-g-slate-500 max-w-xl">Journey: Keyman → Assessment → Result → Free membership → Nurture → Professional → Academies → GIYA Elite</p>
+                    <div id="giya-hero-explore" class="hidden mt-8 max-w-2xl" aria-label="Suggested next steps">
+                        <div class="flex flex-wrap items-center gap-2" id="giya-explore-chips"></div>
+                        <button type="button" id="giya-explore-dismiss" class="mt-3 type-small text-g-slate-500 hover:text-g-black font-semibold touch-target min-h-[36px]">Hide suggestions</button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1498,8 +1502,7 @@
 
         function headerOffset() {
             const header = document.querySelector('header');
-            const banner = document.getElementById('giya-welcome-banner');
-            return (header?.offsetHeight || 72) + (banner?.offsetHeight || 0) + 12;
+            return (header?.offsetHeight || 72) + 16;
         }
 
         function scrollToExploreTarget(id) {
@@ -1564,16 +1567,10 @@
 
         function scheduleExploreLanding() {
             handleExploreLanding();
-            [50, 150, 350, 700, 1200].forEach((ms) => setTimeout(handleExploreLanding, ms));
-            [100, 400, 900].forEach((ms) => setTimeout(guardExploreLanding, ms));
             window.addEventListener('load', () => {
                 handleExploreLanding();
                 guardExploreLanding();
             }, { once: true });
-            window.addEventListener('pageshow', () => {
-                handleExploreLanding();
-                guardExploreLanding();
-            });
         }
 
         function initApp() {
@@ -1587,16 +1584,10 @@
                 if (window.GiyaAuth) {
                     GiyaAuth.refreshSession().then((user) => {
                         syncAuthNav(user);
-                        renderAcademyGrid().then(() => {
-                            handleExploreLanding();
-                            guardExploreLanding();
-                        });
+                        renderAcademyGrid().then(guardExploreLanding);
                     });
                 } else {
-                    renderAcademyGrid().then(() => {
-                        handleExploreLanding();
-                        guardExploreLanding();
-                    });
+                    renderAcademyGrid().then(guardExploreLanding);
                 }
                 if (document.getElementById('sc-keyman-salary')) calculateKeyman();
                 if (tierAtLeast('basic') && document.getElementById('sc-buyout-val')) calculateBuyout();
