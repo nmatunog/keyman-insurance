@@ -183,7 +183,7 @@
             </div>
             <div class="flex items-center gap-2 sm:gap-3">
                 <div id="tier-badge" class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold border"></div>
-                <a href="/login.html" id="nav-signin" class="hidden sm:inline-flex text-sm font-semibold text-g-slate-600 hover:text-g-black px-3 py-2">Sign in</a>
+                <a href="/login.html?return=/?welcome=1" id="nav-signin" class="hidden sm:inline-flex text-sm font-semibold text-g-slate-600 hover:text-g-black px-3 py-2">Sign in</a>
                 <a href="/account.html" id="nav-account" class="hidden sm:inline-flex text-sm font-semibold text-g-gold hover:text-g-black px-3 py-2">Account</a>
                 <a href="/admin/" id="nav-admin" class="hidden sm:inline-flex text-sm font-semibold text-g-gold px-3 py-2">Admin</a>
                 <a href="#join" class="hidden sm:inline-flex bg-g-black hover:bg-g-ink text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-colors shadow-card touch-target items-center min-h-[44px]">Join GIYA</a>
@@ -199,7 +199,7 @@
             <a href="#pathways" class="block py-3 touch-target">Pathways</a>
             <a href="#founder" class="block py-3 touch-target">Founder</a>
             <a href="/register.html" class="block py-3 touch-target">Register</a>
-            <a href="/login.html" class="block py-3 touch-target">Sign in</a>
+            <a href="/login.html?return=/?welcome=1" class="block py-3 touch-target">Sign in</a>
             <a href="#join" class="block py-3 text-g-gold font-semibold touch-target">Join GIYA</a>
         </div>
     </header>
@@ -1311,8 +1311,29 @@
             });
         }
 
+        function handlePostLoginLanding() {
+            const params = new URLSearchParams(location.search);
+            if (params.get('signedin') !== '1') return;
+            const blockedHashes = new Set([
+                'academy-pricing',
+                'business-academy',
+                'academy-overview',
+                'academy-curriculum',
+                'academy-tools',
+            ]);
+            const hash = location.hash.replace('#', '');
+            if (blockedHashes.has(hash)) {
+                history.replaceState(null, '', location.pathname + location.search);
+            }
+            window.scrollTo({ top: 0, behavior: 'instant' });
+            params.delete('signedin');
+            const qs = params.toString();
+            history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+        }
+
         function initApp() {
             try {
+                handlePostLoginLanding();
                 initGiyaNav();
                 initGiyaSignups();
                 if (!localStorage.getItem(STORAGE_KEY)) localStorage.setItem(STORAGE_KEY, 'preview');

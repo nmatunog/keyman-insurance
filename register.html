@@ -77,8 +77,8 @@
                 if (!res.ok || !data.ok) throw new Error(data.error || 'Registration failed');
                 ok.textContent = data.message || 'Account created.';
                 ok.classList.remove('hidden');
-                const dest = data.redirect || '/login.html?return=' + encodeURIComponent('/?welcome=1&account=1');
-                setTimeout(() => { location.href = dest.includes('login') ? dest : '/login.html?return=' + encodeURIComponent('/?welcome=1&account=1'); }, 1500);
+                const dest = data.redirect || '/login.html?return=' + encodeURIComponent('/?welcome=1');
+                setTimeout(() => { location.href = dest.includes('login') ? dest : '/login.html?return=' + encodeURIComponent('/?welcome=1'); }, 1500);
             } catch (ex) {
                 err.textContent = ex.message;
                 err.classList.remove('hidden');

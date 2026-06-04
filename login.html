@@ -34,9 +34,45 @@
     <script src="/assets/giya-auth.js"></script>
     <script>
         const params = new URLSearchParams(location.search);
-        const returnTo = params.get('return') || '/?welcome=1';
         const emailPrefill = params.get('email') || '';
         if (emailPrefill) document.getElementById('email').value = emailPrefill;
+
+        /** Never land on billing / academy catalog after sign-in — explore home first. */
+        function resolveLoginReturn(raw) {
+            const exploreHome = '/?welcome=1&signedin=1';
+            if (!raw) return exploreHome;
+            try {
+                const url = new URL(raw, location.origin);
+                if (url.origin !== location.origin) return exploreHome;
+                if (url.pathname === '/admin/') return '/admin/';
+                if (url.pathname === '/account.html' && url.searchParams.get('billing') !== '1') {
+                    return exploreHome;
+                }
+                const blockedHashes = new Set([
+                    'academy-pricing',
+                    'business-academy',
+                    'academy-overview',
+                    'academy-curriculum',
+                    'academy-tools',
+                    'academy-scripts',
+                    'giya-plans',
+                ]);
+                if (url.pathname === '/' && blockedHashes.has(url.hash.replace('#', ''))) {
+                    return exploreHome;
+                }
+                if (url.pathname === '/' || url.pathname === '/index.html') {
+                    url.hash = '';
+                    if (!url.searchParams.has('welcome')) url.searchParams.set('welcome', '1');
+                    url.searchParams.set('signedin', '1');
+                    return url.pathname + '?' + url.searchParams.toString();
+                }
+                return url.pathname + url.search + url.hash;
+            } catch {
+                return exploreHome;
+            }
+        }
+
+        const returnTo = resolveLoginReturn(params.get('return'));
 
         document.getElementById('login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -47,8 +83,8 @@
                     document.getElementById('email').value.trim(),
                     document.getElementById('password').value
                 );
-                if (user.role === 'admin') location.href = '/admin/';
-                else location.href = returnTo;
+                if (user.role === 'admin') location.replace('/admin/');
+                else location.replace(returnTo);
             } catch (ex) {
                 err.textContent = ex.message;
                 err.classList.remove('hidden');

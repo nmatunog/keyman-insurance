@@ -47,6 +47,6 @@ export async function onRequestPost(context) {
         ? 'Free Discover account created. Sign in and start exploring.'
         : 'Account created. Sign in after admin approval, or subscribe to activate immediately.',
     user: { id, email, name, role, tier: 'preview', status },
-    redirect: status === 'active' ? '/?welcome=1&account=1' : '/login.html',
+    redirect: status === 'active' ? '/login.html?return=/?welcome=1' : '/login.html',
   }, 201);
 }

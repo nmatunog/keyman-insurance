@@ -28,7 +28,7 @@ Same as waitlist, but `type=community` and welcome page offers **Create free acc
 ## Flow after free account (register)
 
 1. `POST /api/auth/register` with `source: community` → user `status: active`, tier `preview`
-2. Redirect to login → then **`/?welcome=1&account=1`** (not `/account.html` billing)
+2. Redirect to login → then **`/?welcome=1`** (homepage explore — not `/account.html` or Academy catalog)
 3. User explores homepage; billing only when they open Account or soft CTA
 
 ## Login behavior
