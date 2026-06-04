@@ -1,4 +1,6 @@
 /** Client-side mirror of functions/lib/leadScore.js */
+import { readinessTierLabel } from '../data/advisorTiers';
+
 function normDash(value) {
   return String(value || '')
     .replace(/[\u2013\u2014]/g, '-')
@@ -32,17 +34,13 @@ export function calculateLeadScore(data) {
   if (commit === 'More than 20') score += 5;
 
   let tier = 'General';
-  let tierLabel = 'General Follow-Up';
   if (score >= 81) {
     tier = 'InnerCircle';
-    tierLabel = 'Potential Inner Circle / Coaching Candidate';
   } else if (score >= 51) {
     tier = 'MasterClass';
-    tierLabel = 'Master Class Candidate';
   } else if (score >= 21) {
     tier = 'Warm';
-    tierLabel = 'Warm Prospect';
   }
 
-  return { score, tier, tierLabel };
+  return { score, tier, tierLabel: readinessTierLabel(tier) };
 }

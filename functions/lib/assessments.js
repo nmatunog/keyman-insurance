@@ -1,3 +1,5 @@
+import { readinessTierLabel } from './advisorTierLabels.js';
+
 /** @typedef {Record<string, unknown>} AssessmentRow */
 
 export function parseJsonArray(value) {
@@ -9,13 +11,6 @@ export function parseJsonArray(value) {
     return [];
   }
 }
-
-const TIER_LABELS = {
-  General: 'General Follow-Up',
-  Warm: 'Warm Prospect',
-  MasterClass: 'Master Class Candidate',
-  InnerCircle: 'Inner Circle / Coaching',
-};
 
 export function formatAssessmentRow(row) {
   if (!row) return null;
@@ -46,7 +41,7 @@ export function formatAssessmentRow(row) {
       : null,
     lead_score: Number(row.lead_score) || 0,
     lead_tier: String(row.lead_tier || 'General'),
-    lead_tier_label: TIER_LABELS[row.lead_tier] || TIER_LABELS.General,
+    lead_tier_label: readinessTierLabel(row.lead_tier),
     source: String(row.source || 'keyman_readiness'),
   };
 }

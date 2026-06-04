@@ -77,7 +77,7 @@ export function membershipAccessMessage(sync) {
     return `Membership active through ${d}. Renew before lapse to keep Elite/Professional benefits.`;
   }
   if (sync?.lapsed) {
-    const was = sync.previousTier === 'elite' ? 'GIYA Elite' : 'GIYA Professional';
+    const was = sync.previousTier === 'elite' ? 'GIYA Fellow' : 'GIYA Professional';
     return `${was} has ended. Academy and coaching access are paused until you renew. Standalone Academy purchases you own separately are unchanged.`;
   }
   return null;

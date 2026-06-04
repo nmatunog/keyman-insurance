@@ -58,7 +58,7 @@ supabase db push
 
 **Supabase:** [Table Editor → assessments](https://supabase.com/dashboard/project/iljmyodcpozsnzlsdacb/editor/assessments)
 
-Filter by `lead_tier`: `General`, `Warm`, `MasterClass`, `InnerCircle`.
+Filter by `lead_tier` (internal keys): `General` (Emerging Advisor), `Warm` (Developing), `MasterClass` / `InnerCircle` (Strategic Advisor). GIYA Fellow and Legacy Consultant are membership progression labels, not survey tiers.
 
 ## RLS
 

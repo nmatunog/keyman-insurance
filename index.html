@@ -306,7 +306,7 @@
         <section id="pathways" class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16 md:py-24">
             <div class="text-center mb-14">
                 <h2 class="type-h2 font-display font-semibold text-g-black">GIYA Plans</h2>
-                <p class="mt-3 text-g-slate-600 max-w-2xl mx-auto">Learning community → full knowledge ecosystem. Academies sold standalone or included with Elite.</p>
+                <p class="mt-3 text-g-slate-600 max-w-2xl mx-auto">Emerging → Developing → Strategic Advisor. Legacy Consultant after Master Class academies · GIYA Fellow by invitation.</p>
             </div>
             <div class="grid md:grid-cols-3 gap-6" id="giya-plans">
                 <article class="rounded-3xl border-2 border-g-slate-200 bg-g-slate-50 p-8 flex flex-col">
@@ -334,14 +334,15 @@
                 </article>
                 <article class="rounded-3xl border border-g-slate-800 bg-g-black p-8 flex flex-col text-g-pearl">
                     <span class="type-small font-bold uppercase tracking-widest text-g-gold">Ecosystem</span>
-                    <h3 class="font-display type-h2 font-semibold mt-2 text-g-white">Elite</h3>
+                    <h3 class="font-display type-h2 font-semibold mt-2 text-g-white">GIYA Fellow</h3>
+                    <p class="type-small text-g-slate-400 mt-1">By invitation · after Master Class academies</p>
                     <p class="text-2xl font-extrabold text-g-white mt-2">₱2,999<span class="text-sm font-semibold text-g-gold">/mo</span></p>
                     <ul class="mt-6 space-y-2 type-small flex-grow">
                         <li><i class="fa-solid fa-circle text-[6px] text-g-gold mr-2 align-middle"></i>Everything in Professional</li>
                         <li><i class="fa-solid fa-circle text-[6px] text-g-gold mr-2 align-middle"></i><strong>Access to ALL Academies</strong></li>
                         <li><i class="fa-solid fa-circle text-[6px] text-g-gold mr-2 align-middle"></i>Coaching sessions</li>
                     </ul>
-                    <button type="button" data-subscribe="elite" class="mt-8 touch-target w-full border border-g-gold text-g-gold hover:bg-g-gold hover:text-g-black py-3 rounded-full type-small font-semibold min-h-[44px]">Join Elite</button>
+                    <button type="button" data-subscribe="elite" class="mt-8 touch-target w-full border border-g-gold text-g-gold hover:bg-g-gold hover:text-g-black py-3 rounded-full type-small font-semibold min-h-[44px]">Apply for GIYA Fellow</button>
                 </article>
             </div>
         </section>
@@ -888,8 +889,10 @@
                 <h2 class="type-h2 font-display font-semibold text-g-black text-center">Membership &amp; billing FAQ</h2>
                 <dl class="mt-8 space-y-6 type-body text-g-slate-600">
                     <div class="bg-g-white border border-g-slate-200 rounded-2xl p-6">
-                        <dt class="font-semibold text-g-black">Professional vs Elite?</dt>
-                        <dd class="mt-2 leading-relaxed"><strong class="text-g-black">Professional (₱999/mo)</strong> is the learning community — resources, monthly master class, and 20% off Academies. <strong class="text-g-black">Elite (₱2,999/mo)</strong> is the full ecosystem — all Academies and coaching included.</dd>
+                        <dt class="font-semibold text-g-black">Professional vs GIYA Fellow?</dt>
+                        <dd class="mt-2 leading-relaxed"><strong class="text-g-black">Professional (₱999/mo)</strong> is the learning community — resources, monthly master class, and 20% off Academies. <strong class="text-g-black">GIYA Fellow (₱2,999/mo)</strong> is the full ecosystem — all Academies and coaching, <strong class="text-g-black">by invitation</strong> after Master Class engagement.</dd>
+                        <dt class="font-semibold text-g-black mt-6">What is a Legacy Consultant?</dt>
+                        <dd class="mt-2 leading-relaxed">Advisors who <strong class="text-g-black">complete Master Class academies</strong> may earn the <strong class="text-g-black">Legacy Consultant</strong> designation — recognizing advanced case work in business insurance, estate, and succession planning.</dd>
                     </div>
                     <div class="bg-g-white border border-g-slate-200 rounded-2xl p-6">
                         <dt class="font-semibold text-g-black">Should I buy one Academy or join Elite?</dt>
@@ -1015,7 +1018,7 @@
             if (previewNotice) previewNotice.classList.toggle('hidden', tier !== 'preview');
             if (buyoutLock) buyoutLock.classList.toggle('hidden', tierAtLeast('basic'));
 
-            const labels = { preview: 'Discover', basic: 'Discover', advanced: 'Professional', master: 'Elite' };
+            const labels = { preview: 'Discover', basic: 'Discover', advanced: 'Professional', master: 'GIYA Fellow' };
             const colors = { preview: 'bg-g-pearl text-g-gold border-g-gold/30', basic: 'bg-g-pearl text-g-gold border-g-gold/30', advanced: 'bg-g-pearl text-g-gold border-g-gold/30', master: 'bg-g-pearl text-g-gold border-g-gold/40' };
             if (badge) {
                 badge.className = `sm:flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold border ${colors[tier]}`;

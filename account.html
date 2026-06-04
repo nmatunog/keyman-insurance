@@ -45,7 +45,7 @@
             <section class="bg-white rounded-xl border overflow-hidden">
                 <div class="px-5 py-4 border-b bg-g-slate-100">
                     <h1 class="font-semibold">GIYA membership</h1>
-                    <p class="text-xs text-g-slate-500 mt-1">Professional ₱999/mo · Elite ₱2,999/mo</p>
+                    <p class="text-xs text-g-slate-500 mt-1">Professional ₱999/mo · GIYA Fellow ₱2,999/mo (by invitation)</p>
                 </div>
                 <div class="p-5 space-y-3">
                     <div class="inline-flex rounded-lg border p-0.5 bg-g-slate-100">
@@ -84,7 +84,7 @@
     <script>
         let billingPeriod = 'monthly';
         let catalog = null;
-        const tierLabels = { preview: 'Discover', professional: 'Professional', elite: 'Elite', basic: 'Professional', advanced: 'Professional', master: 'Elite' };
+        const tierLabels = { preview: 'Discover', professional: 'Professional', elite: 'GIYA Fellow', basic: 'Professional', advanced: 'Professional', master: 'GIYA Fellow' };
 
         document.getElementById('logout-btn').onclick = async () => { await GiyaAuth.logout(); location.href = '/'; };
 

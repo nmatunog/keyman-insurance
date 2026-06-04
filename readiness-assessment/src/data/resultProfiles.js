@@ -1,4 +1,6 @@
 /** Personalized thank-you copy — relationship ladder (community → waitlist → course later) */
+import { readinessTierLabel } from './advisorTiers';
+
 export const RESULT_STORAGE_KEY = 'giya_readiness_result';
 
 export const SITE_LINKS = {
@@ -21,35 +23,35 @@ export const BONUS_RESOURCES = [
   },
 ];
 
-/** Public-facing advisor profile (not internal lead tier) */
+/** Thank-you profiles keyed by internal tier (General / Warm / MasterClass / InnerCircle) */
 export const ADVISOR_PROFILES = {
   General: {
-    profileTitle: 'Emerging Business Insurance Advisor',
+    profileTitle: 'Emerging Advisor',
     stars: 2,
-    headline: 'You are at the curiosity-to-engagement stage',
+    headline: 'You are building your advisory foundation',
     summary:
-      'You have taken the right first step. Your focus now is building familiarity with GIYA frameworks and steady practice conversations — not jumping to a major purchase.',
+      'You are at the curiosity-to-engagement stage. Focus on GIYA frameworks, steady owner conversations, and free community learning — not a major purchase yet.',
   },
   Warm: {
-    profileTitle: 'Developing Business Insurance Advisor',
+    profileTitle: 'Developing Advisor',
     stars: 3,
-    headline: 'You are building meaningful readiness',
+    headline: 'You are growing meaningful client readiness',
     summary:
-      'Your network and interest show real potential. The next win is joining the GIYA community, using shared case studies, and staying on the learning path before any major investment.',
+      'Your network and interest show real potential. Join the GIYA community, use shared case studies, and stay on the learning path before advanced programs.',
   },
   MasterClass: {
-    profileTitle: 'Strategic Planning Advisor',
+    profileTitle: 'Strategic Advisor',
     stars: 4,
-    headline: 'You are well positioned for advanced growth',
+    headline: 'You are well positioned for advanced case work',
     summary:
-      'Your experience aligns with advisors who benefit from community learning, Master Class previews, and structured case work — trust first, then depth.',
+      'Your experience fits advisors who benefit from Master Class previews, structured cases, and deeper business-insurance design — trust first, then depth.',
   },
   InnerCircle: {
-    profileTitle: 'Advanced Advisor',
+    profileTitle: 'Strategic Advisor',
     stars: 5,
     headline: 'You show advanced advisory readiness',
     summary:
-      'Your profile suggests you are ready for high-level conversations. We will prioritize you for community leadership, Master Class invitations, and future inner-circle opportunities.',
+      'Your profile aligns with our highest-readiness advisors. We may invite you to explore the GIYA Fellow track (by invitation) after community and Master Class engagement.',
   },
 };
 
@@ -61,7 +63,11 @@ export const COMMUNITY_BENEFITS = [
 ];
 
 export function getResultProfile(tier) {
-  return ADVISOR_PROFILES[tier] || ADVISOR_PROFILES.General;
+  const base = ADVISOR_PROFILES[tier] || ADVISOR_PROFILES.General;
+  return {
+    ...base,
+    profileTitle: readinessTierLabel(tier),
+  };
 }
 
 /** Personalized growth pillar from assessment answers */

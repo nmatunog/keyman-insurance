@@ -1,9 +1,4 @@
-const TIER_LABELS = {
-  General: 'Foundation Builder',
-  Warm: 'Developing Advisor',
-  MasterClass: 'Master Class Candidate',
-  InnerCircle: 'Advanced / Inner Circle',
-};
+import { readinessTierLabel } from './advisorTierLabels.js';
 
 function siteUrl(env) {
   return String(env.GIYA_SITE_URL || 'https://joingiya.com').replace(/\/$/, '');
@@ -25,7 +20,7 @@ function bonusLinks(env) {
 function buildReadinessEmail(lead, scoring, env) {
   const links = bonusLinks(env);
   const first = lead.full_name?.split(/\s+/)[0] || 'Advisor';
-  const tierLabel = scoring.tierLabel || TIER_LABELS[scoring.tier] || scoring.tier;
+  const tierLabel = scoring.tierLabel || readinessTierLabel(scoring.tier);
   const score = scoring.score ?? lead.lead_score ?? 0;
   const subject = `Your GIYA Keyman Readiness results + bonus resources`;
 

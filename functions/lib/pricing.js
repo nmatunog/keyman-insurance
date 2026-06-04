@@ -36,8 +36,8 @@ export const MEMBERSHIP = {
   elite: {
     id: 'elite',
     skuType: 'membership',
-    label: 'GIYA Elite',
-    shortLabel: 'Elite',
+    label: 'GIYA Fellow',
+    shortLabel: 'GIYA Fellow',
     priceMonthly: 2999,
     priceAnnual: 29990,
     academyDiscountPct: 100,
@@ -46,8 +46,11 @@ export const MEMBERSHIP = {
       'Everything in Professional',
       'Access to ALL Academies',
       'Coaching sessions',
+      'By invitation',
     ],
-    description: 'Full knowledge ecosystem — all Academies and coaching included.',
+    description: 'GIYA Fellow — full ecosystem, all Academies and coaching. By invitation.',
+    graduateTitle: 'Legacy Consultant',
+    graduateNote: 'Advisors who complete Master Class academies may earn the Legacy Consultant designation.',
   },
 };
 
@@ -151,7 +154,7 @@ export function applyAcademyDiscount(listPrice, membershipTierId) {
   const m = MEMBERSHIP[membershipTierId];
   if (!m || !m.academyDiscountPct) return { amountPhp: listPrice, discountPct: 0, rateLabel: 'Standard academy price' };
   if (m.includesAllAcademies) {
-    return { amountPhp: 0, discountPct: 100, rateLabel: 'Included in GIYA Elite' };
+    return { amountPhp: 0, discountPct: 100, rateLabel: 'Included in GIYA Fellow' };
   }
   const pct = m.academyDiscountPct;
   const amountPhp = Math.round(listPrice * (1 - pct / 100));
