@@ -225,7 +225,7 @@
             </div>
         </section>
 
-        <section id="platform" class="bg-g-white border-y border-g-slate-200">
+        <section id="platform" class="bg-g-white border-y border-g-slate-200 scroll-mt-28">
             <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16 md:py-20">
                 <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
                     <div>
@@ -1426,29 +1426,95 @@
             });
         }
 
-        function handlePostLoginLanding() {
-            const params = new URLSearchParams(location.search);
-            if (params.get('signedin') !== '1') return;
-            const blockedHashes = new Set([
-                'academy-pricing',
-                'business-academy',
-                'academy-overview',
-                'academy-curriculum',
-                'academy-tools',
-            ]);
-            const hash = location.hash.replace('#', '');
-            if (blockedHashes.has(hash)) {
-                history.replaceState(null, '', location.pathname + location.search);
-            }
-            window.scrollTo({ top: 0, behavior: 'instant' });
-            params.delete('signedin');
+        const ACADEMY_HASHES = new Set([
+            'academy-pricing',
+            'business-academy',
+            'academy-overview',
+            'academy-curriculum',
+            'academy-tools',
+            'academy-scripts',
+            'giya-plans',
+            'pathways',
+        ]);
+
+        const WELCOME_EXPLORE_HASHES = new Set([
+            'platform',
+            'certification',
+            'fellows',
+            'contributors',
+            'why',
+            'pillars',
+            'join',
+            'community-signup',
+            'waitlist',
+            'assessment',
+        ]);
+
+        function replaceUrl(params, hashId) {
             const qs = params.toString();
-            history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+            const h = hashId ? `#${hashId}` : '';
+            history.replaceState(null, '', location.pathname + (qs ? `?${qs}` : '') + h);
+        }
+
+        function scrollToSectionId(id, behavior) {
+            if (!id) {
+                window.scrollTo({ top: 0, behavior: behavior || 'instant' });
+                return;
+            }
+            document.getElementById(id)?.scrollIntoView({ behavior: behavior || 'instant', block: 'start' });
+        }
+
+        /** After sign-in or ?welcome=1 — never land on Academy catalog from scroll restoration. */
+        function handleExploreLanding() {
+            const params = new URLSearchParams(location.search);
+            const isWelcome = params.get('welcome') === '1';
+            const isSignedIn = params.get('signedin') === '1';
+            if (!isWelcome && !isSignedIn) return;
+
+            if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+            if (params.has('account')) params.delete('account');
+
+            let hash = location.hash.replace('#', '');
+            if (ACADEMY_HASHES.has(hash)) hash = '';
+
+            if (isSignedIn) {
+                params.delete('signedin');
+                scrollToSectionId('', 'instant');
+                replaceUrl(params, '');
+                return;
+            }
+
+            if (isWelcome) {
+                if (!hash || !WELCOME_EXPLORE_HASHES.has(hash)) {
+                    scrollToSectionId('', 'instant');
+                    replaceUrl(params, '');
+                } else {
+                    replaceUrl(params, hash);
+                    requestAnimationFrame(() => scrollToSectionId(hash, 'instant'));
+                }
+            }
+        }
+
+        function scheduleExploreLanding() {
+            handleExploreLanding();
+            requestAnimationFrame(() => handleExploreLanding());
+            window.addEventListener(
+                'load',
+                () => {
+                    const p = new URLSearchParams(location.search);
+                    if (p.get('welcome') === '1' || p.get('signedin') === '1') handleExploreLanding();
+                },
+                { once: true }
+            );
+            window.addEventListener('pageshow', (e) => {
+                if (e.persisted) handleExploreLanding();
+            });
         }
 
         function initApp() {
             try {
-                handlePostLoginLanding();
+                scheduleExploreLanding();
                 initGiyaNav();
                 initGiyaSignups();
                 if (!localStorage.getItem(STORAGE_KEY)) localStorage.setItem(STORAGE_KEY, 'preview');

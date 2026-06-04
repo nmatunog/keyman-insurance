@@ -88,7 +88,10 @@
     banner.querySelector('#giya-welcome-dismiss')?.addEventListener('click', () => {
       banner.remove();
       if (params.get('welcome')) {
-        history.replaceState(null, '', location.pathname + location.hash);
+        const qs = new URLSearchParams(location.search);
+        qs.delete('account');
+        const q = qs.toString();
+        history.replaceState(null, '', location.pathname + (q ? `?${q}` : '') + location.hash);
       }
     });
   }
