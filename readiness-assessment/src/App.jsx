@@ -9,8 +9,15 @@ function AppShell({ children }) {
   return (
     <div className="app-shell">
       <header className="app-header">
-        <Link to="/" className="brand" style={{ textDecoration: 'none' }}>
-          GIYA
+        <Link to="/" className="brand giya-brand-link" style={{ textDecoration: 'none' }}>
+          <img
+            src="/assets/giya-logo.png"
+            alt="GIYA — Guiding Advisors. Protecting Legacies."
+            width={200}
+            height={200}
+            className="giya-logo giya-logo--nav"
+            decoding="async"
+          />
           <span className="brand-sub">Keyman Readiness</span>
         </Link>
         <nav className="header-nav" aria-label="Assessment">

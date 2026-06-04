@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin | GIYA</title>
+    <link rel="icon" href="/assets/giya-logo.png" type="image/png">
+    <link rel="stylesheet" href="/assets/giya-ui.css">
     <meta name="robots" content="noindex">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Serif+4:wght@600&display=swap" rel="stylesheet">
@@ -22,7 +24,10 @@
 <body class="bg-g-ink min-h-screen font-sans text-white">
     <header class="border-b border-white/10 px-6 py-4 flex flex-wrap justify-between items-center gap-4">
         <div>
-            <a href="/" class="font-display text-g-gold text-xl font-semibold">GIYA Admin</a>
+            <a href="/" class="giya-brand-link flex items-center gap-3">
+                <img src="/assets/giya-logo.png" alt="GIYA" width="160" height="160" class="giya-logo giya-logo--nav" decoding="async">
+                <span class="text-g-gold text-sm font-semibold">Admin</span>
+            </a>
             <p class="text-xs text-white/50 mt-0.5">Members · subscriptions · readiness leads</p>
         </div>
         <div class="flex gap-3 text-sm">

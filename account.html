@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account | GIYA</title>
+    <link rel="icon" href="/assets/giya-logo.png" type="image/png">
+    <link rel="stylesheet" href="/assets/giya-ui.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -13,7 +15,9 @@
 <body class="bg-g-pearl min-h-screen font-sans antialiased">
     <header class="bg-white border-b sticky top-0 z-10">
         <div class="max-w-3xl mx-auto px-5 py-3 flex justify-between items-center">
-            <a href="/" class="text-g-gold font-semibold">GIYA</a>
+            <a href="/" class="giya-brand-link">
+                <img src="/assets/giya-logo.png" alt="GIYA" width="200" height="200" class="giya-logo giya-logo--nav" decoding="async">
+            </a>
             <button type="button" id="logout-btn" class="text-sm text-g-gold font-semibold">Sign out</button>
         </div>
     </header>

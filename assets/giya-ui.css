@@ -185,6 +185,54 @@ header nav button:focus-visible {
   text-decoration: underline;
 }
 
+/* Official GIYA logo */
+.giya-logo {
+  display: block;
+  height: auto;
+  object-fit: contain;
+}
+
+.giya-logo--nav {
+  height: 3.25rem;
+  width: auto;
+  max-width: 11rem;
+  border-radius: 0.5rem;
+}
+
+.giya-logo--hero {
+  max-width: min(280px, 88vw);
+  width: 100%;
+  margin: 0 auto 1.5rem;
+  border-radius: 0.75rem;
+}
+
+.giya-logo--auth {
+  max-width: 220px;
+  width: 100%;
+  border-radius: 0.75rem;
+  box-shadow: 0 8px 32px rgba(10, 10, 11, 0.12);
+}
+
+.giya-logo--footer {
+  height: 2.5rem;
+  width: auto;
+  max-width: 8rem;
+  border-radius: 0.35rem;
+}
+
+.giya-brand-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  line-height: 0;
+}
+
+.giya-brand-link:focus-visible {
+  outline: 2px solid #c4a052;
+  outline-offset: 3px;
+  border-radius: 0.5rem;
+}
+
 /* GIYA Institute — certification ladder & fellows */
 .g-cert-step {
   position: relative;
