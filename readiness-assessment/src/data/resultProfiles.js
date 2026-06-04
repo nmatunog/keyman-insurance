@@ -58,14 +58,26 @@ export const ADVISOR_PROFILES = {
   },
 };
 
-export const COMMUNITY_BENEFITS = [
-  'Case studies & advisor frameworks',
-  'Resource updates & learning roadmaps',
-  'Master Class invitations',
-  'Keyman & business insurance tools',
+export const GROWTH_ROADMAP_BENEFITS = [
+  'Personalized Learning Path',
+  'Business Insurance Frameworks',
+  'Case Studies',
+  'Monthly Advisor Briefings',
+  'Master Class Invitations',
 ];
 
-export function getResultProfile(tier) {
+/** @deprecated use GROWTH_ROADMAP_BENEFITS */
+export const COMMUNITY_BENEFITS = GROWTH_ROADMAP_BENEFITS;
+
+export function getResultProfile(tier, report) {
+  if (report?.profileTitle) {
+    return {
+      profileTitle: report.profileTitle,
+      headline: report.headline,
+      summary: report.summary,
+      stars: scoreToDisplay(report.score).stars,
+    };
+  }
   const base = ADVISOR_PROFILES[tier] || ADVISOR_PROFILES.General;
   return {
     ...base,

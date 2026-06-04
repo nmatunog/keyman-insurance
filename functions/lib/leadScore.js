@@ -1,4 +1,4 @@
-import { readinessTierLabel } from './advisorTierLabels.js';
+import { calculateLeadScore as scoreFromEngine } from './readinessEngine.js';
 
 /** @typedef {Record<string, unknown>} AssessmentPayload */
 
@@ -10,46 +10,12 @@ export function normDash(value) {
 }
 
 /**
- * Hidden lead scoring for Keyman Readiness Assessment.
- * Tiers: General (0–20), Warm (21–50), MasterClass (51–80), InnerCircle (81+)
+ * Advisor Readiness Scoring Engine v1 (weighted categories).
+ * Internal tiers unchanged for D1: General, Warm, MasterClass, InnerCircle.
  */
 export function calculateLeadScore(data) {
-  let score = 0;
-
-  const network = normDash(data.business_owner_network);
-  if (['26-50', '51-100', 'More than 100'].includes(network)) score += 10;
-  if (['51-100', 'More than 100'].includes(network)) score += 5;
-  if (network === 'More than 100') score += 5;
-
-  const discussed = normDash(data.discussed_last_12_months);
-  if (['11-20', 'More than 20'].includes(discussed)) score += 5;
-  if (discussed === 'More than 20') score += 5;
-
-  if (String(data.masterclass_interest || '') === 'Yes, definitely') score += 20;
-
-  const topics = Array.isArray(data.advanced_topics) ? data.advanced_topics : [];
-  if (topics.includes('Buy-Sell Agreements')) score += 10;
-  if (topics.includes('Business Succession Planning')) score += 10;
-  if (topics.includes('Advanced Keyman Planning')) score += 5;
-
-  const keyman = String(data.keyman_cases || '');
-  if (keyman && keyman !== 'None') score += 10;
-
-  const commit = normDash(data.conversation_commitment);
-  if (['4-10', '11-20', 'More than 20'].includes(commit)) score += 10;
-  if (['11-20', 'More than 20'].includes(commit)) score += 5;
-  if (commit === 'More than 20') score += 5;
-
-  let tier = 'General';
-  if (score >= 81) {
-    tier = 'InnerCircle';
-  } else if (score >= 51) {
-    tier = 'MasterClass';
-  } else if (score >= 21) {
-    tier = 'Warm';
-  }
-
-  return { score, tier, tierLabel: readinessTierLabel(tier) };
+  const { score, tier, tierLabel, report } = scoreFromEngine(data);
+  return { score, tier, tierLabel, report };
 }
 
 export function normalizeAssessmentBody(body) {

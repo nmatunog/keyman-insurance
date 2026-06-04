@@ -3,10 +3,10 @@
  * Public labels are advisor-centric — not sales terms like "Warm Prospect".
  */
 export const READINESS_TIER_LABELS = {
-  General: 'Emerging Advisor',
+  General: 'Explorer Advisor',
   Warm: 'Developing Advisor',
-  MasterClass: 'Strategic Advisor',
-  InnerCircle: 'Strategic Advisor',
+  MasterClass: 'Emerging Specialist',
+  InnerCircle: 'GIYA Fellow Candidate',
 };
 
 /** Membership & progression labels (platform) */

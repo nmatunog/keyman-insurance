@@ -132,14 +132,21 @@ export default function AssessmentPage() {
       const firstName = form.full_name.trim().split(/\s+/)[0] || '';
       const payload = {
         scoring: outcome.scoring,
+        report: outcome.scoring.report,
         firstName,
+        formSnapshot: { ...form },
         insights: {
           confidence: form.confidence_level,
           cases: form.keyman_cases,
+          yearsInService: form.years_in_service,
           masterclassInterest: form.masterclass_interest,
           resourcePermission: form.resource_permission === 'Yes',
           markets: form.markets,
           advancedTopics: form.advanced_topics,
+          challengeAreas: form.challenge_areas,
+          network: form.business_owner_network,
+          discussed: form.discussed_last_12_months,
+          commitment: form.conversation_commitment,
         },
       };
       saveResultPayload({

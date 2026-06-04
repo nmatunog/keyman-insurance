@@ -1,9 +1,9 @@
 /** Public advisor labels for readiness survey (mirrors functions/lib/advisorTierLabels.js) */
 export const READINESS_TIER_LABELS = {
-  General: 'Emerging Advisor',
+  General: 'Explorer Advisor',
   Warm: 'Developing Advisor',
-  MasterClass: 'Strategic Advisor',
-  InnerCircle: 'Strategic Advisor',
+  MasterClass: 'Emerging Specialist',
+  InnerCircle: 'GIYA Fellow Candidate',
 };
 
 export function readinessTierLabel(tier) {
