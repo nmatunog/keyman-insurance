@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Welcome | GIYA</title>
+    <link rel="canonical" href="https://joingiya.com/welcome.html">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/giya-ui.css">
+    <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif']},colors:{g:{black:'#0A0A0B',pearl:'#F5F3EE',gold:'#C4A052',slate:{200:'#D1D5DB',400:'#6B7280',600:'#374151'}}}}}}</script>
+    <style>
+        .welcome-check { width: 4rem; height: 4rem; border-radius: 999px; background: rgba(196,160,82,0.15); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1.25rem; }
+        .step-card { border: 1px solid #e5e7eb; border-radius: 1rem; padding: 1rem 1.15rem; background: #fff; }
+        .step-num { width: 1.75rem; height: 1.75rem; border-radius: 999px; background: #0A0A0B; color: #C4A052; font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    </style>
+</head>
+<body class="bg-g-pearl min-h-screen font-sans text-g-black antialiased">
+    <header class="border-b border-g-slate-200 bg-white">
+        <div class="max-w-2xl mx-auto px-5 py-4 flex justify-between items-center">
+            <a href="/" class="font-bold text-g-gold text-xl tracking-tight">GIYA</a>
+            <a href="/" class="text-sm font-semibold text-g-slate-600 hover:text-g-black">Home</a>
+        </div>
+    </header>
+
+    <main class="max-w-2xl mx-auto px-5 py-10 md:py-14">
+        <div class="text-center">
+            <div class="welcome-check" aria-hidden="true">✓</div>
+            <p class="text-xs font-bold uppercase tracking-widest text-g-gold" id="eyebrow">Confirmed</p>
+            <h1 class="text-2xl md:text-3xl font-bold tracking-tight mt-2" id="title">You're on the list</h1>
+            <p class="text-g-slate-600 mt-3 text-base leading-relaxed max-w-md mx-auto" id="subtitle"></p>
+            <p class="text-sm text-g-slate-500 mt-2" id="email-line"></p>
+        </div>
+
+        <div class="mt-10 space-y-3" id="steps"></div>
+
+        <div class="mt-10 p-4 rounded-xl bg-white border border-g-slate-200 text-sm text-g-slate-600" id="login-note">
+            <strong class="text-g-black">Do you need to log in?</strong>
+            <span id="login-note-text"> Not for the waitlist — only if you create a free account later.</span>
+        </div>
+
+        <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="/?welcome=1" id="btn-explore" class="touch-target inline-flex items-center justify-center gap-2 bg-g-black text-white px-8 py-4 rounded-full font-bold text-sm min-h-[48px]">
+                <i class="fa-solid fa-compass text-lg"></i> Explore GIYA
+            </a>
+            <a href="/register.html" id="btn-account" class="touch-target inline-flex items-center justify-center gap-2 border-2 border-g-gold text-g-gold px-8 py-4 rounded-full font-bold text-sm min-h-[48px] hidden">
+                Create free account
+            </a>
+        </div>
+
+        <p class="text-center text-xs text-g-slate-500 mt-8">
+            No purchase required to explore. Paid plans are optional and shown only when you are ready.
+        </p>
+    </main>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        const params = new URLSearchParams(location.search);
+        let type = params.get('type') || 'community';
+        let email = params.get('email') || '';
+
+        try {
+            const stored = JSON.parse(sessionStorage.getItem('giya_signup') || 'null');
+            if (stored?.type) type = stored.type;
+            if (stored?.email) email = stored.email;
+        } catch { /* ignore */ }
+
+        const isWaitlist = type === 'masterclass';
+
+        document.getElementById('title').textContent = isWaitlist
+            ? 'Waitlist spot confirmed'
+            : 'Free membership confirmed';
+
+        document.getElementById('subtitle').textContent = isWaitlist
+            ? 'You are on the Master Class priority waitlist. We will email you before launch — nothing to pay today.'
+            : 'You are on the GIYA community list. Explore resources, take the assessment, and learn at your pace.';
+
+        if (email) {
+            document.getElementById('email-line').textContent = 'Confirmation sent to ' + email;
+        }
+
+        const steps = isWaitlist
+            ? [
+                { n: 1, t: 'Email saved', d: 'Your waitlist spot is recorded. Check your inbox for confirmation.' },
+                { n: 2, t: 'Explore GIYA', d: 'Use the assessment, Keyman Reference, and free tools — no login required.' },
+                { n: 3, t: 'Launch invitation', d: 'We will email you before the Master Class opens.' },
+              ]
+            : [
+                { n: 4, t: 'Free GIYA membership', d: 'You are on the community list — nurture emails with frameworks and case studies.' },
+                { n: 1, t: 'Keyman Resource Center', d: 'Start with calculators, discovery tools, and continuity reference.' },
+                { n: 2, t: 'Readiness assessment', d: 'Take the ~3 min assessment for your personalized advisor result.' },
+                { n: 3, t: 'Optional account', d: 'Create a free Discover account if you want sign-in and saved progress.' },
+              ];
+
+        document.getElementById('steps').innerHTML = steps.map((s) => `
+            <div class="step-card flex gap-3 items-start">
+                <span class="step-num">${s.n}</span>
+                <div><p class="font-bold text-g-black">${s.t}</p><p class="text-sm text-g-slate-600 mt-0.5">${s.d}</p></div>
+            </div>`).join('');
+
+        const loginNote = document.getElementById('login-note-text');
+        const btnAccount = document.getElementById('btn-account');
+        if (isWaitlist) {
+            loginNote.textContent = ' No. The waitlist only needs your email. Create a free account later if you want to sign in.';
+            btnAccount.classList.add('hidden');
+        } else {
+            loginNote.textContent = ' Not required today. Create a free account when you want calculators, saved progress, and sign-in.';
+            btnAccount.classList.remove('hidden');
+            btnAccount.href = '/register.html?source=community' + (email ? '&email=' + encodeURIComponent(email) : '');
+        }
+
+        sessionStorage.setItem('giya_onboarding', JSON.stringify({ type, email, welcomedAt: Date.now() }));
+        if (email) {
+            const explore = document.getElementById('btn-explore');
+            if (explore) explore.href = '/?welcome=1';
+        }
+    </script>
+</body>
+</html>

@@ -13,8 +13,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/assets/giya-ui.css">
     <script>
         tailwind.config = {
             theme: {
@@ -166,9 +167,9 @@
     <header class="sticky top-0 z-50 bg-g-white/95 backdrop-blur-md border-b border-g-slate-200">
         <nav class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-3 flex items-center justify-between gap-4">
             <a href="#" class="group flex items-center gap-3 shrink-0">
-                <div class="w-11 h-11 rounded-full bg-g-black flex items-center justify-center text-g-gold font-display font-bold text-xl tracking-tight shadow-card">G</div>
+                <div class="w-12 h-12 rounded-full bg-g-black flex items-center justify-center text-g-gold font-bold text-2xl tracking-tight shadow-card">G</div>
                 <div>
-                    <span class="block font-display type-h4 font-semibold text-g-black leading-none tracking-wide">GIYA</span>
+                    <span class="block type-h4 font-bold text-g-black leading-none tracking-tight">GIYA</span>
                     <span class="text-[10px] uppercase tracking-[0.18em] text-g-slate-400 font-medium">Advisor Development</span>
                 </div>
             </a>
@@ -207,21 +208,22 @@
         <section class="hero-gradient relative overflow-hidden">
             <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 pt-14 pb-16 md:pt-20 md:pb-24">
                 <div class="max-w-3xl">
-                    <p class="font-display type-display text-g-goldMuted italic mb-1">Guiding Advisors.</p>
-                    <p class="font-display type-display font-semibold text-g-black mb-8">Protecting Legacies.</p>
+                    <p class="type-display text-g-goldMuted mb-1">Guiding Advisors.</p>
+                    <p class="type-display font-bold text-g-black mb-8">Protecting Legacies.</p>
                     <div class="w-16 h-0.5 bg-g-gold mb-8"></div>
                     <h1 class="type-h1 font-bold text-g-black leading-snug tracking-tight">Financial Advisory Beyond Products</h1>
                     <p class="mt-5 text-g-slate-600 type-body leading-relaxed max-w-2xl">
                         Master the disciplines that matter most to modern financial advisors — and build a practice that serves at a higher level.
                     </p>
                     <div class="mt-10 flex flex-col sm:flex-row gap-4">
-                        <a href="#join" class="touch-target inline-flex items-center justify-center gap-2 bg-g-black hover:bg-g-ink text-white px-8 py-4 rounded-full font-semibold text-sm shadow-soft transition-all min-h-[44px]">
-                            <i class="fa-solid fa-people-group"></i> Join the Community
+                        <a href="keyman/" class="touch-target inline-flex items-center justify-center gap-2 bg-g-black hover:bg-g-ink text-white px-8 py-4 rounded-full font-semibold text-sm shadow-soft transition-all min-h-[44px]">
+                            <i class="fa-solid fa-building-columns text-lg"></i> Keyman Resource Center
                         </a>
                         <a href="/readiness/" class="touch-target inline-flex items-center justify-center gap-2 border-2 border-g-gold text-g-goldMuted hover:bg-g-gold hover:text-g-black px-8 py-4 rounded-full font-semibold text-sm transition-all min-h-[44px]">
-                            <i class="fa-solid fa-clipboard-list"></i> Keyman Readiness Assessment
+                            <i class="fa-solid fa-clipboard-list text-lg"></i> Advisor Readiness Assessment
                         </a>
                     </div>
+                    <p class="mt-4 type-small text-g-slate-500 max-w-xl">Journey: Keyman → Assessment → Result → Free membership → Nurture → Professional → Academies → GIYA Elite</p>
                 </div>
             </div>
         </section>
@@ -232,11 +234,11 @@
                     <div>
                         <h2 class="type-small font-bold uppercase tracking-widest text-g-gold mb-4">Core disciplines</h2>
                         <ul class="space-y-4">
-                            <li class="flex items-start gap-4"><span class="w-11 h-11 rounded-xl bg-g-slate-50 flex items-center justify-center text-g-slate-600 shrink-0"><i class="fa-solid fa-chart-line"></i></span><div><strong class="text-g-black">Wealth Management</strong><p class="type-small text-g-slate-600 mt-0.5">Accumulate, preserve, and distribute with intention.</p></div></li>
-                            <li class="flex items-start gap-4"><span class="w-11 h-11 rounded-xl bg-g-pearl flex items-center justify-center text-g-gold shrink-0"><i class="fa-solid fa-building-shield"></i></span><div><strong class="text-g-black">Business Insurance</strong><p class="type-small text-g-slate-600 mt-0.5">Keyman, buy-sell, continuity, and corporate risk.</p></div></li>
-                            <li class="flex items-start gap-4"><span class="w-11 h-11 rounded-xl bg-g-slate-50 flex items-center justify-center text-g-slate-600 shrink-0"><i class="fa-solid fa-heart-pulse"></i></span><div><strong class="text-g-black">Health Planning</strong><p class="type-small text-g-slate-600 mt-0.5">Protection aligned with long-term financial wellbeing.</p></div></li>
-                            <li class="flex items-start gap-4"><span class="w-11 h-11 rounded-xl bg-g-slate-50 flex items-center justify-center text-g-slate-600 shrink-0"><i class="fa-solid fa-landmark"></i></span><div><strong class="text-g-black">Estate Conservation</strong><p class="type-small text-g-slate-600 mt-0.5">Generational wealth transfer and legacy design.</p></div></li>
-                            <li class="flex items-start gap-4"><span class="w-11 h-11 rounded-xl bg-g-slate-50 flex items-center justify-center text-g-slate-600 shrink-0"><i class="fa-solid fa-arrow-right-arrow-left"></i></span><div><strong class="text-g-black">Succession Planning</strong><p class="type-small text-g-slate-600 mt-0.5">Ownership transitions for families and firms.</p></div></li>
+                            <li class="flex items-start gap-4"><span class="g-icon-wrap g-icon-wrap--muted"><i class="fa-solid fa-chart-line"></i></span><div><strong class="text-g-black">Wealth Management</strong><p class="type-small text-g-slate-600 mt-0.5">Accumulate, preserve, and distribute with intention.</p></div></li>
+                            <li class="flex items-start gap-4"><span class="g-icon-wrap g-icon-wrap--gold"><i class="fa-solid fa-building-shield"></i></span><div><strong class="text-g-black">Business Insurance</strong><p class="type-small text-g-slate-600 mt-0.5">Keyman, buy-sell, continuity, and corporate risk.</p></div></li>
+                            <li class="flex items-start gap-4"><span class="g-icon-wrap g-icon-wrap--muted"><i class="fa-solid fa-heart-pulse"></i></span><div><strong class="text-g-black">Health Planning</strong><p class="type-small text-g-slate-600 mt-0.5">Protection aligned with long-term financial wellbeing.</p></div></li>
+                            <li class="flex items-start gap-4"><span class="g-icon-wrap g-icon-wrap--muted"><i class="fa-solid fa-landmark"></i></span><div><strong class="text-g-black">Estate Conservation</strong><p class="type-small text-g-slate-600 mt-0.5">Generational wealth transfer and legacy design.</p></div></li>
+                            <li class="flex items-start gap-4"><span class="g-icon-wrap g-icon-wrap--muted"><i class="fa-solid fa-arrow-right-arrow-left"></i></span><div><strong class="text-g-black">Succession Planning</strong><p class="type-small text-g-slate-600 mt-0.5">Ownership transitions for families and firms.</p></div></li>
                             <li class="flex items-start gap-4"><span class="w-11 h-11 rounded-xl bg-g-pearl flex items-center justify-center text-g-gold shrink-0"><i class="fa-solid fa-seedling"></i></span><div><strong class="text-g-black">Advisory Practice Growth</strong><p class="type-small text-g-slate-600 mt-0.5">Build expertise, impact, and an enduring practice.</p></div></li>
                         </ul>
                     </div>
@@ -886,27 +888,29 @@
 
         <section id="membership-faq" class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-14 md:py-20">
             <div class="max-w-3xl mx-auto">
-                <h2 class="type-h2 font-display font-semibold text-g-black text-center">Membership &amp; billing FAQ</h2>
-                <dl class="mt-8 space-y-6 type-body text-g-slate-600">
-                    <div class="bg-g-white border border-g-slate-200 rounded-2xl p-6">
-                        <dt class="font-semibold text-g-black">Professional vs GIYA Fellow?</dt>
-                        <dd class="mt-2 leading-relaxed"><strong class="text-g-black">Professional (₱999/mo)</strong> is the learning community — resources, monthly master class, and 20% off Academies. <strong class="text-g-black">GIYA Fellow (₱2,999/mo)</strong> is the full ecosystem — all Academies and coaching, <strong class="text-g-black">by invitation</strong> after Master Class engagement.</dd>
-                        <dt class="font-semibold text-g-black mt-6">What is a Legacy Consultant?</dt>
-                        <dd class="mt-2 leading-relaxed">Advisors who <strong class="text-g-black">complete Master Class academies</strong> may earn the <strong class="text-g-black">Legacy Consultant</strong> designation — recognizing advanced case work in business insurance, estate, and succession planning.</dd>
-                    </div>
-                    <div class="bg-g-white border border-g-slate-200 rounded-2xl p-6">
-                        <dt class="font-semibold text-g-black">Should I buy one Academy or join Elite?</dt>
-                        <dd class="mt-2 leading-relaxed">One Academy is <strong class="text-g-black">₱7,990–₱12,990</strong> (standalone). If you want more than one program, <strong class="text-g-black">Elite at ₱2,999/month</strong> is often the better economics — plus coaching.</dd>
-                    </div>
-                    <div class="bg-g-white border border-g-slate-200 rounded-2xl p-6">
-                        <dt class="font-semibold text-g-black">Is Discover the same as Preview?</dt>
-                        <dd class="mt-2 leading-relaxed">Yes — free assessment, newsletter, and webinars. Upgrade to Professional for community benefits or purchase / unlock Academies.</dd>
-                    </div>
-                    <div class="bg-g-white border border-g-slate-200 rounded-2xl p-6">
-                        <dt class="font-semibold text-g-black">If I cancel Elite after one month?</dt>
-                        <dd class="mt-2 leading-relaxed">Elite benefits (all Academies, coaching) <strong class="text-g-black">end when your paid period ends</strong> — access returns to Discover until you renew. This prevents using Elite for one month to keep every Academy permanently. A standalone Academy you purchased separately remains yours.</dd>
-                    </div>
-                </dl>
+                <h2 class="type-h2 font-bold text-g-black text-center">Membership &amp; billing FAQ</h2>
+                <div class="g-accordion mt-8" role="region" aria-label="FAQ">
+                    <details>
+                        <summary>Professional vs GIYA Fellow?</summary>
+                        <div class="g-accordion-body"><strong class="text-g-black">Professional (₱999/mo)</strong> is the learning community — resources, monthly master class, and 20% off Academies. <strong class="text-g-black">GIYA Fellow (₱2,999/mo)</strong> is the full ecosystem — all Academies and coaching, <strong class="text-g-black">by invitation</strong> after Master Class engagement.</div>
+                    </details>
+                    <details>
+                        <summary>What is a Legacy Consultant?</summary>
+                        <div class="g-accordion-body">Advisors who <strong class="text-g-black">complete Master Class academies</strong> may earn the <strong class="text-g-black">Legacy Consultant</strong> designation — recognizing advanced case work in business insurance, estate, and succession planning.</div>
+                    </details>
+                    <details>
+                        <summary>Should I buy one Academy or join GIYA Fellow?</summary>
+                        <div class="g-accordion-body">One Academy is <strong class="text-g-black">₱7,990–₱12,990</strong> (standalone). If you want more than one program, <strong class="text-g-black">GIYA Fellow at ₱2,999/month</strong> is often the better economics — plus coaching.</div>
+                    </details>
+                    <details>
+                        <summary>Is Discover the same as Preview?</summary>
+                        <div class="g-accordion-body">Yes — free assessment, newsletter, and webinars. Upgrade to Professional for community benefits or purchase Academies.</div>
+                    </details>
+                    <details>
+                        <summary>If I cancel GIYA Fellow after one month?</summary>
+                        <div class="g-accordion-body">Fellow benefits end when your paid period ends — access returns to Discover until you renew. A standalone Academy you purchased separately remains yours.</div>
+                    </details>
+                </div>
             </div>
         </section>
 
@@ -926,7 +930,7 @@
                 <section id="waitlist" class="scroll-mt-28" aria-labelledby="waitlist-form-title">
                     <form id="waitlist-form" class="bg-g-white border border-g-slate-200 rounded-2xl p-6 space-y-4 shadow-card" data-list-type="masterclass" novalidate>
                         <p id="waitlist-form-title" class="type-small font-semibold text-g-black text-center">Master Class · Priority waitlist</p>
-                        <p class="type-small text-g-slate-500 text-center -mt-2">Launching soon — reserve your spot. No purchase today.</p>
+                        <p class="type-small text-g-slate-500 text-center -mt-2">Email only · no payment · confirmation on the next screen</p>
                         <input type="email" name="email" required autocomplete="email" placeholder="Email address" class="giya-signup-email w-full border border-g-slate-200 rounded-xl px-4 py-3 min-h-[44px] focus:ring-2 focus:ring-g-gold focus:outline-none">
                         <label class="flex items-start gap-2 type-small text-g-slate-600">
                             <input type="checkbox" name="consent" required class="mt-1 rounded border-g-slate-200 text-g-gold focus:ring-g-gold w-5 h-5">
@@ -938,7 +942,7 @@
                 <section id="community-signup" class="scroll-mt-28" aria-labelledby="community-form-title">
                     <form id="community-form" class="bg-g-white border border-g-slate-200 rounded-2xl p-6 space-y-4 shadow-card" data-list-type="community" novalidate>
                         <p id="community-form-title" class="type-small font-semibold text-g-black text-center">GIYA · Free membership</p>
-                        <p class="type-small text-g-slate-500 text-center -mt-2">Case studies, frameworks, and learning roadmaps.</p>
+                        <p class="type-small text-g-slate-500 text-center -mt-2">Email list · explore free · optional account later</p>
                         <input type="email" name="email" required autocomplete="email" placeholder="Email address" class="giya-signup-email w-full border border-g-slate-200 rounded-xl px-4 py-3 min-h-[44px] focus:ring-2 focus:ring-g-gold focus:outline-none">
                         <label class="flex items-start gap-2 type-small text-g-slate-600">
                             <input type="checkbox" name="consent" required class="mt-1 rounded border-g-slate-200 text-g-gold focus:ring-g-gold w-5 h-5">
@@ -974,6 +978,7 @@
 
     <script src="/assets/giya-auth.js"></script>
     <script src="/assets/giya-pricing.js"></script>
+    <script src="/assets/giya-onboarding.js"></script>
 <script>
         const GATE_ORDER = { preview: 0, basic: 1, advanced: 2, master: 3 };
         const STORAGE_KEY = 'giya_academy_tier';
@@ -1259,8 +1264,11 @@
                     showGiyaToast(data.error || 'Something went wrong. Please try again.', true);
                     return;
                 }
-                showGiyaToast(data.message || 'You are on the list. Thank you!', false);
-                form.reset();
+                sessionStorage.setItem('giya_signup', JSON.stringify({ type: listType, email, at: Date.now() }));
+                const dest =
+                    data.redirect ||
+                    `/welcome.html?type=${listType}&confirmed=1&email=${encodeURIComponent(email)}`;
+                window.location.href = dest.includes('email=') ? dest : `${dest}&email=${encodeURIComponent(email)}`;
             } catch {
                 showGiyaToast('Network error. Check your connection and try again.', true);
             } finally {
@@ -1283,8 +1291,29 @@
             }
         }
 
+        function initGiyaNav() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu) {
+                menu.querySelectorAll('a').forEach((link) => {
+                    link.addEventListener('click', () => menu.classList.add('hidden'));
+                });
+            }
+            document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+                anchor.addEventListener('click', (e) => {
+                    const id = anchor.getAttribute('href');
+                    if (!id || id === '#') return;
+                    const el = document.querySelector(id);
+                    if (!el) return;
+                    e.preventDefault();
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    history.replaceState(null, '', id);
+                });
+            });
+        }
+
         function initApp() {
             try {
+                initGiyaNav();
                 initGiyaSignups();
                 if (!localStorage.getItem(STORAGE_KEY)) localStorage.setItem(STORAGE_KEY, 'preview');
                 if (!localStorage.getItem(CALC_RUNS_KEY)) localStorage.setItem(CALC_RUNS_KEY, '1');

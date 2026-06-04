@@ -1,4 +1,5 @@
 import { error, json, now, readJson } from '../../lib/auth.js';
+import { sendWaitlistConfirmationEmail } from '../../lib/waitlistEmail.js';
 
 const LIST_TYPES = new Set(['masterclass', 'community']);
 
@@ -33,10 +34,13 @@ export async function onRequestPost(context) {
   } catch (e) {
     const msg = String(e?.message || e);
     if (msg.includes('UNIQUE') || msg.includes('unique')) {
+      const emailResult = await sendWaitlistConfirmationEmail(context.env, email, listType);
       return json({
         ok: true,
         already_registered: true,
         list_type: listType,
+        email_sent: Boolean(emailResult.sent),
+        redirect: `/welcome.html?type=${listType}&confirmed=1&email=${encodeURIComponent(email)}`,
         message:
           listType === 'masterclass'
             ? 'You are already on the Master Class priority waitlist.'
@@ -46,13 +50,17 @@ export async function onRequestPost(context) {
     throw e;
   }
 
+  const emailResult = await sendWaitlistConfirmationEmail(context.env, email, listType);
+
   return json({
     ok: true,
     id,
     list_type: listType,
+    email_sent: Boolean(emailResult.sent),
+    redirect: `/welcome.html?type=${listType}&confirmed=1&email=${encodeURIComponent(email)}`,
     message:
       listType === 'masterclass'
         ? 'You are on the Master Class priority waitlist. We will email you before launch.'
-        : 'Welcome to GIYA. Check your inbox for community updates.',
+        : 'Welcome to GIYA. Check your inbox for confirmation.',
   });
 }

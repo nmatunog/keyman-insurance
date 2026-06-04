@@ -34,10 +34,18 @@
                     <p id="u-status" class="text-xs text-g-slate-500 capitalize"></p>
                 </div>
             </section>
+            <div id="explore-first" class="hidden rounded-xl border border-g-gold/40 bg-amber-50/50 p-4 text-sm">
+                <p class="font-bold text-g-black">Start by exploring</p>
+                <p class="text-g-slate-600 mt-1">Your free Discover account is active. Visit the assessment, Keyman tools, and pathways before choosing a paid plan.</p>
+                <a href="/?welcome=1" class="inline-block mt-3 font-bold text-g-gold hover:underline">Continue exploring →</a>
+            </div>
             <p id="upsell" class="text-sm bg-white border rounded-xl p-4 text-g-slate-600"></p>
             <p id="membership-notice" class="hidden text-sm rounded-xl p-4 border"></p>
 
-            <div class="rounded-xl border-2 border-g-gold/40 bg-gradient-to-r from-amber-50/80 to-white p-4 text-sm">
+            <details class="rounded-xl border border-g-slate-200 bg-white" id="billing-section">
+            <summary class="px-5 py-4 font-semibold cursor-pointer text-g-slate-600">Membership &amp; billing (when you are ready)</summary>
+            <div class="px-5 pb-5 space-y-4 border-t pt-4">
+            <div class="rounded-xl border border-g-gold/30 bg-gradient-to-r from-amber-50/80 to-white p-4 text-sm">
                 <p class="font-bold text-g-black flex items-center gap-2"><i class="fa-solid fa-star text-g-gold"></i> Recommended payment</p>
                 <p class="text-g-slate-600 mt-1">Pay <strong>directly via GCash or GoTyme (InstaPay)</strong> — no card fees. Use <strong>Visa / Mastercard</strong> only if you prefer card checkout (PayMongo).</p>
             </div>
@@ -65,6 +73,8 @@
             </section>
 
             <div id="manual-box" class="hidden rounded-xl border border-g-gold/30 bg-white p-4 text-sm"></div>
+            </div>
+            </details>
 
             <details class="bg-white rounded-xl border">
                 <summary class="px-5 py-4 font-semibold cursor-pointer">Change password</summary>
@@ -203,6 +213,16 @@
             document.getElementById('u-email').textContent = user.name ? user.email : '';
             document.getElementById('u-tier').textContent = tierLabels[user.tier] || user.tier;
             document.getElementById('u-status').textContent = user.status;
+            const exploreFirst = document.getElementById('explore-first');
+            const billingSection = document.getElementById('billing-section');
+            const isPreview = user.tier === 'preview' || user.tier === 'basic';
+            const wantsBilling = new URLSearchParams(location.search).get('billing') === '1';
+            if (isPreview && !wantsBilling && exploreFirst) {
+                exploreFirst.classList.remove('hidden');
+                if (billingSection) billingSection.removeAttribute('open');
+            } else if (billingSection && wantsBilling) {
+                billingSection.setAttribute('open', '');
+            }
             if (data.upsell) document.getElementById('upsell').textContent = data.upsell;
             const notice = document.getElementById('membership-notice');
             const ma = data.membershipAccess;

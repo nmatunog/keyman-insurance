@@ -4,10 +4,13 @@ import { readinessTierLabel } from './advisorTiers';
 export const RESULT_STORAGE_KEY = 'giya_readiness_result';
 
 export const SITE_LINKS = {
-  joinCommunity: '/#community-signup',
-  waitlist: '/#waitlist',
-  masterClassLearn: '/#business-academy',
   keymanResource: '/keyman/',
+  assessment: '/readiness/assessment',
+  joinCommunity: '/#community-signup',
+  nurture: '/#platform',
+  professionalPlans: '/#giya-plans',
+  masterClassLearn: '/#business-academy',
+  waitlist: '/#waitlist',
   register: '/register.html',
   home: '/',
 };

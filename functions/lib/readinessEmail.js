@@ -38,13 +38,13 @@ Your complimentary resources:
 2. Business Insurance Conversation Guide
    ${links.conversation}
 
-Your next step (free):
-Join the GIYA community: ${links.join}
-
-Explore the Keyman Resource Center: ${links.keyman}
-
-Interested in advanced learning later?
-Master Class waitlist (no purchase today): ${links.waitlist}
+Your GIYA journey:
+1. Keyman Resource Center: ${links.keyman}
+2. Assessment complete (this email)
+3. Your personalized result above
+4. Join free GIYA membership: ${links.join}
+5. Nurture — guides above + ongoing updates
+6. GIYA Professional, Academies, and GIYA Elite — when you are ready (no rush)
 
 Save the Business. Protect the Family. Preserve the Legacy.
 
@@ -70,13 +70,12 @@ ${siteUrl(env)}`;
     <li style="margin-bottom:8px"><a href="${links.conversation}" style="color:#8A7340;font-weight:600">Business Insurance Conversation Guide</a></li>
   </ul>
   ${lead.resource_permission === false ? '<p style="font-size:13px;color:#6B7280">You opted out of future GIYA updates; these two guides are still yours to keep.</p>' : ''}
-  <h2 style="font-size:16px;color:#0A0A0B;margin-top:24px">Your next step — join free</h2>
-  <p style="font-size:14px;color:#374151">Case studies, frameworks, resource updates, and Master Class invitations.</p>
+  <h2 style="font-size:16px;color:#0A0A0B;margin-top:24px">Step 4 — Free GIYA membership</h2>
+  <p style="font-size:14px;color:#374151">Join the community (no cost). Case studies, frameworks, and nurture emails.</p>
   <p style="margin:20px 0">
-    <a href="${links.join}" style="display:inline-block;background:#C4A052;color:#0A0A0B;text-decoration:none;padding:14px 24px;border-radius:999px;font-weight:700;font-size:15px">Join GIYA</a>
+    <a href="${links.join}" style="display:inline-block;background:#C4A052;color:#0A0A0B;text-decoration:none;padding:14px 24px;border-radius:999px;font-weight:700;font-size:15px">Join free membership</a>
   </p>
-  <p style="font-size:13px;color:#6B7280;margin-top:24px">Interested in advanced learning? <a href="${links.masterClass}" style="color:#8A7340">Learn about the Master Class</a> · <a href="${links.waitlist}" style="color:#8A7340">Priority waitlist</a> (launching soon).</p>
-  <p style="font-size:13px;color:#6B7280">Then explore GIYA as a <strong>free member</strong>: <a href="${links.join}" style="color:#8A7340">Join the community</a> (case studies, frameworks, and learning roadmaps).</p>
+  <p style="font-size:13px;color:#6B7280">Continue exploring: <a href="${links.keyman}" style="color:#8A7340">Keyman Resource Center</a>. Professional, Academies, and GIYA Elite come later — only when you choose.</p>
   <p style="font-style:italic;color:#8A7340;margin-top:28px">Save the Business. Protect the Family. Preserve the Legacy.</p>
   <p style="font-size:13px;color:#6B7280">Nilo B. Matunog, PFA · RFP<br>
   <a href="${siteUrl(env)}" style="color:#8A7340">joingiya.com</a></p>

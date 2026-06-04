@@ -3,47 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join GIYA | Register</title>
+    <title>Join GIYA | Free account</title>
     <link rel="canonical" href="https://joingiya.com/register.html">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Serif+4:wght@600&display=swap" rel="stylesheet">
-    <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif'],display:['"Source Serif 4"','Georgia','serif']},colors:{g:{black:'#0A0A0B',pearl:'#F5F3EE',gold:'#C4A052',slate:{200:'#D1D5DB',600:'#374151'}}}}}}</script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+    <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif']},colors:{g:{black:'#0A0A0B',pearl:'#F5F3EE',gold:'#C4A052',slate:{200:'#D1D5DB',600:'#374151'}}}}}}</script>
 </head>
 <body class="bg-g-pearl min-h-screen font-sans text-g-black flex items-center justify-center p-4">
     <div class="w-full max-w-md bg-white rounded-2xl shadow-xl border border-g-slate-200 p-8">
-        <a href="/" class="font-display text-2xl text-g-gold font-semibold">GIYA</a>
-        <h1 class="text-xl font-bold mt-4">Create your account</h1>
-        <p class="text-sm text-g-slate-600 mt-1">Join as a member or mentee. Preview access starts after sign-in; paid tiers unlock full academy content.</p>
+        <a href="/" class="font-bold text-2xl text-g-gold tracking-tight">GIYA</a>
+        <h1 class="text-xl font-bold mt-4">Create your free account</h1>
+        <p class="text-sm text-g-slate-600 mt-1" id="register-hint">Discover tier — explore tools and save progress. No payment required.</p>
         <form id="register-form" class="mt-6 space-y-4">
             <div>
-                <label class="block text-sm font-medium mb-1" for="name">Full name</label>
-                <input id="name" type="text" required class="w-full border border-g-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-g-gold/40 outline-none">
+                <label class="block text-sm font-semibold mb-1" for="name">Full name</label>
+                <input id="name" type="text" required class="w-full border border-g-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-g-gold/40 outline-none min-h-[44px]">
             </div>
             <div>
-                <label class="block text-sm font-medium mb-1" for="email">Email</label>
-                <input id="email" type="email" required autocomplete="email" class="w-full border border-g-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-g-gold/40 outline-none">
+                <label class="block text-sm font-semibold mb-1" for="email">Email</label>
+                <input id="email" type="email" required autocomplete="email" class="w-full border border-g-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-g-gold/40 outline-none min-h-[44px]">
             </div>
             <div>
-                <label class="block text-sm font-medium mb-1" for="password">Password (8+ characters)</label>
-                <input id="password" type="password" required minlength="8" autocomplete="new-password" class="w-full border border-g-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-g-gold/40 outline-none">
+                <label class="block text-sm font-semibold mb-1" for="password">Password (8+ characters)</label>
+                <input id="password" type="password" required minlength="8" autocomplete="new-password" class="w-full border border-g-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-g-gold/40 outline-none min-h-[44px]">
             </div>
             <div>
-                <label class="block text-sm font-medium mb-1" for="role">I am joining as</label>
-                <select id="role" class="w-full border border-g-slate-200 rounded-xl px-4 py-3 text-sm bg-white">
+                <label class="block text-sm font-semibold mb-1" for="role">I am joining as</label>
+                <select id="role" class="w-full border border-g-slate-200 rounded-xl px-4 py-3 text-sm bg-white min-h-[44px]">
                     <option value="member">Member — advisor / producer</option>
                     <option value="mentee">Mentee — guided learning track</option>
                 </select>
             </div>
             <p id="error" class="text-sm text-red-600 hidden"></p>
             <p id="success" class="text-sm text-green-700 hidden"></p>
-            <button type="submit" class="w-full bg-g-black text-white font-semibold py-3 rounded-xl hover:bg-g-black/90">Create account</button>
+            <button type="submit" class="w-full bg-g-black text-white font-bold py-3 rounded-xl hover:bg-g-black/90 min-h-[48px]">Create free account</button>
         </form>
         <p class="text-sm text-g-slate-600 mt-6 text-center">
             Already registered? <a href="/login.html" class="text-g-gold font-semibold hover:underline">Sign in</a>
         </p>
+        <p class="text-sm text-center mt-3"><a href="/" class="text-g-slate-600 hover:text-g-black">← Explore without an account</a></p>
     </div>
     <script src="/assets/giya-auth.js"></script>
     <script>
+        const params = new URLSearchParams(location.search);
+        const source = params.get('source') || '';
+        const emailPrefill = params.get('email') || '';
+        if (emailPrefill) document.getElementById('email').value = emailPrefill;
+        if (source === 'community') {
+            document.getElementById('register-hint').textContent =
+                'Optional — sign in and save progress after joining the free community list.';
+        }
+
         document.getElementById('register-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const err = document.getElementById('error');
@@ -51,15 +61,24 @@
             err.classList.add('hidden');
             ok.classList.add('hidden');
             try {
-                await GiyaAuth.register({
-                    name: document.getElementById('name').value.trim(),
-                    email: document.getElementById('email').value.trim(),
-                    password: document.getElementById('password').value,
-                    role: document.getElementById('role').value,
+                const res = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        name: document.getElementById('name').value.trim(),
+                        email: document.getElementById('email').value.trim(),
+                        password: document.getElementById('password').value,
+                        role: document.getElementById('role').value,
+                        source: source || 'community',
+                    }),
                 });
-                ok.textContent = 'Account created. Sign in, then choose a plan or wait for admin approval.';
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok || !data.ok) throw new Error(data.error || 'Registration failed');
+                ok.textContent = data.message || 'Account created.';
                 ok.classList.remove('hidden');
-                setTimeout(() => { location.href = '/login.html'; }, 2000);
+                const dest = data.redirect || '/login.html?return=' + encodeURIComponent('/?welcome=1&account=1');
+                setTimeout(() => { location.href = dest.includes('login') ? dest : '/login.html?return=' + encodeURIComponent('/?welcome=1&account=1'); }, 1500);
             } catch (ex) {
                 err.textContent = ex.message;
                 err.classList.remove('hidden');

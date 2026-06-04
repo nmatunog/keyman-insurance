@@ -30,16 +30,23 @@ export async function onRequestPost(context) {
   const passwordHash = await hashPassword(password);
   const ts = now();
 
+  const source = String(body.source || '').toLowerCase();
+  const status = source === 'community' || source === 'welcome' ? 'active' : 'pending';
+
   await env.DB.prepare(
     `INSERT INTO users (id, email, password_hash, name, role, tier, status, created_at, updated_at)
-     VALUES (?, ?, ?, ?, ?, 'preview', 'pending', ?, ?)`
+     VALUES (?, ?, ?, ?, ?, 'preview', ?, ?, ?)`
   )
-    .bind(id, email, passwordHash, name, role, ts, ts)
+    .bind(id, email, passwordHash, name, role, status, ts, ts)
     .run();
 
   return json({
     ok: true,
-    message: 'Account created. Sign in after admin approval, or subscribe to activate immediately.',
-    user: { id, email, name, role, tier: 'preview', status: 'pending' },
+    message:
+      status === 'active'
+        ? 'Free Discover account created. Sign in and start exploring.'
+        : 'Account created. Sign in after admin approval, or subscribe to activate immediately.',
+    user: { id, email, name, role, tier: 'preview', status },
+    redirect: status === 'active' ? '/?welcome=1&account=1' : '/login.html',
   }, 201);
 }

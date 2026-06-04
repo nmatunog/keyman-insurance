@@ -6,33 +6,38 @@
     <title>Sign in | GIYA</title>
     <link rel="canonical" href="https://joingiya.com/login.html">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Serif+4:wght@600&display=swap" rel="stylesheet">
-    <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif'],display:['"Source Serif 4"','Georgia','serif']},colors:{g:{black:'#0A0A0B',pearl:'#F5F3EE',gold:'#C4A052',slate:{200:'#D1D5DB',600:'#374151'}}}}}}</script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+    <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif']},colors:{g:{black:'#0A0A0B',pearl:'#F5F3EE',gold:'#C4A052',slate:{200:'#D1D5DB',600:'#374151'}}}}}}</script>
 </head>
 <body class="bg-g-pearl min-h-screen font-sans text-g-black flex items-center justify-center p-4">
     <div class="w-full max-w-md bg-white rounded-2xl shadow-xl border border-g-slate-200 p-8">
-        <a href="/" class="font-display text-2xl text-g-gold font-semibold">GIYA</a>
+        <a href="/" class="font-bold text-2xl text-g-gold tracking-tight">GIYA</a>
         <h1 class="text-xl font-bold mt-4">Sign in</h1>
-        <p class="text-sm text-g-slate-600 mt-1">Access your academy tier and member tools.</p>
+        <p class="text-sm text-g-slate-600 mt-1">Access your member tools and saved progress.</p>
         <form id="login-form" class="mt-6 space-y-4">
             <div>
-                <label class="block text-sm font-medium mb-1" for="email">Email</label>
-                <input id="email" type="email" required autocomplete="email" class="w-full border border-g-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-g-gold/40 outline-none">
+                <label class="block text-sm font-semibold mb-1" for="email">Email</label>
+                <input id="email" type="email" required autocomplete="email" class="w-full border border-g-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-g-gold/40 outline-none min-h-[44px]">
             </div>
             <div>
-                <label class="block text-sm font-medium mb-1" for="password">Password</label>
-                <input id="password" type="password" required autocomplete="current-password" class="w-full border border-g-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-g-gold/40 outline-none">
+                <label class="block text-sm font-semibold mb-1" for="password">Password</label>
+                <input id="password" type="password" required autocomplete="current-password" class="w-full border border-g-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-g-gold/40 outline-none min-h-[44px]">
             </div>
             <p id="error" class="text-sm text-red-600 hidden"></p>
-            <button type="submit" class="w-full bg-g-black text-white font-semibold py-3 rounded-xl hover:bg-g-black/90">Sign in</button>
+            <button type="submit" class="w-full bg-g-black text-white font-bold py-3 rounded-xl hover:bg-g-black/90 min-h-[48px]">Sign in</button>
         </form>
         <p class="text-sm text-g-slate-600 mt-6 text-center">
-            New member? <a href="/register.html" class="text-g-gold font-semibold hover:underline">Create account</a>
+            New member? <a href="/register.html" class="text-g-gold font-semibold hover:underline">Create free account</a>
         </p>
         <p class="text-sm text-center mt-2"><a href="/" class="text-g-slate-600 hover:text-g-black">← Back to home</a></p>
     </div>
     <script src="/assets/giya-auth.js"></script>
     <script>
+        const params = new URLSearchParams(location.search);
+        const returnTo = params.get('return') || '/?welcome=1';
+        const emailPrefill = params.get('email') || '';
+        if (emailPrefill) document.getElementById('email').value = emailPrefill;
+
         document.getElementById('login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const err = document.getElementById('error');
@@ -43,7 +48,7 @@
                     document.getElementById('password').value
                 );
                 if (user.role === 'admin') location.href = '/admin/';
-                else location.href = '/account.html';
+                else location.href = returnTo;
             } catch (ex) {
                 err.textContent = ex.message;
                 err.classList.remove('hidden');

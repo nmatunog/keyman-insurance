@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Accordion from '../components/Accordion';
+import FunnelLadder from '../components/FunnelLadder';
 import {
   BONUS_RESOURCES,
   COMMUNITY_BENEFITS,
@@ -48,118 +50,152 @@ export default function ThankYouPage() {
   const showEmailNote = insights?.resourcePermission !== false;
   const emailNote = emailDeliveryMessage(emailSent, emailReason);
 
+  const nextSteps = [
+    {
+      id: 'membership',
+      icon: '👥',
+      title: 'Step 4 — Free GIYA membership',
+      subtitle: 'Your next action · no payment',
+      content: (
+        <>
+          <p>Join the founding community for case studies, frameworks, and learning roadmaps.</p>
+          <ul className="community-benefits" style={{ maxWidth: 'none', margin: '1rem 0', textAlign: 'left' }}>
+            {COMMUNITY_BENEFITS.map((b) => (
+              <li key={b}>{b}</li>
+            ))}
+          </ul>
+          <a href={SITE_LINKS.joinCommunity} className="btn btn-primary" style={{ width: '100%' }}>
+            Join free membership
+          </a>
+        </>
+      ),
+    },
+    {
+      id: 'nurture',
+      icon: '📬',
+      title: 'Step 5 — Nurture & engagement',
+      subtitle: 'Guides + Keyman tools',
+      content: (
+        <>
+          <p>Your complimentary resources (also by email):</p>
+          <ul className="bonus-resources-list">
+            {BONUS_RESOURCES.map((doc) => (
+              <li key={doc.href}>
+                <a href={doc.href} target="_blank" rel="noopener noreferrer">
+                  {doc.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+          {showEmailNote && (
+            <p className={`email-delivery-note email-delivery-${emailNote.tone}`}>{emailNote.text}</p>
+          )}
+          <a href={SITE_LINKS.keymanResource} className="btn btn-secondary" style={{ width: '100%', marginTop: '0.75rem' }}>
+            Keyman Resource Center
+          </a>
+        </>
+      ),
+    },
+    {
+      id: 'professional',
+      icon: '◆',
+      title: 'Step 6 — GIYA Professional',
+      subtitle: 'When you want more depth',
+      content: (
+        <p>
+          Community, monthly master class, and 20% off academies. Explore when nurture feels right —{' '}
+          <a href={SITE_LINKS.professionalPlans} style={{ color: 'var(--gold)' }}>
+            compare Professional
+          </a>
+          .
+        </p>
+      ),
+    },
+    {
+      id: 'academies',
+      icon: '🎓',
+      title: 'Step 7 — Academy purchases',
+      subtitle: 'Standalone programs',
+      content: (
+        <p>
+          Business Insurance and future academies from ₱7,990. Preview the curriculum —{' '}
+          <a href={SITE_LINKS.masterClassLearn} style={{ color: 'var(--gold)' }}>
+            Business Academy
+          </a>
+          .
+        </p>
+      ),
+    },
+    {
+      id: 'elite',
+      icon: '★',
+      title: 'Step 8 — GIYA Elite',
+      subtitle: 'By invitation',
+      content: (
+        <p>
+          Full ecosystem — all academies and coaching. Elite opens after deep engagement, not at signup.{' '}
+          <a href={SITE_LINKS.professionalPlans} style={{ color: 'var(--gold)' }}>
+            Learn about Elite
+          </a>
+          .
+        </p>
+      ),
+    },
+  ];
+
   return (
-    <div className="thank-you assessment-layout" style={{ maxWidth: '640px' }}>
-      <p className="hero-eyebrow">Assessment complete</p>
-      <h1>Your Advisor Readiness Result</h1>
-      <p style={{ color: 'var(--gray)', fontSize: '0.95rem', marginTop: '-0.5rem' }}>
-        {greet}thank you for completing the Keyman Readiness Assessment.
-      </p>
+    <div className="thank-you assessment-layout">
+      <div className="page-intro">
+        <p className="hero-eyebrow">Step 3 · Personalized result</p>
+        <h1>Your Advisor Readiness Result</h1>
+        <p style={{ color: 'var(--gray)', fontSize: 'var(--text-sm)', marginTop: '0.35rem' }}>
+          {greet}here is where you stand today.
+        </p>
+      </div>
 
       <div className="result-card">
         <p className="result-profile-title">{profile.profileTitle}</p>
-        <div className="result-score-row">
-          <div>
-            <StarRating count={display.stars} />
-            <p className="result-tier-meta" style={{ marginTop: '0.35rem' }}>
-              Readiness index · {display.percent}/100
-            </p>
-          </div>
-        </div>
+        <StarRating count={display.stars} />
+        <p className="result-tier-meta" style={{ marginTop: '0.35rem' }}>
+          Readiness index · {display.percent}/100
+        </p>
         <div className="result-meter" role="presentation">
           <div className="result-meter-fill" style={{ width: `${display.percent}%` }} />
         </div>
         <p className="result-headline">{profile.headline}</p>
         <p className="result-summary">{profile.summary}</p>
-
         <div className="growth-opportunity">
-          <p className="growth-opportunity-label">Personalized recommendation</p>
-          <p className="growth-opportunity-area">Your next growth opportunity: {growth.area}</p>
+          <p className="growth-opportunity-label">Next growth focus</p>
+          <p className="growth-opportunity-area">{growth.area}</p>
           <p className="growth-opportunity-detail">{growth.detail}</p>
         </div>
       </div>
 
-      <section className="bonus-resources-box" aria-labelledby="bonus-heading">
-        <p id="bonus-heading" className="bonus-resources-eyebrow">
-          Your two complimentary guides
-        </p>
-        <p className="bonus-resources-copy">
-          Yours for completing the assessment — open now or use the same links in your email.
-        </p>
-        <ul className="bonus-resources-list">
-          {BONUS_RESOURCES.map((doc) => (
-            <li key={doc.href}>
-              <a href={doc.href} target="_blank" rel="noopener noreferrer">
-                {doc.title}
-              </a>
-            </li>
-          ))}
-        </ul>
-        {showEmailNote && (
-          <p className={`email-delivery-note email-delivery-${emailNote.tone}`}>{emailNote.text}</p>
-        )}
-      </section>
-
-      <section className="secondary-interest-box">
-        <p className="secondary-interest-label">Interested in advanced learning?</p>
-        <h3 className="secondary-interest-title">Business Insurance Master Class</h3>
-        <p className="secondary-interest-status">Launching soon · Priority waitlist open</p>
-        <p className="secondary-interest-copy">
-          Explore what advanced case design covers — no purchase required today.
-        </p>
-        <div className="secondary-interest-actions">
-          <a href={SITE_LINKS.masterClassLearn} className="btn btn-secondary" style={{ fontSize: '0.85rem' }}>
-            Learn more
-          </a>
-          <a
-            href={SITE_LINKS.waitlist}
-            className="btn btn-secondary result-cta-waitlist"
-            style={{ fontSize: '0.85rem' }}
-          >
-            Reserve my spot
-          </a>
-        </div>
-      </section>
-
-      <section className="free-membership-box" aria-labelledby="free-member-heading">
-        <p id="free-member-heading" className="community-cta-eyebrow">
-          Explore GIYA
-        </p>
-        <h2 className="community-cta-title">Free membership</h2>
-        <p className="community-cta-free">No cost · Founding community access</p>
-        <ul className="community-benefits">
-          {COMMUNITY_BENEFITS.map((b) => (
-            <li key={b}>{b}</li>
-          ))}
-        </ul>
+      <section className="community-cta-box" style={{ marginTop: 'var(--space-4)' }}>
+        <p className="community-cta-eyebrow">Your next step</p>
+        <h2 className="community-cta-title">Free GIYA membership</h2>
+        <p className="community-cta-free">Step 4 on your journey</p>
         <a href={SITE_LINKS.joinCommunity} className="btn btn-primary result-cta-primary">
-          Explore free membership
+          Join free membership
         </a>
-        <p className="community-cta-note">
-          After the waitlist, stay on the learning path with case studies and frameworks — before any
-          course purchase.
-        </p>
       </section>
 
-      <p style={{ color: 'var(--gray)', fontSize: '0.85rem', marginTop: '1.25rem' }}>
-        Browse the{' '}
-        <a href={SITE_LINKS.keymanResource} style={{ color: 'var(--gold)' }}>
-          Keyman Resource Center
-        </a>{' '}
-        for additional tools and reference materials.
-      </p>
+      <FunnelLadder currentStep={3} compact />
+
+      <Accordion items={nextSteps} defaultOpenId="membership" />
 
       <p className="legacy">
-        Save the Business.
-        <br />
-        Protect the Family.
-        <br />
-        Preserve the Legacy.
+        Save the Business. Protect the Family. Preserve the Legacy.
       </p>
 
-      <Link to="/" className="btn btn-secondary" style={{ marginTop: '1rem', display: 'inline-flex' }}>
-        Back to assessment home
-      </Link>
+      <div style={{ textAlign: 'center', marginTop: 'var(--space-3)', display: 'flex', gap: '0.5rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+        <a href={SITE_LINKS.keymanResource} className="btn btn-secondary">
+          Keyman Center
+        </a>
+        <Link to="/" className="btn btn-secondary">
+          Assessment home
+        </Link>
+      </div>
     </div>
   );
 }

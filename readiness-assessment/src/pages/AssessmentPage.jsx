@@ -118,7 +118,7 @@ export default function AssessmentPage() {
   return (
     <div className="assessment-layout">
       <ProgressBar step={step} total={STEPS.length} />
-      <div className="card">
+      <div className="card step-surface" key={step}>
         <h2>{meta.title}</h2>
         <p className="card-sub">{meta.subtitle}</p>
         {error && <div className="error-banner" role="alert">{error}</div>}
@@ -271,28 +271,30 @@ export default function AssessmentPage() {
           </>
         )}
 
-        <div className="nav-row">
-          {step > 1 ? (
-            <button type="button" className="btn btn-secondary" onClick={goBack} disabled={submitting}>
-              Back
-            </button>
-          ) : (
-            <span />
-          )}
-          {step < STEPS.length ? (
-            <button type="button" className="btn btn-primary" onClick={goNext}>
-              Continue
-            </button>
-          ) : (
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={handleSubmit}
-              disabled={submitting}
-            >
-              {submitting ? 'Submitting…' : 'Submit assessment'}
-            </button>
-          )}
+        <div className="sticky-form-actions">
+          <div className="nav-row" style={{ marginTop: 0 }}>
+            {step > 1 ? (
+              <button type="button" className="btn btn-secondary" onClick={goBack} disabled={submitting}>
+                Back
+              </button>
+            ) : (
+              <span />
+            )}
+            {step < STEPS.length ? (
+              <button type="button" className="btn btn-primary" onClick={goNext}>
+                Continue
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleSubmit}
+                disabled={submitting}
+              >
+                {submitting ? 'Submitting…' : 'See my result'}
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>
