@@ -6,6 +6,7 @@
     <title>Account | GIYA</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif']},colors:{g:{black:'#0A0A0B',pearl:'#F5F3EE',gold:'#C4A052',slate:{100:'#F4F5F6',200:'#D1D5DB',400:'#6B7280',600:'#374151'}}}}}}</script>
     <style>.tab-active{background:#0A0A0B;color:#fff}</style>
 </head>
@@ -35,6 +36,11 @@
             </section>
             <p id="upsell" class="text-sm bg-white border rounded-xl p-4 text-g-slate-600"></p>
             <p id="membership-notice" class="hidden text-sm rounded-xl p-4 border"></p>
+
+            <div class="rounded-xl border-2 border-g-gold/40 bg-gradient-to-r from-amber-50/80 to-white p-4 text-sm">
+                <p class="font-bold text-g-black flex items-center gap-2"><i class="fa-solid fa-star text-g-gold"></i> Recommended payment</p>
+                <p class="text-g-slate-600 mt-1">Pay <strong>directly via GCash or GoTyme (InstaPay)</strong> — no card fees. Use <strong>Visa / Mastercard</strong> only if you prefer card checkout (PayMongo).</p>
+            </div>
 
             <section class="bg-white rounded-xl border overflow-hidden">
                 <div class="px-5 py-4 border-b bg-g-slate-100">
@@ -92,12 +98,45 @@
             };
         });
 
+        function paymentButtons(payFn, id) {
+            const q = `'${id}'`;
+            return `<div class="flex flex-col gap-2 w-full sm:min-w-[200px]">
+                <p class="text-[10px] font-bold uppercase tracking-wider text-g-gold">Direct transfer</p>
+                <button type="button" onclick="${payFn}(${q},'manual')" class="w-full px-4 py-3 rounded-xl bg-g-gold text-g-black text-sm font-bold shadow-sm hover:opacity-90 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-mobile-screen-button"></i> GCash or GoTyme
+                </button>
+                <p class="text-[10px] font-bold uppercase tracking-wider text-g-slate-400 pt-1">Or pay by card</p>
+                <button type="button" onclick="${payFn}(${q},'paymongo')" class="w-full px-4 py-2.5 rounded-xl border-2 border-g-black bg-white text-g-black text-sm font-semibold hover:bg-g-slate-100 flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-cc-visa"></i><i class="fa-brands fa-cc-mastercard"></i> Visa / Mastercard
+                </button>
+            </div>`;
+        }
+
         function showManual(result) {
             const box = document.getElementById('manual-box');
             if (!result.instructions) return;
             const i = result.instructions;
-            box.innerHTML = `<p class="font-semibold">${i.title}</p><p class="mt-2 text-lg font-bold">${GiyaPricing.formatPhp(i.amount)}</p><p class="font-mono text-sm text-g-gold">${i.reference}</p><p class="text-xs mt-3 text-g-slate-500">${i.note}</p>`;
+            const channels = (i.channels || []).map((ch) => {
+                const qr = ch.qrImage ? `<img src="${ch.qrImage}" alt="${ch.method} QR" class="mt-2 max-w-[140px] rounded-lg border" onerror="this.style.display='none'">` : '';
+                const steps = (ch.steps || []).map((s) => `<li>${s}</li>`).join('');
+                return `<div class="rounded-xl border border-g-gold/30 bg-amber-50/50 p-4 flex-1 min-w-[240px]">
+                    <p class="font-bold text-g-black flex items-center gap-2"><i class="fa-solid fa-${ch.method === 'GCash' ? 'wallet' : 'building-columns'} text-g-gold"></i>${ch.method}</p>
+                    <p class="text-sm font-semibold mt-1">${ch.label || ''}</p>
+                    <p class="text-lg font-bold mt-1">${ch.detail}</p>
+                    ${ch.accountNumber ? `<p class="text-sm font-mono mt-1">${ch.accountNumber}</p>` : ''}
+                    <p class="text-xs text-g-slate-500 mt-1">${ch.accountName || ''}</p>
+                    ${qr}
+                    <ul class="text-xs text-g-slate-600 mt-2 list-disc pl-4 space-y-0.5">${steps}</ul>
+                </div>`;
+            }).join('');
+            box.innerHTML = `
+                <p class="font-semibold text-g-black">${i.title}</p>
+                <p class="mt-2 text-2xl font-bold">${GiyaPricing.formatPhp(i.amount)}</p>
+                <p class="mt-2 text-xs text-g-slate-500">Payment reference <span class="font-mono font-bold text-g-gold text-sm">${i.reference}</span> — include this in your transfer message.</p>
+                <div class="flex flex-col md:flex-row gap-3 mt-4">${channels}</div>
+                <p class="text-xs mt-4 text-g-slate-500">${i.note}</p>`;
             box.classList.remove('hidden');
+            box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
         function renderMembership() {
@@ -112,8 +151,7 @@
                 return `<article id="membership-${t}" class="border rounded-xl p-4 flex flex-col sm:flex-row sm:items-center gap-4">
                     <div class="flex-1"><h2 class="font-semibold">${p.label}</h2>${GiyaPricing.priceBlock(p, billingPeriod)}
                     <ul class="text-xs text-g-slate-500 mt-2">${(p.features||[]).map(f=>`<li>· ${f}</li>`).join('')}</ul></div>
-                    <div class="flex gap-2"><button onclick="payMem('${t}','paymongo')" class="px-3 py-2 rounded-lg bg-g-gold text-g-black text-xs font-bold">Pay online</button>
-                    <button onclick="payMem('${t}','manual')" class="px-3 py-2 rounded-lg border text-xs font-semibold">Transfer</button></div>
+                    ${paymentButtons('payMem', t)}
                 </article>`;
             }).join('');
         }
@@ -124,8 +162,7 @@
             el.innerHTML = Object.entries(catalog.academies).map(([id, a]) => {
                 const live = a.status === 'live';
                 const btns = a.owned ? '<span class="text-g-gold text-sm font-semibold">Owned</span>' : live
-                    ? `<button onclick="payAcad('${id}','paymongo')" class="px-3 py-2 rounded-lg bg-g-black text-white text-xs font-bold">Pay online</button>
-                       <button onclick="payAcad('${id}','manual')" class="px-3 py-2 rounded-lg border text-xs font-semibold">Transfer</button>`
+                    ? paymentButtons('payAcad', id)
                     : '<span class="text-xs text-g-slate-400 uppercase font-bold">Coming soon</span>';
                 return `<article id="academy-${id}" class="border rounded-xl p-4 flex flex-col sm:flex-row sm:items-center gap-4">
                     <div class="flex-1"><h2 class="font-semibold text-sm">${a.label}</h2>${GiyaPricing.academyPriceBlock(a)}</div>
@@ -137,14 +174,22 @@
             document.getElementById('manual-box').classList.add('hidden');
             try {
                 const r = await GiyaAuth.checkout({ skuType: 'membership', tier, billingPeriod, provider });
-                if (r.checkoutUrl) location.href = r.checkoutUrl; else showManual(r);
+                if (r.checkoutUrl) {
+                    location.href = r.checkoutUrl;
+                    return;
+                }
+                showManual(r);
             } catch (e) { alert(e.message); }
         };
         window.payAcad = async (academyId, provider) => {
             document.getElementById('manual-box').classList.add('hidden');
             try {
                 const r = await GiyaAuth.checkout({ skuType: 'academy', academyId, provider });
-                if (r.checkoutUrl) location.href = r.checkoutUrl; else showManual(r);
+                if (r.checkoutUrl) {
+                    location.href = r.checkoutUrl;
+                    return;
+                }
+                showManual(r);
             } catch (e) { alert(e.message); }
         };
 

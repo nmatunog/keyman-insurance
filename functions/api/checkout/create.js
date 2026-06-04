@@ -19,7 +19,7 @@ export async function onRequestPost(context) {
   if (!body) return error('Invalid JSON body');
 
   const skuType = body.skuType === 'academy' ? 'academy' : 'membership';
-  const provider = body.provider || 'paymongo';
+  const provider = body.provider || 'manual';
   const siteUrl = env.GIYA_SITE_URL || 'https://joingiya.com';
   const subId = crypto.randomUUID();
   const ts = now();
@@ -110,7 +110,10 @@ export async function onRequestPost(context) {
     });
   }
 
-  if (provider === 'paymongo' && env.PAYMONGO_SECRET_KEY) {
+  if (provider === 'paymongo' || provider === 'card') {
+    if (!env.PAYMONGO_SECRET_KEY) {
+      return error('Card checkout is not available. Please pay via GCash or GoTyme (direct transfer).', 503);
+    }
     const checkout = await createPaymongoCheckout(env, checkoutOpts);
     if (checkout.error) return error(checkout.error, 502);
     return json({

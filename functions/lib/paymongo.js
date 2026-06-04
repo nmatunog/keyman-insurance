@@ -49,7 +49,7 @@ export async function createPaymongoCheckout(env, opts) {
             description: `${skuLabel} — ${tierLabel}`,
           },
         ],
-        payment_method_types: ['gcash', 'paymaya', 'qrph', 'card'],
+        payment_method_types: ['card'],
         reference_number: paymentRef,
         send_email_receipt: true,
         show_description: true,

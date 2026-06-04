@@ -113,26 +113,27 @@ export const ACADEMY_IDS = Object.keys(ACADEMIES);
 export const LIVE_ACADEMY_IDS = ACADEMY_IDS.filter((id) => ACADEMIES[id].status === 'live');
 
 export const PAYMENT_CHANNELS = {
-  stripe: {
-    id: 'stripe',
-    label: 'Card (Visa / Mastercard)',
-    provider: 'stripe',
+  manual: {
+    id: 'manual',
+    label: 'GCash or GoTyme (direct)',
+    provider: 'manual',
     enabled: true,
-    note: 'International and local cards via Stripe Checkout',
+    note: 'Send to our GCash or GoTyme account — fastest, no extra fees. Include your payment reference.',
+    recommended: true,
   },
   paymongo: {
     id: 'paymongo',
-    label: 'GCash / Maya / QR Ph',
+    label: 'Visa / Mastercard',
     provider: 'paymongo',
     enabled: true,
-    note: 'Philippines e-wallets at PayMongo Checkout',
+    note: 'Pay with credit or debit card via PayMongo Checkout',
   },
-  manual: {
-    id: 'manual',
-    label: 'Bank transfer / GCash direct',
-    provider: 'manual',
-    enabled: true,
-    note: 'Admin verifies payment and activates your access',
+  stripe: {
+    id: 'stripe',
+    label: 'Card (Stripe)',
+    provider: 'stripe',
+    enabled: false,
+    note: 'Optional — enable when STRIPE_SECRET_KEY is configured',
   },
 };
 
