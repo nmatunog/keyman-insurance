@@ -1171,22 +1171,27 @@
 
         const php = new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP', maximumFractionDigits: 0 });
 
+        function renderKeymanEstimate() {
+            const salary = parseFloat(document.getElementById('sc-keyman-salary')?.value) || 0;
+            const recruit = parseFloat(document.getElementById('sc-keyman-recruit')?.value) || 0;
+            const mult = parseFloat(document.getElementById('sc-keyman-multiple')?.value) || 7;
+            const out = document.getElementById('keyman-total-output');
+            if (out) out.textContent = php.format(salary * mult + recruit);
+        }
+
+        /** User clicked Calculate — consume one preview run; alert only on repeat after free is used. */
         function calculateKeyman() {
             if (getTier() === 'preview') {
-                let runs = parseInt(localStorage.getItem(CALC_RUNS_KEY) ?? '1', 10);
+                const runs = parseInt(localStorage.getItem(CALC_RUNS_KEY) ?? '1', 10);
                 if (runs <= 0) {
-                    alert('Preview limit reached. Buy the Academy or join Elite for full tool access.');
+                    showGiyaToast('Preview limit reached. Upgrade for unlimited Keyman calculations.', true);
                     scrollToSection('academy-pricing');
                     return;
                 }
-                runs--;
-                localStorage.setItem(CALC_RUNS_KEY, String(runs));
+                localStorage.setItem(CALC_RUNS_KEY, String(runs - 1));
                 updateCalcRunsDisplay();
             }
-            const salary = parseFloat(document.getElementById('sc-keyman-salary').value) || 0;
-            const recruit = parseFloat(document.getElementById('sc-keyman-recruit').value) || 0;
-            const mult = parseFloat(document.getElementById('sc-keyman-multiple').value) || 7;
-            document.getElementById('keyman-total-output').textContent = php.format(salary * mult + recruit);
+            renderKeymanEstimate();
         }
 
         function calculateBuyout() {
@@ -1589,7 +1594,7 @@
                 } else {
                     renderAcademyGrid().then(guardExploreLanding);
                 }
-                if (document.getElementById('sc-keyman-salary')) calculateKeyman();
+                updateCalcRunsDisplay();
                 if (tierAtLeast('basic') && document.getElementById('sc-buyout-val')) calculateBuyout();
             } catch (err) {
                 console.error('GIYA init error:', err);
