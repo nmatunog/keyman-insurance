@@ -115,6 +115,125 @@
         @media (min-width: 381px) { .bar-label-short { display: none; } }
         [id^="card_t"] { -webkit-tap-highlight-color: transparent; }
         [id^="card_t"] input[type="checkbox"] { width: 1.25rem; height: 1.25rem; }
+
+        /* Prospecting module — slide-derived layouts */
+        .km-prospect-block { scroll-margin-top: 5.5rem; }
+        .km-prospect-eyebrow {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #C4A052;
+        }
+        .km-insight-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            gap: 0.75rem 1rem;
+            background: linear-gradient(90deg, #141416 0%, #1c1917 100%);
+            border: 1px solid rgba(196, 160, 82, 0.45);
+            border-left: 4px solid #C4A052;
+            border-radius: 0.75rem;
+            padding: 0.85rem 1rem;
+        }
+        .km-insight-bar__label {
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #C4A052;
+            white-space: nowrap;
+        }
+        .km-insight-bar__text { font-size: 0.8rem; line-height: 1.5; color: #e7e5e4; flex: 1; min-width: 12rem; }
+        .km-insight-bar__text strong { color: #f5efe3; }
+        .km-pyramid { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; max-width: 22rem; margin: 0 auto; }
+        .km-pyramid-tier {
+            width: 100%;
+            text-align: center;
+            border-radius: 0.5rem;
+            padding: 0.55rem 0.65rem;
+            border: 1px solid #44403c;
+            background: #1c1917;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: #d6d3d1;
+        }
+        .km-pyramid-tier--top { width: 42%; }
+        .km-pyramid-tier--mid { width: 68%; }
+        .km-pyramid-tier--base {
+            width: 100%;
+            background: linear-gradient(135deg, #2a2416 0%, #1c1917 100%);
+            border-color: rgba(196, 160, 82, 0.55);
+            color: #f5efe3;
+            box-shadow: 0 4px 20px -6px rgba(196, 160, 82, 0.25);
+        }
+        .km-pyramid-tier-sub { display: block; font-size: 0.6rem; font-weight: 600; color: #C4A052; margin-top: 0.15rem; text-transform: none; letter-spacing: 0.02em; }
+        .km-referral-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: 0.65rem; }
+        .km-referral-card {
+            background: #0c0a09;
+            border: 1px solid #44403c;
+            border-radius: 0.65rem;
+            padding: 0.65rem 0.55rem;
+            text-align: center;
+        }
+        .km-referral-card i { font-size: 1.25rem; color: #C4A052; margin-bottom: 0.35rem; }
+        .km-referral-card h4 { font-size: 0.62rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #fafaf9; margin-bottom: 0.35rem; line-height: 1.25; }
+        .km-referral-card ul { list-style: none; padding: 0; margin: 0; font-size: 0.65rem; color: #a8a29e; line-height: 1.35; }
+        .km-quote-box {
+            background: #fafaf9;
+            color: #1c1917;
+            border: 1px solid #d6d3d1;
+            border-left: 4px solid #C4A052;
+            border-radius: 0.65rem;
+            padding: 0.85rem 1rem;
+            font-size: 0.85rem;
+            font-style: italic;
+            line-height: 1.5;
+        }
+        .km-funnel { display: flex; flex-direction: column; gap: 0.35rem; max-width: 20rem; }
+        .km-funnel-step {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            background: #292524;
+            border: 1px solid #44403c;
+            border-radius: 0.5rem;
+            padding: 0.5rem 0.65rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #fafaf9;
+        }
+        .km-funnel-num {
+            flex-shrink: 0;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background: #141416;
+            border: 2px solid #C4A052;
+            color: #C4A052;
+            font-weight: 800;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .km-principle-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); gap: 0.5rem; }
+        .km-principle {
+            text-align: center;
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #a8a29e;
+            padding: 0.45rem 0.35rem;
+            border-top: 2px solid rgba(196, 160, 82, 0.35);
+        }
+        .km-principle i { display: block; font-size: 1rem; color: #C4A052; margin-bottom: 0.25rem; }
+        @media (min-width: 768px) {
+            .km-pyramid-wrap { display: grid; grid-template-columns: minmax(0, 14rem) minmax(0, 1fr) minmax(0, 1fr); gap: 1.25rem; align-items: start; }
+        }
         @media (max-width: 640px) {
             #exportModal > div {
                 margin-top: auto;
@@ -307,8 +426,11 @@
                         <a href="#coreDisruption" data-section="coreDisruption" class="nav-link-touch text-stone-300 hover:text-gold-400 active:text-gold-400 py-2 px-2 -mx-2 rounded-lg hover:bg-white/5 transition font-medium">
                             <span class="w-1.5 h-1.5 bg-gold-500 rounded-full mr-2 shrink-0"></span> Core Concept: The Empty Chair
                         </a>
+                        <a href="#prospectingKeyman" data-section="prospectingKeyman" class="nav-link-touch text-stone-300 hover:text-gold-400 active:text-gold-400 py-2 px-2 -mx-2 rounded-lg hover:bg-white/5 transition font-medium">
+                            <span class="w-1.5 h-1.5 bg-gold-500 rounded-full mr-2 shrink-0"></span> Prospecting: Keyman Opportunities
+                        </a>
                         <a href="#findingKeyman" data-section="findingKeyman" class="nav-link-touch text-stone-300 hover:text-gold-400 active:text-gold-400 py-2 px-2 -mx-2 rounded-lg hover:bg-white/5 transition font-medium">
-                            <span class="w-1.5 h-1.5 bg-gold-500 rounded-full mr-2 shrink-0"></span> Finding the Keyman Tests
+                            <span class="w-1.5 h-1.5 bg-gold-500 rounded-full mr-2 shrink-0"></span> Key Person Identification Tests
                         </a>
                         <a href="#liveCalculator" data-section="liveCalculator" class="nav-link-touch text-stone-300 hover:text-gold-400 active:text-gold-400 py-2 px-2 -mx-2 rounded-lg hover:bg-white/5 transition font-medium">
                             <span class="w-1.5 h-1.5 bg-gold-500 rounded-full mr-2 shrink-0"></span> Live Risk Coverage Calculator
@@ -424,6 +546,244 @@
                     </div>
                 </div>
             </div>
+        </section>
+
+        <!-- PROSPECTING: FINDING KEYMAN OPPORTUNITIES (Academy slides) -->
+        <section id="prospectingKeyman" class="space-y-8 avoid-break print-border-gold">
+            <div class="bg-white border border-stone-200 border-l-4 border-l-gold-500 rounded-xl p-5 sm:p-8 shadow-sm print-bg-white print-text-dark">
+                <p class="km-prospect-eyebrow text-gold-600">Module · Prospecting</p>
+                <h2 class="serif-title text-2xl sm:text-3xl font-bold text-stone-900 tracking-tight">Finding Keyman Opportunities</h2>
+                <p class="text-sm text-stone-600 mt-2 max-w-3xl">Focus your time where access, need, and opportunity align. Your first cases will come from relationships you already have—not from cold outreach to large corporations.</p>
+                <nav aria-label="Prospecting topics" class="flex flex-wrap gap-2 mt-4 no-print">
+                    <a href="#prospect-pyramid" class="text-xs font-semibold px-3 py-1.5 rounded-full border border-gold-300 text-gold-700 hover:bg-gold-50">Prospect Pyramid</a>
+                    <a href="#prospect-referrals" class="text-xs font-semibold px-3 py-1.5 rounded-full border border-stone-300 text-stone-600 hover:bg-stone-50">Referral Sources</a>
+                    <a href="#prospect-network" class="text-xs font-semibold px-3 py-1.5 rounded-full border border-stone-300 text-stone-600 hover:bg-stone-50">Your Network</a>
+                    <a href="#prospect-challenge" class="text-xs font-semibold px-3 py-1.5 rounded-full border border-stone-300 text-stone-600 hover:bg-stone-50">30-Day Challenge</a>
+                </nav>
+            </div>
+
+            <!-- Step 6: Business Insurance Prospect Pyramid -->
+            <article id="prospect-pyramid" class="km-prospect-block bg-stone-900 border border-stone-800 rounded-xl p-5 sm:p-8 text-stone-200">
+                <p class="km-prospect-eyebrow">Step 6</p>
+                <h3 class="serif-title text-xl sm:text-2xl font-bold text-white">The Business Insurance Prospect Pyramid</h3>
+                <p class="text-xs text-stone-400 mt-1">Focus your time where access, need, and opportunity align.</p>
+
+                <div class="km-pyramid-wrap mt-6">
+                    <div class="km-pyramid" aria-label="Prospect pyramid tiers">
+                        <div class="km-pyramid-tier km-pyramid-tier--top">
+                            Top · Large Corporations
+                            <span class="km-pyramid-tier-sub">Hardest to penetrate</span>
+                        </div>
+                        <div class="km-pyramid-tier km-pyramid-tier--mid">
+                            Middle · Established SMEs
+                            <span class="km-pyramid-tier-sub">Best balance</span>
+                        </div>
+                        <div class="km-pyramid-tier km-pyramid-tier--base">
+                            Most Accessible · Highest Opportunity
+                            <span class="km-pyramid-tier-sub">Family businesses · Professional &amp; medical practices · Agency owners</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 text-xs text-stone-300">
+                        <div>
+                            <h4 class="font-bold text-gold-400 uppercase tracking-wider text-[10px] mb-1.5">Top tier</h4>
+                            <ul class="list-disc pl-4 space-y-0.5">
+                                <li>Complex buying process</li>
+                                <li>Multiple stakeholders</li>
+                                <li>Existing relationships</li>
+                                <li>Long sales cycle</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gold-400 uppercase tracking-wider text-[10px] mb-1.5">Middle tier</h4>
+                            <ul class="list-disc pl-4 space-y-0.5">
+                                <li>Growing businesses</li>
+                                <li>Recognize risk</li>
+                                <li>Open to solutions</li>
+                                <li>Good access and timing</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 text-xs text-stone-300">
+                        <div>
+                            <h4 class="font-bold text-gold-400 uppercase tracking-wider text-[10px] mb-1.5">Base tier · Start here</h4>
+                            <ul class="list-disc pl-4 space-y-0.5">
+                                <li>High dependency on key people</li>
+                                <li>Easier access and relationships</li>
+                                <li>Immediate need awareness</li>
+                                <li>Faster decisions</li>
+                                <li>Strong potential for first cases</li>
+                            </ul>
+                        </div>
+                        <div class="km-insight-bar">
+                            <span class="km-insight-bar__label"><i class="fa-solid fa-lightbulb mr-1"></i> Key insight</span>
+                            <p class="km-insight-bar__text">Your first 10 Keyman cases are unlikely to come from large corporations. <strong>They will come from businesses already within your network.</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="km-principle-row mt-6 pt-4 border-t border-stone-800">
+                    <div class="km-principle"><i class="fa-solid fa-bullseye"></i> Start where you have access</div>
+                    <div class="km-principle"><i class="fa-solid fa-handshake"></i> Build trust first</div>
+                    <div class="km-principle"><i class="fa-solid fa-magnifying-glass"></i> Identify dependency &amp; need</div>
+                    <div class="km-principle"><i class="fa-solid fa-shield-halved"></i> Protect the business · Create impact</div>
+                </div>
+            </article>
+
+            <!-- Fastest path: referral sources -->
+            <article id="prospect-referrals" class="km-prospect-block bg-stone-900 border border-stone-800 rounded-xl p-5 sm:p-8 text-stone-200">
+                <p class="km-prospect-eyebrow">Referral strategy</p>
+                <h3 class="serif-title text-xl sm:text-2xl font-bold text-white">The Fastest Path to Keyman Opportunities</h3>
+                <p class="text-xs text-stone-400 mt-1">Your best referral sources are already working with business owners.</p>
+
+                <div class="km-referral-grid mt-6">
+                    <div class="km-referral-card">
+                        <i class="fa-solid fa-calculator" aria-hidden="true"></i>
+                        <h4>Accountants / CPAs</h4>
+                        <ul>
+                            <li>See financial dependence</li>
+                            <li>Understand business risk</li>
+                            <li>Trusted advisor to owners</li>
+                        </ul>
+                    </div>
+                    <div class="km-referral-card">
+                        <i class="fa-solid fa-scale-balanced" aria-hidden="true"></i>
+                        <h4>Lawyers</h4>
+                        <ul>
+                            <li>Buy-sell agreements</li>
+                            <li>Estate planning</li>
+                            <li>Corporate structuring</li>
+                        </ul>
+                    </div>
+                    <div class="km-referral-card">
+                        <i class="fa-solid fa-stethoscope" aria-hidden="true"></i>
+                        <h4>Doctors &amp; specialists</h4>
+                        <ul>
+                            <li>Business owners themselves</li>
+                            <li>Networks of professionals</li>
+                        </ul>
+                    </div>
+                    <div class="km-referral-card">
+                        <i class="fa-solid fa-building-columns" aria-hidden="true"></i>
+                        <h4>Bankers</h4>
+                        <ul>
+                            <li>Business loans</li>
+                            <li>Credit facilities</li>
+                            <li>Business expansion</li>
+                        </ul>
+                    </div>
+                    <div class="km-referral-card">
+                        <i class="fa-solid fa-people-group" aria-hidden="true"></i>
+                        <h4>HR consultants</h4>
+                        <ul>
+                            <li>Executive benefits</li>
+                            <li>Retention concerns</li>
+                            <li>Key employee issues</li>
+                        </ul>
+                    </div>
+                    <div class="km-referral-card">
+                        <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+                        <h4>Management consultants</h4>
+                        <ul>
+                            <li>Succession planning</li>
+                            <li>Growth strategy</li>
+                            <li>Continuity concerns</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-6 space-y-4">
+                    <div class="km-quote-box print-bg-white print-text-dark">
+                        <p class="font-bold text-stone-800 not-italic text-xs uppercase tracking-wider mb-1">The simple referral question</p>
+                        <p class="m-0">“Which of your clients would experience significant disruption if a key owner or executive suddenly became unavailable?”</p>
+                    </div>
+                    <div class="km-insight-bar">
+                        <span class="km-insight-bar__label"><i class="fa-solid fa-lightbulb mr-1"></i> Key insight</span>
+                        <p class="km-insight-bar__text"><strong>One accountant</strong> can introduce you to more Keyman opportunities than <strong>100 cold calls.</strong></p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Your next 10 prospects -->
+            <article id="prospect-network" class="km-prospect-block bg-stone-900 border border-stone-800 rounded-xl p-5 sm:p-8 text-stone-200">
+                <p class="km-prospect-eyebrow">Identification</p>
+                <h3 class="serif-title text-xl sm:text-2xl font-bold text-white">Your Next 10 Keyman Prospects Already Exist</h3>
+                <p class="text-sm text-gold-400/90 font-semibold mt-1">Stop searching. <span class="text-white">Start identifying.</span></p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-6">
+                    <div class="bg-stone-950/60 border border-stone-800 rounded-lg p-4">
+                        <h4 class="text-xs font-bold text-gold-400 uppercase tracking-wider mb-3">Check your existing network</h4>
+                        <ul class="text-xs text-stone-300 space-y-1.5">
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-gold-500 mt-0.5 shrink-0"></i> Business owner clients</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-gold-500 mt-0.5 shrink-0"></i> Business owner referrals</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-gold-500 mt-0.5 shrink-0"></i> Agency leaders</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-gold-500 mt-0.5 shrink-0"></i> Doctors &amp; clinic owners</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-gold-500 mt-0.5 shrink-0"></i> Lawyers &amp; accountants</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-gold-500 mt-0.5 shrink-0"></i> Family business owners</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-gold-500 mt-0.5 shrink-0"></i> Contractors &amp; developers</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-gold-500 mt-0.5 shrink-0"></i> SME owners</li>
+                        </ul>
+                    </div>
+                    <div class="bg-stone-950/60 border border-stone-800 rounded-lg p-4">
+                        <h4 class="text-xs font-bold text-gold-400 uppercase tracking-wider mb-3">Ask one question</h4>
+                        <p class="text-xs text-stone-200 font-medium italic border-l-2 border-gold-500 pl-3 mb-3">“If this person could not work for 12 months, what would happen to the business?”</p>
+                        <p class="text-[10px] text-stone-500 uppercase tracking-wider mb-1.5">Qualifying answers</p>
+                        <ul class="text-xs text-stone-300 space-y-1">
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-gold-500 shrink-0"></i> Revenue drops</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-gold-500 shrink-0"></i> Operations stop</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-gold-500 shrink-0"></i> Clients leave</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-gold-500 shrink-0"></i> Key employees leave</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-gold-500 shrink-0"></i> Expansion stalls</li>
+                        </ul>
+                        <p class="mt-3 text-xs font-bold text-gold-300 bg-stone-900 border border-gold-500/30 rounded-lg px-3 py-2"><i class="fa-solid fa-lightbulb text-gold-500 mr-1"></i> You have found a Keyman opportunity.</p>
+                    </div>
+                    <div class="bg-stone-950/60 border border-stone-800 rounded-lg p-4">
+                        <h4 class="text-xs font-bold text-gold-400 uppercase tracking-wider mb-3">30-day funnel preview</h4>
+                        <div class="km-funnel">
+                            <div class="km-funnel-step"><span class="km-funnel-num">20</span> Identify business owners</div>
+                            <div class="km-funnel-step"><span class="km-funnel-num">10</span> Talk to business owners</div>
+                            <div class="km-funnel-step"><span class="km-funnel-num">5</span> Fact-find in depth</div>
+                            <div class="km-funnel-step"><span class="km-funnel-num">3</span> Present a solution</div>
+                            <div class="km-funnel-step"><span class="km-funnel-num">1</span> Close your first Keyman case</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="km-insight-bar mt-6">
+                    <span class="km-insight-bar__label"><i class="fa-solid fa-bullseye mr-1"></i> Key message</span>
+                    <p class="km-insight-bar__text">Keyman cases are not found—they are <strong>identified.</strong> Every business that depends on a key person is a potential Keyman case. The easiest case is usually <strong>someone you already know.</strong></p>
+                </div>
+            </article>
+
+            <!-- 30-day challenge -->
+            <article id="prospect-challenge" class="km-prospect-block bg-stone-900 border border-stone-800 rounded-xl p-5 sm:p-8 text-stone-200">
+                <p class="km-prospect-eyebrow">Execution</p>
+                <h3 class="serif-title text-xl sm:text-2xl font-bold text-white">The 30-Day Keyman Challenge</h3>
+                <p class="text-xs text-stone-400 mt-1">This month’s goal: move from identification to one closed case.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6 items-start">
+                    <div class="text-center md:text-left">
+                        <div class="inline-flex flex-col items-center md:items-start gap-2 p-4 rounded-xl border border-gold-500/30 bg-stone-950">
+                            <i class="fa-solid fa-calendar-check text-3xl text-gold-500" aria-hidden="true"></i>
+                            <p class="text-xs text-stone-400 uppercase tracking-wider">This month’s</p>
+                            <p class="serif-title text-2xl font-bold text-gold-400">Goal</p>
+                        </div>
+                    </div>
+                    <div class="km-funnel md:max-w-none">
+                        <div class="km-funnel-step"><span class="km-funnel-num">20</span> Business owners identified</div>
+                        <div class="km-funnel-step"><span class="km-funnel-num">10</span> Business conversations</div>
+                        <div class="km-funnel-step"><span class="km-funnel-num">5</span> Discovery meetings</div>
+                        <div class="km-funnel-step"><span class="km-funnel-num">3</span> Proposals presented</div>
+                        <div class="km-funnel-step"><span class="km-funnel-num">1</span> Keyman case closed</div>
+                    </div>
+                </div>
+
+                <div class="km-insight-bar mt-6">
+                    <span class="km-insight-bar__label"><i class="fa-solid fa-lightbulb mr-1"></i> Key insight</span>
+                    <p class="km-insight-bar__text">Most advisors fail because <strong>they never start enough conversations.</strong></p>
+                </div>
+            </article>
         </section>
 
         <!-- SECTION 2: IDENTIFYING THE KEYMAN (INTERACTIVE TEST CHECKLIST) -->
@@ -883,20 +1243,23 @@
 
     <!-- MOBILE BOTTOM NAVIGATION -->
     <nav id="mobileNav" aria-label="Mobile section navigation" class="fixed bottom-0 inset-x-0 z-40 bg-stone-950/95 border-t border-stone-800 no-print md:hidden">
-        <div class="grid grid-cols-5 gap-0">
-            <a href="#coreDisruption" data-section="coreDisruption" class="flex flex-col items-center justify-center py-2 px-1 text-[9px] font-semibold text-stone-400 hover:text-gold-400 transition min-h-[52px]">
+        <div class="grid grid-cols-6 gap-0">
+            <a href="#coreDisruption" data-section="coreDisruption" class="flex flex-col items-center justify-center py-2 px-1 text-[8px] font-semibold text-stone-400 hover:text-gold-400 transition min-h-[52px]">
                 <span class="text-base mb-0.5" aria-hidden="true">💡</span>Concept
             </a>
-            <a href="#findingKeyman" data-section="findingKeyman" class="flex flex-col items-center justify-center py-2 px-1 text-[9px] font-semibold text-stone-400 hover:text-gold-400 transition min-h-[52px]">
+            <a href="#prospectingKeyman" data-section="prospectingKeyman" class="flex flex-col items-center justify-center py-2 px-1 text-[8px] font-semibold text-stone-400 hover:text-gold-400 transition min-h-[52px]">
+                <span class="text-base mb-0.5" aria-hidden="true">🎯</span>Prospect
+            </a>
+            <a href="#findingKeyman" data-section="findingKeyman" class="flex flex-col items-center justify-center py-2 px-1 text-[8px] font-semibold text-stone-400 hover:text-gold-400 transition min-h-[52px]">
                 <span class="text-base mb-0.5" aria-hidden="true">✓</span>Tests
             </a>
-            <a href="#liveCalculator" data-section="liveCalculator" class="flex flex-col items-center justify-center py-2 px-1 text-[9px] font-semibold text-stone-400 hover:text-gold-400 transition min-h-[52px]">
+            <a href="#liveCalculator" data-section="liveCalculator" class="flex flex-col items-center justify-center py-2 px-1 text-[8px] font-semibold text-stone-400 hover:text-gold-400 transition min-h-[52px]">
                 <span class="text-base mb-0.5" aria-hidden="true">🧮</span>Calc
             </a>
-            <a href="#debtRisk" data-section="debtRisk" class="flex flex-col items-center justify-center py-2 px-1 text-[9px] font-semibold text-stone-400 hover:text-gold-400 transition min-h-[52px]">
+            <a href="#debtRisk" data-section="debtRisk" class="flex flex-col items-center justify-center py-2 px-1 text-[8px] font-semibold text-stone-400 hover:text-gold-400 transition min-h-[52px]">
                 <span class="text-base mb-0.5" aria-hidden="true">🛡</span>Risks
             </a>
-            <a href="#conversationFramework" data-section="conversationFramework" class="flex flex-col items-center justify-center py-2 px-1 text-[9px] font-semibold text-stone-400 hover:text-gold-400 transition min-h-[52px]">
+            <a href="#conversationFramework" data-section="conversationFramework" class="flex flex-col items-center justify-center py-2 px-1 text-[8px] font-semibold text-stone-400 hover:text-gold-400 transition min-h-[52px]">
                 <span class="text-base mb-0.5" aria-hidden="true">💬</span>Script
             </a>
         </div>
@@ -1450,7 +1813,7 @@
 
         // Mobile UX: section highlighting, back-to-top, keyboard nav
         function initMobileUX() {
-            const sectionIds = ['coreDisruption', 'findingKeyman', 'liveCalculator', 'debtRisk', 'conversationFramework'];
+            const sectionIds = ['coreDisruption', 'prospectingKeyman', 'findingKeyman', 'liveCalculator', 'debtRisk', 'conversationFramework'];
             const navLinks = document.querySelectorAll('[data-section]');
             const backToTop = document.getElementById('backToTop');
 
