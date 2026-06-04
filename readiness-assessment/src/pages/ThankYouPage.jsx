@@ -288,7 +288,7 @@ export default function ThankYouPage() {
       <section id="report" className="result-pdf-cta">
         <h2 className="result-pdf-cta-title">Download My Readiness Report</h2>
         <p className="result-pdf-cta-copy">
-          Five-page PDF: score, strengths, development areas, 30-day plan, and your recommended GIYA path.
+          Compact 2-page, printer-friendly PDF matching your results — same layout as this page, optimized for ink.
         </p>
         <button type="button" className="btn btn-primary result-cta-primary" onClick={printReadinessReport}>
           Download my readiness report
