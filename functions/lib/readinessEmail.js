@@ -15,7 +15,7 @@ function bonusLinks(env) {
     discovery: `${base}/assets/bonus/keyman-discovery-framework.html`,
     conversation: `${base}/assets/bonus/business-insurance-conversation-guide.html`,
     readiness: `${base}/readiness/`,
-    join: `${base}/#join`,
+    join: `${base}/#community-signup`,
     keyman: `${base}/keyman/`,
     waitlist: `${base}/#waitlist`,
     masterClass: `${base}/#business-academy`,

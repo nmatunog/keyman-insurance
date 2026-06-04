@@ -758,7 +758,7 @@
                         <h3>Estate Conservation Academy</h3>
                         <p>TRAIN, trusts, and non-probate transfer strategies for wealth preservation.</p>
                         <div class="program-card__foot">
-                            <a href="#join-form" class="type-small font-semibold text-g-slate-400 hover:text-g-gold">Notify me</a>
+                            <a href="#waitlist" class="type-small font-semibold text-g-slate-400 hover:text-g-gold">Notify me</a>
                         </div>
                     </article>
                     <article class="program-card opacity-90">
@@ -767,7 +767,7 @@
                         <h3>Health Planning Academy</h3>
                         <p>Critical illness funding, HMO integration, and health-financing frameworks.</p>
                         <div class="program-card__foot">
-                            <a href="#join-form" class="type-small font-semibold text-g-slate-400 hover:text-g-gold">Notify me</a>
+                            <a href="#waitlist" class="type-small font-semibold text-g-slate-400 hover:text-g-gold">Notify me</a>
                         </div>
                     </article>
                     <article class="program-card opacity-90">
@@ -776,7 +776,7 @@
                         <h3>Wealth Management Academy</h3>
                         <p>Portfolio design, goals-based planning, and high-net-worth client service.</p>
                         <div class="program-card__foot">
-                            <a href="#join-form" class="type-small font-semibold text-g-slate-400 hover:text-g-gold">Notify me</a>
+                            <a href="#waitlist" class="type-small font-semibold text-g-slate-400 hover:text-g-gold">Notify me</a>
                         </div>
                     </article>
                     <article class="program-card opacity-90">
@@ -785,7 +785,7 @@
                         <h3>Succession Planning Academy</h3>
                         <p>Business continuity, ownership transition, and legacy practice design.</p>
                         <div class="program-card__foot">
-                            <a href="#join-form" class="type-small font-semibold text-g-slate-400 hover:text-g-gold">Notify me</a>
+                            <a href="#waitlist" class="type-small font-semibold text-g-slate-400 hover:text-g-gold">Notify me</a>
                         </div>
                     </article>
                     <article class="program-card border-dashed border-g-slate-600/80 bg-transparent justify-center text-center min-h-[240px]">
@@ -793,7 +793,7 @@
                         <h3 class="mt-4">Upcoming programs</h3>
                         <p class="flex-grow-0">Get notified when new Academies open, including Advisor Leadership.</p>
                         <div class="program-card__foot justify-center">
-                            <a href="#join-form" class="type-small font-semibold text-g-gold hover:underline">Join waitlist</a>
+                            <a href="#waitlist" class="type-small font-semibold text-g-gold hover:underline">Join waitlist</a>
                         </div>
                     </article>
                 </div>
@@ -915,21 +915,42 @@
                     <span>Build Expertise.</span><span class="text-g-gold">·</span><span>Create Impact.</span><span class="text-g-gold">·</span><span>Leave a Legacy.</span>
                 </div>
                 <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="#join-form" class="touch-target inline-flex items-center justify-center bg-g-black hover:bg-g-ink text-white px-10 py-4 rounded-full font-semibold shadow-soft transition-colors min-h-[44px]">Join GIYA</a>
+                    <a href="#community-signup" class="touch-target inline-flex items-center justify-center bg-g-black hover:bg-g-ink text-white px-10 py-4 rounded-full font-semibold shadow-soft transition-colors min-h-[44px]">Join GIYA</a>
                     <a href="#waitlist" class="touch-target inline-flex items-center justify-center border-2 border-g-gold text-g-goldMuted hover:bg-g-gold hover:text-g-black px-10 py-4 rounded-full font-semibold transition-colors min-h-[44px]">Master Class Waitlist</a>
                 </div>
             </div>
-            <div id="join-form" class="mt-14 max-w-md mx-auto">
-                <form id="waitlist" class="bg-g-white border border-g-slate-200 rounded-2xl p-6 space-y-4 shadow-card" onsubmit="event.preventDefault(); alert('Welcome to GIYA. Connect this to your CRM or email platform.');">
-                    <p class="type-small font-semibold text-g-black text-center">Community & waitlist signup</p>
-                    <input type="email" required placeholder="Email address" class="w-full border border-g-slate-200 rounded-xl px-4 py-3 min-h-[44px] focus:ring-2 focus:ring-g-gold focus:outline-none">
-                    <label class="flex items-start gap-2 type-small text-g-slate-600">
-                        <input type="checkbox" required class="mt-1 rounded border-g-slate-200 text-g-gold focus:ring-g-gold w-5 h-5">
-                        I agree to receive GIYA updates and educational content.
-                    </label>
-                    <button type="submit" class="w-full bg-g-black text-white font-semibold py-3 rounded-full hover:bg-g-ink transition-colors touch-target min-h-[44px]">Submit</button>
-                </form>
+            <div id="join-form" class="mt-14 max-w-md mx-auto space-y-8">
+                <section id="waitlist" class="scroll-mt-28" aria-labelledby="waitlist-form-title">
+                    <form id="waitlist-form" class="bg-g-white border border-g-slate-200 rounded-2xl p-6 space-y-4 shadow-card" data-list-type="masterclass" novalidate>
+                        <p id="waitlist-form-title" class="type-small font-semibold text-g-black text-center">Master Class · Priority waitlist</p>
+                        <p class="type-small text-g-slate-500 text-center -mt-2">Launching soon — reserve your spot. No purchase today.</p>
+                        <input type="email" name="email" required autocomplete="email" placeholder="Email address" class="giya-signup-email w-full border border-g-slate-200 rounded-xl px-4 py-3 min-h-[44px] focus:ring-2 focus:ring-g-gold focus:outline-none">
+                        <label class="flex items-start gap-2 type-small text-g-slate-600">
+                            <input type="checkbox" name="consent" required class="mt-1 rounded border-g-slate-200 text-g-gold focus:ring-g-gold w-5 h-5">
+                            I agree to receive GIYA Master Class updates and launch invitations.
+                        </label>
+                        <button type="submit" class="w-full bg-g-black text-white font-semibold py-3 rounded-full hover:bg-g-ink transition-colors touch-target min-h-[44px]">Reserve my spot</button>
+                    </form>
+                </section>
+                <section id="community-signup" class="scroll-mt-28" aria-labelledby="community-form-title">
+                    <form id="community-form" class="bg-g-white border border-g-slate-200 rounded-2xl p-6 space-y-4 shadow-card" data-list-type="community" novalidate>
+                        <p id="community-form-title" class="type-small font-semibold text-g-black text-center">GIYA · Free membership</p>
+                        <p class="type-small text-g-slate-500 text-center -mt-2">Case studies, frameworks, and learning roadmaps.</p>
+                        <input type="email" name="email" required autocomplete="email" placeholder="Email address" class="giya-signup-email w-full border border-g-slate-200 rounded-xl px-4 py-3 min-h-[44px] focus:ring-2 focus:ring-g-gold focus:outline-none">
+                        <label class="flex items-start gap-2 type-small text-g-slate-600">
+                            <input type="checkbox" name="consent" required class="mt-1 rounded border-g-slate-200 text-g-gold focus:ring-g-gold w-5 h-5">
+                            I agree to receive GIYA community updates and educational content.
+                        </label>
+                        <button type="submit" class="w-full border-2 border-g-gold text-g-goldMuted hover:bg-g-gold hover:text-g-black font-semibold py-3 rounded-full transition-colors touch-target min-h-[44px]">Join free membership</button>
+                    </form>
+                </section>
             </div>
+            <div id="giya-toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] max-w-sm w-[calc(100%-2rem)] px-4 py-3 rounded-xl shadow-lg text-sm font-medium text-center pointer-events-none opacity-0 translate-y-2 transition-all duration-300 border border-transparent" role="status" aria-live="polite"></div>
+            <style>
+                #giya-toast.giya-toast-show { opacity: 1; transform: translate(-50%, 0); }
+                #giya-toast.giya-toast-ok { background: #0A0A0B; color: #F5F3EE; border-color: rgba(196,160,82,0.5); }
+                #giya-toast.giya-toast-err { background: #450a0a; color: #fff; border-color: rgba(248,113,113,0.4); }
+            </style>
         </section>
     </main>
 
@@ -1191,8 +1212,77 @@
             }
         });
 
+        let giyaToastTimer;
+        function showGiyaToast(message, isError) {
+            const el = document.getElementById('giya-toast');
+            if (!el) return;
+            clearTimeout(giyaToastTimer);
+            el.textContent = message;
+            el.classList.remove('giya-toast-ok', 'giya-toast-err', 'giya-toast-show');
+            el.classList.add(isError ? 'giya-toast-err' : 'giya-toast-ok', 'giya-toast-show');
+            giyaToastTimer = setTimeout(() => el.classList.remove('giya-toast-show'), 5200);
+        }
+
+        async function handleGiyaSignup(form) {
+            const listType = form.dataset.listType || 'masterclass';
+            const emailInput = form.querySelector('input[name="email"]');
+            const consentInput = form.querySelector('input[name="consent"]');
+            const btn = form.querySelector('button[type="submit"]');
+            const email = (emailInput?.value || '').trim().toLowerCase();
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showGiyaToast('Please enter a valid email address.', true);
+                emailInput?.focus();
+                return;
+            }
+            if (!consentInput?.checked) {
+                showGiyaToast('Please agree to receive GIYA updates.', true);
+                return;
+            }
+            const prevLabel = btn?.textContent;
+            if (btn) { btn.disabled = true; btn.textContent = 'Submitting…'; }
+            try {
+                const res = await fetch('/api/waitlist/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email,
+                        list_type: listType,
+                        consent: true,
+                        source: listType === 'masterclass' ? 'homepage_waitlist' : 'homepage_community',
+                    }),
+                });
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok || !data.ok) {
+                    showGiyaToast(data.error || 'Something went wrong. Please try again.', true);
+                    return;
+                }
+                showGiyaToast(data.message || 'You are on the list. Thank you!', false);
+                form.reset();
+            } catch {
+                showGiyaToast('Network error. Check your connection and try again.', true);
+            } finally {
+                if (btn) { btn.disabled = false; btn.textContent = prevLabel; }
+            }
+        }
+
+        function initGiyaSignups() {
+            document.querySelectorAll('#waitlist-form, #community-form').forEach((form) => {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    handleGiyaSignup(form);
+                });
+            });
+            const prefill = new URLSearchParams(window.location.search).get('email');
+            if (prefill) {
+                document.querySelectorAll('.giya-signup-email').forEach((input) => {
+                    if (!input.value) input.value = prefill;
+                });
+            }
+        }
+
         function initApp() {
             try {
+                initGiyaSignups();
                 if (!localStorage.getItem(STORAGE_KEY)) localStorage.setItem(STORAGE_KEY, 'preview');
                 if (!localStorage.getItem(CALC_RUNS_KEY)) localStorage.setItem(CALC_RUNS_KEY, '1');
                 applyTierGating();

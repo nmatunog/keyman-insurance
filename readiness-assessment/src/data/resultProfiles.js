@@ -2,7 +2,7 @@
 export const RESULT_STORAGE_KEY = 'giya_readiness_result';
 
 export const SITE_LINKS = {
-  joinCommunity: '/#join',
+  joinCommunity: '/#community-signup',
   waitlist: '/#waitlist',
   masterClassLearn: '/#business-academy',
   keymanResource: '/keyman/',

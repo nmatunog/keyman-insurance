@@ -89,6 +89,30 @@
             </section>
 
             <section class="bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
+                <div class="px-5 py-4 border-b border-white/10 flex flex-wrap justify-between items-center gap-3">
+                    <div>
+                        <h2 class="font-bold">Waitlist & community signups</h2>
+                        <p class="text-xs text-white/50 mt-0.5" id="waitlist-count">Loading…</p>
+                    </div>
+                    <button type="button" id="refresh-waitlist" class="text-xs bg-white/10 hover:bg-white/15 px-3 py-1.5 rounded-lg font-semibold">Refresh</button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead class="text-white/50 text-left">
+                            <tr class="border-b border-white/10">
+                                <th class="p-3">Date</th>
+                                <th class="p-3">Email</th>
+                                <th class="p-3">List</th>
+                                <th class="p-3">Source</th>
+                            </tr>
+                        </thead>
+                        <tbody id="waitlist-rows"></tbody>
+                    </table>
+                </div>
+                <p id="waitlist-empty" class="hidden p-8 text-center text-white/50 text-sm">No waitlist signups yet.</p>
+            </section>
+
+            <section class="bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
                 <div class="px-5 py-4 border-b border-white/10 flex justify-between items-center">
                     <h2 class="font-bold">Pending payments</h2>
                 </div>
@@ -297,6 +321,37 @@ GIYA — Guiding Advisors. Protecting Legacies.`;
         });
         document.getElementById('tier-filter').addEventListener('change', loadAssessments);
         document.getElementById('refresh-leads').addEventListener('click', loadAssessments);
+        document.getElementById('refresh-waitlist').addEventListener('click', loadWaitlist);
+
+        async function loadWaitlist() {
+            const { ok, data } = await GiyaAuth.api('/admin/waitlist');
+            const tbody = document.getElementById('waitlist-rows');
+            const empty = document.getElementById('waitlist-empty');
+            const countEl = document.getElementById('waitlist-count');
+            if (!ok || !tbody) {
+                if (countEl) countEl.textContent = 'Unable to load';
+                return;
+            }
+            const rows = data.signups || [];
+            const stats = (data.stats || []).map((s) => `${s.list_type}: ${s.count}`).join(' · ');
+            if (countEl) countEl.textContent = `${rows.length} shown${stats ? ` (${stats})` : ''}`;
+            if (!rows.length) {
+                tbody.innerHTML = '';
+                empty?.classList.remove('hidden');
+                return;
+            }
+            empty?.classList.add('hidden');
+            tbody.innerHTML = rows
+                .map(
+                    (r) => `<tr class="border-b border-white/5 hover:bg-white/5">
+                <td class="p-3 text-xs text-white/50">${new Date(r.created_at * 1000).toLocaleString()}</td>
+                <td class="p-3"><a href="mailto:${esc(r.email)}" class="text-g-gold hover:underline">${esc(r.email)}</a></td>
+                <td class="p-3 capitalize">${esc(r.list_type)}</td>
+                <td class="p-3 text-xs text-white/40">${esc(r.source || '—')}</td>
+            </tr>`
+                )
+                .join('');
+        }
         document.getElementById('close-detail').addEventListener('click', () => {
             document.getElementById('detail-panel').classList.remove('open');
         });
@@ -336,6 +391,7 @@ GIYA — Guiding Advisors. Protecting Legacies.`;
                 })
                 .join('');
 
+            loadWaitlist();
             loadAssessments().then(() => {
                 const el = document.getElementById('stat-leads');
                 if (el) {
