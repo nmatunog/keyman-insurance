@@ -4,9 +4,30 @@
   --navy: #07142a;
   --navy-deep: #020813;
   --ink: #0a0a0b;
-  --gold: #c4a052;
-  --gold-light: #e8d4a8;
+  --gold: #d4b368;
+  --gold-light: #e8cc88;
   --gold-muted: #8a7340;
+  --gold-metallic: linear-gradient(
+    152deg,
+    #f0e4bc 0%,
+    #e2cc8a 14%,
+    #d4b56e 32%,
+    #c9a456 50%,
+    #b89448 68%,
+    #d8bc78 84%,
+    #edd89c 100%
+  );
+  --gold-metallic-hover: linear-gradient(
+    152deg,
+    #f6ecd4 0%,
+    #ead498 16%,
+    #ddc078 34%,
+    #d0b062 52%,
+    #c4a458 70%,
+    #e2c888 86%,
+    #f4e8b4 100%
+  );
+  --gold-btn-text: #1c160a;
   --pearl: #f5f3ee;
   --white: #ffffff;
   --gray: #d1d5db;
@@ -108,19 +129,19 @@ a:hover {
 .brand .giya-logo,
 .brand .giya-logo--nav {
   display: block;
-  height: 2.85rem;
+  height: 2rem;
   width: auto;
-  max-width: 9.5rem;
+  max-width: 6.65rem;
   border-radius: 0.45rem;
   object-fit: contain;
 }
 
 .hero .giya-logo--hero {
   display: block;
-  max-width: min(11rem, 72vw);
+  max-width: min(7.7rem, 50.4vw);
   width: auto;
   height: auto;
-  margin: 0 auto 1rem;
+  margin: 0 auto 0.85rem;
   border-radius: 0.5rem;
 }
 
@@ -245,13 +266,32 @@ a:hover {
 }
 
 .btn-primary {
-  background: var(--gold);
-  color: var(--ink);
-  box-shadow: 0 4px 20px rgba(196, 160, 82, 0.35);
+  position: relative;
+  overflow: hidden;
+  background: var(--gold-metallic);
+  background-color: #d4b56e;
+  color: var(--gold-btn-text);
+  border: 1px solid rgba(150, 115, 55, 0.65);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 252, 240, 0.55),
+    inset 0 -1px 0 rgba(120, 90, 40, 0.2),
+    0 2px 6px rgba(140, 105, 45, 0.28),
+    0 6px 18px rgba(212, 181, 110, 0.28);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
 .btn-primary:hover {
-  background: var(--gold-light);
+  background: var(--gold-metallic-hover);
+  background-color: #ddc078;
+  filter: brightness(1.04);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+  box-shadow:
+    inset 0 2px 4px rgba(100, 75, 35, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 1px 4px rgba(140, 105, 45, 0.2);
 }
 
 .btn-secondary {
@@ -424,9 +464,11 @@ button.step-indicator-btn:hover {
 }
 
 .step-indicator-item.is-current .step-indicator-num {
-  background: var(--gold);
-  border-color: var(--gold);
-  color: var(--ink);
+  background: var(--gold-metallic);
+  background-color: #d4b56e;
+  border-color: rgba(150, 115, 55, 0.65);
+  color: var(--gold-btn-text);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 .step-indicator-item.is-done .step-indicator-num {
@@ -449,9 +491,9 @@ button.step-indicator-btn:hover {
 
 .assessment-brand-logo {
   display: inline-block;
-  height: 2.75rem;
+  height: 1.93rem;
   width: auto;
-  max-width: 9rem;
+  max-width: 6.3rem;
   margin: 0 auto;
   border-radius: 0.45rem;
   object-fit: contain;
@@ -678,9 +720,11 @@ button.step-indicator-btn:hover {
 }
 
 .option.is-selected .option-marker {
-  border-color: var(--gold);
-  background: var(--gold);
-  box-shadow: inset 0 0 0 3px var(--ink);
+  border-color: #c9a456;
+  background: linear-gradient(160deg, #ead498 0%, #d4b56e 55%, #c4a458 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 0 0 3px var(--ink);
 }
 
 .option--radio.is-selected .option-marker {

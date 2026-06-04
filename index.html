@@ -50,7 +50,8 @@
                             ink: '#141416',
                             pearl: '#F5F3EE',
                             white: '#FFFFFF',
-                            gold: '#C4A052',
+                            gold: '#D4B368',
+                            goldLight: '#E8CC88',
                             goldMuted: '#8A7340',
                             slate: {
                                 50: '#F4F5F6',
@@ -64,7 +65,7 @@
                     boxShadow: {
                         soft: '0 12px 40px -12px rgba(10, 10, 11, 0.14)',
                         card: '0 4px 24px -4px rgba(10, 10, 11, 0.08)',
-                        gold: '0 4px 14px 0 rgba(196, 160, 82, 0.25)',
+                        gold: '0 4px 16px 0 rgba(212, 181, 110, 0.38), inset 0 1px 0 rgba(255, 252, 240, 0.4)',
                     }
                 }
             }
@@ -195,7 +196,7 @@
     <header class="sticky top-0 z-50 bg-g-white/95 backdrop-blur-md border-b border-g-slate-200">
         <nav class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-3 flex items-center justify-between gap-4">
             <a href="/" class="giya-brand-link shrink-0" aria-label="GIYA — home">
-                <img src="/assets/giya-logo.png" alt="GIYA — Guiding Advisors. Protecting Legacies." width="280" height="280" class="giya-logo giya-logo--nav" decoding="async">
+                <img src="/assets/giya-logo.png" alt="GIYA — Guiding Advisors. Protecting Legacies." width="196" height="196" class="giya-logo giya-logo--nav" decoding="async">
             </a>
             <div class="hidden lg:flex items-center gap-6 text-sm font-medium text-g-slate-600">
                 <a href="#assessment" class="hover:text-g-black transition-colors py-2">Assessment</a>
@@ -234,25 +235,83 @@
     <main>
         <section class="hero-gradient relative overflow-hidden">
             <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 pt-14 pb-16 md:pt-20 md:pb-24">
-                <div class="max-w-3xl">
-                    <img src="/assets/giya-logo.png" alt="GIYA Institute — Guiding Advisors. Protecting Legacies." width="280" height="280" class="giya-logo giya-logo--hero" decoding="async">
-                    <h1 class="type-h1 font-bold text-g-black leading-snug tracking-tight mt-2">Guiding Advisors. Protecting Legacies.</h1>
-                    <p class="mt-5 text-g-slate-600 type-body leading-relaxed max-w-2xl">
-                        Build expertise in Business Insurance, Wealth Management, Estate Conservation, Health Planning, and Practice Leadership.
-                    </p>
-                    <div class="mt-10 flex flex-col sm:flex-row gap-4">
-                        <a href="/readiness/" class="touch-target inline-flex items-center justify-center gap-2 bg-g-black hover:bg-g-ink text-white px-8 py-4 rounded-full font-semibold text-sm shadow-soft transition-all min-h-[44px]">
-                            <i class="fa-solid fa-clipboard-list text-lg"></i> Take the Advisor Readiness Assessment
-                        </a>
-                        <a href="keyman/" class="touch-target inline-flex items-center justify-center gap-2 border-2 border-g-gold text-g-goldMuted hover:bg-g-gold hover:text-g-black px-8 py-4 rounded-full font-semibold text-sm transition-all min-h-[44px]">
-                            <i class="fa-solid fa-building-columns text-lg"></i> Explore the Keyman Resource Center
-                        </a>
+                <div class="hero-split grid lg:grid-cols-2 gap-10 lg:gap-12 xl:gap-16 items-center">
+                    <div class="hero-split__copy max-w-xl lg:max-w-none">
+                        <img src="/assets/giya-logo.png" alt="GIYA Institute — Guiding Advisors. Protecting Legacies." width="196" height="196" class="giya-logo giya-logo--hero" decoding="async">
+                        <h1 class="type-h1 font-bold text-g-black leading-snug tracking-tight mt-2">Guiding Advisors. Protecting Legacies.</h1>
+                        <p class="mt-5 text-g-slate-600 type-body leading-relaxed">
+                            Build expertise in Business Insurance, Wealth Management, Estate Conservation, Health Planning, and Practice Leadership.
+                        </p>
+                        <div class="mt-10 flex flex-col sm:flex-row gap-4">
+                            <a href="/readiness/" class="touch-target inline-flex items-center justify-center gap-2 bg-g-black hover:bg-g-ink text-white px-8 py-4 rounded-full font-semibold text-sm shadow-soft transition-all min-h-[44px]">
+                                <i class="fa-solid fa-clipboard-list text-lg"></i> Take the Advisor Readiness Assessment
+                            </a>
+                            <a href="keyman/" class="touch-target inline-flex items-center justify-center gap-2 border-2 border-g-gold text-g-goldMuted hover:bg-g-gold hover:text-g-black px-8 py-4 rounded-full font-semibold text-sm transition-all min-h-[44px]">
+                                <i class="fa-solid fa-building-columns text-lg"></i> Explore the Keyman Resource Center
+                            </a>
+                        </div>
+                        <p class="mt-4 type-small text-g-slate-500">GIYA Institute — assessment first, then certification, community, and academies when you are ready.</p>
+                        <div id="giya-hero-explore" class="hidden mt-8" aria-label="Suggested next steps">
+                            <div class="flex flex-wrap items-center gap-2" id="giya-explore-chips"></div>
+                            <button type="button" id="giya-explore-dismiss" class="mt-3 type-small text-g-slate-500 hover:text-g-black font-semibold touch-target min-h-[36px]">Hide suggestions</button>
+                        </div>
                     </div>
-                    <p class="mt-4 type-small text-g-slate-500 max-w-xl">GIYA Institute — assessment first, then certification, community, and academies when you are ready.</p>
-                    <div id="giya-hero-explore" class="hidden mt-8 max-w-2xl" aria-label="Suggested next steps">
-                        <div class="flex flex-wrap items-center gap-2" id="giya-explore-chips"></div>
-                        <button type="button" id="giya-explore-dismiss" class="mt-3 type-small text-g-slate-500 hover:text-g-black font-semibold touch-target min-h-[36px]">Hide suggestions</button>
-                    </div>
+
+                    <aside id="pillars" class="hero-pillars scroll-mt-28" aria-labelledby="hero-pillars-title">
+                        <div class="hero-pillars-panel">
+                            <p class="hero-pillars-eyebrow">GIYA Institute</p>
+                            <h2 id="hero-pillars-title" class="hero-pillars-title">The Five Pillars</h2>
+                            <p class="hero-pillars-lead">Domains that shape exceptional advisory work.</p>
+                            <ul class="hero-pillars-list">
+                                <li>
+                                    <article class="hero-pillar-card">
+                                        <span class="hero-pillar-icon hero-pillar-icon--wealth" aria-hidden="true"><i class="fa-solid fa-chart-line"></i></span>
+                                        <div class="hero-pillar-body">
+                                            <h3>Wealth</h3>
+                                            <p>Accumulate, preserve, and distribute with intention.</p>
+                                        </div>
+                                    </article>
+                                </li>
+                                <li>
+                                    <article class="hero-pillar-card">
+                                        <span class="hero-pillar-icon hero-pillar-icon--health" aria-hidden="true"><i class="fa-solid fa-heart-pulse"></i></span>
+                                        <div class="hero-pillar-body">
+                                            <h3>Health</h3>
+                                            <p>Protection aligned with long-term wellbeing.</p>
+                                        </div>
+                                    </article>
+                                </li>
+                                <li>
+                                    <article class="hero-pillar-card hero-pillar-card--featured">
+                                        <span class="hero-pillar-icon hero-pillar-icon--business" aria-hidden="true"><i class="fa-solid fa-building-shield"></i></span>
+                                        <div class="hero-pillar-body">
+                                            <h3>Business</h3>
+                                            <p>Keyman, buy-sell, succession, and continuity.</p>
+                                            <a href="#business-academy" class="hero-pillar-link">Explore Master Class <i class="fa-solid fa-arrow-right text-[0.65em]"></i></a>
+                                        </div>
+                                    </article>
+                                </li>
+                                <li>
+                                    <article class="hero-pillar-card">
+                                        <span class="hero-pillar-icon hero-pillar-icon--estate" aria-hidden="true"><i class="fa-solid fa-landmark"></i></span>
+                                        <div class="hero-pillar-body">
+                                            <h3>Estate</h3>
+                                            <p>Generational wealth transfer and legacy design.</p>
+                                        </div>
+                                    </article>
+                                </li>
+                                <li>
+                                    <article class="hero-pillar-card">
+                                        <span class="hero-pillar-icon hero-pillar-icon--leadership" aria-hidden="true"><i class="fa-solid fa-crown"></i></span>
+                                        <div class="hero-pillar-body">
+                                            <h3>Leadership</h3>
+                                            <p>Build expertise, impact, and an enduring practice.</p>
+                                        </div>
+                                    </article>
+                                </li>
+                            </ul>
+                        </div>
+                    </aside>
                 </div>
             </div>
         </section>
@@ -919,22 +978,6 @@
             </div>
         </section>
 
-        <section id="pillars" class="bg-g-white border-y border-g-slate-200 py-16 md:py-24">
-            <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
-                <div class="text-center mb-14">
-                    <h2 class="type-h2 font-display font-semibold text-g-black">The GIYA Pillars</h2>
-                    <p class="mt-3 text-g-slate-600 max-w-xl mx-auto">Five domains that shape exceptional advisory work.</p>
-                </div>
-                <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
-                    <article class="pillar-card bg-g-pearl border border-g-slate-200 rounded-2xl p-6 shadow-card"><div class="w-12 h-12 rounded-full bg-g-pearl flex items-center justify-center text-g-gold mb-4"><i class="fa-solid fa-chart-pie"></i></div><h3 class="font-bold text-g-black type-h4">Wealth</h3><p class="type-small text-g-slate-600 mt-2 leading-relaxed">Helping clients accumulate, preserve, and distribute wealth effectively.</p></article>
-                    <article class="pillar-card bg-g-pearl border border-g-slate-200 rounded-2xl p-6 shadow-card"><div class="w-12 h-12 rounded-full bg-g-slate-50 flex items-center justify-center text-g-slate-600 mb-4"><i class="fa-solid fa-heart-pulse"></i></div><h3 class="font-bold text-g-black type-h4">Health</h3><p class="type-small text-g-slate-600 mt-2 leading-relaxed">Building protection strategies that support long-term financial wellbeing.</p></article>
-                    <article class="pillar-card bg-g-pearl border border-g-gold/40 rounded-2xl p-6 shadow-card ring-1 ring-g-gold/20"><div class="w-12 h-12 rounded-full bg-g-pearl flex items-center justify-center text-g-gold mb-4"><i class="fa-solid fa-building"></i></div><h3 class="font-bold text-g-black type-h4">Business</h3><p class="type-small text-g-slate-600 mt-2 leading-relaxed">Keyman, buy-sell, succession, and business continuity planning.</p><a href="#business-academy" class="inline-block mt-4 type-small font-bold text-g-gold hover:underline touch-target">Explore Master Class →</a></article>
-                    <article class="pillar-card bg-g-pearl border border-g-slate-200 rounded-2xl p-6 shadow-card"><div class="w-12 h-12 rounded-full bg-g-pearl flex items-center justify-center text-g-gold mb-4"><i class="fa-solid fa-tree"></i></div><h3 class="font-bold text-g-black type-h4">Estate</h3><p class="type-small text-g-slate-600 mt-2 leading-relaxed">Protecting family wealth across generations.</p></article>
-                    <article class="pillar-card bg-g-pearl border border-g-slate-200 rounded-2xl p-6 shadow-card sm:col-span-2 lg:col-span-1"><div class="w-12 h-12 rounded-full bg-g-black flex items-center justify-center text-g-gold mb-4"><i class="fa-solid fa-crown"></i></div><h3 class="font-bold text-g-black type-h4">Leadership</h3><p class="type-small text-g-slate-600 mt-2 leading-relaxed">Developing advisors into trusted professionals and industry leaders.</p></article>
-                </div>
-            </div>
-        </section>
-
                 <section id="fellows" class="bg-g-white border-y border-g-slate-200 py-16 md:py-24 scroll-mt-24">
             <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
                 <div class="text-center max-w-2xl mx-auto mb-12">
@@ -1104,7 +1147,7 @@
     <footer class="bg-g-black text-g-slate-200 py-10">
         <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 flex flex-col md:flex-row justify-between items-center gap-6 type-small">
             <div class="flex items-center gap-3 flex-wrap justify-center md:justify-start">
-                <img src="/assets/giya-logo.png" alt="GIYA Institute" width="200" height="200" class="giya-logo giya-logo--footer giya-logo--on-dark" loading="lazy" decoding="async">
+                <img src="/assets/giya-logo.png" alt="GIYA Institute" width="140" height="140" class="giya-logo giya-logo--footer giya-logo--on-dark" loading="lazy" decoding="async">
                 <span class="text-g-slate-400 hidden sm:inline">Guiding Advisors. Protecting Legacies.</span>
             </div>
             <a href="/readiness/" class="touch-target inline-flex items-center gap-2 bg-g-gold hover:bg-g-gold/90 text-g-black px-6 py-2.5 rounded-full font-bold min-h-[44px]">Take Assessment</a>

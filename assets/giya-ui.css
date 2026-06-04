@@ -57,12 +57,197 @@ h1 {
 
 .g-icon-wrap--gold {
   background: #f5f3ee;
-  color: #c4a052;
+  color: #d4b368;
 }
 
 .g-icon-wrap--muted {
   background: #f4f5f6;
   color: #374151;
+}
+
+/* Hero — split layout + five pillars panel */
+.hero-split {
+  align-items: stretch;
+}
+
+@media (min-width: 1024px) {
+  .hero-split__copy {
+    padding-right: 0.5rem;
+  }
+}
+
+.hero-pillars-panel {
+  background: #fff;
+  border: 1px solid rgba(196, 160, 82, 0.22);
+  border-radius: 1.25rem;
+  padding: 1.35rem 1.25rem 1.15rem;
+  box-shadow:
+    0 20px 50px -16px rgba(10, 10, 11, 0.14),
+    0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+}
+
+.hero-pillars-eyebrow {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #8a7340;
+  margin: 0;
+}
+
+.hero-pillars-title {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #0a0a0b;
+  margin: 0.35rem 0 0;
+}
+
+.hero-pillars-lead {
+  font-size: 0.8125rem;
+  color: #6b7280;
+  margin: 0.35rem 0 1rem;
+  line-height: 1.45;
+}
+
+.hero-pillars-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.hero-pillar-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 0.7rem 0.75rem;
+  border-radius: 0.85rem;
+  border: 1px solid #e5e7eb;
+  background: #fafaf9;
+  transition:
+    transform var(--giya-duration) var(--giya-ease),
+    box-shadow var(--giya-duration) var(--giya-ease),
+    border-color var(--giya-duration) var(--giya-ease);
+}
+
+.hero-pillar-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -8px rgba(10, 10, 11, 0.12);
+  border-color: rgba(196, 160, 82, 0.35);
+}
+
+.hero-pillar-card:hover .hero-pillar-icon {
+  transform: scale(1.06);
+}
+
+.hero-pillar-card--featured {
+  border-color: rgba(196, 160, 82, 0.45);
+  background: linear-gradient(135deg, #fffdf8 0%, #f5f3ee 100%);
+  box-shadow: 0 4px 20px -6px rgba(196, 160, 82, 0.25);
+}
+
+.hero-pillar-icon {
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  transition: transform var(--giya-duration) var(--giya-ease);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    0 3px 10px -2px rgba(10, 10, 11, 0.15);
+}
+
+.hero-pillar-icon--wealth {
+  background: linear-gradient(145deg, #f5f3ee 0%, #e8e4dc 100%);
+  color: #a88442;
+  border: 1px solid rgba(196, 160, 82, 0.25);
+}
+
+.hero-pillar-icon--health {
+  background: linear-gradient(145deg, #fef7f7 0%, #f5e8e8 100%);
+  color: #9b4d4d;
+  border: 1px solid rgba(155, 77, 77, 0.15);
+}
+
+.hero-pillar-icon--business {
+  background: linear-gradient(
+    152deg,
+    #f0e4bc 0%,
+    #d4b56e 45%,
+    #b89448 100%
+  );
+  color: #1c160a;
+  border: 1px solid rgba(150, 115, 55, 0.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 252, 240, 0.7),
+    0 4px 14px -2px rgba(196, 160, 82, 0.45);
+  font-size: 1.35rem;
+}
+
+.hero-pillar-icon--estate {
+  background: linear-gradient(145deg, #f0f4f8 0%, #dce4ec 100%);
+  color: #4a5f73;
+  border: 1px solid rgba(74, 95, 115, 0.2);
+}
+
+.hero-pillar-icon--leadership {
+  background: linear-gradient(145deg, #1a1a1c 0%, #0a0a0b 100%);
+  color: #d4b368;
+  border: 1px solid rgba(212, 179, 104, 0.4);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 4px 12px -2px rgba(0, 0, 0, 0.35);
+}
+
+.hero-pillar-body h3 {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #0a0a0b;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.hero-pillar-body p {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin: 0.2rem 0 0;
+  line-height: 1.4;
+}
+
+.hero-pillar-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #8a7340;
+  text-decoration: none;
+}
+
+.hero-pillar-link:hover {
+  color: #0a0a0b;
+  text-decoration: underline;
+}
+
+@media (max-width: 1023px) {
+  .hero-pillars {
+    margin-top: 0.5rem;
+  }
+
+  .hero-pillars-panel {
+    max-width: 28rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 /* Buttons — consistent press feedback */
@@ -206,9 +391,9 @@ header nav button:focus-visible {
 }
 
 .giya-logo--nav {
-  height: 3.25rem;
+  height: 2.28rem;
   width: auto;
-  max-width: 11rem;
+  max-width: 7.7rem;
   border-radius: 0.5rem;
 }
 
@@ -232,17 +417,17 @@ header nav button:focus-visible {
 }
 
 .giya-logo--hero {
-  max-width: min(9rem, 52vw);
+  max-width: min(6.3rem, 36.4vw);
   width: auto;
   height: auto;
-  margin: 0 0 1.25rem;
+  margin: 0 0 1rem;
   border-radius: 0.5rem;
   filter: var(--giya-logo-filter-strong) var(--giya-logo-glow);
   -webkit-filter: var(--giya-logo-filter-strong) var(--giya-logo-glow);
 }
 
 .giya-logo--auth {
-  max-width: 220px;
+  max-width: 154px;
   width: 100%;
   border-radius: 0.75rem;
   box-shadow:
@@ -253,9 +438,9 @@ header nav button:focus-visible {
 }
 
 .giya-logo--footer {
-  height: 2.5rem;
+  height: 1.75rem;
   width: auto;
-  max-width: 8rem;
+  max-width: 5.6rem;
   border-radius: 0.35rem;
 }
 
@@ -313,10 +498,7 @@ header nav button:focus-visible {
   justify-content: center;
 }
 
-.g-cert-step.is-current .g-cert-num {
-  background: #c4a052;
-  color: #0a0a0b;
-}
+/* .g-cert-step.is-current .g-cert-num — metallic styles at end of file */
 
 .g-fellow-card {
   border: 1px solid #e5e7eb;
@@ -352,4 +534,87 @@ header nav button:focus-visible {
   color: #c4a052;
   font-size: 0.7rem;
   padding-left: 0.5rem;
+}
+
+/* ——— Metallic gold buttons (brighter gold, not yellow) ——— */
+:root {
+  --giya-gold-metallic: linear-gradient(
+    152deg,
+    #f0e4bc 0%,
+    #e2cc8a 14%,
+    #d4b56e 32%,
+    #c9a456 50%,
+    #b89448 68%,
+    #d8bc78 84%,
+    #edd89c 100%
+  );
+  --giya-gold-metallic-hover: linear-gradient(
+    152deg,
+    #f6ecd4 0%,
+    #ead498 16%,
+    #ddc078 34%,
+    #d0b062 52%,
+    #c4a458 70%,
+    #e2c888 86%,
+    #f4e8b4 100%
+  );
+  --giya-gold-btn-text: #1c160a;
+  --giya-gold-btn-border: rgba(150, 115, 55, 0.65);
+  --giya-gold-btn-shadow:
+    inset 0 1px 0 rgba(255, 252, 240, 0.55),
+    inset 0 -1px 0 rgba(120, 90, 40, 0.2),
+    0 2px 6px rgba(140, 105, 45, 0.28),
+    0 6px 18px rgba(196, 160, 82, 0.22);
+}
+
+a.bg-g-gold,
+button.bg-g-gold,
+a.hover\:bg-g-gold:hover,
+button.hover\:bg-g-gold:hover,
+a[class*='hover:bg-g-gold']:hover,
+button[class*='hover:bg-g-gold']:hover {
+  position: relative;
+  overflow: hidden;
+  background: var(--giya-gold-metallic) !important;
+  background-color: #d4b56e !important;
+  color: var(--giya-gold-btn-text) !important;
+  border: 1px solid var(--giya-gold-btn-border) !important;
+  box-shadow: var(--giya-gold-btn-shadow) !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.28);
+  -webkit-font-smoothing: antialiased;
+}
+
+a.bg-g-gold:hover,
+button.bg-g-gold:hover,
+a.hover\:bg-g-gold:hover,
+button.hover\:bg-g-gold:hover,
+a[class*='hover:bg-g-gold']:hover,
+button[class*='hover:bg-g-gold']:hover {
+  background: var(--giya-gold-metallic-hover) !important;
+  background-color: #ddc078 !important;
+  filter: brightness(1.04);
+}
+
+a.bg-g-gold:active,
+button.bg-g-gold:active {
+  transform: scale(0.98);
+  box-shadow:
+    inset 0 2px 4px rgba(100, 75, 35, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 1px 4px rgba(140, 105, 45, 0.2) !important;
+}
+
+/* Solid gold badges/pills — subtle sheen, not full button treatment */
+span.bg-g-gold,
+.badge-gold-metallic {
+  background: linear-gradient(160deg, #ead498 0%, #d4b56e 55%, #c4a458 100%) !important;
+  border: 1px solid rgba(168, 132, 66, 0.4);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.g-cert-step.is-current .g-cert-num {
+  background: var(--giya-gold-metallic) !important;
+  color: var(--giya-gold-btn-text) !important;
+  border: 1px solid var(--giya-gold-btn-border);
+  box-shadow: var(--giya-gold-btn-shadow);
 }
