@@ -258,16 +258,26 @@
             flex-direction: row;
             flex-wrap: wrap;
             align-items: flex-start;
-            gap: 0.5rem 0.75rem;
-            border-left-width: 4px;
+            gap: 0.65rem 0.98rem;
+            border-left-width: 5px;
+            padding: 1.1rem 1.15rem;
+        }
+        .km-pyramid-insight .km-insight-bar__label {
+            font-size: 0.85rem;
+            letter-spacing: 0.14em;
+        }
+        .km-pyramid-insight .km-insight-bar__label i {
+            font-size: 1.05rem;
         }
         .km-pyramid-insight .km-insight-bar__text {
             flex: 1;
-            min-width: 14rem;
+            min-width: 18.2rem;
+            font-size: 1.04rem;
+            line-height: 1.55;
         }
         @media (min-width: 900px) {
             .km-pyramid-grid {
-                grid-template-columns: 2.25rem 10.5rem minmax(11rem, 16rem) minmax(10.5rem, 13.5rem);
+                grid-template-columns: 2.25rem 10.5rem minmax(11rem, 16rem) minmax(13.65rem, 17.55rem);
                 column-gap: 0.75rem;
                 row-gap: 0.5rem;
             }
@@ -279,13 +289,13 @@
             }
             .km-pyramid-insight.km-insight-bar {
                 flex-direction: column;
-                padding: 0.85rem 0.9rem;
+                padding: 1.1rem 1.17rem;
             }
         }
         @media (min-width: 1100px) {
-            .km-pyramid-board { max-width: 58rem; }
+            .km-pyramid-board { max-width: 62rem; }
             .km-pyramid-grid {
-                grid-template-columns: 2.25rem 11rem 17rem 14rem;
+                grid-template-columns: 2.25rem 11rem 17rem 18.2rem;
             }
         }
         @media (max-width: 599px) {
