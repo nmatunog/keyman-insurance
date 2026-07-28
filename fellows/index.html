@@ -14,19 +14,7 @@
     <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif']},colors:{g:{black:'#0A0A0B',pearl:'#F5F3EE',gold:'#E0C47A',goldMuted:'#A18745',slate:{200:'#D1D5DB',400:'#6B7280',600:'#374151'}}}}}}</script>
 </head>
 <body class="bg-g-pearl min-h-screen font-sans text-g-black antialiased">
-    <header class="bg-white border-b border-g-slate-200 sticky top-0 z-20">
-        <div class="max-w-6xl mx-auto px-5 py-4 flex justify-between items-center gap-4">
-            <a href="/" class="giya-brand-link">
-                <img src="/assets/giya-logo.png" alt="GIYA" width="200" height="200" class="giya-logo giya-logo--nav" decoding="async">
-            </a>
-            <nav class="hidden sm:flex gap-5 text-sm font-semibold text-g-slate-600">
-                <a href="/#certification" class="hover:text-g-black">Certification</a>
-                <a href="/#contributors" class="hover:text-g-black">Contribute</a>
-                <a href="/readiness/" class="hover:text-g-black">Assessment</a>
-            </nav>
-            <a href="/" class="text-sm font-semibold text-g-slate-600 hover:text-g-black shrink-0">← Home</a>
-        </div>
-    </header>
+    <div data-giya-nav></div>
 
     <main class="max-w-6xl mx-auto px-5 py-12 md:py-16 space-y-16 md:space-y-20">
         <section class="max-w-3xl">
@@ -123,16 +111,29 @@
                 </div>
                 <div class="g-cert-step">
                     <span class="g-cert-num">3</span>
+                    <h3 class="font-bold">GIYA Certified SPIKE Mentor</h3>
+                    <p class="text-sm text-g-slate-600 mt-1">SPIKE Mentor Certification · coach advisors through cases and competency milestones.</p>
+                    <a href="/certification/#spike-mentor" class="inline-block mt-2 text-sm font-bold text-g-gold hover:underline">SPIKE Mentor path →</a>
+                </div>
+                <div class="g-cert-step">
+                    <span class="g-cert-num">4</span>
+                    <h3 class="font-bold">GIYA Certified SPIKE Facilitator</h3>
+                    <p class="text-sm text-g-slate-600 mt-1">Lead cohorts and workshops · organizational curriculum delivery.</p>
+                    <a href="/certification/#spike-facilitator" class="inline-block mt-2 text-sm font-bold text-g-gold hover:underline">Facilitator path →</a>
+                </div>
+                <div class="g-cert-step">
+                    <span class="g-cert-num">5</span>
                     <h3 class="font-bold">GIYA Legacy Consultant</h3>
                     <p class="text-sm text-g-slate-600 mt-1">Complete Master Class academies · advanced case recognition.</p>
                     <a href="/#business-academy" class="inline-block mt-2 text-sm font-bold text-g-gold hover:underline">Explore academies →</a>
                 </div>
                 <div class="g-cert-step">
-                    <span class="g-cert-num">4</span>
+                    <span class="g-cert-num">6</span>
                     <h3 class="font-bold">GIYA Fellow</h3>
                     <p class="text-sm text-g-slate-600 mt-1">Earned designation · application &amp; recognition — not a subscription</p>
                 </div>
             </div>
+            <a href="/certification/" class="inline-flex mt-6 text-sm font-bold text-g-gold hover:underline">Full certification guide →</a>
         </section>
 
         <section class="text-center border-t border-g-slate-200 pt-12">
@@ -143,9 +144,7 @@
         </section>
     </main>
 
-    <footer class="border-t border-g-slate-200 py-8 text-center text-xs text-g-slate-500">
-        <p class="italic text-g-goldMuted">Save the Business. Protect the Family. Preserve the Legacy.</p>
-        <p class="mt-2"><a href="/" class="hover:text-g-black font-semibold">joingiya.com</a></p>
-    </footer>
+    <div data-giya-footer></div>
+    <script src="/assets/giya-nav.js"></script>
 </body>
 </html>

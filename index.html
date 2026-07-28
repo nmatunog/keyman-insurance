@@ -193,42 +193,86 @@
         </span>
     </div>
 
-    <header class="sticky top-0 z-50 bg-g-white/95 backdrop-blur-md border-b border-g-slate-200">
-        <nav class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-3 flex items-center justify-between gap-4">
+    <header class="giya-site-header sticky top-0 z-50" data-giya-header>
+        <nav class="giya-nav max-w-7xl" aria-label="Main">
             <a href="/" class="giya-brand-link shrink-0" aria-label="GIYA — home">
                 <img src="/assets/giya-logo.png" alt="GIYA — Guiding Advisors. Protecting Legacies." width="196" height="196" class="giya-logo giya-logo--nav" decoding="async">
             </a>
-            <div class="hidden lg:flex items-center gap-6 text-sm font-medium text-g-slate-600">
-                <a href="#assessment" class="hover:text-g-black transition-colors py-2">Assessment</a>
-                <a href="#certification" class="hover:text-g-black transition-colors py-2">Certification</a>
-                <a href="#why" class="hover:text-g-black transition-colors py-2">Why GIYA</a>
-                <a href="#founder" class="hover:text-g-black transition-colors py-2">Founder</a>
-                <a href="#pathways" class="hover:text-g-black transition-colors py-2">Membership</a>
-                <a href="keyman/" class="hover:text-g-black transition-colors py-2">Keyman</a>
-                <a href="#business-academy" class="hover:text-g-black transition-colors py-2">Academies</a>
+            <div class="giya-nav__links">
+                <a href="/institute/" class="giya-nav__link">Institute</a>
+                <div class="giya-nav__item" data-nav-dropdown>
+                    <button type="button" class="giya-nav__trigger" aria-expanded="false">Academies <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+                    <div class="giya-nav__panel giya-nav__panel--wide" role="menu">
+                        <div class="giya-nav__panel-grid giya-nav__panel-grid--2">
+                            <div>
+                                <p class="giya-nav__panel-title">Discipline academies</p>
+                                <ul class="giya-nav__panel-list">
+                                    <li><a href="#business-academy" class="is-live">Business Insurance <span class="giya-nav__badge">Live</span><small>Master Class · flagship</small></a></li>
+                                    <li><a href="/academies/#estate-conservation">Estate Conservation<small>Trusts · estate freeze</small></a></li>
+                                    <li><a href="/academies/#health-planning">Health Planning<small>HNW health protection</small></a></li>
+                                    <li><a href="/academies/#wealth-management">Wealth Management<small>Preserve · distribute</small></a></li>
+                                    <li><a href="/academies/#succession-planning">Succession Planning<small>Ownership continuity</small></a></li>
+                                    <li><a href="/academies/#practice-leadership">Practice Leadership<small>Team · culture</small></a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p class="giya-nav__panel-title">SPIKE programs</p>
+                                <ul class="giya-nav__panel-list">
+                                    <li><a href="/academies/#spike-advisor-launch">SPIKE Advisor Launch<small>Enter business insurance</small></a></li>
+                                    <li><a href="/academies/#spike-practice-builder">SPIKE Practice Builder<small>Agency building</small></a></li>
+                                    <li><a href="/academies/#spike-mentor">SPIKE Mentor Certification<small>Coach advisors</small></a></li>
+                                    <li><a href="/academies/#spike-leadership">SPIKE Leadership Accelerator<small>Lead teams</small></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="giya-nav__panel-footer"><a href="/academies/">View all academies →</a></div>
+                    </div>
+                </div>
+                <div class="giya-nav__item" data-nav-dropdown>
+                    <button type="button" class="giya-nav__trigger" aria-expanded="false">Certification <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+                    <div class="giya-nav__panel" role="menu">
+                        <p class="giya-nav__panel-title">Designation ladder</p>
+                        <ul class="giya-nav__panel-list">
+                            <li><a href="/readiness/">GIYA Certified Advisor<small>Assessment · foundations</small></a></li>
+                            <li><a href="/certification/#professional">GIYA Professional Advisor<small>Membership · master class</small></a></li>
+                            <li><a href="/certification/#spike-mentor">GIYA Certified SPIKE Mentor<small>Mentoring track</small></a></li>
+                            <li><a href="/certification/#spike-facilitator">GIYA Certified SPIKE Facilitator<small>Cohort delivery</small></a></li>
+                            <li><a href="/certification/#legacy">GIYA Legacy Consultant<small>Advanced academies</small></a></li>
+                            <li><a href="/fellows/">GIYA Fellow<small>Earned designation</small></a></li>
+                        </ul>
+                        <div class="giya-nav__panel-footer"><a href="/certification/">Full certification guide →</a></div>
+                    </div>
+                </div>
+                <a href="/solutions/" class="giya-nav__link">Solutions</a>
+                <a href="keyman/" class="giya-nav__link">Keyman</a>
             </div>
-            <div class="flex items-center gap-2 sm:gap-3">
+            <div class="giya-nav__actions">
                 <div id="tier-badge" class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold border"></div>
                 <a href="/login.html?return=/" id="nav-signin" class="hidden sm:inline-flex text-sm font-semibold text-g-slate-600 hover:text-g-black px-3 py-2">Sign in</a>
                 <a href="/account.html" id="nav-account" class="hidden sm:inline-flex text-sm font-semibold text-g-gold hover:text-g-black px-3 py-2">Account</a>
                 <a href="/admin/" id="nav-admin" class="hidden sm:inline-flex text-sm font-semibold text-g-gold px-3 py-2">Admin</a>
                 <a href="/readiness/" class="hidden sm:inline-flex bg-g-gold hover:bg-g-gold/90 text-g-black px-5 py-2.5 rounded-full text-sm font-bold transition-colors shadow-gold touch-target items-center min-h-[44px]">Take Assessment</a>
-                <button type="button" class="lg:hidden text-g-black text-xl touch-target flex items-center justify-center w-11 h-11" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" aria-label="Open menu">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
+                <button type="button" class="giya-nav__menu-btn lg:hidden" data-nav-mobile-toggle aria-label="Open menu"><i class="fa-solid fa-bars"></i></button>
             </div>
         </nav>
-        <div id="mobile-menu" class="hidden lg:hidden border-t border-g-slate-200 bg-g-white px-5 py-4 space-y-1 text-sm font-medium">
-            <a href="/readiness/" class="block py-3 text-g-gold font-bold touch-target">Take Assessment</a>
-            <a href="#assessment" class="block py-3 touch-target">Assessment</a>
-            <a href="#certification" class="block py-3 touch-target">Certification</a>
-            <a href="#why" class="block py-3 touch-target">Why GIYA</a>
-            <a href="#founder" class="block py-3 touch-target">Founder</a>
-            <a href="#pathways" class="block py-3 touch-target">Membership</a>
-            <a href="keyman/" class="block py-3 touch-target">Keyman</a>
-            <a href="#business-academy" class="block py-3 touch-target">Academies</a>
-            <a href="#pathways" class="block py-3 touch-target">Membership</a>
-            <a href="/login.html?return=/" class="block py-3 touch-target">Sign in</a>
+        <div class="giya-nav__mobile lg:hidden" data-nav-mobile hidden>
+            <a href="/readiness/" class="text-g-gold font-bold">Take Assessment</a>
+            <a href="/institute/">Institute</a>
+            <details><summary>Academies</summary><div class="giya-nav__mobile-sub">
+                <a href="#business-academy">Business Insurance</a>
+                <a href="/academies/#estate-conservation">Estate Conservation</a>
+                <a href="/academies/#health-planning">Health Planning</a>
+                <a href="/academies/">View all academies →</a>
+            </div></details>
+            <details><summary>Certification</summary><div class="giya-nav__mobile-sub">
+                <a href="/readiness/">Certified Advisor</a>
+                <a href="/certification/">Full guide →</a>
+                <a href="/fellows/">GIYA Fellow</a>
+            </div></details>
+            <a href="/solutions/">Organizational Solutions</a>
+            <a href="keyman/">Keyman</a>
+            <a href="#pathways">Membership</a>
+            <a href="/login.html?return=/">Sign in</a>
         </div>
     </header>
 
@@ -240,7 +284,7 @@
                         <img src="/assets/giya-logo.png" alt="GIYA Institute — Guiding Advisors. Protecting Legacies." width="147" height="147" class="giya-logo giya-logo--hero" decoding="async">
                         <h1 class="type-h1 font-bold text-g-black leading-snug tracking-tight mt-2">Guiding Advisors.<br>Protecting Legacies.</h1>
                         <p class="mt-5 text-g-slate-600 type-body leading-relaxed">
-                            Build expertise in Business Insurance, Wealth Management, Estate Conservation, Health Planning, and Practice Leadership.
+                            The GIYA Institute empowers tenured advisors in <strong class="text-g-black">business insurance</strong>, agency building, and mentoring — across wealth, health, estate, succession, and practice leadership.
                         </p>
                         <div class="mt-10 flex flex-col sm:flex-row gap-4">
                             <a href="/readiness/" class="touch-target inline-flex items-center justify-center gap-2 bg-g-black hover:bg-g-ink text-white px-8 py-4 rounded-full font-semibold text-sm shadow-soft transition-all min-h-[44px]">
@@ -250,7 +294,7 @@
                                 <i class="fa-solid fa-building-columns text-lg"></i> Explore the Keyman Resource Center
                             </a>
                         </div>
-                        <p class="mt-4 type-small text-g-slate-500">GIYA Institute — assessment first, then certification, community, and academies when you are ready.</p>
+                        <p class="mt-4 type-small text-g-slate-500">Assessment first · then academies, certification, SPIKE programs, and organizational solutions when you are ready.</p>
                         <div id="giya-hero-explore" class="hidden mt-8" aria-label="Suggested next steps">
                             <div class="flex flex-wrap items-center gap-2" id="giya-explore-chips"></div>
                             <button type="button" id="giya-explore-dismiss" class="mt-3 type-small text-g-slate-500 hover:text-g-black font-semibold touch-target min-h-[36px]">Hide suggestions</button>
@@ -320,6 +364,34 @@
             </div>
         </section>
 
+        <section id="institute" class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-14 md:py-18 scroll-mt-28">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <p class="type-small font-bold uppercase tracking-widest text-g-gold mb-3">GIYA Institute</p>
+                <h2 class="type-h2 font-bold text-g-black">Advisor empowerment · agency building · mentoring</h2>
+                <p class="mt-4 text-g-slate-600 type-body">Business insurance remains our flagship — SPIKE programs and organizational solutions extend what you build with clients into what you build with your practice and team.</p>
+            </div>
+            <div class="giya-pillar-trio mb-10">
+                <article class="giya-pillar-trio__item">
+                    <h3><i class="fa-solid fa-user-graduate mr-2"></i>Advisor Empowerment</h3>
+                    <p>Assessment, Keyman frameworks, discipline academies, and certification that build boardroom confidence.</p>
+                </article>
+                <article class="giya-pillar-trio__item">
+                    <h3><i class="fa-solid fa-people-group mr-2"></i>Agency Building</h3>
+                    <p>SPIKE Practice Builder, cohort implementation, and workshops that scale case flow and productivity.</p>
+                </article>
+                <article class="giya-pillar-trio__item">
+                    <h3><i class="fa-solid fa-handshake-angle mr-2"></i>Mentoring</h3>
+                    <p>SPIKE Mentor Certification, Fellow-led disciplines, and facilitator pathways for developing advisors.</p>
+                </article>
+            </div>
+            <div class="giya-hub-grid giya-hub-grid--2 giya-hub-grid--4">
+                <a href="/institute/" class="giya-hub-card"><span class="giya-hub-card__icon"><i class="fa-solid fa-building-columns"></i></span><h3>About the Institute</h3><p>Mission, flywheel, and how GIYA is organized.</p><span class="giya-hub-card__link">Explore →</span></a>
+                <a href="/academies/" class="giya-hub-card is-featured"><span class="giya-hub-card__icon"><i class="fa-solid fa-graduation-cap"></i></span><h3>Academies</h3><p>Six disciplines + four SPIKE programs.</p><span class="giya-hub-card__link">View all →</span></a>
+                <a href="/certification/" class="giya-hub-card"><span class="giya-hub-card__icon"><i class="fa-solid fa-award"></i></span><h3>Certification</h3><p>From Certified Advisor to GIYA Fellow.</p><span class="giya-hub-card__link">See ladder →</span></a>
+                <a href="/solutions/" class="giya-hub-card"><span class="giya-hub-card__icon"><i class="fa-solid fa-building"></i></span><h3>Org Solutions</h3><p>Workshops, cohorts, licensing for agencies.</p><span class="giya-hub-card__link">Learn more →</span></a>
+            </div>
+        </section>
+
         <section id="assessment" class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16 md:py-20 scroll-mt-28">
             <div class="bg-g-black text-g-pearl rounded-3xl p-8 md:p-12 shadow-soft overflow-hidden relative">
                 <div class="absolute inset-0 bg-gradient-to-br from-g-gold/10 via-transparent to-transparent pointer-events-none" aria-hidden="true"></div>
@@ -352,8 +424,8 @@
                     <div>
                         <p class="type-small font-bold uppercase tracking-widest text-g-gold mb-3">Certification path</p>
                         <h2 class="type-h2 font-display font-semibold text-g-black">Aspire to GIYA Fellow</h2>
-                        <p class="mt-4 text-g-slate-600 type-body leading-relaxed">Four earned levels — from first assessment through academy mastery. <strong class="text-g-black">GIYA Fellow</strong> is recognition for discipline leadership — not a subscription (see <strong class="text-g-black">GIYA Elite</strong> for the paid ecosystem tier).</p>
-                        <a href="/fellows/#certification" class="touch-target inline-flex mt-6 items-center gap-2 text-g-gold font-bold type-small hover:underline min-h-[44px]">Full certification guide <i class="fa-solid fa-arrow-right text-xs"></i></a>
+                        <p class="mt-4 text-g-slate-600 type-body leading-relaxed">Six designations — from first assessment through SPIKE mentoring, academy mastery, and Fellow recognition. <strong class="text-g-black">GIYA Fellow</strong> is earned, not purchased (see <strong class="text-g-black">GIYA Elite</strong> for the paid ecosystem tier).</p>
+                        <a href="/certification/" class="touch-target inline-flex mt-6 items-center gap-2 text-g-gold font-bold type-small hover:underline min-h-[44px]">Full certification guide <i class="fa-solid fa-arrow-right text-xs"></i></a>
                     </div>
                     <div class="bg-white border border-g-slate-200 rounded-2xl p-6 md:p-8 shadow-card">
                         <div class="g-cert-step is-current">
@@ -368,11 +440,16 @@
                         </div>
                         <div class="g-cert-step">
                             <span class="g-cert-num">3</span>
+                            <h3 class="font-bold text-g-black">GIYA Certified SPIKE Mentor</h3>
+                            <p class="type-small text-g-slate-600 mt-1">Mentor certification · develop other advisors</p>
+                        </div>
+                        <div class="g-cert-step">
+                            <span class="g-cert-num">4</span>
                             <h3 class="font-bold text-g-black">GIYA Legacy Consultant</h3>
                             <p class="type-small text-g-slate-600 mt-1">Master Class academies completed · advanced case work</p>
                         </div>
                         <div class="g-cert-step">
-                            <span class="g-cert-num">4</span>
+                            <span class="g-cert-num">5</span>
                             <h3 class="font-bold text-g-black">GIYA Fellow</h3>
                             <p class="type-small text-g-slate-600 mt-1">Earned designation · application &amp; recognition</p>
                         </div>
@@ -1148,25 +1225,17 @@
         </section>
     </main>
 
-    <footer class="bg-g-black text-g-slate-200 py-10">
-        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 flex flex-col md:flex-row justify-between items-center gap-6 type-small">
-            <div class="flex items-center gap-3 flex-wrap justify-center md:justify-start">
-                <img src="/assets/giya-logo.png" alt="GIYA Institute" width="140" height="140" class="giya-logo giya-logo--footer giya-logo--on-dark" loading="lazy" decoding="async">
-                <span class="text-g-slate-400 hidden sm:inline">Guiding Advisors. Protecting Legacies.</span>
-            </div>
-            <a href="/readiness/" class="touch-target inline-flex items-center gap-2 bg-g-gold hover:bg-g-gold/90 text-g-black px-6 py-2.5 rounded-full font-bold min-h-[44px]">Take Assessment</a>
-            <p class="text-g-slate-400 text-center md:text-right">
-                <a href="https://joingiya.com/" class="hover:text-g-pearl transition-colors">joingiya.com</a>
-                <span class="text-g-slate-600 mx-2">·</span>
-                © 2026 Nilo B. Matunog. Educational content — not legal or tax advice.
-            </p>
-        </div>
-    </footer>
+    <div data-giya-footer></div>
 
+    <script src="/assets/giya-nav.js"></script>
     <script src="/assets/giya-auth.js"></script>
     <script src="/assets/giya-pricing.js"></script>
     <script src="/assets/giya-onboarding.js"></script>
 <script>
+        if (window.GiyaNav && document.querySelector('[data-giya-header]')) {
+            GiyaNav.initDropdowns(document.querySelector('[data-giya-header]'));
+            GiyaNav.initMobileMenu(document.querySelector('[data-giya-header]'));
+        }
         const GATE_ORDER = { preview: 0, basic: 1, advanced: 2, master: 3 };
         const STORAGE_KEY = 'giya_academy_tier';
 

@@ -79,15 +79,23 @@ Internal DB keys (`preview`, `professional`, `elite`, survey `General`/`Warm`/�
 ## Long-term information architecture
 
 ```
-GIYA
-├── Learn
-├── Academies
-├── Resource Library      ← Keyman, frameworks, templates (partially live)
-├── Community
-├── Fellows               ← multi-mentor roster (v2)
-├── Events
-├── Certification         ← formalized L1–L4 path (v2)
-└── Mentor Network
+GIYA Institute
+├── Institute (/institute/)           — mission, empowerment · agency · mentoring
+├── Academies (/academies/)
+│   ├── Discipline academies (6)
+│   │   Business Insurance · Estate · Health · Wealth · Succession · Practice Leadership
+│   └── SPIKE programs (4)
+│       Advisor Launch · Practice Builder · Mentor Certification · Leadership Accelerator
+├── Certification (/certification/)
+│   Certified Advisor · Professional Advisor · SPIKE Mentor · SPIKE Facilitator
+│   Legacy Consultant · GIYA Fellow
+├── Organizational Solutions (/solutions/)
+│   Agency workshops · Mentor certification · Cohort implementation
+│   Curriculum licensing · Custom leadership programs
+├── Resource Library                  — /keyman/ (live)
+├── Community                         — free membership · assessment funnel
+├── Fellows (/fellows/)               — multi-mentor roster
+└── Events                            — (planned)
 ```
 
 ### v1 → v2 URL mapping (planned)
@@ -140,8 +148,8 @@ See **`FUNNEL.md`** for live CTA order.
 | Phase | Focus |
 |-------|--------|
 | **Now (v1)** | Funnel, Keyman, assessment, community, Professional, Business Academy, GIYA Elite subscription |
-| **Live (v2 preview)** | `/fellows/`, `#certification`, `#fellows` homepage preview, `#contributors` + API + admin |
-| **Next** | Resource Library hub, Certification tracker, Events, live Fellow roster beyond Chief Mentor |
+| **Live (v2 preview)** | `/institute/`, `/academies/`, `/certification/`, `/solutions/`, `/fellows/`, shared nav, SPIKE program framing |
+| **Next** | SPIKE program delivery, org solution intake, Certification tracker, Events, live Fellow roster beyond Chief Mentor |
 
 ---
 
