@@ -21,7 +21,7 @@
   };
 
   const CERT_LEVELS = [
-    { name: 'GIYA Certified Advisor', href: '/readiness/', note: 'Assessment · community · foundations' },
+    { name: 'GIYA Certified Advisor', href: '/business-insurance/#assessment', note: 'BI readiness assessment · foundations' },
     { name: 'GIYA Professional Advisor', href: '/certification/#professional', note: 'Membership · master class depth' },
     { name: 'GIYA Certified SPIKE Mentor', href: '/certification/#spike-mentor', note: 'Mentoring track · agency building' },
     { name: 'GIYA Certified SPIKE Facilitator', href: '/certification/#spike-facilitator', note: 'Cohort & workshop delivery' },
@@ -85,16 +85,18 @@
       </div>
       <a href="/solutions/" class="giya-nav__link">Solutions</a>
       <a href="/keyman/" class="giya-nav__link">Keyman</a>
-      <a href="/readiness/" class="giya-nav__link">Assessment</a>
+      <a href="/business-insurance/" class="giya-nav__link">Business Insurance</a>
     </div>
     <div class="giya-nav__actions">
       ${extraActions || ''}
-      <a href="/readiness/" class="hidden sm:inline-flex bg-g-gold hover:bg-g-gold/90 text-g-black px-5 py-2.5 rounded-full text-sm font-bold transition-colors shadow-gold touch-target items-center min-h-[44px]">Take Assessment</a>
+      <a href="/business-insurance/#assessment" class="hidden sm:inline-flex bg-g-gold hover:bg-g-gold/90 text-g-black px-5 py-2.5 rounded-full text-sm font-bold transition-colors shadow-gold touch-target items-center min-h-[44px]">BI Assessment</a>
       <button type="button" class="giya-nav__menu-btn lg:hidden" data-nav-mobile-toggle aria-label="Open menu"><i class="fa-solid fa-bars"></i></button>
     </div>
   </nav>
   <div class="giya-nav__mobile lg:hidden" data-nav-mobile hidden>
-    <a href="/readiness/" class="text-g-gold font-bold">Take Assessment</a>
+    <a href="/business-insurance/#assessment" class="text-g-gold font-bold">Business Insurance Assessment</a>
+    <a href="/business-insurance/">Business Insurance Academy</a>
+    <a href="/spike/mentor-workshop/">SPIKE Mentor Workshop</a>
     <a href="/institute/">Institute</a>
     <details><summary>Academies</summary><div class="giya-nav__mobile-sub">
       <p class="text-[10px] font-bold uppercase tracking-widest text-g-goldMuted py-2">Disciplines</p>
@@ -138,7 +140,7 @@
     <div>
       <h4>Learn</h4>
       <ul>
-        <li><a href="/readiness/">Advisor Readiness Assessment</a></li>
+        <li><a href="/business-insurance/#assessment">BI Readiness Assessment</a></li>
         <li><a href="/keyman/">Keyman Resource Center</a></li>
         <li><a href="/business-insurance/">Business Insurance Academy</a></li>
         <li><a href="/spike/mentor-workshop/">SPIKE Mentor Workshop</a></li>
