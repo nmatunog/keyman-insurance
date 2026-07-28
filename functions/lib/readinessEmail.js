@@ -10,10 +10,10 @@ function bonusLinks(env) {
     discovery: `${base}/assets/bonus/keyman-discovery-framework.html`,
     conversation: `${base}/assets/bonus/business-insurance-conversation-guide.html`,
     readiness: `${base}/readiness/`,
-    join: `${base}/#community-signup`,
+    join: `${base}/business-insurance/#community-signup`,
     keyman: `${base}/keyman/`,
-    waitlist: `${base}/#waitlist`,
-    masterClass: `${base}/`,
+    waitlist: `${base}/business-insurance/#waitlist`,
+    masterClass: `${base}/business-insurance/`,
   };
 }
 

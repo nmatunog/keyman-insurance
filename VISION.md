@@ -79,7 +79,9 @@ Internal DB keys (`preview`, `professional`, `elite`, survey `General`/`Warm`/�
 ## Long-term information architecture
 
 ```
-GIYA Institute
+GIYA Institute (/)                    — portal: choose value proposition
+├── Business Insurance (/business-insurance/)  — flagship academy + assessment funnel
+├── SPIKE Mentor Development (/spike/mentor-workshop/)  — agency mentor workshop
 ├── Institute (/institute/)           — mission, empowerment · agency · mentoring
 ├── Academies (/academies/)
 │   ├── Discipline academies (6)
@@ -103,9 +105,9 @@ GIYA Institute
 | V2 section | Today |
 |------------|--------|
 | Learn | `/#platform`, readiness, pathways |
-| Academies | `/#business-academy`, `/#academy-pricing` |
+| Academies | `/business-insurance/#business-academy`, `/business-insurance/#academy-pricing` |
 | Resource Library | `/keyman/`, bonus guides |
-| Community | `/#community-signup`, `/#join` |
+| Community | `/business-insurance/#community-signup`, `/#join` |
 | Fellows | `/#founder` → evolve to `/fellows/` |
 | Events | *(not built)* |
 | Certification | assessment + pathways copy |

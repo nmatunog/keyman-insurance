@@ -4,7 +4,7 @@
 (function () {
   const ACADEMIES = {
     disciplines: [
-      { name: 'Business Insurance', href: '/#business-academy', live: true, note: 'Master Class · live now' },
+      { name: 'Business Insurance', href: '/business-insurance/', live: true, note: 'Master Class · live now' },
       { name: 'Estate Conservation', href: '/academies/#estate-conservation', note: 'Trusts · estate freeze · transfer' },
       { name: 'Health Planning', href: '/academies/#health-planning', note: 'Critical illness · HNW health' },
       { name: 'Wealth Management', href: '/academies/#wealth-management', note: 'Portfolio · preservation' },
@@ -110,7 +110,7 @@
     <a href="/solutions/">Organizational Solutions</a>
     <a href="/keyman/">Keyman Resource Center</a>
     <a href="/fellows/">GIYA Fellows</a>
-    <a href="/#pathways">Membership</a>
+    <a href="/business-insurance/#pathways">Membership</a>
     <a href="/login.html">Sign in</a>
   </div>
 </header>`;
@@ -133,7 +133,6 @@
         <li><a href="/certification/">Certification</a></li>
         <li><a href="/fellows/">GIYA Fellows</a></li>
         <li><a href="/solutions/">Organizational Solutions</a></li>
-        <li><a href="/spike/mentor-workshop/">SPIKE Mentor Workshop</a></li>
       </ul>
     </div>
     <div>
@@ -141,8 +140,9 @@
       <ul>
         <li><a href="/readiness/">Advisor Readiness Assessment</a></li>
         <li><a href="/keyman/">Keyman Resource Center</a></li>
-        <li><a href="/#business-academy">Business Insurance Academy</a></li>
-        <li><a href="/#community-signup">Free membership</a></li>
+        <li><a href="/business-insurance/">Business Insurance Academy</a></li>
+        <li><a href="/spike/mentor-workshop/">SPIKE Mentor Workshop</a></li>
+        <li><a href="/business-insurance/#community-signup">Free membership</a></li>
       </ul>
     </div>
     <div>

@@ -6,11 +6,11 @@ export const RESULT_STORAGE_KEY = 'giya_readiness_result';
 export const SITE_LINKS = {
   keymanResource: '/keyman/',
   assessment: '/readiness/assessment',
-  joinCommunity: '/#community-signup',
+  joinCommunity: '/business-insurance/#community-signup',
   nurture: '/#platform',
-  professionalPlans: '/#giya-plans',
+  professionalPlans: '/business-insurance/#giya-plans',
   masterClassLearn: '/',
-  waitlist: '/#waitlist',
+  waitlist: '/business-insurance/#waitlist',
   register: '/register.html',
   home: '/',
 };

@@ -7,9 +7,9 @@ All product copy, CTAs, and onboarding should follow this order. Do not push bil
 | 1 | **Keyman Resource Center** | `/keyman/` |
 | 2 | **GIYA Advisor Readiness Assessment** | `/readiness/assessment` |
 | 3 | **Personalized result** | `/readiness/thank-you` (after submit) |
-| 4 | **Free GIYA membership** | `/#community-signup` |
+| 4 | **Free GIYA membership** | `/business-insurance/#community-signup` |
 | 5 | **Nurture & engagement** | Bonus guides, email, `/#platform` |
-| 6 | **GIYA Professional** | `/#giya-plans` (soft CTA after exploration) |
+| 6 | **GIYA Professional** | `/business-insurance/#giya-plans` (soft CTA after exploration) |
 | 7 | **Academy purchases** | `/` (home first; use nav when ready) |
 | 8 | **GIYA Elite** | ₱2,999/mo subscription — full ecosystem, all Academies & coaching |
 

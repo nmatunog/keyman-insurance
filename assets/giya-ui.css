@@ -1201,3 +1201,199 @@ span.bg-g-gold,
 .giya-site-footer a:hover {
   color: #f5f3ee;
 }
+
+/* ——— JoinGIYA portal landing (/) ——— */
+.giya-portal-hero {
+  position: relative;
+  min-height: min(72vh, 40rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% -10%, rgba(224, 196, 122, 0.22), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 0% 100%, rgba(10, 10, 11, 0.06), transparent 50%),
+    linear-gradient(165deg, #f5f3ee 0%, #ffffff 45%, #f4f5f6 100%);
+}
+
+.giya-portal-hero__inner {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 4.5rem 1.25rem 3rem;
+  text-align: center;
+}
+
+.giya-portal-logo {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: min(5.5rem, 28vw);
+}
+
+.giya-portal-title {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: clamp(2rem, 5vw + 0.5rem, 3.25rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: #0a0a0b;
+  margin: 1rem 0 0;
+}
+
+.giya-portal-lead {
+  margin: 1.25rem auto 0;
+  max-width: 28rem;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: #6b7280;
+}
+
+.giya-portal-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.giya-portal-paths {
+  margin-top: -1rem;
+}
+
+.giya-vp-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .giya-vp-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+.giya-vp-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  text-decoration: none;
+  color: inherit;
+  padding: 1.5rem 1.35rem;
+  border-radius: 1.25rem;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  min-height: 14rem;
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+a.giya-vp-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(224, 196, 122, 0.65);
+  box-shadow: 0 16px 40px -16px rgba(10, 10, 11, 0.18);
+}
+
+.giya-vp-card--live {
+  border-color: rgba(224, 196, 122, 0.45);
+  background: linear-gradient(145deg, #fffef8 0%, #ffffff 55%, #faf8f3 100%);
+}
+
+.giya-vp-card--spike {
+  background: linear-gradient(145deg, #f5f8fc 0%, #ffffff 50%, #faf6eb 100%);
+  border-color: rgba(23, 58, 103, 0.22);
+}
+
+.giya-vp-card--soon {
+  background: #fafaf9;
+  opacity: 0.95;
+}
+
+.giya-vp-card__status {
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7a5c18;
+  background: rgba(224, 196, 122, 0.28);
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  margin-bottom: 0.85rem;
+}
+
+.giya-vp-card__status--soon {
+  color: #6b7280;
+  background: #f4f5f6;
+}
+
+.giya-vp-card__icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0a0a0b;
+  color: #e0c47a;
+  font-size: 1.1rem;
+  margin-bottom: 0.85rem;
+}
+
+.giya-vp-card--spike .giya-vp-card__icon {
+  background: #173a67;
+  color: #e5b441;
+}
+
+.giya-vp-card h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: #0a0a0b;
+}
+
+.giya-vp-card p {
+  margin: 0.55rem 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: #6b7280;
+  flex-grow: 1;
+}
+
+.giya-vp-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.25rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #a18745;
+  text-decoration: none;
+}
+
+a.giya-vp-card:hover .giya-vp-card__link,
+.giya-vp-card__link:hover {
+  color: #0a0a0b;
+}
+
+.giya-portal-secondary {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem 1.5rem;
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.giya-portal-secondary a {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-decoration: none;
+}
+
+.giya-portal-secondary a:hover {
+  color: #0a0a0b;
+}
