@@ -1,0 +1,132 @@
+/**
+ * SPIKE Mentor Development Workshop — page styles
+ * Blue/gold theme; complements /assets/giya-ui.css
+ */
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #F8FAFC;
+  color: #0F172A;
+}
+
+.giya-gradient-text {
+  background: linear-gradient(135deg, #102F55 0%, #173A67 50%, #C89522 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.spike-gradient-text {
+  background: linear-gradient(135deg, #E5B441 0%, #C89522 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.giya-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+}
+
+.giya-card-hover {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.giya-card-hover:hover {
+  border-color: #E5B441;
+  box-shadow: 0 10px 25px -5px rgba(23, 58, 103, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  transform: translateY(-2px);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #173A67;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #C89522;
+  outline-offset: 2px;
+}
+
+/* Number inputs: hide spinners, keep textfield appearance */
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Toast notifications */
+#spike-toast {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 60;
+  max-width: 28rem;
+  padding: 1rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border: 1px solid transparent;
+  opacity: 0;
+  transform: translateY(0.5rem);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+@media (min-width: 640px) {
+  #spike-toast {
+    font-size: 0.875rem;
+  }
+}
+
+#spike-toast.spike-toast-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#spike-toast.spike-toast-ok {
+  background: #102F55;
+  color: #fff;
+  border-color: #C89522;
+}
+
+#spike-toast.spike-toast-err {
+  background: #450a0a;
+  color: #fff;
+  border-color: rgba(248, 113, 113, 0.4);
+}
+
+#spike-toast .spike-toast-icon-ok {
+  color: #E5B441;
+}
+
+#spike-toast .spike-toast-icon-err {
+  color: #fca5a5;
+}

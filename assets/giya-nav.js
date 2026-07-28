@@ -14,6 +14,7 @@
     spike: [
       { name: 'SPIKE Advisor Launch', href: '/academies/#spike-advisor-launch', note: 'Enter business insurance segment' },
       { name: 'SPIKE Practice Builder', href: '/academies/#spike-practice-builder', note: 'Agency building & productivity' },
+      { name: 'SPIKE Mentor Workshop', href: '/spike/mentor-workshop/', live: true, note: '3-day mentor development · book now' },
       { name: 'SPIKE Mentor Certification', href: '/academies/#spike-mentor', note: 'Coach & develop advisors' },
       { name: 'SPIKE Leadership Accelerator', href: '/academies/#spike-leadership', note: 'Lead teams & organizations' },
     ],
@@ -132,6 +133,7 @@
         <li><a href="/certification/">Certification</a></li>
         <li><a href="/fellows/">GIYA Fellows</a></li>
         <li><a href="/solutions/">Organizational Solutions</a></li>
+        <li><a href="/spike/mentor-workshop/">SPIKE Mentor Workshop</a></li>
       </ul>
     </div>
     <div>

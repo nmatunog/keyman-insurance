@@ -144,6 +144,34 @@
             </section>
 
             <section class="bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
+                <div class="px-5 py-4 border-b border-white/10 flex flex-wrap justify-between items-center gap-3">
+                    <div>
+                        <h2 class="font-bold">SPIKE Mentor Workshop inquiries</h2>
+                        <p class="text-xs text-white/50 mt-0.5" id="spike-workshop-count">Loading…</p>
+                    </div>
+                    <a href="/spike/mentor-workshop/" class="text-xs text-g-gold hover:underline font-semibold">Workshop page</a>
+                    <button type="button" id="refresh-spike-workshop" class="text-xs bg-white/10 hover:bg-white/15 px-3 py-1.5 rounded-lg font-semibold">Refresh</button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead class="text-white/50 text-left">
+                            <tr class="border-b border-white/10">
+                                <th class="p-3">Date</th>
+                                <th class="p-3">Name</th>
+                                <th class="p-3">Agency</th>
+                                <th class="p-3">Email</th>
+                                <th class="p-3">Mobile</th>
+                                <th class="p-3">Role</th>
+                                <th class="p-3">Timeline</th>
+                            </tr>
+                        </thead>
+                        <tbody id="spike-workshop-rows"></tbody>
+                    </table>
+                </div>
+                <p id="spike-workshop-empty" class="hidden p-8 text-center text-white/50 text-sm">No workshop inquiries yet.</p>
+            </section>
+
+            <section class="bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
                 <div class="px-5 py-4 border-b border-white/10 flex justify-between items-center">
                     <h2 class="font-bold">Pending payments</h2>
                 </div>
@@ -354,6 +382,39 @@ GIYA — Guiding Advisors. Protecting Legacies.`;
         document.getElementById('refresh-leads').addEventListener('click', loadAssessments);
         document.getElementById('refresh-waitlist').addEventListener('click', loadWaitlist);
         document.getElementById('refresh-contributors')?.addEventListener('click', loadContributors);
+        document.getElementById('refresh-spike-workshop')?.addEventListener('click', loadSpikeWorkshop);
+
+        async function loadSpikeWorkshop() {
+            const { ok, data } = await GiyaAuth.api('/admin/spike-workshop');
+            const tbody = document.getElementById('spike-workshop-rows');
+            const empty = document.getElementById('spike-workshop-empty');
+            const countEl = document.getElementById('spike-workshop-count');
+            if (!ok || !tbody) {
+                if (countEl) countEl.textContent = 'Unable to load';
+                return;
+            }
+            const rows = data.inquiries || [];
+            if (countEl) countEl.textContent = `${rows.length} inquiry(ies)`;
+            if (!rows.length) {
+                tbody.innerHTML = '';
+                empty?.classList.remove('hidden');
+                return;
+            }
+            empty?.classList.add('hidden');
+            tbody.innerHTML = rows
+                .map(
+                    (r) => `<tr class="border-b border-white/5 hover:bg-white/5">
+                <td class="p-3 text-xs text-white/50">${new Date(r.created_at * 1000).toLocaleString()}</td>
+                <td class="p-3">${esc(r.full_name)}</td>
+                <td class="p-3">${esc(r.agency_name)}</td>
+                <td class="p-3"><a href="mailto:${esc(r.email)}" class="text-g-gold hover:underline">${esc(r.email)}</a></td>
+                <td class="p-3"><a href="tel:${esc(r.mobile)}" class="text-g-gold hover:underline">${esc(r.mobile)}</a></td>
+                <td class="p-3 text-xs">${esc(r.designation_label || r.designation)}</td>
+                <td class="p-3 text-xs">${esc(r.impl_timeline_label || r.impl_timeline)}</td>
+            </tr>`
+                )
+                .join('');
+        }
 
         async function loadContributors() {
             const { ok, data } = await GiyaAuth.api('/admin/contributors');
@@ -456,6 +517,7 @@ GIYA — Guiding Advisors. Protecting Legacies.`;
 
             loadWaitlist();
             loadContributors();
+            loadSpikeWorkshop();
             loadAssessments().then(() => {
                 const el = document.getElementById('stat-leads');
                 if (el) {
