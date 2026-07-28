@@ -22,9 +22,7 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                    },
+                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
                     colors: {
                         g: {
                             black: '#0A0A0B',
@@ -32,20 +30,9 @@
                             pearl: '#F5F3EE',
                             white: '#FFFFFF',
                             gold: '#E0C47A',
-                            goldLight: '#F0D9A4',
                             goldMuted: '#A18745',
-                            slate: {
-                                50: '#F4F5F6',
-                                200: '#D1D5DB',
-                                400: '#6B7280',
-                                600: '#374151',
-                                800: '#1F2937',
-                            }
+                            slate: { 200: '#D1D5DB', 400: '#6B7280', 600: '#374151' }
                         }
-                    },
-                    boxShadow: {
-                        soft: '0 12px 40px -12px rgba(10, 10, 11, 0.14)',
-                        gold: '0 4px 16px 0 rgba(224, 196, 122, 0.42), inset 0 1px 0 rgba(255, 252, 240, 0.45)',
                     }
                 }
             }
@@ -56,65 +43,76 @@
     <div data-giya-nav></div>
 
     <main>
-        <section class="giya-portal-hero" aria-labelledby="portal-heading">
-            <div class="giya-portal-hero__inner">
-                <img src="/assets/giya-logo.png" alt="GIYA Institute" width="180" height="180" class="giya-logo giya-logo--hero giya-portal-logo" decoding="async">
-                <h1 id="portal-heading" class="giya-portal-title">Guiding Advisors.<br>Protecting Legacies.</h1>
-                <p class="giya-portal-lead">Choose the path that matches where you are building next.</p>
-                <div class="giya-portal-cta">
-                    <a href="#paths" class="touch-target inline-flex items-center justify-center gap-2 bg-g-black hover:bg-g-ink text-white px-8 py-3.5 rounded-full font-bold text-sm min-h-[44px]">Explore programs</a>
-                    <a href="/readiness/" class="touch-target inline-flex items-center justify-center gap-2 border-2 border-g-gold text-g-goldMuted hover:bg-g-gold hover:text-g-black px-8 py-3.5 rounded-full font-bold text-sm min-h-[44px]">Take Assessment</a>
+        <!-- One composition: brand + path chooser -->
+        <section class="giya-portal" aria-labelledby="portal-heading">
+            <div class="giya-portal__glow" aria-hidden="true"></div>
+            <div class="giya-portal__inner">
+                <header class="giya-portal__brand giya-portal-anim" style="--d: 0ms">
+                    <img src="/assets/giya-logo.png" alt="GIYA Institute" width="200" height="200" class="giya-portal__logo" decoding="async">
+                    <h1 id="portal-heading" class="giya-portal__title">Guiding Advisors.<br>Protecting Legacies.</h1>
+                    <p class="giya-portal__lead">Pick the path that matches where you are building next.</p>
+                </header>
+
+                <div class="giya-portal__paths" role="list">
+                    <a href="/business-insurance/" class="giya-path giya-path--bi giya-portal-anim" style="--d: 80ms" role="listitem">
+                        <div class="giya-path__top">
+                            <span class="giya-path__badge">Live now</span>
+                            <span class="giya-path__mark" aria-hidden="true"><i class="fa-solid fa-building-shield"></i></span>
+                        </div>
+                        <h2 class="giya-path__name">Business Insurance</h2>
+                        <p class="giya-path__desc">Keyman · buy-sell · Master Class · readiness assessment for advisors serving business owners.</p>
+                        <span class="giya-path__cta">Enter Academy <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+                    </a>
+
+                    <a href="/spike/mentor-workshop/" class="giya-path giya-path--spike giya-portal-anim" style="--d: 160ms" role="listitem">
+                        <div class="giya-path__top">
+                            <span class="giya-path__badge">Live now</span>
+                            <span class="giya-path__mark" aria-hidden="true"><i class="fa-solid fa-chalkboard-user"></i></span>
+                        </div>
+                        <h2 class="giya-path__name">SPIKE Mentor Development</h2>
+                        <p class="giya-path__desc">3-day workshop for agency leaders — develop mentors who multiply practice-ready advisors.</p>
+                        <span class="giya-path__cta">Open workshop <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+                    </a>
                 </div>
+
+                <p class="giya-portal__hint giya-portal-anim" style="--d: 240ms">
+                    New here? Start with the
+                    <a href="/readiness/">Advisor Readiness Assessment</a>
+                    — free, ~3 minutes.
+                </p>
             </div>
         </section>
 
-        <section id="paths" class="giya-portal-paths scroll-mt-28" aria-labelledby="paths-heading">
-            <div class="max-w-6xl mx-auto px-5 sm:px-8 lg:px-10 pb-20 md:pb-28">
-                <div class="text-center max-w-2xl mx-auto mb-10">
-                    <p class="type-small font-bold uppercase tracking-widest text-g-gold mb-2">Value propositions</p>
-                    <h2 id="paths-heading" class="text-2xl md:text-3xl font-bold tracking-tight">Where do you want to grow?</h2>
+        <section class="giya-portal-more" aria-labelledby="more-heading">
+            <div class="giya-portal-more__inner">
+                <div class="giya-portal-more__head">
+                    <p class="giya-portal-more__eyebrow">Coming next</p>
+                    <h2 id="more-heading" class="giya-portal-more__title">More paths on the roadmap</h2>
                 </div>
-
-                <div class="giya-vp-grid">
-                    <a href="/business-insurance/" class="giya-vp-card giya-vp-card--live">
-                        <span class="giya-vp-card__status">Live</span>
-                        <span class="giya-vp-card__icon" aria-hidden="true"><i class="fa-solid fa-building-shield"></i></span>
-                        <h3>Business Insurance</h3>
-                        <p>Keyman, buy-sell, Master Class, readiness assessment, and boardroom tools for advisors serving business owners.</p>
-                        <span class="giya-vp-card__link">Enter Academy <i class="fa-solid fa-arrow-right text-xs"></i></span>
+                <div class="giya-portal-more__grid">
+                    <a href="/academies/" class="giya-path-soft">
+                        <span class="giya-path-soft__icon" aria-hidden="true"><i class="fa-solid fa-landmark"></i></span>
+                        <div>
+                            <h3>Estate &amp; Wealth Academies</h3>
+                            <p>Estate · wealth · health · succession depth</p>
+                        </div>
+                        <i class="fa-solid fa-arrow-right giya-path-soft__arrow" aria-hidden="true"></i>
                     </a>
-
-                    <a href="/spike/mentor-workshop/" class="giya-vp-card giya-vp-card--live giya-vp-card--spike">
-                        <span class="giya-vp-card__status">Live</span>
-                        <span class="giya-vp-card__icon" aria-hidden="true"><i class="fa-solid fa-chalkboard-user"></i></span>
-                        <h3>SPIKE Mentor Development</h3>
-                        <p>3-day workshop for agency leaders — multiply mentors who guide rookies from discovery to practice and leadership.</p>
-                        <span class="giya-vp-card__link">Workshop landing <i class="fa-solid fa-arrow-right text-xs"></i></span>
+                    <a href="/solutions/" class="giya-path-soft">
+                        <span class="giya-path-soft__icon" aria-hidden="true"><i class="fa-solid fa-building"></i></span>
+                        <div>
+                            <h3>Organizational Solutions</h3>
+                            <p>Workshops · cohorts · curriculum licensing</p>
+                        </div>
+                        <i class="fa-solid fa-arrow-right giya-path-soft__arrow" aria-hidden="true"></i>
                     </a>
-
-                    <div class="giya-vp-card giya-vp-card--soon" aria-disabled="true">
-                        <span class="giya-vp-card__status giya-vp-card__status--soon">Coming soon</span>
-                        <span class="giya-vp-card__icon" aria-hidden="true"><i class="fa-solid fa-landmark"></i></span>
-                        <h3>Estate &amp; Wealth Academies</h3>
-                        <p>Discipline depth across estate conservation, wealth management, health planning, and succession.</p>
-                        <a href="/academies/" class="giya-vp-card__link">View academies roadmap <i class="fa-solid fa-arrow-right text-xs"></i></a>
-                    </div>
-
-                    <div class="giya-vp-card giya-vp-card--soon" aria-disabled="true">
-                        <span class="giya-vp-card__status giya-vp-card__status--soon">Coming soon</span>
-                        <span class="giya-vp-card__icon" aria-hidden="true"><i class="fa-solid fa-building"></i></span>
-                        <h3>Organizational Solutions</h3>
-                        <p>Agency workshops, cohort implementation, curriculum licensing, and custom leadership programs.</p>
-                        <a href="/solutions/" class="giya-vp-card__link">Preview solutions <i class="fa-solid fa-arrow-right text-xs"></i></a>
-                    </div>
                 </div>
-
-                <div class="giya-portal-secondary">
-                    <a href="/institute/">About the Institute</a>
+                <nav class="giya-portal-more__links" aria-label="Institute shortcuts">
+                    <a href="/institute/">Institute</a>
                     <a href="/certification/">Certification</a>
-                    <a href="/fellows/">GIYA Fellows</a>
-                    <a href="/keyman/">Keyman Resource Center</a>
-                </div>
+                    <a href="/fellows/">Fellows</a>
+                    <a href="/keyman/">Keyman</a>
+                </nav>
             </div>
         </section>
     </main>
