@@ -21,7 +21,10 @@ function showFecDetail(id) {
   const box = document.getElementById('fecDetailBox');
   const text = document.getElementById('fecText');
   if (!box || !text || !fecDetails[id]) return;
-  text.innerHTML = `<strong class="text-giya-800">FEC Block #${id}:</strong> ${fecDetails[id]}`;
+  document.querySelectorAll('.fec-tile.is-active').forEach((el) => el.classList.remove('is-active'));
+  const tile = document.querySelector(`.fec-tile[onclick="showFecDetail(${id})"]`);
+  if (tile) tile.classList.add('is-active');
+  text.innerHTML = `<strong class="text-giya-900">FEC Block #${id}:</strong> ${fecDetails[id]}`;
   box.classList.add('border-giya-600');
 }
 

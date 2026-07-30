@@ -130,3 +130,22 @@ input[type="number"]::-webkit-outer-spin-button {
 #spike-toast .spike-toast-icon-err {
   color: #fca5a5;
 }
+
+/* FEC canvas — Gen X–friendly type scale & selected state */
+.fec-tile {
+  min-height: 8.5rem;
+}
+
+.fec-tile.is-active {
+  border-color: #173A67 !important;
+  box-shadow: 0 0 0 2px rgba(23, 58, 103, 0.2), 0 8px 20px -6px rgba(23, 58, 103, 0.15);
+}
+
+.fec-tile.is-active .w-11 {
+  background-color: #102F55;
+  color: #fff;
+}
+
+#fecDetailBox #fecText {
+  line-height: 1.65;
+}
