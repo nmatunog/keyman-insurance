@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GIYA Institute SPIKE Mentor Development Workshop — Hybrid format for out-of-town agencies. Pre-work + Zoom + 2 live days. Leaders leave certified to facilitate Rookie Academy sessions with the SPIKE kit.">
+    <link rel="canonical" href="https://joingiya.com/spike/mentor-workshop-hybrid/">
+    <link rel="icon" href="/assets/giya-logo.png" type="image/png">
+    <title>GIYA Institute | SPIKE Mentor Workshop — Hybrid (Out-of-Town)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        giya: {
+                            50: '#F5F8FC',
+                            100: '#E8EEF6',
+                            200: '#C8D7EC',
+                            300: '#9FBADB',
+                            400: '#5282BF',
+                            500: '#173A67',
+                            600: '#102F55',
+                            700: '#0B2545',
+                            800: '#07182E',
+                            900: '#030C19',
+                        },
+                        spike: {
+                            50: '#FDFBF5',
+                            100: '#FAF3E3',
+                            200: '#F4E5BD',
+                            300: '#EDD18E',
+                            400: '#E5B441',
+                            500: '#C89522',
+                            600: '#A97914',
+                            700: '#7D580C',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/assets/giya-ui.css">
+    <link rel="stylesheet" href="/assets/spike-workshop.css">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased custom-scrollbar selection:bg-giya-100 selection:text-giya-800">
+
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Brand Logo -->
+            <a href="/institute/" class="flex items-center space-x-3 group">
+                <img src="/assets/giya-logo.png" alt="GIYA Institute" class="h-10 w-auto">
+                <div>
+                    <span class="text-xs uppercase tracking-widest text-spike-600 font-extrabold block">GIYA Institute</span>
+                    <span class="text-xs sm:text-sm font-extrabold tracking-tight text-giya-900 block">SPIKE Mentor — Hybrid</span>
+                </div>
+            </a>
+
+            <!-- Desktop Links -->
+            <div class="hidden lg:flex items-center space-x-6 text-xs font-bold text-slate-600">
+                <a href="#overview" class="hover:text-giya-600 transition-colors">Overview</a>
+                <a href="#how-it-works" class="hover:text-giya-600 transition-colors">How Hybrid Works</a>
+                <a href="#curriculum" class="hover:text-giya-600 transition-colors">Curriculum</a>
+                <a href="#integration" class="hover:text-giya-600 transition-colors">Agency Integration</a>
+                <a href="#fec" class="hover:text-giya-600 transition-colors">The Canvas (FEC)</a>
+            </div>
+
+            <!-- Desktop Action & Mobile Toggle -->
+            <div class="flex items-center space-x-3">
+                <a href="/institute/" class="hidden sm:inline text-xs font-bold text-giya-600">← GIYA Institute</a>
+                <button onclick="openInquiryModal()" class="hidden sm:inline-flex px-5 py-2.5 rounded-xl bg-giya-600 hover:bg-giya-700 text-white font-bold text-xs sm:text-sm shadow-md shadow-giya-700/20 hover:shadow-giya-700/30 transition-all transform hover:-translate-y-0.5 items-center gap-2">
+                    <i class="fa-solid fa-building-user text-spike-400"></i>
+                    <span>Request Implementation</span>
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" aria-label="Toggle Navigation Menu" aria-expanded="false" id="mobileMenuBtn" class="lg:hidden p-2.5 rounded-xl bg-slate-100 text-slate-700 hover:text-giya-700 hover:bg-slate-200 focus:outline-none">
+                    <i class="fa-solid fa-bars text-lg" id="mobileMenuIcon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3">
+            <a href="#overview" onclick="toggleMobileMenu()" class="block py-2 text-sm font-bold text-slate-700 hover:text-giya-600">Overview</a>
+            <a href="#how-it-works" onclick="toggleMobileMenu()" class="block py-2 text-sm font-bold text-slate-700 hover:text-giya-600">How Hybrid Works</a>
+            <a href="#curriculum" onclick="toggleMobileMenu()" class="block py-2 text-sm font-bold text-slate-700 hover:text-giya-600">Curriculum</a>
+            <a href="#integration" onclick="toggleMobileMenu()" class="block py-2 text-sm font-bold text-slate-700 hover:text-giya-600">Agency Integration</a>
+            <a href="#fec" onclick="toggleMobileMenu()" class="block py-2 text-sm font-bold text-slate-700 hover:text-giya-600">The Canvas (FEC)</a>
+            <div class="pt-2">
+                <button onclick="toggleMobileMenu(); openInquiryModal();" class="w-full py-3 rounded-xl bg-giya-600 text-white font-bold text-sm shadow-md text-center flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-building-user text-spike-400"></i>
+                    <span>Request an Agency Implementation</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="overview" class="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden bg-gradient-to-b from-giya-50/80 via-slate-50 to-white border-b border-slate-200">
+        <div class="absolute top-0 right-1/4 w-96 h-96 bg-giya-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/3 left-10 w-80 h-80 bg-spike-400/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-4xl mx-auto">
+                
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-spike-100/70 border border-spike-300 text-spike-800 text-xs sm:text-sm font-bold tracking-wider uppercase mb-6 shadow-sm">
+                    <i class="fa-solid fa-plane-departure text-giya-600"></i> HYBRID · OUT-OF-TOWN AGENCIES
+                </div>
+                
+                <h1 class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-giya-900 mb-4 leading-none">
+                    SPIKE <span class="spike-gradient-text">MENTOR</span> <br>
+                    <span class="giya-gradient-text text-2xl sm:text-4xl md:text-5xl">HYBRID WORKSHOP</span>
+                </h1>
+
+                <p class="text-xs sm:text-sm font-bold tracking-widest text-slate-500 uppercase mb-6">
+                    Pre-work + Zoom + 2 Live Days
+                </p>
+
+                <!-- Key Motto Box -->
+                <div class="max-w-2xl mx-auto p-5 sm:p-7 rounded-2xl bg-white border border-slate-200 shadow-xl shadow-giya-900/5 mb-8 relative">
+                    <div class="text-xl sm:text-3xl font-black text-giya-900 mb-2">
+                        Leave <span class="text-spike-600">Certified to Facilitate</span> Rookie Academy Sessions
+                    </div>
+                    <p class="text-xs sm:text-base text-slate-600 font-medium leading-relaxed">
+                        A hybrid experiential workshop designed for out-of-town agencies. Complete pre-work + Zoom session, then 2 full live days including Day 2 afternoon Facilitator Revalida. Leaders leave certified to facilitate Rookie Academy sessions with the SPIKE kit (400–600 hour program).
+                    </p>
+                </div>
+
+                <!-- Core Quote Callout -->
+                <div class="inline-flex items-center gap-3 px-6 py-3.5 rounded-2xl bg-giya-900 text-white shadow-xl mb-10 text-xs sm:text-sm font-semibold text-left max-w-2xl">
+                    <i class="fa-solid fa-quote-left text-spike-400 text-2xl flex-shrink-0"></i>
+                    <div>
+                        <p class="text-slate-200">You don't just learn how to mentor. You become the <strong class="text-spike-400 font-bold">certified facilitator</strong> who transforms lives and builds the agency.</p>
+                    </div>
+                </div>
+
+                <!-- Call to Action Buttons -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <button onclick="openInquiryModal()" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-giya-600 hover:bg-giya-700 text-white font-bold text-base shadow-lg shadow-giya-600/20 hover:scale-[1.02] transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-building-circle-check text-spike-400"></i>
+                        <span>Request Implementation</span>
+                    </button>
+                    <a href="/spike/mentor-workshop/" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-bold text-base transition-all shadow-sm flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-building text-giya-600"></i>
+                        <span>Prefer 3-Day On-Site? See Standard Workshop</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Section: HOW HYBRID WORKS -->
+    <section id="how-it-works" class="py-20 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs uppercase tracking-widest text-spike-600 font-extrabold mb-2">Flexible Format for Out-of-Town Teams</h2>
+                <h3 class="text-3xl sm:text-4xl font-black text-giya-900">HOW THE HYBRID FORMAT WORKS</h3>
+                <p class="text-slate-600 mt-3 text-base font-medium">
+                    Combining remote pre-work and facilitation with 2 intensive live days, designed to minimize travel while maximizing impact.
+                </p>
+            </div>
+
+            <!-- Timeline Flow -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
+                
+                <div class="p-5 rounded-xl bg-blue-50 border border-blue-200 text-center relative">
+                    <div class="w-12 h-12 rounded-lg bg-blue-600 text-white flex items-center justify-center mx-auto mb-3 text-lg font-bold">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <div class="text-sm font-black text-blue-900 uppercase mb-2">Pre-Work</div>
+                    <p class="text-xs text-slate-700 font-medium">3–5 hours of self-paced modules, readings, and preparation materials</p>
+                </div>
+
+                <div class="p-5 rounded-xl bg-indigo-50 border border-indigo-200 text-center relative">
+                    <div class="w-12 h-12 rounded-lg bg-indigo-600 text-white flex items-center justify-center mx-auto mb-3 text-lg font-bold">
+                        <i class="fa-solid fa-video"></i>
+                    </div>
+                    <div class="text-sm font-black text-indigo-900 uppercase mb-2">Zoom Session</div>
+                    <p class="text-xs text-slate-700 font-medium">3–3.5 hours facilitated virtual session covering philosophy, frameworks, and field prep</p>
+                </div>
+
+                <div class="p-5 rounded-xl bg-amber-50 border border-amber-200 text-center relative">
+                    <div class="w-12 h-12 rounded-lg bg-amber-600 text-white flex items-center justify-center mx-auto mb-3 text-lg font-bold">
+                        <i class="fa-solid fa-people-line"></i>
+                    </div>
+                    <div class="text-sm font-black text-amber-900 uppercase mb-2">Field Interviews</div>
+                    <p class="text-xs text-slate-700 font-medium">Between Zoom and Live Day 1: complete real market validation interviews</p>
+                </div>
+
+                <div class="p-5 rounded-xl bg-giya-50 border border-giya-200 text-center relative">
+                    <div class="w-12 h-12 rounded-lg bg-giya-600 text-white flex items-center justify-center mx-auto mb-3 text-lg font-bold">
+                        <i class="fa-solid fa-calendar-day"></i>
+                    </div>
+                    <div class="text-sm font-black text-giya-900 uppercase mb-2">Live Day 1</div>
+                    <p class="text-xs text-slate-700 font-medium">Full-day experiential session: Canvas build, pitch, and stage-gate review</p>
+                </div>
+
+                <div class="p-5 rounded-xl bg-emerald-50 border border-emerald-200 text-center relative">
+                    <div class="w-12 h-12 rounded-lg bg-emerald-600 text-white flex items-center justify-center mx-auto mb-3 text-lg font-bold">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+                    <div class="text-sm font-black text-emerald-900 uppercase mb-2">Live Day 2</div>
+                    <p class="text-xs text-slate-700 font-medium">Morning: Execution & scaling. Afternoon: <strong>Full Facilitator Revalida</strong> & certification</p>
+                </div>
+
+            </div>
+
+            <!-- Key Outcome Banner -->
+            <div class="p-6 rounded-2xl bg-gradient-to-r from-giya-900 via-giya-800 to-giya-900 text-white text-center shadow-xl">
+                <div class="flex items-center justify-center gap-3 mb-2">
+                    <i class="fa-solid fa-certificate text-spike-400 text-2xl"></i>
+                    <span class="text-spike-400 font-extrabold text-sm uppercase tracking-widest">Certification Outcome</span>
+                </div>
+                <p class="text-lg sm:text-2xl font-black">
+                    Leaders leave certified to facilitate <span class="text-spike-400">400–600 hour SPIKE Rookie Academy sessions</span> with full kit and rubrics.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: THE SPIKE PARTICIPANT JOURNEY (condensed) -->
+    <section id="journey" class="py-16 bg-slate-50 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-xs uppercase tracking-widest text-spike-600 font-extrabold mb-2">The Capability Framework</h2>
+                <h3 class="text-2xl sm:text-3xl font-black text-giya-900">THE SPIKE PARTICIPANT JOURNEY</h3>
+                <p class="text-slate-600 mt-2 text-sm font-medium">
+                    In this workshop, mentors master the step-by-step roadmap that transforms new recruits into practice-ready, high-performing advisors.
+                </p>
+            </div>
+
+            <!-- Participant Journey Flow Horizontal Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+                
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-center relative group hover:border-giya-500 transition-colors">
+                    <div class="w-10 h-10 rounded-lg bg-giya-100 text-giya-700 flex items-center justify-center mx-auto mb-2 text-base font-bold">
+                        <i class="fa-solid fa-magnifying-glass-chart"></i>
+                    </div>
+                    <div class="text-xs font-black text-giya-900 uppercase">1. DISCOVER</div>
+                    <p class="text-[11px] text-slate-500 mt-1 font-medium">Find purpose and direction</p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-center relative group hover:border-giya-500 transition-colors">
+                    <div class="w-10 h-10 rounded-lg bg-amber-50 text-amber-700 flex items-center justify-center mx-auto mb-2 text-base font-bold">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <div class="text-xs font-black text-giya-900 uppercase">2. BUILD</div>
+                    <p class="text-[11px] text-slate-500 mt-1 font-medium">Validate a business model</p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-center relative group hover:border-giya-500 transition-colors">
+                    <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center mx-auto mb-2 text-base font-bold">
+                        <i class="fa-solid fa-id-card"></i>
+                    </div>
+                    <div class="text-xs font-black text-giya-900 uppercase">3. LICENSE</div>
+                    <p class="text-[11px] text-slate-500 mt-1 font-medium">Get qualified & onboarded</p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-center relative group hover:border-giya-500 transition-colors">
+                    <div class="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-700 flex items-center justify-center mx-auto mb-2 text-base font-bold">
+                        <i class="fa-solid fa-user-group"></i>
+                    </div>
+                    <div class="text-xs font-black text-giya-900 uppercase">4. ADVISE</div>
+                    <p class="text-[11px] text-slate-500 mt-1 font-medium">Serve clients with competence</p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-center relative group hover:border-giya-500 transition-colors">
+                    <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center mx-auto mb-2 text-base font-bold">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <div class="text-xs font-black text-giya-900 uppercase">5. EXECUTE</div>
+                    <p class="text-[11px] text-slate-500 mt-1 font-medium">Build activity & results</p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-center relative group hover:border-giya-500 transition-colors">
+                    <div class="w-10 h-10 rounded-lg bg-purple-50 text-purple-700 flex items-center justify-center mx-auto mb-2 text-base font-bold">
+                        <i class="fa-solid fa-sitemap"></i>
+                    </div>
+                    <div class="text-xs font-black text-giya-900 uppercase">6. MULTIPLY</div>
+                    <p class="text-[11px] text-slate-500 mt-1 font-medium">Develop leaders & scale</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: HYBRID CURRICULUM OVERVIEW -->
+    <section id="curriculum" class="py-20 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs uppercase tracking-widest text-spike-600 font-extrabold mb-2">Hybrid Program Structure</h2>
+                <h3 class="text-3xl sm:text-4xl font-black text-giya-900">HYBRID CURRICULUM OVERVIEW</h3>
+                <p class="text-slate-600 mt-3 text-base font-medium">
+                    Pre-work → Zoom → Field interviews → Live Day 1 → Live Day 2 (AM + PM Revalida).
+                </p>
+            </div>
+
+            <!-- Curriculum Phases -->
+            <div class="space-y-8">
+                
+                <!-- PHASE 1: Pre-Work + Zoom -->
+                <div class="giya-card rounded-2xl p-6 sm:p-8 border-t-4 border-t-blue-500">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="px-3 py-1 rounded-full bg-blue-50 text-blue-800 border border-blue-200 font-black text-xs uppercase tracking-wider">PHASE 1</span>
+                        <span class="text-xs font-bold text-slate-500"><i class="fa-regular fa-clock mr-1"></i>Pre-Work + Zoom (Remote)</span>
+                    </div>
+
+                    <h4 class="text-2xl font-black text-giya-900 mb-1">DISCOVER, PREPARE & VALIDATE</h4>
+                    <p class="text-blue-700 text-xs font-bold mb-4 uppercase tracking-wide">Foundational learning and field preparation.</p>
+
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm text-slate-700 font-medium">
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-blue-500 mt-0.5 flex-shrink-0"></i>
+                            <span>Complete pre-work modules: SPIKE philosophy, journey overview, mentor roles</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-blue-500 mt-0.5 flex-shrink-0"></i>
+                            <span>Zoom session: Personal discovery, target market selection, interview prep</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-blue-500 mt-0.5 flex-shrink-0"></i>
+                            <span>Coaching fundamentals and mentoring mindset</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-blue-500 mt-0.5 flex-shrink-0"></i>
+                            <span>Assignment: Conduct real field validation interviews before Live Day 1</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- PHASE 2: Live Day 1 -->
+                <div class="giya-card rounded-2xl p-6 sm:p-8 border-t-4 border-t-giya-600">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="px-3 py-1 rounded-full bg-giya-100 text-giya-800 border border-giya-200 font-black text-xs uppercase tracking-wider">PHASE 2</span>
+                        <span class="text-xs font-bold text-slate-500"><i class="fa-regular fa-clock mr-1"></i>Live Day 1 (In-Person)</span>
+                    </div>
+
+                    <h4 class="text-2xl font-black text-giya-900 mb-1">BUILD, TEST & PITCH</h4>
+                    <p class="text-giya-700 text-xs font-bold mb-4 uppercase tracking-wide">Turn evidence into a compelling business direction.</p>
+
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm text-slate-700 font-medium">
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-giya-600 mt-0.5 flex-shrink-0"></i>
+                            <span>Process and analyze real market evidence from field interviews</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-giya-600 mt-0.5 flex-shrink-0"></i>
+                            <span>Build the Financial Entrepreneurship Canvas (FEC) — all 10 components</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-giya-600 mt-0.5 flex-shrink-0"></i>
+                            <span>Complete Version 1.0 business concept</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-giya-600 mt-0.5 flex-shrink-0"></i>
+                            <span>Prepare and deliver 5-minute sample business pitch</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-giya-600 mt-0.5 flex-shrink-0"></i>
+                            <span>Stage-gate review, evaluation, and feedback from peers and facilitators</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-giya-600 mt-0.5 flex-shrink-0"></i>
+                            <span>Learn to guide, not do the work for participants</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- PHASE 3: Live Day 2 (AM + PM Revalida) -->
+                <div class="giya-card rounded-2xl p-6 sm:p-8 border-t-4 border-t-emerald-600">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-black text-xs uppercase tracking-wider">PHASE 3</span>
+                        <span class="text-xs font-bold text-slate-500"><i class="fa-regular fa-clock mr-1"></i>Live Day 2 (In-Person)</span>
+                    </div>
+
+                    <h4 class="text-2xl font-black text-giya-900 mb-1">DEVELOP, ACTIVATE & FACILITATE</h4>
+                    <p class="text-emerald-700 text-xs font-bold mb-4 uppercase tracking-wide">Morning: Execution & scaling. Afternoon: Full Facilitator Revalida.</p>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <div class="text-xs font-extrabold text-emerald-800 uppercase mb-3 flex items-center gap-2">
+                                <i class="fa-solid fa-sun"></i> Morning Session
+                            </div>
+                            <ul class="space-y-2.5 text-xs sm:text-sm text-slate-700 font-medium">
+                                <li class="flex items-start gap-2.5">
+                                    <i class="fa-solid fa-circle-check text-emerald-600 mt-0.5 flex-shrink-0"></i>
+                                    <span>Support licensing and onboarding milestones</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <i class="fa-solid fa-circle-check text-emerald-600 mt-0.5 flex-shrink-0"></i>
+                                    <span>Mentor the client-advisory process & Advisor Revalida standards</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <i class="fa-solid fa-circle-check text-emerald-600 mt-0.5 flex-shrink-0"></i>
+                                    <span>30-day activation planning and execution coaching</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <i class="fa-solid fa-circle-check text-emerald-600 mt-0.5 flex-shrink-0"></i>
+                                    <span>Coach the Revenue Engine (10-5-3-1-3) and pipeline management</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <i class="fa-solid fa-circle-check text-emerald-600 mt-0.5 flex-shrink-0"></i>
+                                    <span>Introduce the Leadership Engine & multiplication pathway</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="text-xs font-extrabold text-emerald-800 uppercase mb-3 flex items-center gap-2">
+                                <i class="fa-solid fa-award"></i> Afternoon: Facilitator Revalida
+                            </div>
+                            <ul class="space-y-2.5 text-xs sm:text-sm text-slate-700 font-medium">
+                                <li class="flex items-start gap-2.5">
+                                    <i class="fa-solid fa-circle-check text-emerald-600 mt-0.5 flex-shrink-0"></i>
+                                    <span><strong>Station 1 — Facilitate:</strong> Demonstrate facilitating a SPIKE session</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <i class="fa-solid fa-circle-check text-emerald-600 mt-0.5 flex-shrink-0"></i>
+                                    <span><strong>Station 2 — Gate:</strong> Conduct a stage-gate review and provide feedback</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <i class="fa-solid fa-circle-check text-emerald-600 mt-0.5 flex-shrink-0"></i>
+                                    <span><strong>Station 3 — Coach:</strong> One-on-one mentor coaching simulation</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <i class="fa-solid fa-circle-check text-emerald-600 mt-0.5 flex-shrink-0"></i>
+                                    <span><strong>Station 4 — Ops:</strong> Demonstrate kit setup and operating system</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <i class="fa-solid fa-certificate text-spike-600 mt-0.5 flex-shrink-0"></i>
+                                    <span><strong>Outcome:</strong> Pass = certified to facilitate 400–600 hr Rookie Academy with kit</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-emerald-50/80 border border-emerald-200 text-xs text-emerald-900 font-medium flex items-start gap-3">
+                        <i class="fa-solid fa-people-roof text-emerald-600 text-base mt-0.5"></i>
+                        <div>
+                            <strong>Certification Outcome:</strong> Leaders who pass the afternoon Revalida leave certified as SPIKE Rookie Academy facilitators, equipped with workbook, rubrics, and full implementation kit.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: AGENCY INTEGRATION (Same as standard, condensed) -->
+    <section id="integration" class="py-20 bg-slate-50 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs uppercase tracking-widest text-spike-600 font-extrabold mb-2">Seamless Agency Enhancement</h2>
+                <h3 class="text-3xl sm:text-4xl font-black text-giya-900">SPIKE STRENGTHENS YOUR EXISTING ONBOARDING</h3>
+                <p class="text-slate-600 mt-3 text-base font-medium">
+                    SPIKE is designed to work alongside your company's formal licensing, product knowledge, and compliance programs.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+                <!-- Left: What Agency Training Provides -->
+                <div class="p-6 sm:p-8 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-200 text-slate-800 text-xs font-bold uppercase mb-4">
+                            <i class="fa-solid fa-building"></i> Your Existing Agency Foundation
+                        </div>
+                        <h4 class="text-2xl font-black text-giya-900 mb-3">Company & Product Training</h4>
+                        <p class="text-slate-600 text-xs sm:text-sm mb-6 leading-relaxed">
+                            Essential company training establishes the necessary knowledge base and institutional compliance for every rookie.
+                        </p>
+                        
+                        <ul class="space-y-3 text-xs sm:text-sm text-slate-700 font-semibold">
+                            <li class="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-200">
+                                <i class="fa-solid fa-check text-slate-500"></i>
+                                <span>Regulatory licensing & compliance standards</span>
+                            </li>
+                            <li class="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-200">
+                                <i class="fa-solid fa-check text-slate-500"></i>
+                                <span>Product features, illustration, & underwriting</span>
+                            </li>
+                            <li class="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-200">
+                                <i class="fa-solid fa-check text-slate-500"></i>
+                                <span>Company systems & administrative processes</span>
+                            </li>
+                            <li class="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-200">
+                                <i class="fa-solid fa-check text-slate-500"></i>
+                                <span>Standard sales tools & company collateral</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Right: What SPIKE Adds -->
+                <div class="p-6 sm:p-8 rounded-2xl bg-giya-50 border-2 border-giya-200 flex flex-col justify-between relative overflow-hidden shadow-lg shadow-giya-900/5">
+                    <div class="absolute top-0 right-0 bg-spike-500 text-giya-900 text-[10px] font-black uppercase tracking-wider px-4 py-1 rounded-bl-xl">
+                        ENHANCEMENT LAYER
+                    </div>
+
+                    <div>
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-giya-100 text-giya-800 text-xs font-bold uppercase mb-4">
+                            <i class="fa-solid fa-rocket text-spike-600"></i> The SPIKE Integration Layer
+                        </div>
+                        <h4 class="text-2xl font-black text-giya-900 mb-3">Practical Execution & Growth</h4>
+                        <p class="text-giya-800 text-xs sm:text-sm mb-6 leading-relaxed font-medium">
+                            SPIKE transforms knowledge into field practice, personal ownership, and consistent activity.
+                        </p>
+
+                        <ul class="space-y-3 text-xs sm:text-sm text-giya-900 font-semibold">
+                            <li class="flex items-center gap-3 p-3 rounded-xl bg-white border border-giya-200 shadow-sm">
+                                <i class="fa-solid fa-plus-circle text-spike-600"></i>
+                                <span>Purpose & professional identity alignment</span>
+                            </li>
+                            <li class="flex items-center gap-3 p-3 rounded-xl bg-white border border-giya-200 shadow-sm">
+                                <i class="fa-solid fa-plus-circle text-spike-600"></i>
+                                <span>Target-market validation & Financial Entrepreneurship Canvas</span>
+                            </li>
+                            <li class="flex items-center gap-3 p-3 rounded-xl bg-white border border-giya-200 shadow-sm">
+                                <i class="fa-solid fa-plus-circle text-spike-600"></i>
+                                <span>Field application, mentor reflection & Advisor Revalida</span>
+                            </li>
+                            <li class="flex items-center gap-3 p-3 rounded-xl bg-white border border-giya-200 shadow-sm">
+                                <i class="fa-solid fa-plus-circle text-spike-600"></i>
+                                <span>Operating Revenue Engine (10-5-3-1-3) & early leadership</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Link to standard page for more detail -->
+            <div class="mt-8 text-center">
+                <a href="/spike/mentor-workshop/#integration" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white border border-slate-300 text-slate-800 text-xs sm:text-sm font-bold hover:bg-slate-50 transition-colors">
+                    <i class="fa-solid fa-arrow-right text-giya-600"></i>
+                    <span>See full Agency Integration details on the Standard Workshop page</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: THE FINANCIAL ENTREPRENEURSHIP CANVAS (FEC) -->
+    <section id="fec" class="py-20 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-4xl mx-auto mb-14">
+                <h2 class="text-sm sm:text-base uppercase tracking-widest text-spike-700 font-extrabold mb-3">The Mentoring Framework</h2>
+                <h3 class="text-3xl sm:text-4xl lg:text-5xl font-black text-giya-900 leading-tight">THE FINANCIAL ENTREPRENEURSHIP CANVAS</h3>
+                <p class="text-slate-700 mt-4 text-lg sm:text-xl font-medium leading-relaxed">
+                    The business blueprint mentors guide participants to build. One connected model from client insight to enterprise growth.
+                </p>
+            </div>
+
+            <!-- 10 Accessible Tile Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 sm:gap-5 mb-10" role="region" aria-label="FEC 10 Tile Grid">
+                
+                <button type="button" onclick="showFecDetail(1)" class="fec-tile giya-card rounded-xl p-5 sm:p-6 border border-slate-200 hover:border-giya-500 focus:outline-none focus:ring-2 focus:ring-spike-500 transition-all hover:scale-[1.03] group shadow-sm text-center">
+                    <div class="text-sm sm:text-base font-black text-spike-700 mb-2 tracking-wide">BLOCK 1</div>
+                    <div class="w-11 h-11 rounded-lg bg-giya-50 text-giya-700 flex items-center justify-center mx-auto mb-3 group-hover:bg-giya-600 group-hover:text-white transition-colors text-base font-bold">
+                        <i class="fa-solid fa-gem"></i>
+                    </div>
+                    <h4 class="text-base sm:text-lg font-bold text-giya-900 leading-snug">Financial Value Proposition</h4>
+                </button>
+
+                <button type="button" onclick="showFecDetail(2)" class="fec-tile giya-card rounded-xl p-5 sm:p-6 border border-slate-200 hover:border-giya-500 focus:outline-none focus:ring-2 focus:ring-spike-500 transition-all hover:scale-[1.03] group shadow-sm text-center">
+                    <div class="text-sm sm:text-base font-black text-spike-700 mb-2 tracking-wide">BLOCK 2</div>
+                    <div class="w-11 h-11 rounded-lg bg-amber-50 text-amber-700 flex items-center justify-center mx-auto mb-3 group-hover:bg-giya-600 group-hover:text-white transition-colors text-base font-bold">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <h4 class="text-base sm:text-lg font-bold text-giya-900 leading-snug">Who We Serve</h4>
+                </button>
+
+                <button type="button" onclick="showFecDetail(3)" class="fec-tile giya-card rounded-xl p-5 sm:p-6 border border-slate-200 hover:border-giya-500 focus:outline-none focus:ring-2 focus:ring-spike-500 transition-all hover:scale-[1.03] group shadow-sm text-center">
+                    <div class="text-sm sm:text-base font-black text-spike-700 mb-2 tracking-wide">BLOCK 3</div>
+                    <div class="w-11 h-11 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center mx-auto mb-3 group-hover:bg-giya-600 group-hover:text-white transition-colors text-base font-bold">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <h4 class="text-base sm:text-lg font-bold text-giya-900 leading-snug">Client Problem</h4>
+                </button>
+
+                <button type="button" onclick="showFecDetail(4)" class="fec-tile giya-card rounded-xl p-5 sm:p-6 border border-slate-200 hover:border-giya-500 focus:outline-none focus:ring-2 focus:ring-spike-500 transition-all hover:scale-[1.03] group shadow-sm text-center">
+                    <div class="text-sm sm:text-base font-black text-spike-700 mb-2 tracking-wide">BLOCK 4</div>
+                    <div class="w-11 h-11 rounded-lg bg-pink-50 text-pink-700 flex items-center justify-center mx-auto mb-3 group-hover:bg-giya-600 group-hover:text-white transition-colors text-base font-bold">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                    <h4 class="text-base sm:text-lg font-bold text-giya-900 leading-snug">Client Experience</h4>
+                </button>
+
+                <button type="button" onclick="showFecDetail(5)" class="fec-tile giya-card rounded-xl p-5 sm:p-6 border border-slate-200 hover:border-giya-500 focus:outline-none focus:ring-2 focus:ring-spike-500 transition-all hover:scale-[1.03] group shadow-sm text-center">
+                    <div class="text-sm sm:text-base font-black text-spike-700 mb-2 tracking-wide">BLOCK 5</div>
+                    <div class="w-11 h-11 rounded-lg bg-spike-100 text-spike-700 flex items-center justify-center mx-auto mb-3 group-hover:bg-giya-600 group-hover:text-white transition-colors text-base font-bold">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <h4 class="text-base sm:text-lg font-bold text-giya-900 leading-snug">Winning Strategy</h4>
+                </button>
+
+                <button type="button" onclick="showFecDetail(6)" class="fec-tile giya-card rounded-xl p-5 sm:p-6 border border-slate-200 hover:border-giya-500 focus:outline-none focus:ring-2 focus:ring-spike-500 transition-all hover:scale-[1.03] group shadow-sm text-center">
+                    <div class="text-sm sm:text-base font-black text-spike-700 mb-2 tracking-wide">BLOCK 6</div>
+                    <div class="w-11 h-11 rounded-lg bg-indigo-50 text-indigo-700 flex items-center justify-center mx-auto mb-3 group-hover:bg-giya-600 group-hover:text-white transition-colors text-base font-bold">
+                        <i class="fa-solid fa-gears"></i>
+                    </div>
+                    <h4 class="text-base sm:text-lg font-bold text-giya-900 leading-snug">Business Engine</h4>
+                </button>
+
+                <button type="button" onclick="showFecDetail(7)" class="fec-tile giya-card rounded-xl p-5 sm:p-6 border border-slate-200 hover:border-giya-500 focus:outline-none focus:ring-2 focus:ring-spike-500 transition-all hover:scale-[1.03] group shadow-sm text-center">
+                    <div class="text-sm sm:text-base font-black text-spike-700 mb-2 tracking-wide">BLOCK 7</div>
+                    <div class="w-11 h-11 rounded-lg bg-purple-50 text-purple-700 flex items-center justify-center mx-auto mb-3 group-hover:bg-giya-600 group-hover:text-white transition-colors text-base font-bold">
+                        <i class="fa-solid fa-sitemap"></i>
+                    </div>
+                    <h4 class="text-base sm:text-lg font-bold text-giya-900 leading-snug">Leadership Engine</h4>
+                </button>
+
+                <button type="button" onclick="showFecDetail(8)" class="fec-tile giya-card rounded-xl p-5 sm:p-6 border border-slate-200 hover:border-giya-500 focus:outline-none focus:ring-2 focus:ring-spike-500 transition-all hover:scale-[1.03] group shadow-sm text-center">
+                    <div class="text-sm sm:text-base font-black text-spike-700 mb-2 tracking-wide">BLOCK 8</div>
+                    <div class="w-11 h-11 rounded-lg bg-teal-50 text-teal-700 flex items-center justify-center mx-auto mb-3 group-hover:bg-giya-600 group-hover:text-white transition-colors text-base font-bold">
+                        <i class="fa-solid fa-handshake"></i>
+                    </div>
+                    <h4 class="text-base sm:text-lg font-bold text-giya-900 leading-snug">Key Partners</h4>
+                </button>
+
+                <button type="button" onclick="showFecDetail(9)" class="fec-tile giya-card rounded-xl p-5 sm:p-6 border border-slate-200 hover:border-giya-500 focus:outline-none focus:ring-2 focus:ring-spike-500 transition-all hover:scale-[1.03] group shadow-sm text-center">
+                    <div class="text-sm sm:text-base font-black text-spike-700 mb-2 tracking-wide">BLOCK 9</div>
+                    <div class="w-11 h-11 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center mx-auto mb-3 group-hover:bg-giya-600 group-hover:text-white transition-colors text-base font-bold">
+                        <i class="fa-solid fa-compass-drafting"></i>
+                    </div>
+                    <h4 class="text-base sm:text-lg font-bold text-giya-900 leading-snug">3-Year Direction</h4>
+                </button>
+
+                <button type="button" onclick="showFecDetail(10)" class="fec-tile giya-card rounded-xl p-5 sm:p-6 border border-slate-200 hover:border-giya-500 focus:outline-none focus:ring-2 focus:ring-spike-500 transition-all hover:scale-[1.03] group shadow-sm text-center">
+                    <div class="text-sm sm:text-base font-black text-spike-700 mb-2 tracking-wide">BLOCK 10</div>
+                    <div class="w-11 h-11 rounded-lg bg-cyan-50 text-cyan-700 flex items-center justify-center mx-auto mb-3 group-hover:bg-giya-600 group-hover:text-white transition-colors text-base font-bold">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <h4 class="text-base sm:text-lg font-bold text-giya-900 leading-snug">Dashboard &amp; Monitoring</h4>
+                </button>
+
+            </div>
+
+            <!-- Dynamic Detail Inspector Box -->
+            <div id="fecDetailBox" class="p-7 sm:p-8 rounded-2xl bg-white border-2 border-giya-200 text-center shadow-md transition-all">
+                <div class="flex items-center justify-center gap-2.5 mb-3">
+                    <i class="fa-regular fa-lightbulb text-spike-600 text-2xl"></i>
+                    <span class="text-sm sm:text-base font-black uppercase text-giya-800 tracking-wider">FEC Mentor Inspection Tool</span>
+                </div>
+                <p class="text-slate-900 text-lg sm:text-xl font-semibold leading-relaxed max-w-4xl mx-auto" id="fecText">
+                    Click or tap any canvas block above to view what mentors learn to guide, evaluate, and coach during the rookie journey.
+                </p>
+            </div>
+
+            <!-- Link to standard page for Revenue Engine -->
+            <div class="mt-12 text-center">
+                <a href="/spike/mentor-workshop/#revenue-engine" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-giya-50 border border-giya-200 text-giya-800 text-xs sm:text-sm font-bold hover:bg-giya-100 transition-colors">
+                    <i class="fa-solid fa-chart-line text-spike-600"></i>
+                    <span>See full Revenue Engine (10-5-3-1-3) details on the Standard Workshop page</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: WHO SHOULD ATTEND & INCLUSIONS -->
+    <section class="py-20 bg-slate-50 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                
+                <!-- Who Should Attend -->
+                <div>
+                    <h2 class="text-xs uppercase tracking-widest text-spike-600 font-extrabold mb-2">Target Audience</h2>
+                    <h3 class="text-3xl font-black text-giya-900 mb-6">WHO SHOULD ATTEND?</h3>
+
+                    <div class="space-y-3">
+                        <div class="p-3.5 rounded-xl bg-white border border-slate-200 flex items-center gap-3">
+                            <i class="fa-solid fa-circle-check text-giya-600 text-lg"></i>
+                            <span class="text-xs sm:text-sm font-bold text-giya-900">Agency Directors & Agency Managers</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-white border border-slate-200 flex items-center gap-3">
+                            <i class="fa-solid fa-circle-check text-giya-600 text-lg"></i>
+                            <span class="text-xs sm:text-sm font-bold text-giya-900">Unit Managers & Branch Leaders</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-white border border-slate-200 flex items-center gap-3">
+                            <i class="fa-solid fa-circle-check text-giya-600 text-lg"></i>
+                            <span class="text-xs sm:text-sm font-bold text-giya-900">Training & Development Heads</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-white border border-slate-200 flex items-center gap-3">
+                            <i class="fa-solid fa-circle-check text-giya-600 text-lg"></i>
+                            <span class="text-xs sm:text-sm font-bold text-giya-900">Rookie Development Facilitators</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-white border border-slate-200 flex items-center gap-3">
+                            <i class="fa-solid fa-circle-check text-giya-600 text-lg"></i>
+                            <span class="text-xs sm:text-sm font-bold text-giya-900">Sales & Practice Coaches</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-white border border-slate-200 flex items-center gap-3">
+                            <i class="fa-solid fa-circle-check text-giya-600 text-lg"></i>
+                            <span class="text-xs sm:text-sm font-bold text-giya-900">Out-of-Town Agency Leaders</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hybrid Inclusions -->
+                <div>
+                    <h2 class="text-xs uppercase tracking-widest text-spike-600 font-extrabold mb-2">What's Included</h2>
+                    <h3 class="text-3xl font-black text-giya-900 mb-6">HYBRID PROGRAM INCLUSIONS</h3>
+
+                    <div class="space-y-3">
+                        <div class="p-3.5 rounded-xl bg-white border border-slate-200 flex items-center gap-3">
+                            <i class="fa-solid fa-check text-spike-600 text-lg"></i>
+                            <span class="text-xs sm:text-sm font-bold text-giya-900">Pre-work pack & preparation materials</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-white border border-slate-200 flex items-center gap-3">
+                            <i class="fa-solid fa-check text-spike-600 text-lg"></i>
+                            <span class="text-xs sm:text-sm font-bold text-giya-900">3–3.5 hour facilitated Zoom session</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-white border border-slate-200 flex items-center gap-3">
+                            <i class="fa-solid fa-check text-spike-600 text-lg"></i>
+                            <span class="text-xs sm:text-sm font-bold text-giya-900">2 full live in-person days</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-white border border-slate-200 flex items-center gap-3">
+                            <i class="fa-solid fa-check text-spike-600 text-lg"></i>
+                            <span class="text-xs sm:text-sm font-bold text-giya-900">Day 2 afternoon Facilitator Revalida</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-white border border-slate-200 flex items-center gap-3">
+                            <i class="fa-solid fa-check text-spike-600 text-lg"></i>
+                            <span class="text-xs sm:text-sm font-bold text-giya-900">SPIKE Mentor Workbook & Guides</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-white border border-slate-200 flex items-center gap-3">
+                            <i class="fa-solid fa-check text-spike-600 text-lg"></i>
+                            <span class="text-xs sm:text-sm font-bold text-giya-900">Coaching & Assessment Rubrics</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-white border border-slate-200 flex items-center gap-3">
+                            <i class="fa-solid fa-check text-spike-600 text-lg"></i>
+                            <span class="text-xs sm:text-sm font-bold text-giya-900">FEC & Revenue Engine Templates</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-spike-50 border border-spike-300 flex items-center gap-3">
+                            <i class="fa-solid fa-certificate text-spike-600 text-lg"></i>
+                            <span class="text-xs sm:text-sm font-black text-spike-900">Certificate of Facilitator Competence</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-spike-50 border border-spike-300 flex items-center gap-3">
+                            <i class="fa-solid fa-box text-spike-600 text-lg"></i>
+                            <span class="text-xs sm:text-sm font-black text-spike-900">Full SPIKE Rookie Academy Facilitator Kit</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: IMPLEMENTATION CTA OFFER -->
+    <section class="py-20 bg-white border-b border-slate-200">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="giya-card rounded-3xl p-8 sm:p-12 border-2 border-giya-200 shadow-xl relative overflow-hidden text-center">
+                
+                <span class="text-xs font-extrabold text-spike-600 uppercase tracking-widest block mb-2">Bring SPIKE Hybrid to Your Out-of-Town Agency</span>
+                <h3 class="text-3xl sm:text-4xl font-black text-giya-900 mb-3">REQUEST HYBRID IMPLEMENTATION</h3>
+                <p class="text-slate-600 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed mb-8 font-medium">
+                    Equip your out-of-town agency leadership team with the tools, rubrics, and operating rhythm to turn new recruits into practice-ready professionals — with a format designed to minimize travel.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <button onclick="openInquiryModal()" class="w-full sm:w-auto px-10 py-4 rounded-xl bg-giya-600 hover:bg-giya-700 text-white font-black text-base shadow-lg shadow-giya-600/30 hover:scale-105 transition-all">
+                        Request Hybrid Implementation
+                    </button>
+                    <a href="/spike/mentor-workshop/" class="w-full sm:w-auto px-10 py-4 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-bold text-base transition-all shadow-sm">
+                        View Standard 3-Day Workshop
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-giya-900 text-slate-300 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-giya-800">
+                
+                <div>
+                    <div class="flex items-center space-x-3 mb-3">
+                        <div class="w-8 h-8 rounded bg-spike-500 text-giya-950 flex items-center justify-center font-bold text-sm">
+                            G
+                        </div>
+                        <span class="text-white font-extrabold text-sm">GIYA INSTITUTE</span>
+                    </div>
+                    <p class="text-slate-400 text-xs leading-relaxed">
+                        Strategic Pathway for Innovation, Knowledge, and Enterprise. Empowering financial agency leaders and mentors nationwide.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-3 uppercase tracking-wider">Contact & Inquiries</h4>
+                    <ul class="space-y-2 text-slate-300">
+                        <li class="flex items-center gap-2">
+                            <i class="fa-solid fa-phone text-spike-400"></i>
+                            <span>0920 964 8523</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-spike-400"></i>
+                            <span>WhatsApp / Viber: +63 920 964 8523 (Nilo Matunog)</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fa-solid fa-envelope text-spike-400"></i>
+                            <a href="mailto:nmatunog@gmail.com" class="hover:underline">nmatunog@gmail.com</a>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fa-solid fa-globe text-spike-400"></i>
+                            <a href="https://joingiya.com" class="hover:underline">joingiya.com</a>
+                            <span class="text-slate-500">·</span>
+                            <a href="/institute/" class="hover:underline">GIYA Institute</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-3 uppercase tracking-wider">Core Philosophy</h4>
+                    <blockquote class="text-slate-300 italic border-l-2 border-spike-500 pl-3">
+                        "Great mentors don't just teach the program. They build people who build the future."
+                    </blockquote>
+                </div>
+
+            </div>
+
+            <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-400 gap-4">
+                <div>
+                    © 2026 GIYA Institute. All Rights Reserved.
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#overview" class="hover:text-white">Back to Top</a>
+                    <a href="/spike/mentor-workshop/" class="hover:text-white underline">Standard 3-Day Workshop</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL: BRING SPIKE TO YOUR AGENCY (INQUIRY / IMPLEMENTATION FORM) -->
+    <div id="inquiryModal" role="dialog" aria-modal="true" aria-labelledby="inquiryModalTitle" class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl w-full max-w-xl p-6 sm:p-8 border border-slate-200 shadow-2xl relative max-h-[90vh] overflow-y-auto custom-scrollbar">
+            <button onclick="closeInquiryModal()" aria-label="Close Modal" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 p-2">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-giya-100 text-giya-700 flex items-center justify-center mx-auto mb-3 text-xl font-bold">
+                    <i class="fa-solid fa-building-user"></i>
+                </div>
+                <h3 id="inquiryModalTitle" class="text-2xl font-black text-giya-900">Request Hybrid Workshop</h3>
+                <p class="text-xs text-slate-500 mt-1 font-medium">
+                    Request a briefing call or hybrid implementation proposal for your out-of-town agency.
+                </p>
+            </div>
+
+            <form id="inquiryForm" class="space-y-4 text-left">
+                <input type="hidden" id="workshopVersion" value="hybrid">
+                
+                <div>
+                    <label for="fullName" class="block text-xs font-bold text-slate-700 mb-1">Full Name *</label>
+                    <input type="text" id="fullName" required placeholder="e.g. Maria Santos" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-giya-600 focus:bg-white">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="designation" class="block text-xs font-bold text-slate-700 mb-1">Role or Designation *</label>
+                        <select id="designation" required class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-giya-600 focus:bg-white">
+                            <option value="">Select role...</option>
+                            <option value="agency_director">Agency Director / Manager</option>
+                            <option value="unit_manager">Unit Manager / Branch Head</option>
+                            <option value="training_head">Training & Development Head</option>
+                            <option value="facilitator">Rookie Facilitator / Sales Coach</option>
+                            <option value="experienced_mentor">Experienced Mentor / Leader</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="agencyName" class="block text-xs font-bold text-slate-700 mb-1">Agency / Organization *</label>
+                        <input type="text" id="agencyName" required placeholder="e.g. Summit Pinnacle Agency" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-giya-600 focus:bg-white">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="mobileNo" class="block text-xs font-bold text-slate-700 mb-1">Mobile Number *</label>
+                        <input type="tel" id="mobileNo" required placeholder="e.g. 0917 123 4567" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-giya-600 focus:bg-white">
+                    </div>
+                    <div>
+                        <label for="workEmail" class="block text-xs font-bold text-slate-700 mb-1">Work Email *</label>
+                        <input type="email" id="workEmail" required placeholder="maria@agency.com" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-giya-600 focus:bg-white">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div>
+                        <label for="cityLocation" class="block text-xs font-bold text-slate-700 mb-1">City / Location</label>
+                        <input type="text" id="cityLocation" placeholder="e.g. Cebu City" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-giya-600 focus:bg-white">
+                    </div>
+                    <div>
+                        <label for="estRookies" class="block text-xs font-bold text-slate-700 mb-1">Est. Rookies</label>
+                        <input type="number" id="estRookies" min="1" placeholder="e.g. 10" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-giya-600 focus:bg-white">
+                    </div>
+                    <div>
+                        <label for="estMentors" class="block text-xs font-bold text-slate-700 mb-1">Est. Mentors</label>
+                        <input type="number" id="estMentors" min="1" placeholder="e.g. 3" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-giya-600 focus:bg-white">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="implPeriod" class="block text-xs font-bold text-slate-700 mb-1">Preferred Implementation Timeline</label>
+                    <select id="implPeriod" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-giya-600 focus:bg-white">
+                        <option value="asap">Immediate / Next Quarter</option>
+                        <option value="within_3_months">Within 3 Months</option>
+                        <option value="later_this_year">Later this Year</option>
+                        <option value="exploratory">Exploratory / Planning Phase</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="onboardingChallenge" class="block text-xs font-bold text-slate-700 mb-1">Current Onboarding Challenge or Notes</label>
+                    <textarea id="onboardingChallenge" rows="2" placeholder="e.g. Need higher rookie activation rate and consistent mentor coaching rhythm..." class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-giya-600 focus:bg-white"></textarea>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 rounded-xl bg-giya-600 hover:bg-giya-700 text-white font-bold text-sm shadow-lg shadow-giya-600/20 transition-all mt-2 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-paper-plane text-spike-400"></i>
+                    <span>Submit Hybrid Implementation Request</span>
+                </button>
+            </form>
+        </div>
+    </div>
+    <div id="spike-toast" role="status" aria-live="polite"></div>
+    <script src="/assets/spike-workshop.js" defer></script>
+    <script>
+        // Override form submission to include workshopVersion=hybrid
+        document.addEventListener('DOMContentLoaded', () => {
+            const inquiryForm = document.getElementById('inquiryForm');
+            if (inquiryForm) {
+                inquiryForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    
+                    const form = e.target;
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    const originalBtnHtml = submitBtn ? submitBtn.innerHTML : '';
+
+                    const payload = {
+                        full_name: document.getElementById('fullName')?.value.trim() || '',
+                        designation: document.getElementById('designation')?.value || '',
+                        agency_name: document.getElementById('agencyName')?.value.trim() || '',
+                        mobile: document.getElementById('mobileNo')?.value.trim() || '',
+                        email: document.getElementById('workEmail')?.value.trim() || '',
+                        city: document.getElementById('cityLocation')?.value.trim() || '',
+                        est_rookies: document.getElementById('estRookies')?.value || '',
+                        est_mentors: document.getElementById('estMentors')?.value || '',
+                        impl_timeline: document.getElementById('implPeriod')?.value || 'asap',
+                        notes: document.getElementById('onboardingChallenge')?.value.trim() || '',
+                        source: 'spike_mentor_workshop_hybrid',
+                        workshop_version: 'hybrid',
+                    };
+
+                    if (submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-spike-400"></i><span>Submitting…</span>';
+                    }
+
+                    try {
+                        const res = await fetch('/api/spike/workshop-inquiry', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload),
+                        });
+
+                        const data = await res.json().catch(() => ({}));
+
+                        if (!res.ok || !data.ok) {
+                            throw new Error(data.error || data.message || 'Unable to submit your request. Please try again.');
+                        }
+
+                        closeInquiryModal();
+                        form.reset();
+                        showToast(data.message || 'Thank you. Your hybrid implementation request was received.', false);
+                    } catch (err) {
+                        showToast(err.message || 'Something went wrong. Please try again.', true);
+                    } finally {
+                        if (submitBtn) {
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = originalBtnHtml;
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
